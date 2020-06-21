@@ -1,0 +1,70 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Laravel and Swagger",
+        "description": "Getting started with Laravel and Swagger",
+        "termsOfService": "",
+        "contact": {
+            "email": "name@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "host": "niembinhan.com",
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/api/events": {
+            "get": {
+                "description": "Return a user's first and last name",
+                "parameters": [
+                    {
+                        "name": "d",
+                        "in": "query",
+                        "description": "Date",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "m",
+                        "in": "query",
+                        "description": "Month",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "y",
+                        "in": "query",
+                        "description": "Year",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "object"
+                                },
+                                "recordsTotal": {
+                                    "type": "number"
+                                },
+                                "recordsFiltered": {
+                                    "type": "number"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "422": {
+                        "description": "Missing Data"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}

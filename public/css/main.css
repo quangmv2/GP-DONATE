@@ -1,0 +1,308 @@
+.pagination-wrapper{
+	text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+}
+.hide{
+	display: none;
+}
+
+/*=================POST===========*/
+#image_preview{
+	margin-top: 15px;
+	margin-bottom: 15px;
+	position: relative;
+}
+#image_preview img{
+	width: 100%;
+	max-width: 300px;
+}
+
+.remove_image{
+	position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background: rgba(255,255,255,0.5);
+}
+
+.category_post_wrapper{
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.category_post_wrapper .label:last-child(1){
+    margin-bottom: 0px;
+}
+
+.max-width-400{
+    max-width: 400px;
+}
+#audio_preview{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#audio_preview .remove{
+    padding: 5px;
+}
+.remove{
+    cursor: pointer;
+}
+/*=======CKEDITOR======*/
+.cke_top{
+    padding: 5px!important;
+}
+a.cke_button{
+    padding: 10px 12px!important;
+}
+
+/*============CHAPTER=========*/
+.chapter_wrapper{
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.chapter_wrapper ul{
+    padding: 0;
+}
+
+.chapter_wrapper ul li{
+    list-style: none;
+}
+
+.chapter-item{
+    padding: .55rem 1.05rem;
+    margin-bottom: 5px;
+
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: initial;
+    align-items: center;
+}
+
+.chapter-item:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.chapter-item .badge{
+    margin-left: 5px;
+}
+
+/*Menus*/
+#nestedMenu li{
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+#nestedMenu li:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+.custom-list .list-group-item{
+    display: block;
+    transition: inherit;
+    border: 1px solid rgba(0,0,0,.125);
+    margin-bottom: 5px;
+    background: rgba(0,0,0,0.15);
+}
+
+.custom-list .list-group, .custom-list.list-group{
+    border:0px;
+    background: transparent;
+    list-style: none;
+}
+.custom-list li, .custom-list ol{
+    list-style: none;
+}
+
+.nested-1 {
+    background-color: #e6e6e6;
+}
+
+.nested-2 {
+    background-color: #cccccc;
+}
+
+.nested-3 {
+    background-color: #b3b3b3;
+}
+
+.feature-image-input-wrapper{
+    position: relative;
+    display: flex;
+}
+
+.btn_feature_image{
+    min-width: 120px;
+}
+.modal-image-preview{
+    max-width: 300px;
+}
+.modal-image-preview img{
+   width: : 100%;
+}
+
+
+/*QUOTE SLIDER*/
+.list-drag-result{
+    min-height: 300px;
+    background: #dfdfdf;
+}
+
+.drag-quote-wrapper ul{
+    padding: 5px;
+}
+
+.quote-original .delete_quote{
+    display: none;
+  }
+
+/*LUNAR CALENDAR*/
+
+.tennam {
+  text-align: center;
+  font-size: 150%;
+  line-height: 120%;
+  font-weight: bold;
+  color: #000000;
+  background-color: #f9f5f1;
+}
+
+.thang {
+    width: 375px;
+  font-size: 18px;
+  line-height: 100%;
+  table-layout: fixed;
+  border: 1px solid #e6e5e6;
+}
+
+.tenthang {
+  padding: 10px 0px;
+  text-align: center;
+  font-size: 125%;
+  line-height: 100%;
+  font-weight: bold;
+  color: #330033;
+  background-color: #f9f5f1;
+}
+
+.navi-l {
+  text-align: center;
+  font-size: 75%;
+  line-height: 100%;
+  font-family: Verdana,Times New Roman,Arial;
+  font-weight: bold;
+  color: rgb(0, 121, 191);
+  background-color: #f9f5f1;
+}
+
+.navi-r {
+  text-align: center;
+  font-size: 75%;
+  line-height: 100%;
+  font-family: Verdana,Arial,Times New Roman;
+  font-weight: bold;
+  color: rgb(0, 121, 191);
+  background-color: #f9f5f1;
+}
+
+.navi-l span, .navi-r span{
+    cursor: pointer;
+}
+
+.ngaytuan {
+  width: 14%;
+  text-align: center;
+  line-height: 100%;
+  color: #330033;
+  background-color: #FFFFCC;
+}
+
+.ngaythang {
+  background-color: #FDFDF0;
+}
+
+.homnay {
+  background-color: #FFF000;
+}
+
+.ngaythang, .homnay, .ngaytuan{
+    padding: 5px;
+    position: relative;
+}
+
+.ngaythang .sum, .homnay .sum{
+    position: absolute;
+    font-size: 12px;
+    top: 3px;
+    right: 3px;
+    height: 15px;
+    width: 15px;
+    background: red;
+    color:#fff;
+    border-radius: 15px;
+    text-align: center;
+    line-height: 15px;
+}
+
+.tet {
+  background-color: #FFCC99;
+}
+
+.am {
+  text-align: right;
+  font-size: 13px;
+  line-height: 100%;
+  color: blue;
+}
+
+.am2 {
+  text-align: right;
+  font-size: 75%;
+  line-height: 100%;
+  color: #004080;
+}
+
+.t2t6 {
+  text-align: left;
+  color: black;
+}
+
+.t7 {
+  text-align: left;
+  line-height: 100%;
+  color: green;
+}
+
+.cn {
+  text-align: left;
+  line-height: 100%;
+  color: red;
+}
+
+/*APP IMAGE*/
+.table-feature-image{
+  max-width: 80px;
+  max-height: 80px;
+  object-fit: cover;
+}
