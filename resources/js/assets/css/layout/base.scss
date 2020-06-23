@@ -2,26 +2,36 @@
 @import "../themes/light/light.scss";
 
 .full-height-screen {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
 .flex-center {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .wide-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .hidden-screen {
-  display: none !important;
+    display: none !important;
+}
+
+.container {
+    height: 100%;
+    min-height: 100%;
+
+    > #root {
+        height: 100%;
+        min-height: 100%;
+    }
 }
 
 @media (max-width: 992px) {
-  .hidden-screen {
-    display: block !important;
-  }
+    .hidden-screen {
+        display: block !important;
+    }
 }

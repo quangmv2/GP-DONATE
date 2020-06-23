@@ -2,33 +2,20 @@ import "react-app-polyfill/ie11";
 import "react-app-polyfill/stable";
 import React from "react";
 import ReactDOM from "react-dom";
-import { flatten } from "lodash";
-import { Provider } from "react-redux";
-import { createBrowserHistory } from "history";
-import RouterContainer from "./core/router-container/RouterContainer";
-import configureStore from "./redux/configureStore";
-import privateRoutes from "./router/private";
-import publicRoutes from "./router/public";
+import App from "./core/App";
 
-import { ConnectedRouter } from "connected-react-router";
-// import App from "./App";
-const initialState = {};
-const history = createBrowserHistory({
-    // basename: "/" // config for base directory
-});
-const store = configureStore(initialState, history);
+import "framework7/css/framework7.bundle.css";
+import "assets/css/global.scss";
+
+// Import Framework7 Core
+import Framework7 from "framework7/framework7-lite.esm.bundle.js";
+
+// Import Framework7 React
+import Framework7React from "framework7-react";
+
+// Init plugin
+Framework7.use(Framework7React);
 
 if (document.getElementById("root")) {
-    ReactDOM.render(
-        <Provider store={store}>
-            <ConnectedRouter history={history}>
-                <RouterContainer
-                    history={history}
-                    publicRoutes={flatten(publicRoutes)}
-                    privateRoutes={flatten(privateRoutes)}
-                />
-            </ConnectedRouter>
-        </Provider>,
-        document.getElementById("root")
-    );
+    ReactDOM.render(<App />, document.getElementById("root"));
 }

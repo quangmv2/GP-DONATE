@@ -1,148 +1,80 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { PropTypes } from "prop-types";
-import { connect } from "react-redux";
-import { compose } from "redux";
-
-import { createStructuredSelector } from "reselect";
-import injectReducer from "core/reducer/inject-reducer";
-import injectSaga from "core/saga/inject-saga";
-import reducer from "modules/auth/reducers";
-import saga from "modules/auth/sagas";
-import { FEATURE_NAME_AUTH } from "modules/auth/constants";
-import { URL_REDIRECT_LOGIN, ROUTE } from "constants";
-import { postLogin, postChallengeChangePass } from "modules/auth/actions";
+import React from "react";
+import ReactDOM from "react-dom";
 import {
-    selectIsLogged,
-    selectErrors,
-    selectLoading,
-    selectChallenge,
-    selectUserChangePass
-} from "modules/auth/selectors";
-import { Image } from "components/Atoms";
-// import { Checkbox } from "antd";
-import { FormattedMessage } from "react-intl";
-import { loginSchema, onValidationForm } from "helpers";
-import _ from "lodash";
-import "./login.scss";
+    App,
+    Panel,
+    View,
+    Statusbar,
+    Popup,
+    Page,
+    Navbar,
+    NavRight,
+    Link,
+    Block,
+    LoginScreen,
+    LoginScreenTitle,
+    List,
+    ListInput,
+    ListButton,
+    BlockFooter
+} from "framework7-react";
 
-export class Login extends Component {
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             username: "",
-            password: "",
-            passchange: "",
-            isSubmit: false,
-            errorValidLogin: {},
-            remember: false
+            password: ""
         };
     }
 
-    async componentDidMount() {}
-
-    componentDidUpdate(prevProps) {}
-
-    redirectLogin = () => {
-        const { history } = this.props;
-        const url_redirect_login = localStorage.getItem(URL_REDIRECT_LOGIN);
-        history.push(url_redirect_login ?? ROUTE.HOME);
-    };
-
-    onSubmit = () => {};
-
-    handleChange = data => {
-        const { name, value } = data;
-        this.setState(
-            {
-                [name]: value
-            },
-            () => {
-                this.onCheckValidLoginForm();
-            }
-        );
-    };
-
-    onCheckValidLoginForm = () => {
-        const { username, password } = this.state;
-        const { challenge } = this.props;
-        let errorValidLogin;
-
-        const schema = loginSchema();
-        errorValidLogin = onValidationForm({ username, password }, schema);
-
-        //check error
-        if (errorValidLogin) {
-            this.setState({ errorValidLogin });
-            return false;
-        } else {
-            this.setState({ errorValidLogin: {} });
-            return true;
-        }
-    };
-
-    onChangeCheck = e => {
-        this.setState({
-            remember: e.target.checked
-        });
-    };
-
     render() {
-        const { errors, loading } = this.props;
-
-        const { username, password, errorValidLogin, isSubmit } = this.state;
-
         return (
-            <div className="container ">
-                <div className="ant-col-lg-24">
-                    <div className="full-height-screen flex-center">
-                        <div className="form--sign-in">
-                            <>
-                                <div className="logo-login-wrapper big-text text-center">
-                                    <span className="icon icon-pad-lock"></span>
-                                    <Image src={`assets/images/logo.svg`} />
-                                </div>
-
-                                <FormattedMessage
-                                    defaultMessage={"loginPage.login"}
-                                    id={"loginPage.login"}
-                                />
-                            </>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Page noToolbar noNavbar noSwipeback loginScreen>
+                <LoginScreenTitle>Framework7</LoginScreenTitle>
+                <List form>
+                    <ListInput
+                        label="Username"
+                        type="text"
+                        placeholder="Your username"
+                        value={this.state.username}
+                        onInput={e => {
+                            this.setState({ username: e.target.value });
+                        }}
+                    />
+                    <ListInput
+                        label="Password"
+                        type="password"
+                        placeholder="Your password"
+                        value={this.state.password}
+                        onInput={e => {
+                            this.setState({ password: e.target.value });
+                        }}
+                    />
+                </List>
+                <List>
+                    <ListButton onClick={this.signIn.bind(this)}>
+                        Sign In
+                    </ListButton>
+                    <BlockFooter>
+                        Some text about login information.
+                        <br />
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    </BlockFooter>
+                </List>
+            </Page>
+        );
+    }
+    signIn() {
+        const self = this;
+        const app = self.$f7;
+        const router = self.$f7router;
+        app.dialog.alert(
+            `Username: ${self.state.username}<br>Password: ${self.state.password}`,
+            () => {
+                router.back();
+            }
         );
     }
 }
-
-const mapDispatchToProps = {
-    login: postLogin,
-    challengeChangePass: postChallengeChangePass
-    //updatePass: params => updateCurrentUser(params)
-};
-
-const mapStateToProps = createStructuredSelector({
-    isLogged: selectIsLogged(),
-    errors: selectErrors(),
-    loading: selectLoading(),
-    challenge: selectChallenge(),
-    userChangePass: selectUserChangePass()
-});
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: FEATURE_NAME_AUTH, reducer });
-const withSaga = injectSaga({ key: FEATURE_NAME_AUTH, saga });
-
-Login.defaultProps = {
-    login: () => null,
-    errors: {}
-};
-
-Login.propTypes = {
-    login: PropTypes.func,
-    isLogged: PropTypes.bool
-};
-
-export default compose(withReducer, withSaga, withConnect, withRouter)(Login);
