@@ -1,0 +1,27 @@
+@import "../themes/dark/dark.scss";
+@import "../themes/light/light.scss";
+
+.full-height-screen {
+  min-height: 100vh;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.wide-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hidden-screen {
+  display: none !important;
+}
+
+@media (max-width: 992px) {
+  .hidden-screen {
+    display: block !important;
+  }
+}

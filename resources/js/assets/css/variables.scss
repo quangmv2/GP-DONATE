@@ -1,0 +1,10 @@
+//font
+$base-font: "Lato", sans-serif;
+
+:root {
+    --box-border-radius: 10px;
+    --input-height: 42px;
+}
+
+@import "./themes/dark/dark.scss";
+@import "./themes/light/light.scss";

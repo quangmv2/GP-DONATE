@@ -1,0 +1,14 @@
+export const FEATURE_NAME_AUTH = "AUTH";
+
+export const LOGIN = "LOGIN";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILED = "LOGIN_FAILED";
+
+export const SERVER_CHALLENGE_CHANGEPASS = "SERVER_CHALLENGE_CHANGEPASS";
+export const CHALLENGE_CHANGEPASS = "CHALLENGE_CHANGEPASS";
+
+export const LOGOUT = "LOGOUT";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const LOGOUT_FAILED = "LOGOUT_FAILED";
+
+export const SET_LOGGED = "SET_LOGGED";

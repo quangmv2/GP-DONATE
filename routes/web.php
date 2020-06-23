@@ -10,11 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Router for teaser
 Route::get('/', function () {
     return view('teaser.teaser');
 });
-// 
+
+//Router for client reactjs
+Route::get('/client/{any}', function ($any) {
+    return view('client.app');
+})->where('any', '.*');
+
+//Router for administrator 
 Route::prefix('admin')->group(function(){
     Route::redirect('/', 'home');
     Auth::routes();
