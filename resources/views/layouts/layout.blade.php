@@ -30,6 +30,8 @@
 	<script src="{{asset('global_assets/js/main/bootstrap.bundle.min.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/loaders/blockui.min.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/editors/ckeditor/ckeditor.js')}}"></script>
+	<script src="{{asset('global_assets/js/main/app.js')}}"></script> 
+
 	@include('ckfinder::setup')
 	<!-- /core JS files -->
 
@@ -38,7 +40,7 @@
 	<!-- /theme JS files -->
 
 	<!-- Theme JS files -->
-	<!-- <script src="{{asset('js/app.js')}}"></script> -->
+	 {{-- <script src="{{asset('js/app.js')}}"></script> --}}
 	<script src="{{asset('js/custom.js')}}"></script>
 	<!-- /theme JS files -->
 

@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Faker\Generator as Faker;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,20 +20,20 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
-        // $user = User::create([
-        // 	'name' => 'admin',
-        //     'username' => 'admin',
-        // 	'email' => 'buihoang91tin@gmail.com',
-        // 	'password' => bcrypt('a12345678')
-        // ]);
+        $user = User::create([
+        	'name' => 'admin',
+            'username' => 'admin',
+        	'email' => 'maiquang1470@gmail.com',
+        	'password' => bcrypt('123456789')
+        ]);
 
-        // $role = Role::where('name','Admin')->first();
+        $role = Role::where('name','super_admin')->first();
    
-        // $permissions = Permission::pluck('id','id')->all();
+        $permissions = Permission::pluck('id','id')->all();
   
-        // $role->syncPermissions($permissions);
+        $role->syncPermissions($permissions);
    
-        // $user->assignRole([$role->id]);
+        $user->assignRole([$role->id]);
         //======================================
         // $faker = Faker\Factory::create();
         // foreach (range(1,1000) as $index) {
