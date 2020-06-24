@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class PermissionTableSeeder extends Seeder
 {
@@ -12,21 +13,38 @@ class PermissionTableSeeder extends Seeder
      */
     public function run()
     {
-        //
-        // $permissions = [
-        //    'role-list',
-        //    'role-create',
-        //    'role-edit',
-        //    'role-delete',
-        //    'post-list',
-        //    'post-create',
-        //    'post-edit',
-        //    'post-delete'
-        // ];
 
+        $roles = [
+            'super_admin',
+            'giver',
+            'taker'
+        ];
 
-        // foreach ($permissions as $permission) {
-        //      Permission::create(['name' => $permission]);
-        // }
+        foreach ($roles as $key => $role) {
+            Role::create(['name' => $role]);
+        }
+        
+        $permissions = [
+           'role-list',
+           'role-create',
+           'role-edit',
+           'role-delete',
+           'post-list',
+           'post-create',
+           'post-edit',
+           'post-delete',
+           'post-review',
+           'user-add',
+           'user-edit',
+           'user-list',
+        ];
+
+        $role = Role::findByName('super_admin');
+
+        foreach ($permissions as $permission) {
+             $permiss = Permission::create(['name' => $permission]);
+             $role->givePermissionTo($permiss);
+        }
+        
     }
 }

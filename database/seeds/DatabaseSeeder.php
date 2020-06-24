@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         	'password' => bcrypt('123456789')
         ]);
 
-        $role = Role::where('name','Admin')->first();
+        $role = Role::where('name','super_admin')->first();
    
         $permissions = Permission::pluck('id','id')->all();
   
@@ -35,28 +35,28 @@ class DatabaseSeeder extends Seeder
    
         $user->assignRole([$role->id]);
         //======================================
-        $faker = Faker\Factory::create();
-        foreach (range(1,1000) as $index) {
-            DB::table('users')->insert([
-                'name' => $faker->name,
-                'username' => $faker->name,
-                'email' => $faker->email,
-                'password' => bcrypt('secret'),
-            ]);
-        }
+        // $faker = Faker\Factory::create();
+        // foreach (range(1,1000) as $index) {
+        //     DB::table('users')->insert([
+        //         'name' => $faker->name,
+        //         'username' => $faker->name,
+        //         'email' => $faker->email,
+        //         'password' => bcrypt('secret'),
+        //     ]);
+        // }
 
         //======================================
-        $user = User::where('id', 1)->first();
-        $faker = Faker\Factory::create();
-        foreach (range(1,200) as $index) {
-            DB::table('posts')->insert([
-                'user_id' => $user->id,
-                'title' => $faker->name,
-                'slug' => $faker->name,
-                'description' => $faker->name,
-                'content' => $faker->name,
-                'status' => 1
-            ]);
-        }
+        // $user = User::where('id', 1)->first();
+        // $faker = Faker\Factory::create();
+        // foreach (range(1,200) as $index) {
+        //     DB::table('posts')->insert([
+        //         'user_id' => $user->id,
+        //         'title' => $faker->name,
+        //         'slug' => $faker->name,
+        //         'description' => $faker->name,
+        //         'content' => $faker->name,
+        //         'status' => 1
+        //     ]);
+        // }
     }
 }
