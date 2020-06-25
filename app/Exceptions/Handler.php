@@ -48,6 +48,9 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof \Spatie\Permission\Exceptions\UnauthorizedException) {
             // return response()->json($request->all());
+            $str = $request->header('accept');
+            $arr = explode(',', $str);
+            if (isset($arr[0]) && $arr[0] == "application/json") return response()->json(['message'=>'User have not permission for this page access.']);
             return response()->view('errors.403', ['User have not permission for this page access.'], 403);
             return response()->json(['User have not permission for this page access.']);
         }

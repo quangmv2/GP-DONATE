@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+       
         /*
          * Application Service Providers...
          */
@@ -177,7 +177,7 @@ return [
 
         Spatie\Permission\PermissionServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-
+        Laravel\Passport\PassportServiceProvider::class,
     ],
 
     /*
