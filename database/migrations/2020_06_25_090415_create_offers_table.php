@@ -28,9 +28,11 @@ class CreateOffersTable extends Migration
 
             $table->primary(['post_id', 'offer_id']);
             $table->index(['post_id', 'offer_id'], 'index_post_offer_id');
-
+            $table->index(['post_id'], 'index_post_id');
+            $table->index(['offer_id'], 'index_offer_id');
+            
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('offer_id')->references('id')->on('offer')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -42,5 +44,6 @@ class CreateOffersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('offers');
+        Schema::dropIfExists('post_has_offer');
     }
 }
