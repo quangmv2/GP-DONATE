@@ -15,7 +15,22 @@ class CreateOffersTable extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title');
+            $table->string('information');
+            $table->string('offer_value');
             $table->timestamps();
+        });
+
+        Schema::create('post_has_offer', function (Blueprint $table) {
+            $table->unsignedBigInteger('post_id');
+            $table->unsignedBigInteger('offer_id');
+            $table->timestamps();
+
+            $table->primary(['post_id', 'offer_id']);
+            $table->index(['post_id', 'offer_id'], 'index_post_offer_id');
+
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('offer_id')->references('id')->on('offer')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
