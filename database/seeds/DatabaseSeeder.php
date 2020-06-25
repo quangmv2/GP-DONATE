@@ -21,10 +21,12 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         $user = User::create([
-        	'name' => 'admin',
+            'first_name' => 'admin',
+            'last_name' => 'admin',
             'username' => 'admin',
         	'email' => 'maiquang1470@gmail.com',
-        	'password' => bcrypt('123456789')
+            'password' => bcrypt('123456789'),
+            'gender' => 'male'
         ]);
 
         $role = Role::where('name','super_admin')->first();
