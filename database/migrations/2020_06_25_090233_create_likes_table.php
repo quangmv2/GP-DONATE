@@ -19,6 +19,10 @@ class CreateLikesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
+            $table->index(['post_id', 'user_id'], 'index_post_user_id_like');
+            $table->index(['post_id'], 'index_post_id_like');
+            $table->index(['user_id'], 'index_user_id_like');
+
             $table->foreign('post_id')
                 ->references('id')
                 ->on('posts')

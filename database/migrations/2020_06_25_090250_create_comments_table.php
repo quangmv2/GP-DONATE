@@ -19,6 +19,10 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('content');
             $table->timestamps();
+
+            $table->index(['post_id', 'user_id'], 'index_post_user_id_comment');
+            $table->index(['post_id'], 'index_post_id_comment');
+            $table->index(['user_id'], 'index_user_id_comment');
             
 
             $table->foreign('post_id')

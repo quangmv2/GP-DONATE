@@ -15,8 +15,6 @@ class CreateOffersTable extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
-            $table->string('information');
             $table->string('offer_value');
             $table->timestamps();
         });
@@ -27,12 +25,20 @@ class CreateOffersTable extends Migration
             $table->timestamps();
 
             $table->primary(['post_id', 'offer_id']);
-            $table->index(['post_id', 'offer_id'], 'index_post_offer_id');
-            $table->index(['post_id'], 'index_post_id');
-            $table->index(['offer_id'], 'index_offer_id');
+            $table->index(['post_id', 'offer_id'], 'index_post_offer_id_post_has_offer');
+            $table->index(['post_id'], 'index_post_id_post_has_offer');
+            $table->index(['offer_id'], 'index_offer_id_post_has_offer');
             
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('post_id')
+                ->references('id')
+                ->on('posts')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('offer_id')
+                ->references('id')
+                ->on('offers')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
@@ -43,7 +49,7 @@ class CreateOffersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('offers');
         Schema::dropIfExists('post_has_offer');
+        Schema::dropIfExists('offers');
     }
 }

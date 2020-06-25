@@ -65,7 +65,7 @@ Users Management
 				    	var htmlRole = "";
 				    	if(data && data.length > 0){
 				    		for(var i = 0; i < data.length; i++){
-				    			htmlRole += "<label class='badge badge-success'>"+data[i].name+"</label>"
+				    			htmlRole += "<label class='badge badge-success'>"+data[i].show_name+"</label>"
 				    		}
 				    	}
 

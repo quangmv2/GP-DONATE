@@ -50,7 +50,7 @@ class CreateHastagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hastags');
         Schema::dropIfExists('posts_has_hastags');
+        Schema::dropIfExists('hastags');
     }
 }

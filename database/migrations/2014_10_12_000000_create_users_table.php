@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
 
         Schema::create('codes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->boolean('confirmed')->default(false);
+            $table->boolean('used')->default(false);
             $table->string('code')->unique();
             $table->timestamps();
 
@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->unsignedBigInteger('code_id')->nullable();
             $table->string('personal_photo')->nullable();
-            $table->string('gender');
+            $table->integer('gender');
             $table->rememberToken();
             $table->timestamps();
 
