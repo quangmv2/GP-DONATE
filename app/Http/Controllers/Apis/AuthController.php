@@ -21,28 +21,7 @@ class AuthController extends Controller
 
     function __construct()
     {
-        //  $this->middleware('permission:role-delete', ['only' => ['getAuthenticatedUser']]);
     }
-
-    // public function login(Request $request)
-    // {
-    //     if (Auth::attempt(['email' => $request->email, 'password' => $request->password]) || Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
-    //         $user = Auth::user();
-    //         $permissions = $user->getAllPermissions();
-    //         $permissionsOfUser = [];
-    //         foreach ($permissions as $key => $permission) {
-    //             $permissionsOfUser[] = $permission->name;
-    //         }
-    //         $token = $user->createToken('APP frontend');
-    //         $success['token_type'] = 'Bearer';
-    //         $success['access_token'] = $token->accessToken;
-    //         $success['scopes'] = $permissionsOfUser;
-    //         $success['expires_at'] = (new \DateTime($token->token->expires_at))->getTimestamp();
-    //         return response()->json($success, 200);
-    //     }
-
-    //     return response()->json(['error' => 'Unauthorized'], 401);
-    // }
 
     public function login(Request $req) { 
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')]) || Auth::attempt(['username' => request('username'), 'password' => request('password')])) { 
@@ -57,7 +36,7 @@ class AuthController extends Controller
 
     public function getTokenAndRefreshToken(OClient $oClient, $email, $password) { 
         $oClient = OClient::where('password_client', 1)->first();
-        $client = new Client(['base_uri' => 'http://127.0s.0.1:8000']);
+        $client = new Client(['base_uri' => 'http://127.0.0.1:8001']);
         $response = $client->post('/oauth/token', [
             'form_params' => [
                 'grant_type' => 'password',
