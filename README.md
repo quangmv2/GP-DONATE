@@ -1,4 +1,4 @@
-# DONATE PJ
+# DONATE PROJECT
 
 ## Requirements
 - PHP 7.x,
