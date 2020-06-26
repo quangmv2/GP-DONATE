@@ -13,8 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::post('register', 'API\PassportController@register');
-Route::post('login', 'Apis\AuthController@login');
+
+
+Route::group(['prefix' => 'auth'], function () {
+    // Route::post('register', 'API\PassportController@register');
+
+    Route::post('login', 'Apis\AuthController@login');
+    Route::post('logout', 'Apis\AuthController@logout');
+    Route::post('refresh-token', 'Apis\AuthController@refreshToken');
+    Route::get('password/reset', 'Apis\AuthController@getResetPassword');
+    Route::post('password/reset', 'Apis\AuthController@postResetPassword');
+
+});
+
 
 Route::middleware('auth:api')->get('/user', "Apis\AuthController@getAuthenticatedUser");
 
