@@ -39,12 +39,12 @@
 
 ### Admin
 
-    admin 123456789
+-   admin 123456789
 
 ### Giver
 
-    giver 123456789
+-   giver 123456789
 
 ### Taker
 
-    taker 123456789
+-   taker 123456789
