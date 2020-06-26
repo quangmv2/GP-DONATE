@@ -15,13 +15,26 @@ class PermissionTableSeeder extends Seeder
     {
 
         $roles = [
-            'super_admin',
-            'giver',
-            'taker'
+            [
+                'name' => 'super_admin',
+                'guard_name' => 'Super Admin'
+            ],
+            [
+                'name' => 'contributor',
+                'guard_name' => 'Contributor'
+            ],
+            [
+                'name' => 'giver',
+                'guard_name' => 'Giver'
+            ],
+            [
+                'name' => 'taker',
+                'guard_name' => 'Taker'
+            ],
         ];
 
         foreach ($roles as $key => $role) {
-            Role::create(['name' => $role]);
+            Role::create(['name' => $role["name"], 'show_name' => $role["guard_name"]]);
         }
         
         $permissions = [

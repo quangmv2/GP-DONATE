@@ -56,7 +56,7 @@ Users Management
 	        "order": [[ 0, "desc" ]],
 	        "columns": [
 	        	{ "bSearchable": false, "data": "id" },
-			    { "bSearchable": true, "data": "name" },
+			    { "bSearchable": true, "data": ["full_name"] },
 			    { "bSearchable": true, "data": "username" },
 			    { "bSearchable": true, "data": "email" },
 			    { "bSearchable": true, "data": "roles",
@@ -65,7 +65,7 @@ Users Management
 				    	var htmlRole = "";
 				    	if(data && data.length > 0){
 				    		for(var i = 0; i < data.length; i++){
-				    			htmlRole += "<label class='badge badge-success'>"+data[i].name+"</label>"
+				    			htmlRole += "<label class='badge badge-success'>"+data[i].show_name+"</label>"
 				    		}
 				    	}
 

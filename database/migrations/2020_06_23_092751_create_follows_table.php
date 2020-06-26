@@ -14,14 +14,26 @@ class CreateFollowsTable extends Migration
     public function up()
     {
 
-        if (Schema::hasTable('follows')) {
-            Schema::dropIfExists('follows');
-        }
         Schema::create('follows', function (Blueprint $table) {
-            $table->bigIncrements('id_follow');
-            $table->bigInteger('id_user_from');
-            $table->bigInteger('id_user_to');
+            // $table->bigIncrements('id_follow');
+            $table->unsignedBigInteger('user_id_from');
+            $table->unsignedBigInteger('user_id_to');
             $table->timestamps();
+
+            $table->primary(['user_id_from', 'user_id_to']);
+
+            $table->foreign('user_id_from')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->foreign('user_id_to')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
         });
     }
 
