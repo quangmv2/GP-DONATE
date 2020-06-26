@@ -19,44 +19,48 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call(PermissionTableSeeder::class);
         $user = User::create([
-        	'name' => 'admin',
+            'first_name' => 'admin',
+            'last_name' => 'admin',
             'username' => 'admin',
-        	'email' => 'maiquang1470@gmail.com',
-        	'password' => bcrypt('123456789')
+        	'email' => 'admin@gmail.com',
+            'password' => bcrypt('123456789'),
+            'gender' => 0
         ]);
 
         $role = Role::where('name','super_admin')->first();
    
-        $permissions = Permission::pluck('id','id')->all();
+        // $permissions = Permission::pluck('id','id')->all();
   
-        $role->syncPermissions($permissions);
+        // $role->syncPermissions($permissions);
    
         $user->assignRole([$role->id]);
         //======================================
-        // $faker = Faker\Factory::create();
-        // foreach (range(1,1000) as $index) {
-        //     DB::table('users')->insert([
-        //         'name' => $faker->name,
-        //         'username' => $faker->name,
-        //         'email' => $faker->email,
-        //         'password' => bcrypt('secret'),
-        //     ]);
-        // }
+        $giver = User::create([
+            'first_name' => 'giver',
+            'last_name' => '1',
+            'username' => 'giver',
+        	'email' => 'giver@gmail.com',
+            'password' => bcrypt('123456789'),
+            'gender' => 0
+        ]);
+
+        $role = Role::where('name','giver')->first();
+        $giver->assignRole([$role->id]);
 
         //======================================
-        // $user = User::where('id', 1)->first();
-        // $faker = Faker\Factory::create();
-        // foreach (range(1,200) as $index) {
-        //     DB::table('posts')->insert([
-        //         'user_id' => $user->id,
-        //         'title' => $faker->name,
-        //         'slug' => $faker->name,
-        //         'description' => $faker->name,
-        //         'content' => $faker->name,
-        //         'status' => 1
-        //     ]);
-        // }
+        $taker = User::create([
+            'first_name' => 'taker',
+            'last_name' => '1',
+            'username' => 'taker',
+        	'email' => 'taker@gmail.com',
+            'password' => bcrypt('123456789'),
+            'gender' => 0
+        ]);
+
+        $role = Role::where('name','taker')->first();
+        $giver->assignRole([$role->id]);
+
     }
 }

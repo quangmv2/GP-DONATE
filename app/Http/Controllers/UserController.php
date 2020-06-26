@@ -56,13 +56,17 @@ class UserController extends Controller
         $page = isset($start) ? ($start/$length + 1) : 1;
         $search = isset($search) ? $search['value'] : '';
 
-        $query = User::where('name', 'like', '%'.$search.'%')
-            ->orWhere('username', 'like', '%'.$search.'%')
+        $query = User::orWhere('username', 'like', '%'.$search.'%')
             ->orWhere('email', 'like', '%'.$search.'%');
+
+        
 
         $totalSearch = $query->count();
         $data = $query->orderBy($orderColumn, $orderDesc)->with('roles')->paginate($length, ['*'], 'page', $page);
-
+        // return $query->get();
+        foreach ($data as $value) {
+            $value["full_name"] = $value->first_name." ".$value->last_name;
+        }
         return Response::json([
             'recordsFiltered' => $totalSearch,
             'recordsTotal' => $totalSearch,

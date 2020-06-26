@@ -13,19 +13,32 @@ class CreateHastagTable extends Migration
      */
     public function up()
     {
-        Schema::create('hastag', function (Blueprint $table) {
+        Schema::create('hastags', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->timestamps();
         });
 
-        Schema::create('post_has_hastag', function (Blueprint $table) {
+        Schema::create('posts_has_hastags', function (Blueprint $table) {
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('hastag_id');
             $table->timestamps();
 
             $table->primary(['post_id', 'hastag_id']);
             $table->index(['post_id', 'hastag_id'], 'post_id_hastag_id_index');
+            
+            $table->foreign('post_id')
+            ->references('id')
+            ->on('posts')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            
+            $table->foreign('hastag_id')
+            ->references('id')
+            ->on('hastags')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
         });
 
     }
@@ -37,7 +50,7 @@ class CreateHastagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hastag');
-        Schema::dropIfExists('post_has_hastag');
+        Schema::dropIfExists('posts_has_hastags');
+        Schema::dropIfExists('hastags');
     }
 }
