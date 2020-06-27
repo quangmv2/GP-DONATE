@@ -18,7 +18,7 @@ class AuthController extends Controller
 {
 
     private $successStatus = 200;
-    private $baseUri = 'http://127.0.0.1:8001';
+    private $baseUri = 'http://127.0.0.1:8000';
 
     function __construct()
     {
@@ -29,10 +29,18 @@ class AuthController extends Controller
         route /api/oauth/login    
     */
     public function login(Request $req) { 
+        $email = request('email');
+        $username = request('username');
+        $password = request('password');
 
-        if (Auth::attempt(['email' => request('email'), 'password' => request('password')]) || Auth::attempt(['username' => request('username'), 'password' => request('password')])) { 
+        // check if request have validation
+        if (Auth::attempt(['email' =>$email, 'password' => $password]) || Auth::attempt(['username' => $username, 'password' => $password])) { 
+
+            // get record in table oath_client have password_client equal 1
             $oClient = OClient::where('password_client', 1)->first();
-            return $this->getTokenAndRefreshToken($oClient, request('username'), request('password'));
+            // get correct username
+            $usernameInput = $username ? $username : $email;
+            return $this->getTokenAndRefreshToken($oClient, $usernameInput, $password);
         } 
         else { 
             return response()->json(['error'=>'Unauthorised'], 401); 
@@ -47,7 +55,10 @@ class AuthController extends Controller
     */
     public function logout(Request $req)
     {
-        
+        $req->user()->token()->revoke();
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ], 200);
     }
 
 
@@ -101,16 +112,17 @@ class AuthController extends Controller
     */
     public function getTokenAndRefreshToken(OClient $oClient, $email, $password) { 
 
-        $client = new Client(['base_uri' => $this->baseUri]);  // Create Client with baseUri
+        $client = new Client;  // Create Client with baseUri
 
         /*
             Request this server
             If success get body and get code
             else get body exception and code
         */
+
         try {
 
-            $response = $client->post('/oauth/token', [
+            $response = $client->post('http://127.0.0.1:8000/oauth/token', [
                 'form_params' => [
                     'grant_type' => 'password',
                     'client_id' => $oClient->id,
@@ -120,16 +132,18 @@ class AuthController extends Controller
                     'scope' => '*',
                 ],
             ]);
-
-            $result = json_decode((string) $response->getBody(), true);
-            $code = $response->getStatusCode();
+            var_dump($response->getBody()); die;
+            // $result = json_decode((string) $response->getBody(), true);
+            // $code = $response->getStatusCode();
 
         } catch (\Exception $exception) {
-            $result = json_decode((string) $exception->getResponse()->getBody(), true);
-            $code = $exception->getCode();
+            // $result = json_decode((string) $exception->getResponse()->getBody(), true);
+            // $code = $exception->getCode();
+            var_dump('pass error');
+            die;
         }
 
-        return response()->json($result, $code); // return code and result
+        // return response()->json($result, $code); // return code and result
     }
 
 
