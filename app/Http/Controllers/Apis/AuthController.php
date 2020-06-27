@@ -9,9 +9,9 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Laravel\Passport\Client as OClient; 
 use GuzzleHttp\Client;
-
-
-use App\User;
+use Illuminate\Support\Str;
+use App\Models\User;
+use App\Models\PasswordReset;
 
 
 class AuthController extends Controller
@@ -70,21 +70,30 @@ class AuthController extends Controller
     }
 
     /*
-        GET
+        POST
         route /api/oauth/password/reset  
         reset pasword  
     */
-    public function getResetPassword(Request $req)
+    public function resetPasswordToMail(Request $req)
     {
-        
+        $user = User::where('email', $req->email)->firstOrFail();
+        $passwordReset = PasswordReset::updateOrCreate([
+            'email' => $user->email,
+        ], [
+            'token' => Str::random(60),
+        ]);
+  
+        return response()->json([
+        'message' => 'We have e-mailed your password reset link!'
+        ]);
     }
 
     /*
         POST 
-        route /api/oauth/password/reset
+        route /api/oauth/password/reset-cofirm-token
         confirm code reset password    
     */
-    public function postResetPassword(Request $req)
+    public function resetPasswordConfirmToken(Request $req)
     {
         
     }
@@ -110,7 +119,7 @@ class AuthController extends Controller
 
         $client = new Client([
             'headers' => [ 'Content-Type' => 'application/json' ], //set body json
-            'base_uri' => config('app.url') //get from env APP_URL or app config url
+            // 'base_uri' => config('app.url') //get from env APP_URL or app config url
         ]);  // Create Client with baseUri
 
         /*
@@ -119,7 +128,7 @@ class AuthController extends Controller
             else get body exception and code
         */
         try {
-            $response = $client->post('/oauth/token',
+            $response = $client->post(config('app.url').'/oauth/token',
                 ['body' => json_encode(
                     [
                         'grant_type' => 'password',
@@ -151,7 +160,7 @@ class AuthController extends Controller
     {
         $client = new Client([
             'headers' => [ 'Content-Type' => 'application/json' ], //set body json
-            'base_uri' => config('app.url') //get from env APP_URL or app config url
+            // 'base_uri' => config('app.url') //get from env APP_URL or app config url
         ]); // Create Client with baseUri
 
         /*
@@ -161,7 +170,7 @@ class AuthController extends Controller
         */
         try {
 
-            $response = $client->post('/oauth/token',
+            $response = $client->post(config('app.url').'/oauth/token',
                 ['body' => json_encode([
                     'grant_type' => 'refresh_token',
                     'refresh_token' => $refresh_token,

@@ -19,10 +19,10 @@ Route::group(['prefix' => 'oauth'], function () {
     // Route::post('register', 'API\PassportController@register');
 
     Route::post('login', 'Apis\AuthController@login');
-    Route::post('logout', 'Apis\AuthController@logout');
+    Route::post('logout', 'Apis\AuthController@logout')->middleware('auth:api');
     Route::post('refresh-token', 'Apis\AuthController@refreshToken');
-    Route::get('password/reset', 'Apis\AuthController@getResetPassword');
-    Route::post('password/reset', 'Apis\AuthController@postResetPassword');
+    Route::post('password/reset', 'Apis\AuthController@resetPasswordToMail');
+    Route::post('password/reset-confirm-token', 'Apis\AuthController@resetPasswordConfirmToken');
 
 });
 
