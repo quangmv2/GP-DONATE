@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 
 
-Route::group(['prefix' => 'auth'], function () {
+Route::group(['prefix' => 'oauth'], function () {
     // Route::post('register', 'API\PassportController@register');
 
     Route::post('login', 'Apis\AuthController@login');

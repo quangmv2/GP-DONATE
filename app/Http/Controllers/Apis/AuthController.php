@@ -43,7 +43,6 @@ class AuthController extends Controller
     /*
         POST logout
         route /api/oauth/logout 
-        tiengiangdang   
     */
     public function logout(Request $req)
     {
@@ -117,7 +116,6 @@ class AuthController extends Controller
                     'client_secret' => $oClient->secret,
                     'username' => $email,
                     'password' => $password,
-                    'scope' => '*',
                 ],
             ]);
 
