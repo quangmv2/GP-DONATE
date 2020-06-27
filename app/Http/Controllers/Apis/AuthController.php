@@ -18,11 +18,9 @@ class AuthController extends Controller
 {
 
     private $successStatus = 200;
-    private $baseUri = 'http://127.0.0.1:8000';
 
-    function __construct()
-    {
-    }
+
+    function __construct(){}
 
     /*
         POST login
@@ -45,7 +43,6 @@ class AuthController extends Controller
         else { 
             return response()->json(['error'=>'Unauthorised'], 401); 
         } 
-
     }
 
     /*
@@ -103,8 +100,8 @@ class AuthController extends Controller
     }
 
 
-//===================================================================================================================================
-//  Funtion
+    //===================================================================================================================================
+    //  Function
 
     /*
         Request url /oauth/token with type password.
@@ -112,38 +109,38 @@ class AuthController extends Controller
     */
     public function getTokenAndRefreshToken(OClient $oClient, $email, $password) { 
 
-        $client = new Client;  // Create Client with baseUri
+        $client = new Client([
+            'headers' => [ 'Content-Type' => 'application/json' ], //set body json
+            'base_uri' => config('app.url') //get from env APP_URL or app config url
+        ]);  // Create Client with baseUri
 
         /*
             Request this server
             If success get body and get code
             else get body exception and code
         */
-
         try {
-
-            $response = $client->post('http://127.0.0.1:8000/oauth/token', [
-                'form_params' => [
-                    'grant_type' => 'password',
-                    'client_id' => $oClient->id,
-                    'client_secret' => $oClient->secret,
-                    'username' => $email,
-                    'password' => $password,
-                    'scope' => '*',
-                ],
-            ]);
-            var_dump($response->getBody()); die;
-            // $result = json_decode((string) $response->getBody(), true);
-            // $code = $response->getStatusCode();
+            $response = $client->post('/oauth/token',
+                ['body' => json_encode(
+                    [
+                        'grant_type' => 'password',
+                        'client_id' => $oClient->id,
+                        'client_secret' => $oClient->secret,
+                        'username' => $email,
+                        'password' => $password,
+                        'scope' => '*',
+                    ]
+                )]
+            );
+            $result = $response->getBody()->getContents();
+            $code = $response->getStatusCode();
 
         } catch (\Exception $exception) {
-            // $result = json_decode((string) $exception->getResponse()->getBody(), true);
-            // $code = $exception->getCode();
-            var_dump('pass error');
-            die;
+            $result = $exception->getMessage();
+            $code = $exception->getCode();
         }
 
-        // return response()->json($result, $code); // return code and result
+        return response()->json(json_decode($result), $code); // return code and result
     }
 
 
@@ -153,7 +150,10 @@ class AuthController extends Controller
     */
     public function refreshAndGetToken(OClient $oClient, $refresh_token)
     {
-        $client = new Client(['base_uri' => $this->baseUri]); // Create Client with baseUri
+        $client = new Client([
+            'headers' => [ 'Content-Type' => 'application/json' ], //set body json
+            'base_uri' => config('app.url') //get from env APP_URL or app config url
+        ]); // Create Client with baseUri
 
         /*
             Request this server
@@ -162,24 +162,24 @@ class AuthController extends Controller
         */
         try {
 
-            $response = $client->post('/oauth/token', [
-                'form_params' => [
+            $response = $client->post('/oauth/token',
+                ['body' => json_encode([
                     'grant_type' => 'refresh_token',
                     'refresh_token' => $refresh_token,
                     'client_id' => $oClient->id,
                     'client_secret' => $oClient->secret,
-                ],
+                ])
             ]);
 
-            $result = json_decode((string) $response->getBody(), true);
+            $result = $response->getBody()->getContents();
             $code = $response->getStatusCode();
 
         } catch (\Exception $exception) {
-            $result = json_decode((string) $exception->getResponse()->getBody(), true);
+            $result = $exception->getMessage();
             $code = $exception->getCode();
         }
 
-        return response()->json($result, $code); // return code and result
+        return response()->json(json_decode($result), $code); // return code and result
     }
 
 }
