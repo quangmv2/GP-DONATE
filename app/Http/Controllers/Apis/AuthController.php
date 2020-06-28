@@ -9,35 +9,45 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Laravel\Passport\Client as OClient; 
 use GuzzleHttp\Client;
+// reset password
+use Carbon\Carbon;
+use App\Models\PasswordReset;
+use App\Notifications\ResetPasswordRequest;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
-
-use App\User;
+use App\Models\User;
 
 
 class AuthController extends Controller
 {
 
     private $successStatus = 200;
-    private $baseUri = 'http://127.0.0.1:8001';
 
-    function __construct()
-    {
-    }
+
+    function __construct(){}
 
     /*
         POST login
         route /api/oauth/login    
     */
     public function login(Request $req) { 
+        $email = request('email');
+        $username = request('username');
+        $password = request('password');
 
-        if (Auth::attempt(['email' => request('email'), 'password' => request('password')]) || Auth::attempt(['username' => request('username'), 'password' => request('password')])) { 
+        // check if request have validation
+        if (Auth::attempt(['email' =>$email, 'password' => $password]) || Auth::attempt(['username' => $username, 'password' => $password])) { 
+
+            // get record in table oath_client have password_client equal 1
             $oClient = OClient::where('password_client', 1)->first();
-            return $this->getTokenAndRefreshToken($oClient, request('username'), request('password'));
+            // get correct username
+            $usernameInput = $username ? $username : $email;
+            return $this->getTokenAndRefreshToken($oClient, $usernameInput, $password);
         } 
         else { 
             return response()->json(['error'=>'Unauthorised'], 401); 
         } 
-
     }
 
     /*
@@ -46,7 +56,10 @@ class AuthController extends Controller
     */
     public function logout(Request $req)
     {
-        
+        $req->user()->token()->revoke();
+        return response()->json([
+            'message' => 'Successfully logged out'
+        ], 200);
     }
 
 
@@ -62,23 +75,59 @@ class AuthController extends Controller
     }
 
     /*
-        GET
+        POST
         route /api/oauth/password/reset  
-        reset pasword  
+        reset password  
     */
-    public function getResetPassword(Request $req)
+    public function resetPasswordToMail(Request $req)
     {
+        $email = $req->email;
+        $user = User::where('email', $email)->firstOrFail();
+        $passwordReset = PasswordReset::updateOrCreate([
+            'email' => $user->email,
+        ],[
+            'token' => Str::random(6),
+        ]);
         
+        return response()->json([
+            'message' => 'We have e-mailed your password reset link!'
+            ]);
     }
 
     /*
         POST 
-        route /api/oauth/password/reset
-        confirm code reset password    
+        route /api/oauth/password/reset-confirm-token
+        confirm code and reset password    
     */
-    public function postResetPassword(Request $req)
+    public function resetPasswordConfirmToken(Request $req)
     {
-        
+        $token = $req->token;
+        $password = $req->password;
+        $passwordConfirm = $req->password_confirm;
+
+        if ($password != $passwordConfirm) {
+            return response()->json([
+                'message' => 'Password not equal Confirm Password',
+            ], 400);
+        }
+
+        $passwordReset = PasswordReset::where('token', $token)->firstOrFail();
+        if(Carbon::parse($passwordReset->update_at)->addMinutes(2)->isPast()){
+            $passwordReset->delete();
+
+            return response()->json([
+                'message' => 'This password reset token is invalid.',
+            ], 401);
+        }
+        $user = User::where('email', $passwordReset->email)->firstOrFail();
+        $updatePasswordUser = $user->update([
+            'password' => bcrypt($req->password)
+        ]);
+        $passwordReset->delete();
+
+        return response()->json([
+            'success' => $updatePasswordUser,
+        ]);
     }
     
     /*
@@ -91,8 +140,8 @@ class AuthController extends Controller
     }
 
 
-//===================================================================================================================================
-//  Funtion
+    //===================================================================================================================================
+    //  Function
 
     /*
         Request url /oauth/token with type password.
@@ -100,7 +149,10 @@ class AuthController extends Controller
     */
     public function getTokenAndRefreshToken(OClient $oClient, $email, $password) { 
 
-        $client = new Client(['base_uri' => $this->baseUri]);  // Create Client with baseUri
+        $client = new Client([
+            'headers' => [ 'Content-Type' => 'application/json' ], //set body json
+            'base_uri' => config('app.url') //get from env APP_URL or app config url
+        ]);  // Create Client with baseUri
 
         /*
             Request this server
@@ -108,26 +160,27 @@ class AuthController extends Controller
             else get body exception and code
         */
         try {
-
-            $response = $client->post('/oauth/token', [
-                'form_params' => [
-                    'grant_type' => 'password',
-                    'client_id' => $oClient->id,
-                    'client_secret' => $oClient->secret,
-                    'username' => $email,
-                    'password' => $password,
-                ],
-            ]);
-
-            $result = json_decode((string) $response->getBody(), true);
+            $response = $client->post('/oauth/token',
+                ['body' => json_encode(
+                    [
+                        'grant_type' => 'password',
+                        'client_id' => $oClient->id,
+                        'client_secret' => $oClient->secret,
+                        'username' => $email,
+                        'password' => $password,
+                        'scope' => '*',
+                    ]
+                )]
+            );
+            $result = $response->getBody()->getContents();
             $code = $response->getStatusCode();
 
         } catch (\Exception $exception) {
-            $result = json_decode((string) $exception->getResponse()->getBody(), true);
+            $result = $exception->getMessage();
             $code = $exception->getCode();
         }
 
-        return response()->json($result, $code); // return code and result
+        return response()->json(json_decode($result), $code); // return code and result
     }
 
 
@@ -137,7 +190,10 @@ class AuthController extends Controller
     */
     public function refreshAndGetToken(OClient $oClient, $refresh_token)
     {
-        $client = new Client(['base_uri' => $this->baseUri]); // Create Client with baseUri
+        $client = new Client([
+            'headers' => [ 'Content-Type' => 'application/json' ], //set body json
+            'base_uri' => config('app.url') //get from env APP_URL or app config url
+        ]); // Create Client with baseUri
 
         /*
             Request this server
@@ -146,24 +202,24 @@ class AuthController extends Controller
         */
         try {
 
-            $response = $client->post('/oauth/token', [
-                'form_params' => [
+            $response = $client->post('/oauth/token',
+                ['body' => json_encode([
                     'grant_type' => 'refresh_token',
                     'refresh_token' => $refresh_token,
                     'client_id' => $oClient->id,
                     'client_secret' => $oClient->secret,
-                ],
+                ])
             ]);
 
-            $result = json_decode((string) $response->getBody(), true);
+            $result = $response->getBody()->getContents();
             $code = $response->getStatusCode();
 
         } catch (\Exception $exception) {
-            $result = json_decode((string) $exception->getResponse()->getBody(), true);
+            $result = $exception->getMessage();
             $code = $exception->getCode();
         }
 
-        return response()->json($result, $code); // return code and result
+        return response()->json(json_decode($result), $code); // return code and result
     }
 
 }
