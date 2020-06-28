@@ -1,3 +1,4 @@
+
 import Login from "components/PublicPages/Login/Login";
 
 export const authRoutes = [
