@@ -11,17 +11,17 @@ import signInFields from '../../UI/Auth/signInFields';
 
 class SignInScreen extends React.Component {
   renderFields() {
-    return _.map(signInFields, ({label, name, type}) => {
+    return _.map(signInFields, ({label, icon, type}) => {
       return (
-        <div>
-        <p>{label}</p>
-        <Row>
-        <Input 
-        type={type}
-        />
-       <Icon icon="icon-back"></Icon>
-       </Row>
-        <hr />
+        <div className='formContainer'>
+        <p className='label'>{label}</p>
+      
+  <div class="row inputContainer">
+    <div class="col-10"><i class="f7-icons inputIcon">{icon}</i></div>
+    <div class="col-90 textInput"> <input type={type} /> </div>
+  </div>
+  <hr className='borderInput'/>
+        
         </div>
         
       

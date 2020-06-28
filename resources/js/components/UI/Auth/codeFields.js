@@ -1,5 +1,5 @@
 export default [
-    { label: 'CODE NUMBER', name: 'code', icon: 'back', type: 'text' },
+    { label: 'CODE NUMBER', name: 'code', icon: 'gift', type: 'text' },
     
   ];
   

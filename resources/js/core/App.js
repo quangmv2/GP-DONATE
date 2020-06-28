@@ -44,7 +44,7 @@ export default function(props) {
 
     return (
         <App params={f7params}>
-          <SignUpScreen />
+          <ChooseRoleScreen />
         </App>
     );
 }

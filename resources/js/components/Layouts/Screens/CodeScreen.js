@@ -13,20 +13,17 @@ import codeFields from '../../UI/Auth/codeFields';
 
 class CodeScreen extends React.Component {
   renderFields() {
-    return _.map(codeFields, ({label, name, type}) => {
+    return _.map(codeFields, ({label, icon, type}) => {
       return (
-        <div>
+        <div className='formContainer'>
         <p className='label'>{label}</p>
-        <Row>
-        <Icon icon="icon-back"></Icon>
-        <Input 
-        name={name}
-        type={type}
-        />
       
-       
-       </Row>
-        <hr />
+  <div class="row inputContainer">
+    <div class="col-10"><i class="f7-icons inputIcon">{icon}</i></div>
+    <div class="col-90 textInput"> <input type={type} /> </div>
+  </div>
+  <hr className='borderInput'/>
+        
         </div>
         
       
