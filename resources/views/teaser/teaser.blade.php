@@ -62,44 +62,48 @@
     <div class="section hero-section">
       <div class="row">
         <div class="col-md-7">
-          <form id="subscribe_form" class="teaser-form subscribe-form-wrapper">
+          <form id="subscribe_form" class="teaser-form subscribe-form-wrapper" action="https://drcomgroup.us10.list-manage.com/subscribe/post?u=787d75c3a13a26c9c5e4d9bf7&amp;id=5817a44047" method="post" name="mc-embedded-subscribe-form">
             <div class="info-box-wrapper text-center">
               <h1 class="title"><img class="img-phone" src="images/teaser/hero_title.png" /></h1>
               <p class="info">Coming soon. Become a beta tester!</p>
             </div>
             <div class="main-form-wrapper">
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label invalid-first-time">
-                <input class="mdl-textfield__input" type="text" id="sample3" required>
-                <label class="mdl-textfield__label" for="sample3">YOUR NAME</label>
+                <input class="mdl-textfield__input" type="text" name="FNAME" id="mce-FNAME" required>
+                <label class="mdl-textfield__label" for="mce-FNAME">FULL NAME</label>
                 <span class="icon icon-user-icon"></span>
               </div>
 
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label invalid-first-time">
-                <input class="mdl-textfield__input" type="email" id="sample3" required>
-                <label class="mdl-textfield__label" for="sample3">YOUR EMAIL</label>
+                <input class="mdl-textfield__input" type="email" id="mce-EMAIL" name="EMAIL" required>
+                <label class="mdl-textfield__label" for="mce-EMAIL">YOUR EMAIL</label>
                 <span class="icon icon-mail-icon"></span>
               </div>
 
               <div class="form-group ">
                 <label class="form-group-label">How do you want to contribute</label>
                 <div class="inline-flex-group">
-                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-mentoring">
-                    <input type="checkbox" id="checkbox-mentoring" class="mdl-checkbox__input" checked>
+                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="mce-group[15453]-15453-0">
+                    <input value="1" type="checkbox" id="mce-group[15453]-15453-0" class="mdl-checkbox__input" checked name="group[15453][1]">
                     <span class="mdl-checkbox__label">Mentoring</span>
                   </label>
-                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-partnership">
-                    <input type="checkbox" id="checkbox-partnership" class="mdl-checkbox__input">
+                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="mce-group[15453]-15453-1" >
+                    <input value="2" type="checkbox" id="mce-group[15453]-15453-1" class="mdl-checkbox__input" name="group[15453][2]">
                     <span class="mdl-checkbox__label">Partnership</span>
                   </label>
-                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-donation">
-                    <input type="checkbox" id="checkbox-donation" class="mdl-checkbox__input">
+                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="mce-group[15453]-15453-2">
+                    <input value="4" type="checkbox" id="mce-group[15453]-15453-2" class="mdl-checkbox__input" name="group[15453][4]">
                     <span class="mdl-checkbox__label">Donation</span>
                   </label>
                 </div>
               </div>
 
               <div class="flex top-btns">
-                <button id="teaser_submit_button" class="prime-btn" type="submit">Subscribe now!</button>
+                <div id="mce-responses" class="clear">
+                  <div class="response" id="mce-error-response" style="display:none"></div>
+                  <div class="response" id="mce-success-response" style="display:none"></div>
+                </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <button id="teaser_submit_button" class="prime-btn" type="submit" value="Subscribe" name="subscribe">Subscribe now!</button>
               </div>
             </div>
           </form>
@@ -122,10 +126,10 @@
       <div class="footer-wrapper">
         <ul class="social-list">
           <li><a href="#"><img class="img-social" src="images/teaser/social/facebook.png" /></a></li>
-          <li><a href="#"><img class="img-social" src="images/teaser/social/google_plus.png" /></a></li>
+          <li><a href="#"><img class="img-social" src="images/teaser/social/instagram.png" /></a></li>
           <li><a href="#"><img class="img-social" src="images/teaser/social/twitter.png" /></a></li>
         </ul>
-        <span class="copyright-text">© 2020 WildAid. All rights reserved.</span>
+        <span class="copyright-text">By © 2020 Generous People. All rights reserved.</span>
       </div>
     </footer>
   </div>
