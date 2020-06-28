@@ -9,9 +9,13 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Laravel\Passport\Client as OClient; 
 use GuzzleHttp\Client;
-use Illuminate\Support\Str;
-use App\Models\User;
+use Carbon\Carbon;
 use App\Models\PasswordReset;
+use App\Notifications\ResetPasswordRequest;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+
+use App\Models\User;
 
 
 class AuthController extends Controller
@@ -72,30 +76,57 @@ class AuthController extends Controller
     /*
         POST
         route /api/oauth/password/reset  
-        reset pasword  
+        reset password  
     */
     public function resetPasswordToMail(Request $req)
     {
-        $user = User::where('email', $req->email)->firstOrFail();
+        $email = $req->email;
+        $user = User::where('email', $email)->firstOrFail();
         $passwordReset = PasswordReset::updateOrCreate([
             'email' => $user->email,
-        ], [
-            'token' => Str::random(60),
+        ],[
+            'token' => Str::random(6),
         ]);
-  
+        
         return response()->json([
-        'message' => 'We have e-mailed your password reset link!'
-        ]);
+            'message' => 'We have e-mailed your password reset link!'
+            ]);
     }
 
     /*
         POST 
-        route /api/oauth/password/reset-cofirm-token
-        confirm code reset password    
+        route /api/oauth/password/reset-confirm-token
+        confirm code and reset password    
     */
     public function resetPasswordConfirmToken(Request $req)
     {
-        
+        $token = $req->token;
+        $password = $req->password;
+        $passwordConfirm = $req->password_confirm;
+
+        if ($password != $passwordConfirm) {
+            return response()->json([
+                'message' => 'Password not equal Confirm Password',
+            ], 400);
+        }
+
+        $passwordReset = PasswordReset::where('token', $token)->firstOrFail();
+        if(Carbon::parse($passwordReset->update_at)->addMinutes(2)->isPast()){
+            $passwordReset->delete();
+
+            return response()->json([
+                'message' => 'This password reset token is invalid.',
+            ], 401);
+        }
+        $user = User::where('email', $passwordReset->email)->firstOrFail();
+        $updatePasswordUser = $user->update([
+            'password' => bcrypt($req->password)
+        ]);
+        $passwordReset->delete();
+
+        return response()->json([
+            'success' => $updatePasswordUser,
+        ]);
     }
     
     /*
