@@ -28,7 +28,7 @@ Route::prefix('admin')->group(function(){
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('logout', 'Auth\LoginController@logout');
 
-    Route::group(['middleware' => ['auth', 'role: super_admin']], function() {
+    Route::group(['middleware' => ['auth', 'role:super_admin']], function() {
         Route::resource('roles','RoleController');
         Route::resource('users','UserController');
         Route::resource('posts','PostController');

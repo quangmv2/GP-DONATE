@@ -13,9 +13,22 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+
+Route::group(['prefix' => 'oauth'], function () {
+    
+    Route::post('register', 'Apis\AuthController@register');
+    Route::post('login', 'Apis\AuthController@login');
+    Route::post('logout', 'Apis\AuthController@logout')->middleware('auth:api');
+    Route::post('refresh-token', 'Apis\AuthController@refreshToken');
+    Route::post('password/reset', 'Apis\AuthController@resetPasswordToMail');
+    Route::post('password/reset-confirm-token', 'Apis\AuthController@resetPasswordConfirmToken');
+
 });
+
+Route::resource('posts', 'Apis\PostController');
+
+Route::middleware('auth:api')->get('/user', "Apis\AuthController@getAuthenticatedUser");
 
 Route::get('/posts','Apis\PostController@index');
 

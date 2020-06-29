@@ -11,13 +11,16 @@
         "php": "^7.2",
         "ckfinder/ckfinder-laravel-package": "v3.5.1.2",
         "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "^7.0",
         "laravel/framework": "^6.2",
         "laravel/helpers": "^1.1",
-        "laravel/passport": "^8.2",
+        "laravel/passport": "^9.2",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.1",
         "laravelcollective/html": "^6.0",
+        "nesbot/carbon": "^2.35",
         "spatie/laravel-permission": "^3.3",
+        "symfony/psr-http-message-bridge": "^2.0",
         "zircote/swagger-php": "2.0.13"
     },
     "require-dev": {

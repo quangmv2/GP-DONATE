@@ -27,7 +27,8 @@
         "react-dom": "^16.2.0",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.20.1",
-        "sass-loader": "7.*"
+        "sass-loader": "7.*",
+        "webpack-cli": "^3.3.12"
     },
     "dependencies": {
         "@hapi/joi": "^17.1.1",
@@ -41,6 +42,7 @@
         "es6-promise": "^4.2.8",
         "flat": "^5.0.0",
         "framework7": "^5.7.8",
+        "framework7-icons": "^3.0.1",
         "framework7-react": "^5.7.8",
         "hoist-non-react-statics": "^3.3.2",
         "immutable": "^4.0.0-rc.12",

@@ -79,6 +79,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
+        return 1;
         $order = $request->input('order')? $request->input('order') : 'created_at';
         $length = $request->input('length');
         $start = $request->input('start');
@@ -176,4 +177,67 @@ class PostController extends Controller
             'data' => $data ? $data : [],
         ]);
     }
+
+    /**
+     * POST route
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+       
+    }
+
+
+    /**
+     * GET route  {id_post}
+     * Display the specified resource.
+     *
+     * @param  \App\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Post $post)
+    {
+    }
+
+
+    /**
+     * GET route {id_post}/edit
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Post $post)
+    {
+    }
+
+
+    /**
+     * PUT/PATCH route {id_post}
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Product  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Post $post)
+    {
+
+    }
+
+
+    /**
+     * DELETE route {id_posts}
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Post $post)
+    {
+    }
+
 }
