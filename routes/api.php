@@ -26,6 +26,7 @@ Route::group(['prefix' => 'oauth'], function () {
 
 });
 
+Route::resource('posts', 'Apis\PostController');
 
 Route::middleware('auth:api')->get('/user', "Apis\AuthController@getAuthenticatedUser");
 

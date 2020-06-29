@@ -17,25 +17,40 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'content', 'feature_image', 'slug', 'audio', 'status', 'author'
+        'title', 'content', 'photo_thumbnail', 'full_photo', 'user_id'
     ];
 
     public function user(){
     	return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-	public function categories() {
-        return $this->belongsToMany(Category::class, 'category_post', 'post_id', 'category_id');
-    }
+    // public function hastags()
+    // {
+    //     return $this->hasMany(Hastag::class, 'post_id', 'id');
+    // }
+
+    // public function likes()
+    // {
+    //     return $this->hasMany(Like::class, 'post_id', 'id');
+    // }
+
+    // public function comments()
+    // {
+    //     return $this->hasMany(Comment::class, 'post_id', 'id');
+    // }
+
+	// public function categories() {
+    //     return $this->belongsToMany(Category::class, 'category_post', 'post_id', 'category_id');
+    // }
 
     // parent relation
-    public function parent(){
+    // public function parent(){
 
-        return $this->belongsTo(self::class , 'parent_id');
-    }
-    //child relation
-     public function children()
-    {
-        return $this->hasMany(self::class ,'parent_id');
-    }
+    //     return $this->belongsTo(self::class , 'parent_id');
+    // }
+    // //child relation
+    //  public function children()
+    // {
+    //     return $this->hasMany(self::class ,'parent_id');
+    // }
 }
