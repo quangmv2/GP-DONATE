@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->longText('content');
             $table->string('photo_thumbnail');
             $table->string('full_photo');
+            $table->timestamp('due_day');
             $table->timestamps();
 
             $table->foreign('user_id')
