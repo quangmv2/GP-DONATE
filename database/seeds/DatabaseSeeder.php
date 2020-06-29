@@ -59,8 +59,8 @@ class DatabaseSeeder extends Seeder
             'gender' => 0
         ]);
 
-        $role = Role::where('name','taker')->first();
-        $giver->assignRole([$role->id]);
+        $role = Role::where('name', 'taker')->first();
+        $taker->assignRole([$role->id]);
 
     }
 }
