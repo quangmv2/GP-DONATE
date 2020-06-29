@@ -10,3 +10,15 @@ export const IMAGE_DEFAULT = {
     url: "",
     name: ""
 };
+
+export const ORDER_BY = {
+    descend: "desc",
+    ascend: "asc"
+};
+
+export const ORDER_BY_REVERSE = {
+    desc: "descend",
+    asc: "ascend"
+};
+
+export const PAGE_SIZE_DEFAULT = 20;

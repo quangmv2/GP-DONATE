@@ -1,4 +1,3 @@
-import Auth from "@aws-amplify/auth";
 import { fetchService } from "services";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { isEmptyString } from "helpers";
@@ -8,8 +7,7 @@ import {
     loginSuccess,
     loginFailed,
     logoutSuccess,
-    logoutFailed,
-    serverChallengePass
+    logoutFailed
 } from "./actions";
 
 export default function* root() {
@@ -31,7 +29,6 @@ export function* loginSaga({ payload }) {
     const resp = yield call(requestLogin, username, password);
     const { data, status } = resp;
     if (status === 200) {
-        /** @type {CognitoUserSession} */
         //add this incase user have multiple organization, need to send request to Server
         fetchService.addTokenHeader(signInUserSession);
 
@@ -61,29 +58,6 @@ export function* logoutSaga() {
 
 ///////////////////////////////////////////////////// REQUEST //////////////////
 
-function requestLogin(username, password) {
-    return Auth.signIn(username, password)
-        .then(success => {
-            return {
-                data: success /** @type {CognitoUser} */,
-                status: 200
-            };
-        })
-        .catch(err => {
-            return {
-                data: err,
-                status: 400
-            };
-        });
-}
+function requestLogin(username, password) {}
 
-function requestLogout() {
-    return Auth.signOut()
-        .then(success => {
-            return {
-                data: success,
-                status: 200
-            };
-        })
-        .catch(err => console.log(err));
-}
+function requestLogout() {}

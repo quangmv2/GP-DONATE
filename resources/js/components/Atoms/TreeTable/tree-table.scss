@@ -1,0 +1,31 @@
+@import "assets/css/variables";
+.tree-table-custom{
+  .sub-group-button{
+    text-decoration: underline;
+    margin-right: 10px;
+  }
+  .ant-table-row-collapsed{
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent !important;
+    border-left: 6px solid #000 !important;
+    border-bottom: 6px solid transparent !important;
+    
+  }
+  .ant-table-row-expand-icon{
+    border: 0px;
+    background: transparent;
+  }
+  .ant-table-row-expand-icon::after{
+    content: "";
+  }
+  .ant-table-row-expanded{
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent !important;
+    border-right: 6px solid transparent !important;
+    border-top: 6px solid #000 !important;
+  }
+}
+
+

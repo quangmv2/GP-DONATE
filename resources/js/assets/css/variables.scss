@@ -2,8 +2,9 @@
 $base-font: "Lato", sans-serif;
 
 :root {
-    --box-border-radius: 10px;
-    --input-height: 42px;
+  --box-border-radius: 10px;
+  --input-height: 42px;
+  --fs-normal: 14px;
 }
 
 @import "./themes/dark/dark.scss";

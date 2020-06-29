@@ -1,8 +1,11 @@
 body {
   padding: 0px;
   margin: 0px;
-  font-size: 14px;
+  font-size: var(--fs-normal);
   color: var(--text-color);
+}
+body * {
+  font-size: var(--fs-normal);
 }
 .ant-layout {
   background: var(--layout-body-background);
