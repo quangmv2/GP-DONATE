@@ -1,1 +1,0 @@
-export const AUTHORIZE_TOKEN = "AUTHORIZE_TOKEN";
