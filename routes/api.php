@@ -26,11 +26,13 @@ Route::group(['prefix' => 'oauth'], function () {
 
 });
 
-Route::resource('posts', 'Apis\PostController');
+Route::apiResources([
+    'user' => 'Apis\UserController',
+    'posts'=> 'Apis\PostController'
+]);
 
-Route::middleware('auth:api')->get('/user', "Apis\AuthController@getAuthenticatedUser");
+Route::group(['prefix' => 'user'], function () {
+    Route::post('me/code-inovation', 'Apis\UserController@codeInovation');
+});
 
-Route::get('/posts','Apis\PostController@index');
-
-Route::get('/posts/{id}','Apis\PostController@detail');
 

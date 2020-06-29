@@ -14,6 +14,7 @@ use App\Models\PasswordReset;
 use App\Notifications\ResetPasswordRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 use App\Models\User;
 
@@ -27,27 +28,30 @@ class AuthController extends Controller
     function __construct(){}
 
     public function register(Request $req){
+
+        // $roles = ["", "giver"];
+
         $this->validate($req, [
             'first_name' => 'required',
             'last_name' => 'required',
             'username' => 'required|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'gender' => 'required|',
-            'role' => 'required'
+            'gender' => 'required|numeric|min:0|max:2',
+            'role' => 'required|in:giver,taker'
         ]);
 
 
         $input = $req->all();
+        // return $input;
         $input['password'] = Hash::make($input['password']);
 
 
         $user = User::create($input);
-        $user->assignRole($req->input('role'));
+        $user->assignRole($input['role']);
 
 
-        return redirect()->route('users.index')
-                        ->with('success','User created successfully');
+        return $user;
         $permissions = Permission::pluck('id','id')->all();
         return $permissions;
    }
@@ -62,7 +66,7 @@ class AuthController extends Controller
         $password = request('password');
 
         // check if request have validation
-        if (Auth::attempt(['email' =>$email, 'password' => $password]) || Auth::attempt(['username' => $username, 'password' => $password])) { 
+        if (Auth::attempt(['email' => $username, 'password' => $password]) || Auth::attempt(['username' => $username, 'password' => $password])) { 
 
             // get record in table oath_client have password_client equal 1
             $oClient = OClient::where('password_client', 1)->first();
@@ -155,16 +159,6 @@ class AuthController extends Controller
         ], 200);
     }
     
-    /*
-        GET user test
-        route /api/user    
-    */
-    public function getAuthenticatedUser(Request $request)
-    {
-        return response()->json($request->user(), 200);
-    }
-
-
     //===================================================================================================================================
     //  Function
 
