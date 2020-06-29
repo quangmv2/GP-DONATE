@@ -49,32 +49,6 @@ class AuthController extends Controller
         } 
     }
 
-    public function register(Request $req)
-    {
-        $this->validate($req, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'username' => 'required|unique:users,username',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required'
-        ]);
-
-
-        $input = $req->all();
-        $input['password'] = Hash::make($input['password']);
-
-
-        $user = User::create($input);
-        $user->assignRole($req->input('roles'));
-
-
-        return redirect()->route('users.index')
-                        ->with('success','User created successfully');
-        $permissions = Permission::pluck('id','id')->all();
-        return $permissions;
-    }
-
     /*
         POST logout
         route /api/oauth/logout 

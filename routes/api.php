@@ -16,8 +16,8 @@ use Illuminate\Http\Request;
 
 
 Route::group(['prefix' => 'oauth'], function () {
+    // Route::post('register', 'API\PassportController@register');
 
-    Route::post('register', 'Apis\AuthController@register');
     Route::post('login', 'Apis\AuthController@login');
     Route::post('logout', 'Apis\AuthController@logout')->middleware('auth:api');
     Route::post('refresh-token', 'Apis\AuthController@refreshToken');
