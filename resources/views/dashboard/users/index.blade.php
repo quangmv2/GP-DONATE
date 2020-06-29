@@ -56,7 +56,7 @@ Users Management
 	        "order": [[ 0, "desc" ]],
 	        "columns": [
 	        	{ "bSearchable": false, "data": "id" },
-			    { "bSearchable": true, "data": ["full_name"] },
+			    { "bSearchable": true, "data": "full_name" },
 			    { "bSearchable": true, "data": "username" },
 			    { "bSearchable": true, "data": "email" },
 			    { "bSearchable": true, "data": "roles",
@@ -79,8 +79,9 @@ Users Management
 			    		var htmlAction = "<a class='btn btn-primary mr-2' href='users/"+data+"/edit'>Edit</a>";
 			    		if(data != 1){
 			    			htmlAction += "<form method='POST' action='users/"+data+"' accept-charset='UTF-8' style='display:inline' class='form_delete'><input name='_method' type='hidden' value='DELETE'><input name='_token' type='hidden' value='"+_csrfToken+"'><input class='btn btn-danger btn_delete_user' type='button' value='Delete'></form>";
-			    		}
-			    		
+			    		} else {
+							htmlAction = "";
+						}
 			    		return htmlAction;
 			    	}
 			    },
