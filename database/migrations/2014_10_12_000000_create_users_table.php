@@ -48,7 +48,7 @@ class CreateUsersTable extends Migration
             $table->foreign('code_id')
                 ->references('id')
                 ->on('codes')
-                ->onDelete('cascade')
+                ->onDelete('set null')
                 ->onUpdate('cascade');
 
         });
