@@ -33,7 +33,8 @@ class AuthController extends Controller
             'username' => 'required|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'gender' => 'required|',
+            'role' => 'required'
         ]);
 
 
@@ -42,7 +43,7 @@ class AuthController extends Controller
 
 
         $user = User::create($input);
-        $user->assignRole($req->input('roles'));
+        $user->assignRole($req->input('role'));
 
 
         return redirect()->route('users.index')

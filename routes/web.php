@@ -15,13 +15,6 @@ Route::get('/', function () {
     return view('teaser.teaser');
 });
 
-Route::get('/123', function () {
-    return [
-        'a' => 123
-    ];
-});
-
-
 //Router for client reactjs
 Route::get('/client/{any}', function ($any) {
     return view('client.app');
