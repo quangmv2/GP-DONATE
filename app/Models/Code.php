@@ -16,6 +16,8 @@ class Code extends Model
         'used', 'code'
     ];
 
+    protected $primaryKey = 'code';
+
     public function user(){
     	return $this->belongsTo(User::class, 'user_id', 'id');
     }

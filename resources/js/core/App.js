@@ -28,7 +28,10 @@ import {
 import publicRoutes from "../router/public";
 import SignUpScreen from '../components/Layouts/Screens/SignUpScreen';
 import background from "../../../public/images/background.png";
+<<<<<<< HEAD
 import './app.scss';
+=======
+>>>>>>> 62ca758e69d3ff2ff308d24105acbe96faebdfa0
 import CodeScreen from '../components/Layouts/Screens/CodeScreen';
 import ChooseRoleScreen from "../components/Layouts/Screens/ChooseRoleScreen";
 import SignInScreen from "../components/Layouts/Screens/SignInScreen";
@@ -44,7 +47,11 @@ export default function(props) {
 
     return (
         <App params={f7params}>
+<<<<<<< HEAD
           <ChooseRoleScreen />
+=======
+         <View id="main-view" url='/' main ></View>
+>>>>>>> 62ca758e69d3ff2ff308d24105acbe96faebdfa0
         </App>
     );
 }

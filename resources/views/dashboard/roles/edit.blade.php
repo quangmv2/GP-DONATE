@@ -7,8 +7,11 @@
     <a href="{{ route('roles.index') }}" class="breadcrumb-item"> Roles</a>
 @endsection
 
+@section('title')
+Edit Role {{$role->show_name}}
+@endsection
 @section('screen_name')
-Edit Role
+Edit Role {{$role->show_name}}
 @endsection
 
 @section('content')
@@ -41,7 +44,7 @@ Edit Role
                     <br/>
                     @foreach($permission as $value)
                         <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
-                        {{ $value->name }}</label>
+                        {{ $value->show_name }}</label>
                     <br/>
                     @endforeach
                 </div>

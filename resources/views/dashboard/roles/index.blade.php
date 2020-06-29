@@ -1,4 +1,7 @@
 @extends('layouts.private')
+@section('title')
+Role Management
+@endsection
 @section('screen_name')
 Role Management
 @endsection
@@ -37,14 +40,18 @@ Role Management
                     <td>{{ $role->show_name }}</td>
                     <td>
                         <!-- <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a> -->
-                        @can('role-edit')
-                            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
-                        @endcan
-                        @can('role-delete')
-                            {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                            {!! Form::close() !!}
-                        @endcan
+                        @if ($role->name !='super_admin')
+                            @can('role-edit')
+                                <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
+                            @endcan
+                        @endif
+                        @if ($role->name !='super_admin')
+                            @can('role-delete')
+                                {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
+                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                {!! Form::close() !!}
+                            @endcan
+                        @endif
                     </td>
                 </tr>
                 @endforeach

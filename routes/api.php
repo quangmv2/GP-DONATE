@@ -32,7 +32,7 @@ Route::apiResources([
 ]);
 
 Route::group(['prefix' => 'user'], function () {
-    Route::post('me/code-inovation', 'Apis\UserController@codeInovation');
+    Route::post('me/code-invitation', 'Apis\UserController@codeInvitation');
 });
 
 

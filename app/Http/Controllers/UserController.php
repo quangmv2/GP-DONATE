@@ -15,6 +15,16 @@ use Response;
 
 class UserController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:post-list-all', ['only' => ['index']]);
+         $this->middleware('permission:post-create', ['only' => ['create','store']]);
+         $this->middleware('permission:post-edit-all', ['only' => ['edit','update']]);
+         $this->middleware('permission:post-delete-all', ['only' => ['destroy']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

@@ -52,6 +52,15 @@ export default class Login extends React.Component {
                             this.setState({ password: e.target.value });
                         }}
                     />
+                    <ListInput
+                        label="Password"
+                        type="password"
+                        placeholder="Your password"
+                        value={this.state.password}
+                        onInput={e => {
+                            this.setState({ password: e.target.value });
+                        }}
+                    />
                 </List>
                 <List>
                     <ListButton onClick={this.signIn.bind(this)}>

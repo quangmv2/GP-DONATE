@@ -8,6 +8,9 @@
     <a href="{{ route('users.index') }}" class="breadcrumb-item"> Users</a>
 @endsection
 
+@section('title')
+Edit User
+@endsection
 @section('screen_name')
 Edit User
 @endsection

@@ -10,7 +10,13 @@ class OutlineButton extends React.Component {
       return(
          
        
+<<<<<<< HEAD
           <Button outline large className='outlineButton' >{this.props.buttonContain}</Button>
+=======
+          <Button 
+          href={this.props.href}
+          outline large className='outlineButton' >{this.props.buttonContain}</Button>
+>>>>>>> 62ca758e69d3ff2ff308d24105acbe96faebdfa0
        
       
       )
