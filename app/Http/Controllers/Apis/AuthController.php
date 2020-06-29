@@ -90,7 +90,7 @@ class AuthController extends Controller
         
         return response()->json([
             'message' => 'We have e-mailed your password reset link!'
-            ]);
+        ], 200);
     }
 
     /*
@@ -126,7 +126,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => $updatePasswordUser,
-        ]);
+        ], 200);
     }
     
     /*

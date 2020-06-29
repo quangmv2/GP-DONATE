@@ -31,9 +31,9 @@ class DatabaseSeeder extends Seeder
 
         $role = Role::where('name','super_admin')->first();
    
-        // $permissions = Permission::pluck('id','id')->all();
+        $permissions = Permission::pluck('id','id')->all();
   
-        // $role->syncPermissions($permissions);
+        $role->syncPermissions($permissions);
    
         $user->assignRole([$role->id]);
         //======================================
