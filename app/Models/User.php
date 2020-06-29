@@ -10,6 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Module;
+use App\Models\Code;
 
 class User extends Authenticatable
 {
@@ -23,7 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password',
+        'first_name', 'last_name', 'username', 'email', 'password', 'address', 'code_id', 'personal_photo', 'gender', 'remember_token'
     ];
 
     /**
@@ -50,20 +51,25 @@ class User extends Authenticatable
      * @param  string  $username
      * @return \App\User
      */
-    public function findForPassport($username)
+    // public function findForPassport($username)
+    // {
+    //     return $this->where('username', $username)->orWhere('email', $username)->first();
+    // }
+
+    // public function posts(){
+    //     return $this->hasMany(Post::class, 'user_id', 'id');
+    // }
+
+    // public function categories(){
+    //     return $this->hasMany(Category::class, 'user_id', 'id');
+    // }
+
+    // public function menus(){
+    //     return $this->hasMany(Module::class, 'user_id', 'id');
+    // }
+
+    public function codeInvitation()
     {
-        return $this->where('username', $username)->orWhere('email', $username)->first();
-    }
-
-    public function posts(){
-        return $this->hasMany(Post::class, 'user_id', 'id');
-    }
-
-    public function categories(){
-        return $this->hasMany(Category::class, 'user_id', 'id');
-    }
-
-    public function menus(){
-        return $this->hasMany(Module::class, 'user_id', 'id');
+        return $this->belongsTo(Code::class, 'code_id', 'code');
     }
 }

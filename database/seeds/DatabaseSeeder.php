@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 use App\Models\User;
+use App\Models\Code;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Faker\Generator as Faker;
@@ -20,7 +21,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(PermissionTableSeeder::class);
-        $user = User::create([
+        $this->call(CodesTableSeeder::class);
+        $admin = User::create([
             'first_name' => 'admin',
             'last_name' => 'admin',
             'username' => 'admin',
@@ -35,7 +37,7 @@ class DatabaseSeeder extends Seeder
   
         $role->syncPermissions($permissions);
    
-        $user->assignRole([$role->id]);
+        $admin->assignRole([$role->id]);
         //======================================
         $giver = User::create([
             'first_name' => 'giver',
@@ -61,6 +63,23 @@ class DatabaseSeeder extends Seeder
 
         $role = Role::where('name','taker')->first();
         $taker->assignRole([$role->id]);
+
+        
+        try {
+            
+            DB::transaction(function() use($admin) {
+                $code = Code::where('code', 'adminCode')
+                    ->where('used', 0)    
+                    ->firstOrFail();
+                $admin->update([
+                    'code_id' => 'adminCode'
+                ]);
+                $code->update([
+                    'used' => 1
+                ]);
+            });
+        } catch (\Throwable $th) {
+        }
 
     }
 }

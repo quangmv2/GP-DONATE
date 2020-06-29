@@ -7,8 +7,11 @@
     <a href="{{ route('roles.index') }}" class="breadcrumb-item"> Roles</a>
 @endsection
 
+@section('title')
+Role Detail {{$role->show_name}}
+@endsection
 @section('screen_name')
-Role Detail
+Role Detail {{$role->show_name}}
 @endsection
 @section('content')
 <div class="card">

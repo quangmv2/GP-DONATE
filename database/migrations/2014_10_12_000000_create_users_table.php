@@ -15,14 +15,11 @@ class CreateUsersTable extends Migration
     {
 
         Schema::create('codes', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            // $table->bigIncrements('id');
+            $table->string('code')->primary()->unique();
             $table->boolean('used')->default(false);
-            $table->string('code')->unique();
             $table->timestamps();
 
-            // $table->primary(['code', 'id']);
-
-            $table->index(['id'], 'index_codes_id');
             $table->index(['code'], 'index_codes');
 
         });
@@ -35,7 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('email')->unique();
             $table->string('address')->nullable();
-            $table->unsignedBigInteger('code_id')->nullable();
+            $table->string('code_id')->nullable();
             $table->string('personal_photo')->nullable();
             $table->integer('gender');
             $table->rememberToken();
@@ -46,7 +43,7 @@ class CreateUsersTable extends Migration
             //     ->on('codes')
             //     ->onDelete('cascade');
             $table->foreign('code_id')
-                ->references('id')
+                ->references('code')
                 ->on('codes')
                 ->onDelete('set null')
                 ->onUpdate('cascade');

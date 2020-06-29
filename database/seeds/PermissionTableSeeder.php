@@ -17,45 +17,129 @@ class PermissionTableSeeder extends Seeder
         $roles = [
             [
                 'name' => 'super_admin',
-                'guard_name' => 'Super Admin'
+                'show_name' => 'Super Admin'
             ],
             [
                 'name' => 'contributor',
-                'guard_name' => 'Contributor'
+                'show_name' => 'Contributor'
             ],
             [
                 'name' => 'giver',
-                'guard_name' => 'Giver'
+                'show_name' => 'Giver'
             ],
             [
                 'name' => 'taker',
-                'guard_name' => 'Taker'
+                'show_name' => 'Taker'
             ],
         ];
 
         foreach ($roles as $key => $role) {
-            Role::create(['name' => $role["name"], 'show_name' => $role["guard_name"]]);
+            Role::create(['name' => $role["name"], 'show_name' => $role["show_name"]]);
         }
-        
+
         $permissions = [
-           'role-list',
-           'role-create',
-           'role-edit',
-           'role-delete',
-           'post-list',
-           'post-create',
-           'post-edit',
-           'post-delete',
-           'post-review',
-           'user-add',
-           'user-edit',
-           'user-list',
+            [
+                'name' => 'admin-page',
+                'show_name' => 'Access Admin Page'
+            ],
+            [
+                'name' => 'role-list',
+                'show_name' => 'List Role'
+            ],
+            [
+                'name' => 'role-create',
+                'show_name' => 'Create Role'
+            ],
+            [
+                'name' => 'role-edit',
+                'show_name' => 'Edit Role'
+            ],
+            [
+                'name' => 'role-delete',
+                'show_name' => 'Edit Role'
+            ],
+            [
+                'name' => 'post-list',
+                'show_name' => 'List Post'
+            ],
+            [
+                'name' => 'post-list-all',
+                'show_name' => 'List All Post'
+            ],
+            [
+                'name' => 'post-create',
+                'show_name' => 'Create Post'
+            ],
+            [
+                'name' => 'post-edit',
+                'show_name' => 'Edit Post'
+            ],
+            [
+                'name' => 'post-edit-all',
+                'show_name' => 'Edit All Post'
+            ],
+            [
+                'name' => 'post-delete',
+                'show_name' => 'Delete Post'
+            ],
+            [
+                'name' => 'post-delete-all',
+                'show_name' => 'Delete All Post'
+            ],
+            [
+                'name' => 'user-create',
+                'show_name' => 'Create User'
+            ],
+            [
+                'name' => 'user-edit',
+                'show_name' => 'Edit User'
+            ],
+            [
+                'name' => 'user-edit-all',
+                'show_name' => 'Edit All User'
+            ],
+            [
+                'name' => 'user-list-all',
+                'show_name' => 'List All User'
+            ],
+            [
+                'name' => 'user-delete-all',
+                'show_name' => 'Delele All User'
+            ],
+            [
+                'name' => 'hastag-create',
+                'show_name' => 'Create Hastag'
+            ],
+            [
+                'name' => 'code-create',
+                'show_name' => 'Create Code Invitation'
+            ],
+            [
+                'name' => 'code-edit',
+                'show_name' => 'Edit Code Invitation'
+            ],
+            [
+                'name' => 'code-delete',
+                'show_name' => 'Delete Code Invitation'
+            ],
+            [
+                'name' => 'code-send',
+                'show_name' => 'Send Code Invitation'
+            ],
+            [
+                'name' => 'like-post',
+                'show_name' => 'Like Post'
+            ],
+            [
+                'name' => 'comment-post',
+                'show_name' => 'Comment Post'
+            ],
         ];
 
         $role = Role::findByName('super_admin');
 
         foreach ($permissions as $permission) {
-             $permiss = Permission::create(['name' => $permission]);
+             $permiss = Permission::create(['name' => $permission['name'], 'show_name' => $permission['show_name']]);
              $role->givePermissionTo($permiss);
         }
         

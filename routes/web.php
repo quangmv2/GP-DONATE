@@ -21,19 +21,18 @@ Route::get('/client/{any}', function ($any) {
 })->where('any', '.*');
 
 //Router for administrator 
-Route::prefix('admin')->group(function(){
-    // Route::redirect('/', 'admin/home');
+
+Route::group(['prefix' => 'admin'], function () {
     Auth::routes();
-    Route::get('/', 'HomeController@index');
-    Route::get('/home', 'HomeController@index')->name('home');
+    
     Route::get('logout', 'Auth\LoginController@logout');
 
-    Route::group(['middleware' => ['auth', 'role:super_admin']], function() {
+    Route::group(['middleware' => ['auth', 'auth', 'permission:admin-page']], function() {
+        Route::get('/', 'HomeController@index');
+        Route::get('/home', 'HomeController@index')->name('home');
         Route::resource('roles','RoleController');
         Route::resource('users','UserController');
         Route::resource('posts','PostController');
         Route::get('users-list','UserController@list');
-    });
-
+    });    
 });
-
