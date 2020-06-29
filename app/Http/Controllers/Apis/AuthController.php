@@ -29,7 +29,6 @@ class AuthController extends Controller
 
     public function register(Request $req){
 
-        // $roles = ["", "giver"];
 
         $this->validate($req, [
             'first_name' => 'required',
@@ -43,17 +42,13 @@ class AuthController extends Controller
 
 
         $input = $req->all();
-        // return $input;
         $input['password'] = Hash::make($input['password']);
-
 
         $user = User::create($input);
         $user->assignRole($input['role']);
 
-
-        return $user;
-        $permissions = Permission::pluck('id','id')->all();
-        return $permissions;
+        $oClient = OClient::where('password_client', 1)->first();
+        return $this->getTokenAndRefreshToken($oClient, $user->username, $req->password);
    }
 
     /*
