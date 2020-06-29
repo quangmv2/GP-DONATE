@@ -1,0 +1,14 @@
+@import "assets/css/variables";
+
+.ant-datepicker-custom {
+  width: 100%;
+
+  .ant-input {
+    height: 40px;
+    font-size: 14px;
+  }
+  .ant-input-disabled {
+    border: solid 1px #b0b0b9;
+    color: #000000;
+  }
+}

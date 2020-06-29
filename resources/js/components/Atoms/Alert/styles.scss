@@ -1,0 +1,23 @@
+.alert-success {
+  span {
+    color: #2ccb56;
+  }
+}
+.alert-error {
+  span {
+    color: #ff0433;
+  }
+}
+div.ant-alert {
+  padding: 15px 15px 15px 50px;
+  margin-bottom: 10px;
+  .anticon {
+    &.ant-alert-icon {
+      top: 12px;
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}

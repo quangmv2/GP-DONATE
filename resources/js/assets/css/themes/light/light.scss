@@ -8,7 +8,8 @@
   --body-background: #ffffff;
   --component-background: #ffffff;
   --component-background-hover: #e6f7ff;
-  --layout-header-background: #fff;
+  --component-background-blur: #fafafa;
+  --layout-header-background: #509ee2;
   --layout-body-background: #f0f2f5;
   --border-color-base: #d9d9d9;
   --border-color-split: #f0f0f0;
@@ -26,4 +27,6 @@
   --text-color-inverse: #ffffff;
   --text-color-table-header: #262626;
   --text-color-table-hover: #262626;
+  --text-layout-header-color: rgba(255, 255, 255);
+  --text-layout-header-color-hover: rgba(255, 255, 255);
 }

@@ -1,0 +1,19 @@
+@import "assets/css/variables";
+.select-custom.ant-select-disabled .ant-select-selection {
+  border: solid 1px #b0b0b9;
+  color: #000000;
+}
+
+.ant-select-selection-selected-value {
+  white-space: pre !important;
+}
+
+.ant-select-dropdown-menu-item {
+  white-space: pre;
+}
+
+.select-item-custom {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
