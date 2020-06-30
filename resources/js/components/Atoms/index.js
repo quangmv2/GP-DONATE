@@ -2,6 +2,9 @@ import DataTable from "./DataTable";
 import LinkEnhance from "./LinkEnhance";
 import Input from "./Input";
 
+import SignInBackground from "./AuthBackground/SignInBackground";
+import FilledButton from "./AuthButton/FilledButton";
+
 export * from "./Alert";
 export * from "./Badge";
 export * from "./BreadcrumbAnt";
@@ -25,4 +28,4 @@ export * from "./TooltipAnt";
 export * from "./TreeAnt";
 export * from "./TreeTable";
 
-export { DataTable, LinkEnhance, Input };
+export { DataTable, LinkEnhance, Input, SignInBackground, FilledButton };

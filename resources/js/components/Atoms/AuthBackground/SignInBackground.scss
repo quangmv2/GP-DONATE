@@ -1,32 +1,29 @@
 .bgImage {
-    background-image: url(../../../../../public/images/background.png);
+    background-image: url(/images/background.png);
     background-repeat: no-repeat;
     width: 100%;
-    height: 178.15px; 
-    margin-top: 117px;
-    }
-    .text1 {
-        margin-left: 50px;
-        padding-top: 54px;
-        font-family: Muli;
-font-style: normal;
-font-weight: bold;
-font-size: 40px;
-line-height: 50px;
+    height: 178.15px;
+}
+.text1 {
+    margin-left: 50px;
+    padding-top: 54px;
+    font-family: Muli;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 50px;
 
-color: #081F47;
-        }
-        .text2 {
-        margin-left: 50px;
-        margin-top: -40px;
-        font-family: Muli;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 25px;
-        /* identical to box height */
-        
-        
-        color: #081F47;
-        }
-    
+    color: #081f47;
+}
+.text2 {
+    margin-left: 50px;
+    margin-top: -40px;
+    font-family: Muli;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    /* identical to box height */
+
+    color: #081f47;
+}

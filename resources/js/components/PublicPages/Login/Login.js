@@ -11,7 +11,7 @@ import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
 import { URL_REDIRECT_LOGIN, ROUTE } from "constants";
 import { postLogin } from "modules/auth/actions";
-import SignInBacground from "../../Atoms/AuthBackground/SignInBackground";
+import SignInBackground from "../../Atoms/AuthBackground/SignInBackground";
 import {
     selectIsLogged,
     selectErrors,
@@ -23,32 +23,34 @@ import { isEmptyString } from "helpers";
 import { isEmpty } from "lodash";
 import "./login.scss";
 import { Formik } from "formik";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
 import userIcon from "../../../../../public/images/user-icon.png";
 import FilledButton from "../../Atoms/AuthButton/FilledButton";
 import BottomText from "../../Atoms/AuthButton/BottomText";
 import signInFields from "./signInFields";
 
-
 export class Login extends Component {
-    
     renderFields() {
-        return _.map(signInFields, ({label, icon, type}) => {
-          return (
-            <div className='formContainer'>
-            <p className='label'>{label}</p>
-      <div class="inputContainer">
-       <img className='formIcon' src={userIcon}/>
-        <div class="textInput"> <input className='input' type={type} /> </div>
-      
-      <hr className='borderInput'/>
-      </div>
-            </div>
-            
-          
-          )
-        })
-      };
+        return _.map(signInFields, ({ label, icon, type }) => {
+            return (
+                <div className="formContainer">
+                    <p className="label">{label}</p>
+                    <div class="inputContainer">
+                        <img className="formIcon" src={userIcon} />
+                        <div class="textInput">
+                            {" "}
+                            <input className="input" type={type} />{" "}
+                        </div>
+
+                        <hr className="borderInput" />
+                    </div>
+                </div>
+            );
+        });
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -112,7 +114,6 @@ export class Login extends Component {
     />
     </div>
             </div>
-           
         );
     }
 }

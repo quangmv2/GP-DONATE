@@ -1,0 +1,39 @@
+.MuiGrid-root.item-flex {
+    flex: 1;
+    > div {
+        width: 100%;
+    }
+}
+p.MuiFormHelperText-root.Mui-error,
+p.MuiFormHelperText-root {
+    position: absolute;
+    bottom: -25px;
+}
+
+div.form-control {
+    margin-bottom: 25px;
+}
+.input-with-icon {
+    position: relative;
+    .MuiInput-formControl {
+        padding-left: 35px;
+    }
+
+    .MuiInputLabel-formControl {
+        left: 35px;
+        text-transform: uppercase;
+        font-weight: 300;
+    }
+
+    .MuiSvgIcon-root {
+        position: absolute;
+        left: 3px;
+        bottom: 12px;
+    }
+
+    .MuiInputLabel-shrink {
+        text-transform: uppercase;
+        transform: translate(0, 1.5px);
+        font-weight: 300;
+    }
+}

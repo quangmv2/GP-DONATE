@@ -37,14 +37,8 @@ class PublicLayout extends Component {
 
     render() {
         const { children, language } = this.props;
-
         const currentLanguage = listLang.find(l => l.lang === language);
-        return (
-          
-                
-                <div>{children}</div>
-           
-        );
+        return <div>{children}</div>;
     }
 }
 
