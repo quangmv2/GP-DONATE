@@ -8,13 +8,139 @@
     border-color: var(--border-color-base);
     background: var(--component-background);
 }
+.label {
+    padding-left: 35px;
+margin-top: 25px;
+font-family: Muli;
+font-style: normal;
+font-weight: 500;
+font-size: 13px;
+line-height: 16px;
+color: #91969E;
+}
 
 .logo-login-wrapper {
     display: flex;
 
-    .icon {
-        font-size: 80px;
-        margin-left: -15px;
-        color: #509ee2;
-    }
+    
 }
+.inputContainer {
+    margin-top: -15px;
+}
+ .borderInput {
+ border-color: #262626;
+    border-bottom-width: 1px;
+   border-top-width: 0px;
+
+}
+.textInput {
+   margin-top: -20px;
+    margin-left: 21px;
+  }
+ 
+
+  .formFields {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 69px;
+}
+.input{
+    border-width:0px;
+    border:none;
+}
+*:focus {
+    outline: none;
+    color: #777777;
+}
+*:active {
+    outline: none;
+   color: #777777;
+}
+.formIcon {
+    width: 13px;
+    height: 16px;
+    margin-top: 3px;
+}
+.fg-pw-text { 
+margin-top: 20px;
+margin-left: 50px;
+font-family: Muli;
+font-style: normal;
+font-weight: normal;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+
+color: #777777;
+}
+.buttonContainer {
+    width: 294px;
+    background-color: #DDAE53;
+    border-radius: 37.5px;
+    text-align: center;
+    height: 60px;
+    font-weight: bold;
+    font-family: Muli;
+    font-style: normal;
+    border: none;
+    color: #ffffff;
+    font-stretch: normal;
+    line-height: 1.44px;
+}
+.bottomText {
+            
+    text-align: center;
+    font-family: Muli;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height */
+    
+    color: #777777;
+}
+.bottomLink {
+        color: #081F47;
+font-family: Muli;
+font-style: normal;
+font-weight: bold;
+font-size: 16px;
+line-height: 20px;
+ 
+}
+.filledButton {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 96px;
+    
+   }
+   .bottomTextContainer {
+       margin-top: 30px;
+   }
+   .text1 {
+    margin-left: 50px;
+    padding-top: 54px;
+    font-family: Muli;
+font-style: normal;
+font-weight: bold;
+font-size: 40px;
+line-height: 50px;
+color: #081F47;
+    }
+    .text2 {
+    margin-left: 50px;
+    margin-top: -40px;
+    font-family: Muli;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 25px;
+    /* identical to box height */
+    
+    
+    color: #081F47;
+    }
+   

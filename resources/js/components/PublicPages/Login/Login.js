@@ -11,7 +11,7 @@ import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
 import { URL_REDIRECT_LOGIN, ROUTE } from "constants";
 import { postLogin } from "modules/auth/actions";
-
+import SignInBacground from "../../Atoms/AuthBackground/SignInBackground";
 import {
     selectIsLogged,
     selectErrors,
@@ -24,7 +24,31 @@ import { isEmpty } from "lodash";
 import "./login.scss";
 import { Formik } from "formik";
 
+import userIcon from "../../../../../public/images/user-icon.png";
+import FilledButton from "../../Atoms/AuthButton/FilledButton";
+import BottomText from "../../Atoms/AuthButton/BottomText";
+import signInFields from "./signInFields";
+
+
 export class Login extends Component {
+    
+    renderFields() {
+        return _.map(signInFields, ({label, icon, type}) => {
+          return (
+            <div className='formContainer'>
+            <p className='label'>{label}</p>
+      <div class="inputContainer">
+       <img className='formIcon' src={userIcon}/>
+        <div class="textInput"> <input className='input' type={type} /> </div>
+      
+      <hr className='borderInput'/>
+      </div>
+            </div>
+            
+          
+          )
+        })
+      };
     constructor(props) {
         super(props);
         this.state = {
@@ -66,132 +90,29 @@ export class Login extends Component {
 
         return (
             <div className="container ">
-                <div className="ant-col-lg-24">
-                    <div className="full-height-screen flex-center">
-                        <div className="form--sign-in">
-                            <>
-                                <div className="logo-login-wrapper big-text text-center">
-                                    <span className="icon icon-pad-lock"></span>
-                                    <Image src={`assets/images/logo.svg`} />
-                                </div>
-                                <div className="custom-alert">
-                                    {!isEmpty(errors.message) && (
-                                        <Alert
-                                            content={{
-                                                status: "error",
-                                                message: errors.message
-                                            }}
-                                        />
-                                    )}
-                                </div>
-                                <Formik
-                                    initialValues={{
-                                        username: "",
-                                        password: "",
-                                        passchange: ""
-                                    }}
-                                    layout="vertical"
-                                    validate={values => {
-                                        const errors = {};
-                                        if (!values.username) {
-                                            errors.username = "Required";
-                                        } else if (
-                                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                                                values.username
-                                            )
-                                        ) {
-                                            errors.username =
-                                                "Invalid email address";
-                                        }
-
-                                        if (!values.password) {
-                                            errors.password = "Required";
-                                        }
-
-                                        return errors;
-                                    }}
-                                    onSubmit={this.onSubmit}
-                                >
-                                    {({
-                                        values,
-                                        errors,
-                                        touched,
-                                        handleChange,
-                                        //handleBlur,
-                                        handleSubmit,
-                                        isSubmitting
-                                        /* and other goodies */
-                                    }) => (
-                                        <form
-                                            onSubmit={handleSubmit}
-                                            layout="vertical"
-                                        >
-                                            <>
-                                                <Input
-                                                    errors={errors.username}
-                                                    touched={touched.username}
-                                                    label="common.email"
-                                                    name="username"
-                                                    onChange={handleChange}
-                                                    onPressEnter={handleSubmit}
-                                                    placeholder="common.email"
-                                                    type="text"
-                                                    value={values.username}
-                                                    disabled={
-                                                        loading || isSubmitting
-                                                    }
-                                                />
-                                                <Input
-                                                    errors={errors.password}
-                                                    touched={touched.password}
-                                                    label={"common.password"}
-                                                    name="password"
-                                                    onChange={handleChange}
-                                                    onPressEnter={handleSubmit}
-                                                    placeholder="common.password"
-                                                    showIconPassword
-                                                    type="password"
-                                                    value={values.password}
-                                                    disabled={
-                                                        loading || isSubmitting
-                                                    }
-                                                />
-                                            </>
-                                            <div className="form-control">
-                                                <ButtonAnt
-                                                    className="custom-button-login btn-block btn-round btn-red"
-                                                    disabled={
-                                                        loading || isSubmitting
-                                                    }
-                                                    id="login-btn"
-                                                    loading={
-                                                        loading || isSubmitting
-                                                    }
-                                                    name="login-btn"
-                                                    onClick={handleSubmit}
-                                                    type="primary"
-                                                >
-                                                    <FormattedMessage
-                                                        defaultMessage={
-                                                            "loginPage.login"
-                                                        }
-                                                        id={"loginPage.login"}
-                                                    />
-                                                </ButtonAnt>
-                                            </div>
-                                        </form>
-                                    )}
-                                </Formik>
-
-                                <LinkEnhance
-                                    title="loginPage.forgotPassword"
-                                    url={ROUTE.FORGOT_PASSWORD}
-                                />
-                            </>
-                        </div>
-                    </div>
-                </div>
+                    <SignInBacground>
+                    <p className='text1'>Sign In</p>
+                    <p className='text2'>To keep connected with us</p>
+                    </SignInBacground>
+                    <div className='formFields'>
+          {this.renderFields()}
+          </div>
+          <a  href='/forgot-password'><p className='fg-pw-text'>Forgot your password?</p></a>
+          <div className='filledButton'>
+               <FilledButton
+               href='/signup' 
+               buttonContainer=' Sign In'
+               />
+               </div>
+               <div className='bottomTextContainer'>
+    <BottomText 
+    text='Im a newbie'
+    linkContent='Sign Up'
+    href='/signup'
+    />
+    </div>
             </div>
+           
         );
     }
 }

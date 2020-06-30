@@ -40,24 +40,10 @@ class PublicLayout extends Component {
 
         const currentLanguage = listLang.find(l => l.lang === language);
         return (
-            <Layout theme="light">
-                <div className="header-public">
-                    <div className="header-public__logo">
-                        <Image
-                            className="ml-20"
-                            src={
-                                process.env.PUBLIC_URL +
-                                "/assets/images/logo/original.png"
-                            }
-                        />
-                    </div>
-
-                    <div className="header-public__right">
-                        <MenuLanguage />
-                    </div>
-                </div>
+          
+                
                 <div>{children}</div>
-            </Layout>
+           
         );
     }
 }
