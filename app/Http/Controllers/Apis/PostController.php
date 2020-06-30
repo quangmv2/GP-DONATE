@@ -187,7 +187,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $post = new Post();
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->photo_thumbnail = $request->photo_thumbnail;
+        $post->full_photo = $request->full_photo;
+        $post->user_id = $request->user_id;
+        $post->save();
+
+       return reponse()->json($post);
     }
 
 
@@ -200,6 +208,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        return response()->json(Post::FindOrFail($id));
     }
 
 
@@ -212,6 +221,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+
     }
 
 
@@ -225,7 +235,15 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $post = Post::findOrFail($id);
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->photo_thumbnail = $request->photo_thumbnail;
+        $post->full_photo = $request->full_photo;
+        $post->user_id = $request->user_id;
+        $post->save();
 
+        return reponse()->json($post);
     }
 
 
@@ -238,6 +256,9 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return new PostResource($post);
     }
 
 }

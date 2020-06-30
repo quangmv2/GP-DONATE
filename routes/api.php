@@ -29,7 +29,9 @@ Route::group(['prefix' => 'oauth'], function () {
 Route::apiResources([
     'user' => 'Apis\UserController',
     'posts'=> 'Apis\PostController'
+    
 ]);
+
 
 Route::group(['prefix' => 'user'], function () {
     Route::post('me/code-invitation', 'Apis\UserController@codeInvitation');
