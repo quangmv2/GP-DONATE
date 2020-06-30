@@ -11,7 +11,7 @@ import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
 import { URL_REDIRECT_LOGIN, ROUTE } from "constants";
 import { postLogin } from "modules/auth/actions";
-import SignInBacground from "../../Atoms/AuthBackground/SignInBackground";
+import SignInBackground from "../../Atoms/AuthBackground/SignInBackground";
 import {
     selectIsLogged,
     selectErrors,
@@ -23,32 +23,34 @@ import { isEmptyString } from "helpers";
 import { isEmpty } from "lodash";
 import "./login.scss";
 import { Formik } from "formik";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
 import userIcon from "../../../../../public/images/user-icon.png";
 import FilledButton from "../../Atoms/AuthButton/FilledButton";
 import BottomText from "../../Atoms/AuthButton/BottomText";
 import signInFields from "./signInFields";
 
-
 export class Login extends Component {
-    
     renderFields() {
-        return _.map(signInFields, ({label, icon, type}) => {
-          return (
-            <div className='formContainer'>
-            <p className='label'>{label}</p>
-      <div class="inputContainer">
-       <img className='formIcon' src={userIcon}/>
-        <div class="textInput"> <input className='input' type={type} /> </div>
-      
-      <hr className='borderInput'/>
-      </div>
-            </div>
-            
-          
-          )
-        })
-      };
+        return _.map(signInFields, ({ label, icon, type }) => {
+            return (
+                <div className="formContainer">
+                    <p className="label">{label}</p>
+                    <div class="inputContainer">
+                        <img className="formIcon" src={userIcon} />
+                        <div class="textInput">
+                            {" "}
+                            <input className="input" type={type} />{" "}
+                        </div>
+
+                        <hr className="borderInput" />
+                    </div>
+                </div>
+            );
+        });
+    }
     constructor(props) {
         super(props);
         this.state = {
@@ -89,30 +91,166 @@ export class Login extends Component {
         const { errors, loading } = this.props;
 
         return (
-            <div className="container ">
-                    <SignInBacground>
-                    <p className='text1'>Sign In</p>
-                    <p className='text2'>To keep connected with us</p>
-                    </SignInBacground>
-                    <div className='formFields'>
-          {this.renderFields()}
-          </div>
-          <a  href='/forgot-password'><p className='fg-pw-text'>Forgot your password?</p></a>
-          <div className='filledButton'>
-               <FilledButton
-               href='/signup' 
-               buttonContainer=' Sign In'
-               />
-               </div>
-               <div className='bottomTextContainer'>
-    <BottomText 
-    text='Im a newbie'
-    linkContent='Sign Up'
-    href='/signup'
-    />
-    </div>
+            <div class="fullheight-wrapper flex-center">
+                <div className="container ">
+                    <SignInBackground>
+                        <p className="text1">Sign In</p>
+                        <p className="text2">To keep connected with us</p>
+                    </SignInBackground>
+                    <div className="formFields">
+                        {/* {this.renderFields()} */}
+                        <Formik
+                            initialValues={{
+                                username: "",
+                                password: "",
+                                passchange: ""
+                            }}
+                            layout="vertical"
+                            validate={values => {
+                                const errors = {};
+                                if (!values.username) {
+                                    errors.username = "Required";
+                                } else if (
+                                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+                                        values.username
+                                    )
+                                ) {
+                                    errors.username = "Invalid email address";
+                                }
+
+                                if (!values.password) {
+                                    errors.password = "Required";
+                                }
+
+                                return errors;
+                            }}
+                            onSubmit={this.onSubmit}
+                        >
+                            {({
+                                values,
+                                errors,
+                                touched,
+                                handleChange,
+                                //handleBlur,
+                                handleSubmit,
+                                isSubmitting
+                                /* and other goodies */
+                            }) => (
+                                <form onSubmit={handleSubmit} layout="vertical">
+                                    <>
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
+                                            <Grid
+                                                item
+                                                className="item-flex input-with-icon"
+                                            >
+                                                <AccountCircle />
+                                                <TextField
+                                                    error={
+                                                        errors.username &&
+                                                        touched.username
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="common.email"
+                                                            defaultMessage="common.email"
+                                                        />
+                                                    }
+                                                    value={values.username}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    helperText={
+                                                        touched.username
+                                                            ? errors.username
+                                                            : ""
+                                                    }
+                                                    name="username"
+                                                />
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
+                                            <Grid
+                                                item
+                                                className="item-flex input-with-icon"
+                                            >
+                                                <AccountCircle />
+                                                <TextField
+                                                    error={
+                                                        errors.password &&
+                                                        touched.password
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="common.password"
+                                                            defaultMessage="common.password"
+                                                        />
+                                                    }
+                                                    value={values.password}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    helperText={
+                                                        touched.password
+                                                            ? errors.password
+                                                            : ""
+                                                    }
+                                                    name="password"
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </>
+                                    <a href="/forgot-password">
+                                        <p className="">
+                                            Forgot your password?
+                                        </p>
+                                    </a>
+                                    <div className="form-control filledButton">
+                                        <ButtonAnt
+                                            className="custom-button-login btn-block btn-round btn-red buttonContainer"
+                                            disabled={loading || isSubmitting}
+                                            id="login-btn"
+                                            loading={loading || isSubmitting}
+                                            name="login-btn"
+                                            onClick={handleSubmit}
+                                            type="primary"
+                                        >
+                                            <FormattedMessage
+                                                defaultMessage={
+                                                    "loginPage.login"
+                                                }
+                                                id={"loginPage.login"}
+                                            />
+                                        </ButtonAnt>
+                                    </div>
+
+                                    <div className="bottomTextContainer">
+                                        <BottomText
+                                            text="Im a newbie"
+                                            linkContent="Sign Up"
+                                            href="/signup"
+                                        />
+                                    </div>
+                                </form>
+                            )}
+                        </Formik>
+                    </div>
+                </div>
             </div>
-           
         );
     }
 }
