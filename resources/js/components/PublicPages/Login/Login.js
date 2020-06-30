@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -98,12 +98,12 @@ export class Login extends Component {
           {this.renderFields()}
           </div>
           <a  href='/forgot-password'><p className='fg-pw-text'>Forgot your password?</p></a>
-          <div className='filledButton'>
+          <Link to='/signup' className='filledButton'>
                <FilledButton
-               href='/signup' 
+              
                buttonContainer=' Sign In'
                />
-               </div>
+               </Link>
                <div className='bottomTextContainer'>
     <BottomText 
     text='Im a newbie'

@@ -1,7 +1,7 @@
 import React from 'react';
 import SignInBackground from '../../Atoms/AuthBackground/SignInBackground';
 import userIcon from '../../../../../public/images/user-icon.png';
-
+import { Link }from 'react-router-dom';
 import FilledButton from '../../Atoms/AuthButton/FilledButton';
 import OutlineButton from '../../Atoms/AuthButton/OutlineButton';
 import BottomText from "../../Atoms/AuthButton/BottomText";
@@ -49,11 +49,13 @@ export class InputCode extends React.Component{
                />
           </div> 
           <div className='bottomTextContainer'>
+  <Link to='/'>        
     <BottomText 
-    href='/'
+    //href='/'
     text='Already onboard'
     linkContent='  Sign In'
     />
+    </Link>
     </div>
           </div>
     )
