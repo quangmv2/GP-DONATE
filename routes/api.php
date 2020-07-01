@@ -31,7 +31,8 @@ Route::apiResources([
     'posts'=> 'Apis\PostController'
     
 ]);
-
+Route::get('photos/show', 'Apis\PostController@uploadForm');
+Route::post('photos/create', 'Apis\PostController@storePhoto');
 
 Route::group(['prefix' => 'user'], function () {
     Route::post('me/code-invitation', 'Apis\UserController@codeInvitation');

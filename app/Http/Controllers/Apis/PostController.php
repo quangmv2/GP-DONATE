@@ -79,7 +79,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        return 1;
+       
         $order = $request->input('order')? $request->input('order') : 'created_at';
         $length = $request->input('length');
         $start = $request->input('start');
@@ -187,11 +187,25 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' =>'required',
+            'content' =>'required',  
+            'hashtags' =>'required',
+            'user_id' =>'required',
+        ]);
+
+        $image = $request->file('image');
+
+        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/images');
+        $image->move($destinationPath, $input['imagename']);
+
         $post = new Post();
+     
         $post->title = $request->title;
         $post->content = $request->content;
-        $post->photo_thumbnail = $request->photo_thumbnail;
-        $post->full_photo = $request->full_photo;
+
+        $post->hashtags = $request->hashtags;
         $post->user_id = $request->user_id;
         $post->save();
 
@@ -235,12 +249,20 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $validatedData = $request->validate([
+            'title' =>'required',
+            'content' =>'required',
+            'photo_thumbnail' =>'required',
+            'full_photo' =>'required',
+            'hashtags' =>'required',
+            'useruser_id' =>'required',
+        ]);
         $post = Post::findOrFail($id);
         $post->title = $request->title;
         $post->content = $request->content;
         $post->photo_thumbnail = $request->photo_thumbnail;
         $post->full_photo = $request->full_photo;
-        $post->user_id = $request->user_id;
+        $post->user()->id = $request->user()->id;
         $post->save();
 
         return reponse()->json($post);
@@ -254,11 +276,38 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
         $post = Post::findOrFail($id);
         $post->delete();
-        return new PostResource($post);
+        return reponse()->json($post);
     }
 
+
+    public function storePhoto(Request $request)
+    {
+        $request->validate([
+            'photo_thumbnail' =>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'full_photo' =>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]); 
+        $image = $request->file('image');
+        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/images');
+        $image->move($destinationPath, $input['imagename']);
+        $post = new Post();
+        $post->photo_thumbnail = $request->photo_thumbnail;
+        $post->full_photo = $request->full_photo;
+
+        return response()->json(['messeger' => 'success'], 201);
+    }
+
+    public function uploadForm(Request $request)
+    {
+        $post = new Post();
+        $post->photo_thumbnail = $input['imagename'];
+        $post->full_photo = $input['imagename'];
+
+        return response()->json(['messeger'=> $post], 200);
+    }
+    
 }

@@ -27,6 +27,7 @@ class Post extends Model
     	return $this->hasOne(User::class, 'user_id', 'id');
     }
 
+
     // public function hastags()
     // {
     //     return $this->(Hastag::class, 'post_id', 'id');
