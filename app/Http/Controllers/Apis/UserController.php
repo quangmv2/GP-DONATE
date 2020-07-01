@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Code;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\User;
+
 class UserController extends Controller
 {
 
@@ -43,11 +45,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $req)
+    public function show(Request $req, $id)
     {
-        return response()->json([
-            $req->user()
-        ], 200);
+        if ($id == 'me')
+            return response()->json(json_decode($req->user()), 200);
+        // return $id;
+        $user = User::findOrFail($id);
+        return response()->json(json_decode($user), 200);
     }
 
     /**

@@ -14,6 +14,10 @@ use App\Services\CommonService;
 
 class PostController extends Controller
 { 
+    function __construct(){
+        $this->middleware('auth:api');
+    }
+
     /**
      * @SWG\Get(
      *     path="/api/posts",
@@ -190,26 +194,24 @@ class PostController extends Controller
         $request->validate([
             'title' =>'required',
             'content' =>'required',  
-            'hashtags' =>'required',
-            'user_id' =>'required',
+            'photo_thumbnail' => 'required',
+            'full_photo' => 'required',
+            'due_day' => 'required|date'
+            // 'hashtags' =>'required',
         ]);
 
         $image = $request->file('image');
 
-        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-        $destinationPath = public_path('/images');
-        $image->move($destinationPath, $input['imagename']);
-
         $post = new Post();
-     
         $post->title = $request->title;
         $post->content = $request->content;
-
-        $post->hashtags = $request->hashtags;
-        $post->user_id = $request->user_id;
+        $post->photo_thumbnail = $request->photo_thumbnail;
+        $post->full_photo = $request->full_photo;
+        $post->due_day = $request->due_day;
+        $post->user_id = $request->user()->id;
         $post->save();
 
-       return reponse()->json($post);
+       return response()->json(json_decode($post), 201);
     }
 
 
@@ -220,9 +222,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        return response()->json(Post::FindOrFail($id));
+        return response()->json(Post::FindOrFail($id)->user);
     }
 
 
@@ -247,25 +249,24 @@ class PostController extends Controller
      * @param  \App\Product  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
+        $post = Post::findOrFail($id);
+        if ($post->user_id != $request->user()->id) return response()->json(['message' => 'FORBIDDEN'], 403);
         $validatedData = $request->validate([
             'title' =>'required',
             'content' =>'required',
             'photo_thumbnail' =>'required',
             'full_photo' =>'required',
-            'hashtags' =>'required',
-            'useruser_id' =>'required',
+            'due_day' => 'required|date'
         ]);
-        $post = Post::findOrFail($id);
         $post->title = $request->title;
         $post->content = $request->content;
         $post->photo_thumbnail = $request->photo_thumbnail;
         $post->full_photo = $request->full_photo;
-        $post->user()->id = $request->user()->id;
         $post->save();
 
-        return reponse()->json($post);
+        return response()->json(json_decode($post), 200);
     }
 
 
@@ -276,38 +277,28 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $post = Post::findOrFail($id);
+        if ($post->user_id != $request->user()->id) return response()->json(['message' => 'FORBIDDEN'], 403);
         $post->delete();
-        return reponse()->json($post);
+        return response()->json(["message" => "success"], 200);
     }
 
 
     public function storePhoto(Request $request)
     {
         $request->validate([
-            'photo_thumbnail' =>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'full_photo' =>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'photo' =>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]); 
         $image = $request->file('image');
         $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
         $destinationPath = public_path('/images');
         $image->move($destinationPath, $input['imagename']);
-        $post = new Post();
-        $post->photo_thumbnail = $request->photo_thumbnail;
+        $photo_thumbnail = $request->photo_thumbnail;
         $post->full_photo = $request->full_photo;
 
         return response()->json(['messeger' => 'success'], 201);
-    }
-
-    public function uploadForm(Request $request)
-    {
-        $post = new Post();
-        $post->photo_thumbnail = $input['imagename'];
-        $post->full_photo = $input['imagename'];
-
-        return response()->json(['messeger'=> $post], 200);
     }
     
 }

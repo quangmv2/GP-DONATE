@@ -29,7 +29,6 @@ Route::group(['prefix' => 'oauth'], function () {
 Route::apiResources([
     'user' => 'Apis\UserController',
     'posts'=> 'Apis\PostController'
-    
 ]);
 Route::get('photos/show', 'Apis\PostController@uploadForm');
 Route::post('photos/create', 'Apis\PostController@storePhoto');
