@@ -8,6 +8,7 @@
   --body-background: #000000;
   --component-background: #141414;
   --component-background-hover: #4c4c4c;
+  --component-background-blur: #1d1d1d;
   --layout-header-background: #141414;
   --layout-body-background: #000;
   --border-color-base: #434343;
@@ -26,4 +27,6 @@
   --text-color-inverse: #ffffff;
   --text-color-table-header: #ffffff;
   --text-color-table-hover: #262626;
+  --text-layout-header-color: var(--text-color);
+  --text-layout-header-color-hover: #1890ff;
 }

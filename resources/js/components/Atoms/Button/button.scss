@@ -1,0 +1,14 @@
+.ant-btn.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {
+  padding: 0;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.wrapper-btn {
+  i {
+    margin-right: 10px;
+  }
+}
+
+.tripto-btn {
+  min-height: var(--input-height);
+}

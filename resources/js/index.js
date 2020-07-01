@@ -2,20 +2,38 @@ import "react-app-polyfill/ie11";
 import "react-app-polyfill/stable";
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./core/App";
+import { flatten } from "lodash";
+import { Provider } from "react-redux";
+import { createBrowserHistory } from "history";
+import RouterContainer from "./core/router-container/RouterContainer";
+import configureStore from "./redux/configureStore";
+import privateRoutes from "./router/private";
+import publicRoutes from "./router/public";
+// import * as serviceWorker from "./serviceWorker";
+import { ConnectedRouter } from "connected-react-router";
+// import App from "./App";
+const initialState = {};
+const history = createBrowserHistory({
+    // basename: "/" // config for base directory
+});
+const store = configureStore(initialState, history);
 
-import "framework7/css/framework7.bundle.css";
-import "assets/css/global.scss";
+// ReactDOM.render(<App />, document.getElementById("root"));
 
-// Import Framework7 Core
-import Framework7 from "framework7/framework7-lite.esm.bundle.js";
+ReactDOM.render(
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
+            <RouterContainer
+                history={history}
+                publicRoutes={flatten(publicRoutes)}
+                privateRoutes={flatten(privateRoutes)}
+            />
+        </ConnectedRouter>
+    </Provider>,
+    document.getElementById("root")
+);
 
-// Import Framework7 React
-import Framework7React from "framework7-react";
-
-// Init plugin
-Framework7.use(Framework7React);
-
-if (document.getElementById("root")) {
-    ReactDOM.render(<App />, document.getElementById("root"));
-}
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+// serviceWorker.unregister();

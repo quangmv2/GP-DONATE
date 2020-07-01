@@ -1,0 +1,86 @@
+@import "assets/css/variables.scss";
+
+.wrapper-upload {
+  &__label {
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.54;
+    letter-spacing: normal;
+    color: #000000;
+    margin-bottom: 3px;
+  }
+}
+
+.avatar-uploader > .ant-upload.ant-upload-drag {
+  width: 134px;
+  height: 128px;
+  text-align: left;
+  background: unset;
+  border: unset;
+  .ant-upload-btn {
+    padding: unset;
+  }
+  .avatar-close {
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    color: white;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.upload-button-custom {
+  display: flex;
+  flex-direction: column;
+
+  .upload-icon {
+    font-size: 21px;
+  }
+
+  .upload_your_photo {
+    color: #787879;
+  }
+
+  .upload_dnd {
+    font-size: 16px;
+    color: #535354;
+  }
+
+  .upload_browse_text {
+  }
+}
+
+.avatar-custom {
+  // width: 120px;
+  width: 100%;
+  height: 120px;
+  border-radius: 4px;
+}
+
+.avatar-bound {
+  width: 100%;
+  height: 20px;
+  opacity: 0.6;
+  background-color: #000000;
+  position: absolute;
+  bottom: 4px;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.upload-drag-custom {
+  > .ant-upload.ant-upload-drag {
+    height: 120px;
+  }
+}
+.avatar-uploader {
+  > .ant-upload.ant-upload-drag .ant-upload {
+    padding: 0;
+  }
+}

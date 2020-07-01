@@ -1,0 +1,21 @@
+.ant-input,
+.ant-input-affix-wrapper {
+  background: transparent;
+  border-color: var(--border-color-base);
+  color: var(--text-color);
+}
+
+.has-error {
+  .ant-input,
+  .ant-input-affix-wrapper .ant-input {
+    background-color: transparent;
+  }
+}
+
+.checkbox-wrapper {
+  margin-bottom: 13px;
+}
+
+.ant-checkbox-wrapper {
+  color: rgba(0, 0, 0, 1);
+}

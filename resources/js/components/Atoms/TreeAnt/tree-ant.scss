@@ -1,0 +1,24 @@
+.tree-node {
+  .anticon-minus-square {
+    background: #00b8f5;
+    svg {
+      color: #ffff;
+    }
+    svg > path:nth-child(2) {
+      color: #00b8f5;
+    }
+  }
+  .ant-tree-node-content-wrapper-open {
+    color: #00b8f5 !important;
+  }
+  .ant-tree-node-selected {
+    background-color: #ffff !important;
+    span {
+      background: #ffff;
+      color: #00b8f5;
+    }
+  }
+  .ant-tree-treenode-selected > span > i > svg {
+    color: #00b8f5;
+  }
+}

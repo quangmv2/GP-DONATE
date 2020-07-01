@@ -1,0 +1,28 @@
+.ant-layout-header,
+.header-public {
+  background: var(--layout-header-background);
+
+  .ant-menu-item,
+  .ant-menu-submenu-title {
+    padding: 0 10px;
+  }
+}
+
+.header-public__right > div {
+  margin-left: 10px;
+
+  &:first-child {
+    margin-left: 0px;
+  }
+}
+.header-public {
+  .ant-dropdown-link {
+    color: var(--text-layout-header-color);
+  }
+}
+
+header {
+  .container {
+    padding: 0px 20px;
+  }
+}
