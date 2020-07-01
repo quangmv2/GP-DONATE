@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Code;
 use Illuminate\Support\Facades\DB;
+use App\Events\CommentEvent;
 
 class UserController extends Controller
 {
 
     
     function __construct(){
-        $this->middleware('auth:api');
+        // $this->middleware('auth:api');
     }
 
 
@@ -102,6 +103,13 @@ class UserController extends Controller
         return response()->json([
            $user
         ], 200);
+    }
+
+    public function testSoket(Request $request)
+    {
+        event(
+            $e = new CommentEvent($request->all())
+        );
     }
 
 }
