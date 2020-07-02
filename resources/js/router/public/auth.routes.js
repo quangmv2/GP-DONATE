@@ -9,6 +9,7 @@ import {
 } 
     from 'components/PublicPages';
 import { PUBLIC_ROUTE } from "constants";
+import TestSocket from "components/PublicPages/TestSocket";
 export const authRoutes = [
     {
         path: PUBLIC_ROUTE.LOGIN,
@@ -38,6 +39,11 @@ export const authRoutes = [
     {
         path: PUBLIC_ROUTE.INPUTCODE,
         component: InputCode,
+        exact: true
+    },
+    {
+        path: "/client/test-socket",
+        component: TestSocket,
         exact: true
     }
 

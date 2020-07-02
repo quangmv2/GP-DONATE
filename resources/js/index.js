@@ -22,6 +22,7 @@ const store = configureStore(initialState, history);
 // ReactDOM.render(<App />, document.getElementById("root"));
 
 ReactDOM.render(
+
     //đây là thng app luôn ddaay 
     <App />,
     document.getElementById("root")

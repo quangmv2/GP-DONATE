@@ -10,6 +10,7 @@ import privateRoutes from "../router/private";
 import publicRoutes from "../router/public";
 import {withSplashScreen} from '../components/PublicPages';
 // import * as serviceWorker from "./serviceWorker";
+import { SocketProvider } from "../context/SocketProvider";
 import { ConnectedRouter } from "connected-react-router";
 const App = props => {
     const initialState = {};
@@ -20,13 +21,15 @@ const App = props => {
   
     return (
         <Provider store={store}>
-        <ConnectedRouter history={history}>
-            <RouterContainer
-                history={history}
-                publicRoutes={flatten(publicRoutes)}
-                privateRoutes={flatten(privateRoutes)}
-            />
-        </ConnectedRouter>
+        <SocketProvider>
+            <ConnectedRouter history={history}>
+                <RouterContainer
+                    history={history}
+                    publicRoutes={flatten(publicRoutes)}
+                    privateRoutes={flatten(privateRoutes)}
+                />
+            </ConnectedRouter>
+        </SocketProvider>
     </Provider>
       
     );
