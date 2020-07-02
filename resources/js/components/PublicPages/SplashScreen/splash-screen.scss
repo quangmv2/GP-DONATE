@@ -1,0 +1,38 @@
+.top-splash {
+    width: 30%;
+    margin: 0;
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    max-width: 124px;
+}
+.bottom-splash {
+    display: block;
+    float: right;
+    width: 35%;
+    max-width: 135px;
+    position: absolute;
+    right: 0px;
+    bottom: 20px;
+}
+.logo-splash {
+    display: flex;
+    width: 50%;
+    max-width: 400px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+.splash-screen {
+    width: 100vw;
+    height: 100vh;
+    .container {
+        margin: 0 auto;
+        height: 100%;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+}

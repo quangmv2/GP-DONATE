@@ -9,20 +9,21 @@ import injectSaga from "core/saga/inject-saga";
 import reducer from "modules/auth/reducers";
 import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
-import { URL_REDIRECT_LOGIN, ROUTE } from "constants";
+import { URL_REDIRECT_LOGIN, ROUTE, PUBLIC_ROUTE } from "constants";
 import { postLogin } from "modules/auth/actions";
-
 import {
     selectIsLogged,
     selectErrors,
     selectLoading
 } from "modules/auth/selectors";
-import { Image, ButtonAnt, Alert, Input, LinkEnhance } from "components/Atoms";
+import { ButtonAnt, SignInBackground } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
-import { isEmptyString } from "helpers";
-import { isEmpty } from "lodash";
 import "./login.scss";
 import { Formik } from "formik";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import { Link } from "react-router-dom";
 
 export class Login extends Component {
     constructor(props) {
@@ -30,7 +31,6 @@ export class Login extends Component {
         this.state = {
             username: "",
             password: "",
-            passchange: "",
             errorValidLogin: {}
         };
         this.setSubmitting = null;
@@ -57,138 +57,189 @@ export class Login extends Component {
         }
         const { username, password } = values;
         const { login } = this.props;
-
-        login(username, password);
+        this.props.history.push(PUBLIC_ROUTE.SIGNUP);
+        //login(username, password);
     };
 
     render() {
         const { errors, loading } = this.props;
 
         return (
-            <div className="container ">
-                <div className="ant-col-lg-24">
-                    <div className="full-height-screen flex-center">
-                        <div className="form--sign-in">
-                            <>
-                                <div className="logo-login-wrapper big-text text-center">
-                                    <span className="icon icon-pad-lock"></span>
-                                    <Image src={`assets/images/logo.svg`} />
-                                </div>
-                                <div className="custom-alert">
-                                    {!isEmpty(errors.message) && (
-                                        <Alert
-                                            content={{
-                                                status: "error",
-                                                message: errors.message
-                                            }}
-                                        />
-                                    )}
-                                </div>
-                                <Formik
-                                    initialValues={{
-                                        username: "",
-                                        password: "",
-                                        passchange: ""
-                                    }}
-                                    layout="vertical"
-                                    validate={values => {
-                                        const errors = {};
-                                        if (!values.username) {
-                                            errors.username = "Required";
-                                        } else if (
-                                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                                                values.username
-                                            )
-                                        ) {
-                                            errors.username =
-                                                "Invalid email address";
-                                        }
+            <div className="fullheight-wrapper flex-center">
+                <div className="container ">
+                    <SignInBackground>
+                        <p className="text1">Sign In</p>
+                        <p className="text2">To keep connected with us</p>
+                    </SignInBackground>
+                    <div className="formFields">
+                        {/* {this.renderFields()} */}
+                        <Formik
+                            initialValues={{
+                                username: "",
+                                password: "",
+                                passchange: ""
+                            }}
+                            layout="vertical"
+                            validate={values => {
+                                const errors = {};
+                                if (!values.username) {
+                                    errors.username = "Required";
+                                }
 
-                                        if (!values.password) {
-                                            errors.password = "Required";
-                                        }
+                                if (!values.password) {
+                                    errors.password = "Required";
+                                }
 
-                                        return errors;
-                                    }}
-                                    onSubmit={this.onSubmit}
-                                >
-                                    {({
-                                        values,
-                                        errors,
-                                        touched,
-                                        handleChange,
-                                        //handleBlur,
-                                        handleSubmit,
-                                        isSubmitting
-                                        /* and other goodies */
-                                    }) => (
-                                        <form
-                                            onSubmit={handleSubmit}
-                                            layout="vertical"
+                                return errors;
+                            }}
+                            onSubmit={this.onSubmit}
+                        >
+                            {({
+                                values,
+                                errors,
+                                touched,
+                                handleChange,
+                                //handleBlur,
+                                handleSubmit,
+                                isSubmitting
+                                /* and other goodies */
+                            }) => (
+                                <form onSubmit={handleSubmit} layout="vertical">
+                                    <>
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
                                         >
-                                            <>
-                                                <Input
-                                                    errors={errors.username}
-                                                    touched={touched.username}
-                                                    label="common.email"
-                                                    name="username"
-                                                    onChange={handleChange}
-                                                    onPressEnter={handleSubmit}
-                                                    placeholder="common.email"
-                                                    type="text"
+                                            <Grid
+                                                item
+                                                className="item-flex input-with-icon"
+                                            >
+                                                <AccountCircle />
+                                                <TextField
+                                                    error={
+                                                        errors.username &&
+                                                        touched.username
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="common.username"
+                                                            defaultMessage="common.username"
+                                                        />
+                                                    }
                                                     value={values.username}
-                                                    disabled={
-                                                        loading || isSubmitting
-                                                    }
-                                                />
-                                                <Input
-                                                    errors={errors.password}
-                                                    touched={touched.password}
-                                                    label={"common.password"}
-                                                    name="password"
                                                     onChange={handleChange}
-                                                    onPressEnter={handleSubmit}
-                                                    placeholder="common.password"
-                                                    showIconPassword
-                                                    type="password"
-                                                    value={values.password}
                                                     disabled={
                                                         loading || isSubmitting
                                                     }
+                                                    helperText={
+                                                        touched.username
+                                                            ? errors.username
+                                                            : ""
+                                                    }
+                                                    name="username"
                                                 />
-                                            </>
-                                            <div className="form-control">
-                                                <ButtonAnt
-                                                    className="custom-button-login btn-block btn-round btn-red"
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
+                                            <Grid
+                                                item
+                                                className="item-flex input-with-icon"
+                                            >
+                                                {/* <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel> */}
+                                                <AccountCircle />
+                                                <TextField
+                                                    error={
+                                                        errors.password &&
+                                                        touched.password
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="common.password"
+                                                            defaultMessage="common.password"
+                                                        />
+                                                    }
+                                                    value={values.password}
+                                                    onChange={handleChange}
                                                     disabled={
                                                         loading || isSubmitting
                                                     }
-                                                    id="login-btn"
-                                                    loading={
-                                                        loading || isSubmitting
+                                                    helperText={
+                                                        touched.password
+                                                            ? errors.password
+                                                            : ""
                                                     }
-                                                    name="login-btn"
-                                                    onClick={handleSubmit}
-                                                    type="primary"
-                                                >
-                                                    <FormattedMessage
-                                                        defaultMessage={
-                                                            "loginPage.login"
-                                                        }
-                                                        id={"loginPage.login"}
-                                                    />
-                                                </ButtonAnt>
-                                            </div>
-                                        </form>
-                                    )}
-                                </Formik>
+                                                    type="password"
+                                                    name="password"
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </>
+                                    <Link
+                                        className="fg-pw-text"
+                                        to="/forgot-password"
+                                    >
+                                        <FormattedMessage
+                                            defaultMessage={
+                                                "loginPage.forgotPassword"
+                                            }
+                                            id={"loginPage.forgotPassword"}
+                                        ></FormattedMessage>
+                                    </Link>
+                                    <Link to="/signup">
+                                        <div className="form-control filledButton">
+                                            <ButtonAnt
+                                                className="custom-button-login btn-block btn-round btn-red buttonContainer"
+                                                disabled={
+                                                    loading || isSubmitting
+                                                }
+                                                id="login-btn"
+                                                loading={
+                                                    loading || isSubmitting
+                                                }
+                                                name="login-btn"
+                                                onClick={handleSubmit}
+                                                type="primary"
+                                            >
+                                                <FormattedMessage
+                                                    defaultMessage={
+                                                        "loginPage.login"
+                                                    }
+                                                    id={"loginPage.login"}
+                                                />
+                                            </ButtonAnt>
+                                        </div>
+                                    </Link>
 
-                                <LinkEnhance
-                                    title="loginPage.forgotPassword"
-                                    url={ROUTE.FORGOT_PASSWORD}
-                                />
-                            </>
-                        </div>
+                                    <div className="bottomTextContainer">
+                                        <FormattedMessage
+                                            defaultMessage={"loginPage.newbie"}
+                                            id={"loginPage.newbie"}
+                                        ></FormattedMessage>
+                                        <Link
+                                            className="bottomLink"
+                                            to="/signup"
+                                        >
+                                            <FormattedMessage
+                                                defaultMessage={
+                                                    "loginPage.signup"
+                                                }
+                                                id={"loginPage.signup"}
+                                            ></FormattedMessage>
+                                        </Link>
+                                    </div>
+                                </form>
+                            )}
+                        </Formik>
                     </div>
                 </div>
             </div>
