@@ -16,5 +16,5 @@ export const API_ROUTER = {
     AUTH: "/api/auth"
 };
 
-export const ROOT_API_URL = "http://localhost/donate/client";
-export const ROOT_WS = "localhost:9000";
+export const ROOT_API_URL = "http://52.205.200.96/client";
+export const ROOT_WS = "52.205.200.96:9000";
