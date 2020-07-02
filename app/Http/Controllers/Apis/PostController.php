@@ -16,6 +16,10 @@ class PostController extends Controller
 { 
     function __construct(){
         $this->middleware('auth:api');
+        $this->middleware('permission:post-list|post-list-all|post-edit|post-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:post-create', ['only' => ['create','store']]);
+        $this->middleware('permission:post-edit|post-edit-all', ['only' => ['edit','update']]);
+        $this->middleware('permission:post-delete|post-delete-all', ['only' => ['destroy']]);
     }
 
     /**
