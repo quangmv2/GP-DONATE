@@ -51,10 +51,10 @@ class User extends Authenticatable
      * @param  string  $username
      * @return \App\User
      */
-    // public function findForPassport($username)
-    // {
-    //     return $this->where('username', $username)->orWhere('email', $username)->first();
-    // }
+    public function findForPassport($username)
+    {
+        return $this->where('username', $username)->orWhere('email', $username)->first();
+    }
 
     public function posts(){
         return $this->hasMany(Post::class, 'user_id', 'id');

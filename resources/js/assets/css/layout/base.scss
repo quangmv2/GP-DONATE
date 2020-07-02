@@ -2,28 +2,34 @@
 @import "../themes/light/light.scss";
 
 .full-height-screen {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
 .flex-center {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .wide-container {
-  width: 100%;
-  margin: 0 auto;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .hidden-screen {
-  display: none !important;
+    display: none !important;
+}
+
+.container,
+.header-public {
+    max-width: 768px;
 }
 
 .container {
+    margin: 0 auto;
 }
 
 @media (max-width: 992px) {
-  .hidden-screen {
-    display: block !important;
-  }
+    .hidden-screen {
+        display: block !important;
+    }
 }

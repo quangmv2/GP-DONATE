@@ -10,7 +10,7 @@ import reducer from "modules/auth/reducers";
 import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
 import { URL_REDIRECT_LOGIN, ROUTE } from "constants";
-import { postLogin, postChallengeChangePass } from "modules/auth/actions";
+import { postLogin } from "modules/auth/actions";
 
 import {
     selectIsLogged,
@@ -39,12 +39,9 @@ export class Login extends Component {
     async componentDidMount() {}
 
     componentDidUpdate(prevProps) {
-        const { isLogged, challenge } = this.props;
+        const { isLogged } = this.props;
         if (isLogged) {
             this.redirectLogin();
-        }
-        if (challenge !== prevProps.challenge) {
-            this.setSubmitting && this.setSubmitting(false);
         }
     }
 
@@ -58,25 +55,14 @@ export class Login extends Component {
         if (!this.setSubmitting) {
             this.setSubmitting = setSubmitting;
         }
-        const { username, password, passchange } = values;
-        const {
-            login,
-            challenge,
-            challengeChangePass,
-            userChangePass
-        } = this.props;
+        const { username, password } = values;
+        const { login } = this.props;
 
-        if (!isEmptyString(challenge)) {
-            //change password case
-            challengeChangePass(userChangePass, passchange);
-        } else {
-            //login case
-            login(username, password);
-        }
+        login(username, password);
     };
 
     render() {
-        const { errors, loading, challenge } = this.props;
+        const { errors, loading } = this.props;
 
         return (
             <div className="container ">
@@ -107,26 +93,19 @@ export class Login extends Component {
                                     layout="vertical"
                                     validate={values => {
                                         const errors = {};
+                                        if (!values.username) {
+                                            errors.username = "Required";
+                                        } else if (
+                                            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+                                                values.username
+                                            )
+                                        ) {
+                                            errors.username =
+                                                "Invalid email address";
+                                        }
 
-                                        if (!isEmptyString(challenge)) {
-                                            if (!values.passchange) {
-                                                errors.passchange = "Required";
-                                            }
-                                        } else {
-                                            if (!values.username) {
-                                                errors.username = "Required";
-                                            } else if (
-                                                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                                                    values.username
-                                                )
-                                            ) {
-                                                errors.username =
-                                                    "Invalid email address";
-                                            }
-
-                                            if (!values.password) {
-                                                errors.password = "Required";
-                                            }
+                                        if (!values.password) {
+                                            errors.password = "Required";
                                         }
 
                                         return errors;
@@ -204,10 +183,10 @@ export class Login extends Component {
                                     )}
                                 </Formik>
 
-                                {/* <LinkEnhance
+                                <LinkEnhance
                                     title="loginPage.forgotPassword"
                                     url={ROUTE.FORGOT_PASSWORD}
-                                /> */}
+                                />
                             </>
                         </div>
                     </div>
@@ -218,8 +197,7 @@ export class Login extends Component {
 }
 
 const mapDispatchToProps = {
-    login: postLogin,
-    challengeChangePass: postChallengeChangePass
+    login: postLogin
 };
 
 const mapStateToProps = createStructuredSelector({

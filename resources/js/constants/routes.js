@@ -17,3 +17,4 @@ export const API_ROUTER = {
 };
 
 export const ROOT_API_URL = "http://localhost/donate/client";
+export const ROOT_WS = "localhost:9000";

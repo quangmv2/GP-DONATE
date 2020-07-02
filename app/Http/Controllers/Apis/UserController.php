@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Code;
 use Illuminate\Support\Facades\DB;
+use App\Events\CommentEvent;
 
 use App\Models\User;
 
@@ -49,7 +50,6 @@ class UserController extends Controller
     {
         if ($id == 'me')
             return response()->json(json_decode($req->user()), 200);
-        // return $id;
         $user = User::findOrFail($id);
         return response()->json(json_decode($user), 200);
     }
@@ -106,6 +106,16 @@ class UserController extends Controller
         return response()->json([
            $user
         ], 200);
+    }
+
+    public function testSoket(Request $request)
+    {
+        event(
+            $e = new CommentEvent([
+                'test' => $request->test." ".now()
+            ])
+        );
+        return $request->all();
     }
 
 }

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 use App\Models\User;
+use App\Events\CommentEvent;
 
 
 class AuthController extends Controller
@@ -67,7 +68,7 @@ class AuthController extends Controller
             $oClient = OClient::where('password_client', 1)->first();
             // get correct username
             $usernameInput = $username ? $username : $email;
-            return $this->getTokenAndRefreshToken($oClient, $usernameInput, $password);
+            return $this->getTokenAndRefreshToken($oClient, Auth::user()->email, $password);
         } 
         else { 
             return response()->json(['error'=>'Unauthorised'], 401); 
@@ -94,7 +95,8 @@ class AuthController extends Controller
     public function refreshToken(Request $req)
     {
         $oClient = OClient::where('password_client', 1)->first();
-        $refresh_token = request('refresh_token') || '';
+        $refresh_token = $req->refresh_token;  
+        // return response(json_decode($refresh_token));
         return $this->refreshAndGetToken($oClient, $refresh_token);
     }
 
@@ -163,9 +165,10 @@ class AuthController extends Controller
     */
     public function getTokenAndRefreshToken(OClient $oClient, $email, $password) { 
 
+
         $client = new Client([
             'headers' => [ 'Content-Type' => 'application/json' ], //set body json
-            // 'base_uri' => config('app.url') //get from env APP_URL or app config url
+            'base_uri' => env('APP_URL') //get from env APP_URL or app config url
         ]);  // Create Client with baseUri
 
         /*
@@ -174,7 +177,7 @@ class AuthController extends Controller
             else get body exception and code
         */
         try {
-            $response = $client->post(config('app.url').'/oauth/token',
+            $response = $client->post('/oauth/token',
                 ['body' => json_encode(
                     [
                         'grant_type' => 'password',
@@ -206,9 +209,8 @@ class AuthController extends Controller
     {
         $client = new Client([
             'headers' => [ 'Content-Type' => 'application/json' ], //set body json
-            // 'base_uri' => config('app.url') //get from env APP_URL or app config url
+            'base_uri' => env('APP_URL') //get from env APP_URL or app config url
         ]); // Create Client with baseUri
-
         /*
             Request this server
             If success get body and get code
@@ -216,7 +218,7 @@ class AuthController extends Controller
         */
         try {
 
-            $response = $client->post(config('app.url').'/oauth/token',
+            $response = $client->post('/oauth/token',
                 ['body' => json_encode([
                     'grant_type' => 'refresh_token',
                     'refresh_token' => $refresh_token,

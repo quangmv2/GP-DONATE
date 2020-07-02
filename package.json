@@ -41,11 +41,13 @@
         "classnames": "^2.2.6",
         "connected-react-router": "^6.5.2",
         "customize-cra": "^1.0.0",
+        "dotenv": "^8.2.0",
         "es6-promise": "^4.2.8",
         "flat": "^5.0.0",
         "formik": "^2.1.4",
         "hoist-non-react-statics": "^3.3.2",
         "immutable": "^4.0.0-rc.12",
+        "ioredis": "^4.17.3",
         "isomorphic-fetch": "^2.2.1",
         "js-cookie": "^2.2.1",
         "moment": "^2.24.0",
@@ -75,6 +77,8 @@
         "reselect": "^4.0.0",
         "rn-fetch-blob": "^0.12.0",
         "sinon": "^7.5.0",
+        "socket.io": "^2.3.0",
+        "socket.io-client": "^2.3.0",
         "text-encoding": "^0.7.0",
         "uuid": "^3.3.3"
     }
