@@ -11,8 +11,8 @@ import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
 import { URL_REDIRECT_LOGIN, ROUTE } from "constants";
 import { postLogin } from "modules/auth/actions";
-import './InputCode.scss';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import "./InputCode.scss";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import {
     selectIsLogged,
     selectErrors,
@@ -24,7 +24,7 @@ import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { PUBLIC_ROUTE } from "../../../constants";
 
 export class InputCode extends Component {
@@ -58,9 +58,9 @@ export class InputCode extends Component {
         if (!this.setSubmitting) {
             this.setSubmitting = setSubmitting;
         }
-        const { code} = values;
+        const { code } = values;
         const { login } = this.props;
-        this.props.history.push(PUBLIC_ROUTE.LOGIN)
+        this.props.history.push(PUBLIC_ROUTE.LOGIN);
 
         //login(username, password);
     };
@@ -69,7 +69,7 @@ export class InputCode extends Component {
         const { errors, loading } = this.props;
 
         return (
-            <div class="fullheight-wrapper flex-center">
+            <div className="fullheight-wrapper flex-center">
                 <div className="container ">
                     <SignInBackground>
                         <p className="ic-t1">Sign up by</p>
@@ -79,13 +79,12 @@ export class InputCode extends Component {
                         {/* {this.renderFields()} */}
                         <Formik
                             initialValues={{
-                                code: "",
-                                
+                                code: ""
                             }}
                             layout="vertical"
                             validate={values => {
                                 const errors = {};
-                                
+
                                 if (!values.code) {
                                     errors.code = "Required";
                                 }
@@ -97,7 +96,7 @@ export class InputCode extends Component {
                             {({
                                 values,
                                 errors,
-                            
+
                                 touched,
                                 handleChange,
                                 //handleBlur,
@@ -117,7 +116,7 @@ export class InputCode extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                    <AccountCircle />
+                                                <AccountCircle />
                                                 <TextField
                                                     error={
                                                         errors.code &&
@@ -140,14 +139,12 @@ export class InputCode extends Component {
                                                             ? errors.code
                                                             : ""
                                                     }
-                                                  
                                                     name="code"
                                                 />
                                             </Grid>
                                         </Grid>
-                                        
                                     </>
-                                                
+
                                     <div className="form-control inputButton">
                                         <ButtonAnt
                                             className="custom-button-login btn-block btn-round btn-red buttonContainer"
@@ -184,25 +181,25 @@ export class InputCode extends Component {
                                             />
                                         </ButtonAnt>
                                     </div>
-                             
 
                                     <div className="bottomTextContainer">
-                                    <FormattedMessage
-                                                defaultMessage={
-                                                    "signupPage.onboard"
-                                                }
-                                                id={"signupPage.onboard"}
-                                            >
-                                      </FormattedMessage>
-                                      <Link className ='bottomLink' to= '/signup'>
-                                      <FormattedMessage
+                                        <FormattedMessage
+                                            defaultMessage={
+                                                "signupPage.onboard"
+                                            }
+                                            id={"signupPage.onboard"}
+                                        ></FormattedMessage>
+                                        <Link
+                                            className="bottomLink"
+                                            to="/signup"
+                                        >
+                                            <FormattedMessage
                                                 defaultMessage={
                                                     "signupPage.signed"
                                                 }
                                                 id={"signupPage.signed"}
-                                            >
-                                      </FormattedMessage>
-                                      </Link>
+                                            ></FormattedMessage>
+                                        </Link>
                                     </div>
                                 </form>
                             )}
@@ -239,4 +236,9 @@ InputCode.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(withReducer, withSaga, withConnect, withRouter)(InputCode);
+export default compose(
+    withReducer,
+    withSaga,
+    withConnect,
+    withRouter
+)(InputCode);

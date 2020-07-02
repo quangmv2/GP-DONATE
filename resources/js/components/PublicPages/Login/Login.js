@@ -22,8 +22,8 @@ import "./login.scss";
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import { Link } from 'react-router-dom';
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import { Link } from "react-router-dom";
 
 export class Login extends Component {
     constructor(props) {
@@ -36,7 +36,7 @@ export class Login extends Component {
         this.setSubmitting = null;
     }
 
-    async componentDidMount() { }
+    async componentDidMount() {}
 
     componentDidUpdate(prevProps) {
         const { isLogged } = this.props;
@@ -65,7 +65,7 @@ export class Login extends Component {
         const { errors, loading } = this.props;
 
         return (
-            <div class="fullheight-wrapper flex-center">
+            <div className="fullheight-wrapper flex-center">
                 <div className="container ">
                     <SignInBackground>
                         <p className="text1">Sign In</p>
@@ -84,10 +84,7 @@ export class Login extends Component {
                                 const errors = {};
                                 if (!values.username) {
                                     errors.username = "Required";
-                                } 
-                                
-                        
-                            
+                                }
 
                                 if (!values.password) {
                                     errors.password = "Required";
@@ -107,18 +104,18 @@ export class Login extends Component {
                                 isSubmitting
                                 /* and other goodies */
                             }) => (
-                                    <form onSubmit={handleSubmit} layout="vertical">
-                                        <>
+                                <form onSubmit={handleSubmit} layout="vertical">
+                                    <>
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
                                             <Grid
-                                                container
-                                                spacing={1}
-                                                alignItems="flex-end"
-                                                className="form-control"
+                                                item
+                                                className="item-flex input-with-icon"
                                             >
-                                                <Grid
-                                                    item
-                                                    className="item-flex input-with-icon"
-                                                >
                                                 <AccountCircle />
                                                 <TextField
                                                     error={
@@ -144,21 +141,21 @@ export class Login extends Component {
                                                     }
                                                     name="username"
                                                 />
-                                                </Grid>
                                             </Grid>
+                                        </Grid>
 
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
                                             <Grid
-                                                container
-                                                spacing={1}
-                                                alignItems="flex-end"
-                                                className="form-control"
+                                                item
+                                                className="item-flex input-with-icon"
                                             >
-                                                <Grid
-                                                    item
-                                                    className="item-flex input-with-icon"
-                                                >
-                                                    {/* <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel> */}
-                                                    <AccountCircle />
+                                                {/* <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel> */}
+                                                <AccountCircle />
                                                 <TextField
                                                     error={
                                                         errors.password &&
@@ -181,62 +178,67 @@ export class Login extends Component {
                                                             ? errors.password
                                                             : ""
                                                     }
-                                                    type='password'
+                                                    type="password"
                                                     name="password"
                                                 />
-                                                </Grid>
                                             </Grid>
-                                        </>
-                                        <Link className='fg-pw-text' to='/forgot-password'>
-                                            <FormattedMessage
-                                                defaultMessage={
-                                                    "loginPage.forgotPassword"
+                                        </Grid>
+                                    </>
+                                    <Link
+                                        className="fg-pw-text"
+                                        to="/forgot-password"
+                                    >
+                                        <FormattedMessage
+                                            defaultMessage={
+                                                "loginPage.forgotPassword"
+                                            }
+                                            id={"loginPage.forgotPassword"}
+                                        ></FormattedMessage>
+                                    </Link>
+                                    <Link to="/signup">
+                                        <div className="form-control filledButton">
+                                            <ButtonAnt
+                                                className="custom-button-login btn-block btn-round btn-red buttonContainer"
+                                                disabled={
+                                                    loading || isSubmitting
                                                 }
-                                                id={"loginPage.forgotPassword"}
-                                            >
-                                            </FormattedMessage>
-                                        </Link>
-                                        <Link to='/signup'>
-                                            <div className="form-control filledButton">
-                                                <ButtonAnt
-                                                    className="custom-button-login btn-block btn-round btn-red buttonContainer"
-                                                    disabled={loading || isSubmitting}
-                                                    id="login-btn"
-                                                    loading={loading || isSubmitting}
-                                                    name="login-btn"
-                                                    onClick={handleSubmit}
-                                                    type="primary"
-                                                >
-                                                    <FormattedMessage
-                                                        defaultMessage={
-                                                            "loginPage.login"
-                                                        }
-                                                        id={"loginPage.login"}
-                                                    />
-                                                </ButtonAnt>
-                                            </div>
-                                        </Link>
-                                    
-                                        <div className="bottomTextContainer">
-                                            <FormattedMessage
-                                                defaultMessage={
-                                                    "loginPage.newbie"
+                                                id="login-btn"
+                                                loading={
+                                                    loading || isSubmitting
                                                 }
-                                                id={"loginPage.newbie"}
+                                                name="login-btn"
+                                                onClick={handleSubmit}
+                                                type="primary"
                                             >
-                                            </FormattedMessage>
-                                            <Link className='bottomLink' to='/signup'>
                                                 <FormattedMessage
                                                     defaultMessage={
-                                                        "loginPage.signup"
+                                                        "loginPage.login"
                                                     }
-                                                    id={"loginPage.signup"}
-                                                >
-                                                </FormattedMessage>
-                                            </Link>
+                                                    id={"loginPage.login"}
+                                                />
+                                            </ButtonAnt>
                                         </div>
-                                    </form>
-                                )}
+                                    </Link>
+
+                                    <div className="bottomTextContainer">
+                                        <FormattedMessage
+                                            defaultMessage={"loginPage.newbie"}
+                                            id={"loginPage.newbie"}
+                                        ></FormattedMessage>
+                                        <Link
+                                            className="bottomLink"
+                                            to="/signup"
+                                        >
+                                            <FormattedMessage
+                                                defaultMessage={
+                                                    "loginPage.signup"
+                                                }
+                                                id={"loginPage.signup"}
+                                            ></FormattedMessage>
+                                        </Link>
+                                    </div>
+                                </form>
+                            )}
                         </Formik>
                     </div>
                 </div>

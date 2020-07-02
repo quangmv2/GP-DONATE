@@ -16,14 +16,14 @@ import {
     selectErrors,
     selectLoading
 } from "modules/auth/selectors";
-import {ButtonAnt, SignInBackground } from "components/Atoms";
+import { ButtonAnt, SignInBackground } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import { Link } from 'react-router-dom';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import { Link } from "react-router-dom";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 export class ChangePassScreen extends Component {
     constructor(props) {
@@ -66,10 +66,12 @@ export class ChangePassScreen extends Component {
         const { errors, loading } = this.props;
 
         return (
-            <div class="fullheight-wrapper flex-center">
+            <div className="fullheight-wrapper flex-center">
                 <div className="container ">
                     <SignInBackground>
-                        <p className="text1">Change <br /> your password</p>
+                        <p className="text1">
+                            Change <br /> your password
+                        </p>
                         <p className="text2">Please enter your new password</p>
                     </SignInBackground>
                     <div className="formFields">
@@ -78,18 +80,17 @@ export class ChangePassScreen extends Component {
                             initialValues={{
                                 resetpasscode: "",
                                 password: "",
-                                passchange: ''
+                                passchange: ""
                             }}
                             layout="vertical"
                             validate={values => {
                                 const errors = {};
                                 if (!values.resetpasscode) {
                                     errors.resetpasscode = "Required";
-                                } 
+                                }
                                 if (!values.passchange) {
                                     errors.passchange = "Required";
-                                } 
-        
+                                }
 
                                 if (!values.password) {
                                     errors.password = "Required";
@@ -121,7 +122,7 @@ export class ChangePassScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                              <AccountCircle />
+                                                <AccountCircle />
                                                 <TextField
                                                     error={
                                                         errors.resetpasscode &&
@@ -144,7 +145,6 @@ export class ChangePassScreen extends Component {
                                                             ? errors.resetpasscode
                                                             : ""
                                                     }
-                                                    
                                                     name="resetpasscode"
                                                 />
                                             </Grid>
@@ -183,7 +183,7 @@ export class ChangePassScreen extends Component {
                                                             ? errors.password
                                                             : ""
                                                     }
-                                                    type='password'
+                                                    type="password"
                                                     name="password"
                                                 />
                                             </Grid>
@@ -198,7 +198,7 @@ export class ChangePassScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                               <AccountCircle />
+                                                <AccountCircle />
                                                 <TextField
                                                     error={
                                                         errors.passchange &&
@@ -221,14 +221,13 @@ export class ChangePassScreen extends Component {
                                                             ? errors.passchange
                                                             : ""
                                                     }
-                                                    type='password'
+                                                    type="password"
                                                     name="passchange"
                                                 />
                                             </Grid>
                                         </Grid>
-                                    
                                     </>
-                               
+
                                     <div className="form-control filledButton bottomContainer">
                                         <ButtonAnt
                                             className="custom-button-login btn-block btn-round btn-red buttonContainer"
@@ -246,9 +245,7 @@ export class ChangePassScreen extends Component {
                                                 id={"resetPass.save"}
                                             />
                                         </ButtonAnt>
-                                    
-</div>
-                    
+                                    </div>
                                 </form>
                             )}
                         </Formik>
@@ -284,4 +281,9 @@ ChangePassScreen.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(withReducer, withSaga, withConnect, withRouter)(ChangePassScreen);
+export default compose(
+    withReducer,
+    withSaga,
+    withConnect,
+    withRouter
+)(ChangePassScreen);

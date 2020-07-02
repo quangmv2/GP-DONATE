@@ -11,13 +11,13 @@ import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
 import { URL_REDIRECT_LOGIN, ROUTE, PUBLIC_ROUTE } from "constants";
 import { postLogin } from "modules/auth/actions";
-import  './ForgotPass.scss'
+import "./ForgotPass.scss";
 import {
     selectIsLogged,
     selectErrors,
     selectLoading
 } from "modules/auth/selectors";
-import { ButtonAnt} from "components/Atoms";
+import { ButtonAnt } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
 import { isEmptyString } from "helpers";
 import { isEmpty } from "lodash";
@@ -25,9 +25,9 @@ import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import { Link } from 'react-router-dom';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import { Link } from "react-router-dom";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 export class ForgotPass extends Component {
     constructor(props) {
@@ -41,8 +41,8 @@ export class ForgotPass extends Component {
 
     async componentDidMount() {}
     handleBack = () => {
-        this.props.history.goBack()
-      }
+        this.props.history.goBack();
+    };
 
     componentDidUpdate(prevProps) {
         const { isLogged } = this.props;
@@ -67,24 +67,23 @@ export class ForgotPass extends Component {
 
         //login(username, password);
     };
-  
 
     render() {
         const { errors, loading } = this.props;
         return (
-            <div class="fullheight-wrapper">
+            <div className="fullheight-wrapper">
                 <div className="container">
-                    <div className='backContainer' onClick={this.handleBack}>
-                    <ArrowBackIosIcon className='backIcon' />
-                    <p>Back</p>
+                    <div className="backContainer" onClick={this.handleBack}>
+                        <ArrowBackIosIcon className="backIcon" />
+                        <p>Back</p>
                     </div>
-                        <p className="t1">Forgot password</p>
-                        <p className="t2">Please enter your email address</p>
+                    <p className="t1">Forgot password</p>
+                    <p className="t2">Please enter your email address</p>
                     <div className="codeFields">
                         {/* {this.renderFields()} */}
                         <Formik
                             initialValues={{
-                                email: "",
+                                email: ""
                             }}
                             layout="vertical"
                             validate={values => {
@@ -125,7 +124,7 @@ export class ForgotPass extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                          <AccountCircle />
+                                                <AccountCircle />
                                                 <TextField
                                                     error={
                                                         errors.email &&
@@ -148,19 +147,17 @@ export class ForgotPass extends Component {
                                                             ? errors.email
                                                             : ""
                                                     }
-                                                    type='email'
+                                                    type="email"
                                                     name="email"
                                                 />
                                             </Grid>
                                         </Grid>
-
-                                       
                                     </>
-      
+
                                     <div className="form-control sendCodeButton">
                                         <ButtonAnt
                                             className="custom-button-login btn-block btn-round btn-red buttonContainer"
-                                            disabled={loading || isSubmitting} 
+                                            disabled={loading || isSubmitting}
                                             id="login-btn"
                                             loading={loading || isSubmitting}
                                             name="login-btn"
@@ -175,27 +172,26 @@ export class ForgotPass extends Component {
                                             />
                                         </ButtonAnt>
                                     </div>
-                                    
 
-                                   <div className='bottomTextContainer'> 
-                                    <FormattedMessage
-                                                defaultMessage={
-                                                    "signupPage.onboard"
-                                                }
-                                                id={"signupPage.onboard"}
-                                            >
-                                      </FormattedMessage>
-                                      <Link className ='bottomLink' to= '/signup'>
-                                      <FormattedMessage
+                                    <div className="bottomTextContainer">
+                                        <FormattedMessage
+                                            defaultMessage={
+                                                "signupPage.onboard"
+                                            }
+                                            id={"signupPage.onboard"}
+                                        ></FormattedMessage>
+                                        <Link
+                                            className="bottomLink"
+                                            to="/signup"
+                                        >
+                                            <FormattedMessage
                                                 defaultMessage={
                                                     "signupPage.signed"
                                                 }
                                                 id={"signupPage.signed"}
-                                            >
-                                      </FormattedMessage>
-                                      </Link>
-                                     
-                               </div>
+                                            ></FormattedMessage>
+                                        </Link>
+                                    </div>
                                 </form>
                             )}
                         </Formik>
@@ -231,4 +227,9 @@ ForgotPass.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(withReducer, withSaga, withConnect, withRouter)(ForgotPass);
+export default compose(
+    withReducer,
+    withSaga,
+    withConnect,
+    withRouter
+)(ForgotPass);
