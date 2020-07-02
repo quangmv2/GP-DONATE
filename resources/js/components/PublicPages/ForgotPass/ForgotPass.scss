@@ -1,0 +1,50 @@
+.t1 {
+    margin-left: 50px;
+    margin-top: 25%;
+    font-family: Muli;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 50px;
+    letter-spacing: normal;
+    color: #081f47;
+  
+}
+.t2 {
+    margin-left: 50px;
+    margin-top: -40px;
+    font-family: Muli;
+    font-style: normal;
+    font-weight: 500;
+    font-size:18px;
+    line-height: 25px;
+    /* identical to box height */
+    letter-spacing: normal;
+    color: #081f47;
+}
+.backContainer {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 48px;
+  left: 20px;
+  >p {
+    width: 47px;
+  height: 25px;
+  font-family: Muli;
+  font-size: 20px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #666666;
+  padding-left: 5px
+  }
+  
+}
+.backIcon {
+  width: 9px;
+  height: 18px;
+ color: #32363e;
+}

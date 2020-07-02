@@ -4,23 +4,53 @@
     "email": "Email",
     "password": "Password",
     "logout": "Logout",
-    "welcome": "Welcome"
+    "welcome": "Welcome",
+    "username": "User Name"
   },
   "error": {
     "organizationRequired": "Organization is Required",
     "emailRequired": "Email is Required",
     "passwordRequired": "Password is Required",
     "passwordInvalid": "Password is Invalid",
-    "passwordChangeRequired": "Password Change Required"
+    "passwordChangeRequired": "Password Change Required",
+    "userNamrRequired": "UserName is Required"
   },
   "loginPage": {
     "remember": "Remember me",
-    "forgotPassword": "Forgot password",
+    "forgotPassword": "Forgot your password?",
     "login": "Login",
     "changePassRequired": "Password Change Required",
-    "changePass": "Change Password"
+    "changePass": "Change Password",
+    "newbie": "I'm a newbie",
+    "signup": "Sign Up"
   },
   "homepage": {
     "title": "Home"
+  },
+  "signupPage": {
+    "createacc": "Create an account",
+    "gotCode": "Got an invitation code",
+    "onboard": "Already onboard",
+    "signed": "Sign In"
+  },
+  "resetPass": {
+    "code": "RESET PASSWORD CODE",
+    "save": "Save new password",
+    "onboard": "Already onboard",
+    "signed": "Sign In"
+  },
+  "codePage": {
+    "submit": "Submit Invitation Code",
+    "code": "CODE NUMBER"
+  },
+  "forgotPass": {
+    "send": "Send a code",
+    "back": "Back"
+  },
+  "chooseRole": {
+    "submit": "Let the journey begin",
+    "cantChange": "You will not be able to switch your role on this account"
   }
+
+
 }

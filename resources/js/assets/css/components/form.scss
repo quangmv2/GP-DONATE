@@ -14,15 +14,21 @@ div.form-control {
     margin-bottom: 25px;
 }
 .input-with-icon {
-    position: relative;
+    
     .MuiInput-formControl {
         padding-left: 35px;
     }
 
     .MuiInputLabel-formControl {
-        left: 35px;
         text-transform: uppercase;
-        font-weight: 300;
+        padding-left: 50px;
+       margin-top: -5px;
+        font-family: Muli;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 16px;
+        color: #91969E;
     }
 
     .MuiSvgIcon-root {
@@ -36,4 +42,11 @@ div.form-control {
         transform: translate(0, 1.5px);
         font-weight: 300;
     }
+}
+.bottomContainer {
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+   //margin-top: 50px;
+    //flex-direction: column;
 }

@@ -1,5 +1,10 @@
 export const PUBLIC_ROUTE = {
-    LOGIN: "/login"
+    LOGIN: "/",
+    CHANGEPASSWORD: "/reset-password",
+    FORGOTPASSWORD: "/forgot-password",
+    SIGNUP: "/signup",
+    CHOOSEROLE: "/choose-role",
+    INPUTCODE: "/input-code"
 };
 
 export const PRIVATE_ROUTE = {
