@@ -108,8 +108,11 @@ class UserController extends Controller
     public function testSoket(Request $request)
     {
         event(
-            $e = new CommentEvent($request->all())
+            $e = new CommentEvent([
+                'test' => $request->test." ".now()
+            ])
         );
+        return $request->all();
     }
 
 }
