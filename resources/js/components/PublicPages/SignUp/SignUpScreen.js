@@ -28,6 +28,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from 'react-router-dom';
 import './SignUp.scss';
 import { PUBLIC_ROUTE } from "../../../constants";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 export class SignUpScreen extends Component {
     constructor(props) {
@@ -132,31 +133,37 @@ export class SignUpScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <AccountCircle />
                                                 <TextField
-                                                    error={
-                                                        errors.email &&
-                                                        touched.email
-                                                    }
-                                                    id="input-with-icon-grid"
-                                                    label={
-                                                        <FormattedMessage
-                                                            id="common.email"
-                                                            defaultMessage="common.email"
-                                                        />
-                                                    }
-                                                    value={values.email}
-                                                    onChange={handleChange}
-                                                    disabled={
-                                                        loading || isSubmitting
-                                                    }
-                                                    helperText={
-                                                        touched.email
-                                                            ? errors.email
-                                                            : ""
-                                                    }
-                                                    name="email"
-                                                />
+                                                        error={
+                                                            errors.email &&
+                                                            touched.email
+                                                        }
+                                                        id="input-with-icon-textfield"
+                                                        label={
+                                                            <FormattedMessage
+                                                                id="common.email"
+                                                                defaultMessage="common.email"
+                                                            />
+                                                        }
+                                                        InputProps={{
+                                                            startAdornment: (
+                                                                <InputAdornment position="start">
+                                                                    <AccountCircle />
+                                                                </InputAdornment>
+                                                            )
+                                                        }}
+                                                        value={values.email}
+                                                        onChange={handleChange}
+                                                        disabled={
+                                                            loading || isSubmitting
+                                                        }
+                                                        helperText={
+                                                            touched.username
+                                                                ? errors.email
+                                                                : ""
+                                                        }
+                                                        name="email"
+                                                    />
                                             </Grid>
                                         </Grid>
                                         <Grid
@@ -169,31 +176,37 @@ export class SignUpScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <AccountCircle />
-                                                <TextField
-                                                    error={
-                                                        errors.username &&
-                                                        touched.username
-                                                    }
-                                                    id="input-with-icon-grid"
-                                                    label={
-                                                        <FormattedMessage
-                                                            id="common.username"
-                                                            defaultMessage="common.username"
-                                                        />
-                                                    }
-                                                    value={values.username}
-                                                    onChange={handleChange}
-                                                    disabled={
-                                                        loading || isSubmitting
-                                                    }
-                                                    helperText={
-                                                        touched.username
-                                                            ? errors.username
-                                                            : ""
-                                                    }
-                                                    name="username"
-                                                />
+                                               <TextField
+                                                        error={
+                                                            errors.username &&
+                                                            touched.username
+                                                        }
+                                                        id="input-with-icon-textfield"
+                                                        label={
+                                                            <FormattedMessage
+                                                                id="common.username"
+                                                                defaultMessage="common.username"
+                                                            />
+                                                        }
+                                                        InputProps={{
+                                                            startAdornment: (
+                                                                <InputAdornment position="start">
+                                                                    <AccountCircle />
+                                                                </InputAdornment>
+                                                            )
+                                                        }}
+                                                        value={values.username}
+                                                        onChange={handleChange}
+                                                        disabled={
+                                                            loading || isSubmitting
+                                                        }
+                                                        helperText={
+                                                            touched.username
+                                                                ? errors.username
+                                                                : ""
+                                                        }
+                                                        name="username"
+                                                    />
                                             </Grid>
                                         </Grid>
 
@@ -207,31 +220,37 @@ export class SignUpScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <AccountCircle />
-                                                <TextField
-                                                    error={
-                                                        errors.password &&
-                                                        touched.password
-                                                    }
-                                                    id="input-with-icon-grid"
-                                                    label={
-                                                        <FormattedMessage
-                                                            id="common.password"
-                                                            defaultMessage="common.password"
-                                                        />
-                                                    }
-                                                    value={values.password}
-                                                    onChange={handleChange}
-                                                    disabled={
-                                                        loading || isSubmitting
-                                                    }
-                                                    helperText={
-                                                        touched.password
-                                                            ? errors.password
-                                                            : ""
-                                                    }
-                                                    name="password"
-                                                />
+                                               <TextField
+                                                        error={
+                                                            errors.password &&
+                                                            touched.password
+                                                        }
+                                                        id="input-with-icon-textfield"
+                                                        label={
+                                                            <FormattedMessage
+                                                                id="common.password"
+                                                                defaultMessage="common.password"
+                                                            />
+                                                        }
+                                                        InputProps={{
+                                                            startAdornment: (
+                                                                <InputAdornment position="start">
+                                                                    <AccountCircle />
+                                                                </InputAdornment>
+                                                            )
+                                                        }}
+                                                        value={values.password}
+                                                        onChange={handleChange}
+                                                        disabled={
+                                                            loading || isSubmitting
+                                                        }
+                                                        helperText={
+                                                            touched.password
+                                                                ? errors.password
+                                                                : ""
+                                                        }
+                                                        name="password"
+                                                    />
                                             </Grid>
                                         </Grid>
                                     </>
