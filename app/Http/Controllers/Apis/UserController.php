@@ -13,7 +13,7 @@ class UserController extends Controller
 
     
     function __construct(){
-        // $this->middleware('auth:api');
+        $this->middleware('auth:api');
     }
 
 
@@ -44,11 +44,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $req)
+    public function show(Request $req, $id)
     {
-        return response()->json([
-            $req->user()
-        ], 200);
+        if ($id == 'me')
+        return response()->json(json_decode($req->user()), 200);
+        $user = User::findOrFail($id);
+        return response()->json(json_decode($user), 200);
     }
 
     /**
