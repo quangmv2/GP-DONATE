@@ -22,8 +22,7 @@ import "./login.scss";
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link } from 'react-router-dom';
 
 export class Login extends Component {
@@ -85,13 +84,10 @@ export class Login extends Component {
                                 const errors = {};
                                 if (!values.username) {
                                     errors.username = "Required";
-                                } else if (
-                                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
-                                        values.username
-                                    )
-                                ) {
-                                    errors.username = "Invalid email address";
-                                }
+                                } 
+                                
+                        
+                            
 
                                 if (!values.password) {
                                     errors.password = "Required";
@@ -123,37 +119,31 @@ export class Login extends Component {
                                                     item
                                                     className="item-flex input-with-icon"
                                                 >
-                                                    <TextField
-                                                        error={
-                                                            errors.username &&
-                                                            touched.username
-                                                        }
-                                                        id="input-with-icon-textfield"
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="common.username"
-                                                                defaultMessage="common.username"
-                                                            />
-                                                        }
-                                                        InputProps={{
-                                                            startAdornment: (
-                                                                <InputAdornment position="start">
-                                                                    <AccountCircle />
-                                                                </InputAdornment>
-                                                            )
-                                                        }}
-                                                        value={values.username}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        helperText={
-                                                            touched.username
-                                                                ? errors.username
-                                                                : ""
-                                                        }
-                                                        name="username"
-                                                    />
+                                                <AccountCircle />
+                                                <TextField
+                                                    error={
+                                                        errors.username &&
+                                                        touched.username
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="common.username"
+                                                            defaultMessage="common.username"
+                                                        />
+                                                    }
+                                                    value={values.username}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    helperText={
+                                                        touched.username
+                                                            ? errors.username
+                                                            : ""
+                                                    }
+                                                    name="username"
+                                                />
                                                 </Grid>
                                             </Grid>
 
@@ -168,37 +158,32 @@ export class Login extends Component {
                                                     className="item-flex input-with-icon"
                                                 >
                                                     {/* <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel> */}
-                                                    <TextField
-                                                        error={
-                                                            errors.password &&
-                                                            touched.password
-                                                        }
-                                                        id="input-with-icon-textfield"
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="common.password"
-                                                                defaultMessage="common.password"
-                                                            />
-                                                        }
-                                                        InputProps={{
-                                                            startAdornment: (
-                                                                <InputAdornment position="start">
-                                                                    <AccountCircle />
-                                                                </InputAdornment>
-                                                            )
-                                                        }}
-                                                        value={values.password}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        helperText={
-                                                            touched.password
-                                                                ? errors.password
-                                                                : ""
-                                                        }
-                                                        name="password"
-                                                    />
+                                                    <AccountCircle />
+                                                <TextField
+                                                    error={
+                                                        errors.password &&
+                                                        touched.password
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="common.password"
+                                                            defaultMessage="common.password"
+                                                        />
+                                                    }
+                                                    value={values.password}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    helperText={
+                                                        touched.password
+                                                            ? errors.password
+                                                            : ""
+                                                    }
+                                                    type='password'
+                                                    name="password"
+                                                />
                                                 </Grid>
                                             </Grid>
                                         </>

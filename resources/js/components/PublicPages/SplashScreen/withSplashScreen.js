@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './splash-screen.css';
+import './splash-screen.scss';
 import ima1 from '../../../../../public/images/Bitmap1.png';
 import ima2 from '../../../../../public/images/Bitmap.png';
 import logo from '../../../../../public/images/logo.png';
@@ -32,7 +32,7 @@ function withSplashScreen(WrappedComponent) {
           this.setState({
             loading: false,
           });
-        }, 3000)
+        }, 3000000)
       } catch (err) {
         console.log(err);
         this.setState({

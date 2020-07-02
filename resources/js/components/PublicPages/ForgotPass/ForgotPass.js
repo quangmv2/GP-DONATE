@@ -40,6 +40,9 @@ export class ForgotPass extends Component {
     }
 
     async componentDidMount() {}
+    handleBack = () => {
+        this.props.history.goBack()
+      }
 
     componentDidUpdate(prevProps) {
         const { isLogged } = this.props;
@@ -64,16 +67,17 @@ export class ForgotPass extends Component {
 
         //login(username, password);
     };
+  
 
     render() {
         const { errors, loading } = this.props;
         return (
             <div class="fullheight-wrapper">
                 <div className="container">
-                    <Link className='backContainer' to={PUBLIC_ROUTE.LOGIN}>
+                    <div className='backContainer' onClick={this.handleBack}>
                     <ArrowBackIosIcon className='backIcon' />
                     <p>Back</p>
-                    </Link>
+                    </div>
                         <p className="t1">Forgot password</p>
                         <p className="t2">Please enter your email address</p>
                     <div className="codeFields">
@@ -121,37 +125,32 @@ export class ForgotPass extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                 <TextField
-                                                        error={
-                                                            errors.email &&
-                                                            touched.email
-                                                        }
-                                                        id="input-with-icon-textfield"
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="common.email"
-                                                                defaultMessage="common.email"
-                                                            />
-                                                        }
-                                                        InputProps={{
-                                                            startAdornment: (
-                                                                <InputAdornment position="start">
-                                                                    <AccountCircle />
-                                                                </InputAdornment>
-                                                            )
-                                                        }}
-                                                        value={values.email}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        helperText={
-                                                            touched.email
-                                                                ? errors.email
-                                                                : ""
-                                                        }
-                                                        name="email"
-                                                    />
+                                                          <AccountCircle />
+                                                <TextField
+                                                    error={
+                                                        errors.email &&
+                                                        touched.email
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="common.email"
+                                                            defaultMessage="common.email"
+                                                        />
+                                                    }
+                                                    value={values.email}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    helperText={
+                                                        touched.email
+                                                            ? errors.email
+                                                            : ""
+                                                    }
+                                                    type='email'
+                                                    name="email"
+                                                />
                                             </Grid>
                                         </Grid>
 

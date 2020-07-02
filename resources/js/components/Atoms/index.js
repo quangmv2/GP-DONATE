@@ -3,6 +3,7 @@ import LinkEnhance from "./LinkEnhance";
 import Input from "./Input";
 
 import SignInBackground from "./AuthBackground/SignInBackground";
+import HeaderNavigation from "./HeaderNav/HeaderNavigation";
 
 export * from "./Alert";
 export * from "./Badge";
@@ -27,4 +28,4 @@ export * from "./TooltipAnt";
 export * from "./TreeAnt";
 export * from "./TreeTable";
 
-export { DataTable, LinkEnhance, Input, SignInBackground };
+export { DataTable, LinkEnhance, Input, SignInBackground, HeaderNavigation };

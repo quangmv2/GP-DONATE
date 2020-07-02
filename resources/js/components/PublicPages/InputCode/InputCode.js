@@ -117,43 +117,38 @@ export class InputCode extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                              <TextField
-                                                        error={
-                                                            errors.code &&
-                                                            touched.code
-                                                        }
-                                                        id="input-with-icon-textfield"
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="codePage.code"
-                                                                defaultMessage="codePage.code"
-                                                            />
-                                                        }
-                                                        InputProps={{
-                                                            startAdornment: (
-                                                                <InputAdornment position="start">
-                                                                    <AccountCircle />
-                                                                </InputAdornment>
-                                                            )
-                                                        }}
-                                                        value={values.code}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        helperText={
-                                                            touched.code
-                                                                ? errors.code
-                                                                : ""
-                                                        }
-                                                        name="code"
-                                                    />
+                                    <AccountCircle />
+                                                <TextField
+                                                    error={
+                                                        errors.code &&
+                                                        touched.code
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="codePage.code"
+                                                            defaultMessage="codePage.code"
+                                                        />
+                                                    }
+                                                    value={values.code}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    helperText={
+                                                        touched.code
+                                                            ? errors.code
+                                                            : ""
+                                                    }
+                                                  
+                                                    name="code"
+                                                />
                                             </Grid>
                                         </Grid>
                                         
                                     </>
                                                 
-                                    <div className="form-control filledButton">
+                                    <div className="form-control inputButton">
                                         <ButtonAnt
                                             className="custom-button-login btn-block btn-round btn-red buttonContainer"
                                             disabled={loading || isSubmitting}

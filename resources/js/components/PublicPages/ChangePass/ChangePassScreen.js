@@ -121,37 +121,32 @@ export class ChangePassScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                               <TextField
-                                                        error={
-                                                            errors.resetpasscode &&
-                                                            touched.resetpasscode
-                                                        }
-                                                        id="input-with-icon-textfield"
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="resetPass.code"
-                                                                defaultMessage="resetPass.code"
-                                                            />
-                                                        }
-                                                        InputProps={{
-                                                            startAdornment: (
-                                                                <InputAdornment position="start">
-                                                                    <AccountCircle />
-                                                                </InputAdornment>
-                                                            )
-                                                        }}
-                                                        value={values.resetpasscode}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        helperText={
-                                                            touched.resetpasscode
-                                                                ? errors.resetpasscode
-                                                                : ""
-                                                        }
-                                                        name="resetpasscode"
-                                                    />
+                                              <AccountCircle />
+                                                <TextField
+                                                    error={
+                                                        errors.resetpasscode &&
+                                                        touched.resetpasscode
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="resetPass.code"
+                                                            defaultMessage="resetPass.code"
+                                                        />
+                                                    }
+                                                    value={values.resetpasscode}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    helperText={
+                                                        touched.resetpasscode
+                                                            ? errors.resetpasscode
+                                                            : ""
+                                                    }
+                                                    
+                                                    name="resetpasscode"
+                                                />
                                             </Grid>
                                         </Grid>
 
@@ -165,37 +160,32 @@ export class ChangePassScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
+                                                <AccountCircle />
                                                 <TextField
-                                                        error={
-                                                            errors.password &&
-                                                            touched.password
-                                                        }
-                                                        id="input-with-icon-textfield"
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="common.password"
-                                                                defaultMessage="common.password"
-                                                            />
-                                                        }
-                                                        InputProps={{
-                                                            startAdornment: (
-                                                                <InputAdornment position="start">
-                                                                    <AccountCircle />
-                                                                </InputAdornment>
-                                                            )
-                                                        }}
-                                                        value={values.password}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        helperText={
-                                                            touched.password
-                                                                ? errors.password
-                                                                : ""
-                                                        }
-                                                        name="password"
-                                                    />
+                                                    error={
+                                                        errors.password &&
+                                                        touched.password
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="common.password"
+                                                            defaultMessage="common.password"
+                                                        />
+                                                    }
+                                                    value={values.password}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    helperText={
+                                                        touched.password
+                                                            ? errors.password
+                                                            : ""
+                                                    }
+                                                    type='password'
+                                                    name="password"
+                                                />
                                             </Grid>
                                         </Grid>
                                         <Grid
@@ -208,37 +198,32 @@ export class ChangePassScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                               <TextField
-                                                        error={
-                                                            errors.passchange &&
-                                                            touched.passchange
-                                                        }
-                                                        id="input-with-icon-textfield"
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="common.password"
-                                                                defaultMessage="common.password"
-                                                            />
-                                                        }
-                                                        InputProps={{
-                                                            startAdornment: (
-                                                                <InputAdornment position="start">
-                                                                    <AccountCircle />
-                                                                </InputAdornment>
-                                                            )
-                                                        }}
-                                                        value={values.passchange}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        helperText={
-                                                            touched.passchange
-                                                                ? errors.passchange
-                                                                : ""
-                                                        }
-                                                        name="passchange"
-                                                    />
+                                               <AccountCircle />
+                                                <TextField
+                                                    error={
+                                                        errors.passchange &&
+                                                        touched.passchange
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="common.password"
+                                                            defaultMessage="common.password"
+                                                        />
+                                                    }
+                                                    value={values.password}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    helperText={
+                                                        touched.passchange
+                                                            ? errors.passchange
+                                                            : ""
+                                                    }
+                                                    type='password'
+                                                    name="passchange"
+                                                />
                                             </Grid>
                                         </Grid>
                                     

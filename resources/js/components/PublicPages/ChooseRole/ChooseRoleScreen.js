@@ -9,7 +9,9 @@ import { PUBLIC_ROUTE } from "constants";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 export default function ChooseRoleScreen() {
     const [userRole, setUserRole] = useState();
-
+    const handleBack = () => {
+        this.props.history.goBack()
+      }
     const onChangeValue = (event) => {
         setUserRole(event.target.value);
         console.log(userRole);
@@ -61,7 +63,7 @@ export default function ChooseRoleScreen() {
     return (
         <div class="fullheight-wrapper flex-center">
             <div className='container'>
-            <Link className='backContainer' to={PUBLIC_ROUTE.LOGIN}>
+            <Link className='backContainer' to={PUBLIC_ROUTE.SIGNUP}>
                     <ArrowBackIosIcon className='backIcon' />
                     <p>Back</p>
                     </Link>

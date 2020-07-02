@@ -25,9 +25,8 @@
 .backContainer {
   display: flex;
   flex-direction: row;
-  position: absolute;
-  top: 48px;
-  left: 20px;
+  margin-left: 20px;
+  
   >p {
     width: 47px;
   height: 25px;
