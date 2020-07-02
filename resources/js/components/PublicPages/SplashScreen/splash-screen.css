@@ -1,0 +1,38 @@
+.image1 {
+  width: 30%;
+  height: 40%;
+
+  margin: 0;
+ 
+  top: 5%;
+
+}
+.image2{
+  display: block;
+  float: right;
+  width: 35%;
+  height: 33%;
+  margin-top: 450px;
+  margin-bottom: 40%;
+  
+  
+  
+  /* -ms-transform: translate(-50%, -50%); */
+  /* transform: translate(-50%, -50%); */
+}
+.logo {
+  width: 50%;
+position: absolute;
+top:50%;
+left: 25%;
+right: 25%;
+
+}
+.splash-screen {
+    width: 100%;
+    height: 100%;
+    
+  }
+  
+  
+  
