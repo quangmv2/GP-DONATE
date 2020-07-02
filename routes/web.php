@@ -19,6 +19,9 @@ Route::get('/', function () {
 Route::get('/client/{any}', function ($any) {
     return view('client.app');
 })->where('any', '.*');
+Route::get('/client', function () {
+    return view('client.app');
+});
 
 //Router for administrator 
 

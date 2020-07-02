@@ -35,4 +35,5 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('me/code-invitation', 'Apis\UserController@codeInvitation');
 });
 
+Route::post('test-socket', "Apis\UserController@testSoket");
 

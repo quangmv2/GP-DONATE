@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'Asia/Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------
@@ -177,7 +177,7 @@ return [
 
         Spatie\Permission\PermissionServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class
     ],
 
     /*

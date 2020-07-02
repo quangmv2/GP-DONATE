@@ -11,6 +11,7 @@ import privateRoutes from "./router/private";
 import publicRoutes from "./router/public";
 // import * as serviceWorker from "./serviceWorker";
 import { ConnectedRouter } from "connected-react-router";
+import { SocketProvider } from "./context/SocketProvider";
 // import App from "./App";
 const initialState = {};
 const history = createBrowserHistory({
@@ -22,13 +23,15 @@ const store = configureStore(initialState, history);
 
 ReactDOM.render(
     <Provider store={store}>
-        <ConnectedRouter history={history}>
-            <RouterContainer
-                history={history}
-                publicRoutes={flatten(publicRoutes)}
-                privateRoutes={flatten(privateRoutes)}
-            />
-        </ConnectedRouter>
+        <SocketProvider>
+            <ConnectedRouter history={history}>
+                <RouterContainer
+                    history={history}
+                    publicRoutes={flatten(publicRoutes)}
+                    privateRoutes={flatten(privateRoutes)}
+                />
+            </ConnectedRouter>
+        </SocketProvider>
     </Provider>,
     document.getElementById("root")
 );
