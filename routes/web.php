@@ -14,9 +14,12 @@
 Route::get('/', function () {
     return view('teaser.teaser');
 });
+Route::get('/teaser', function () {
+    return view('teaser.teaser');
+});
 
 //Router for client reactjs
-Route::get('/client/{any}', function ($any) {
+Route::get('/{any}', function ($any) {
     return view('client.app');
 })->where('any', '.*');
 Route::get('/client', function () {

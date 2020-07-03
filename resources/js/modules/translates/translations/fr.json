@@ -4,14 +4,17 @@
     "email": "E-mail",
     "password": "Wachtwoord",
     "logout": "Uitloggen",
-    "welcome": "Welcome"
+    "welcome": "Welcome",
+    "username": "User Name"
+    
   },
   "error": {
     "organizationRequired": "Organization is Required",
     "emailRequired": "E-mail is vereist",
     "passwordRequired": "Wachtwoord is vereist",
     "passwordInvalid": "Wachtwoord is Ongeldig",
-    "passwordChangeRequired": "Wachtwoordwijziging vereist"
+    "passwordChangeRequired": "Wachtwoordwijziging vereist",
+    "userNameRequired": "userName is vereist"
   },
   "loginPage": {
     "remember": "Remember me",

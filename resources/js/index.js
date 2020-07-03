@@ -9,10 +9,10 @@ import RouterContainer from "./core/router-container/RouterContainer";
 import configureStore from "./redux/configureStore";
 import privateRoutes from "./router/private";
 import publicRoutes from "./router/public";
+import App from "../js/core/App";
 // import * as serviceWorker from "./serviceWorker";
 import { ConnectedRouter } from "connected-react-router";
-import { SocketProvider } from "./context/SocketProvider";
-// import App from "./App";
+
 const initialState = {};
 const history = createBrowserHistory({
     // basename: "/" // config for base directory
@@ -22,17 +22,9 @@ const store = configureStore(initialState, history);
 // ReactDOM.render(<App />, document.getElementById("root"));
 
 ReactDOM.render(
-    <Provider store={store}>
-        <SocketProvider>
-            <ConnectedRouter history={history}>
-                <RouterContainer
-                    history={history}
-                    publicRoutes={flatten(publicRoutes)}
-                    privateRoutes={flatten(privateRoutes)}
-                />
-            </ConnectedRouter>
-        </SocketProvider>
-    </Provider>,
+
+    //đây là thng app luôn ddaay 
+    <App />,
     document.getElementById("root")
 );
 
