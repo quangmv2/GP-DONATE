@@ -11,16 +11,27 @@ use Illuminate\Support\Facades\Storage;
 use DB;
 use Response;
 use App\Services\CommonService;
+use App\Services\PostService;
+
 
 
 class PostController extends Controller
 { 
+
+    private PostService $postService;
+    private CommonService $commonService;
+
+
     function __construct(){
+        $this->postService = app()->make('PostService');
+        $this->commonService = app()->make('CommonService');
+
         $this->middleware('auth:api');
         $this->middleware('permission:post-list|post-list-all|post-edit|post-delete', ['only' => ['index']]);
         $this->middleware('permission:post-create', ['only' => ['store']]);
         $this->middleware('permission:post-edit|post-edit-all', ['only' => ['update']]);
         $this->middleware('permission:post-delete|post-delete-all', ['only' => ['destroy']]);
+
     }
 
     /**
@@ -88,52 +99,9 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-       
-        $order = $request->input('order')? $request->input('order') : 'created_at';
-        $length = $request->input('length');
-        $start = $request->input('start');
-        $search = $request->input('search');
-        $orderDesc = $request->input('order_type') ? $request->input('order_type') : 'desc';
-        $searchCategory = $request->input('category');
-
-        $length = isset($length) && $length > 0 ? $length : 10;
-        $page = isset($start) ? ($start/$length + 1) : 1;
-
-        $categories = Post::whereIn('status',[0,1])
-            ->where('id', constants('id.post'))
-            ->where(function($request) use ($search){
-            $request->where('title', 'like', '%'.$search.'%')
-            ->orWhere('description', 'like', '%'.$search.'%');
-                })
-            ;
-
-        $query = Post::whereIn('status', [0, 1])
-            ->where('post_type', constants('post_type.post'))
-            ->where(function($q) use ($search){
-                $q->where('title', 'like', '%'.$search.'%')
-                    ->orWhere('description', 'like', '%'.$search.'%');
-                })
-            ;
-
-        $query = $query->with("categories");
-        if (!(!$searchCategory || $searchCategory == "" || $searchCategory == "all")) 
-        {
-            $query = $query
-            ->whereHas('categories', function($q) use ($searchCategory) 
-            {
-                $q->where('categories.id', '=', $searchCategory);
-            });
-        }
-
-        $totalSearch = $query->count();
-        $data = $query->orderBy($order, $orderDesc)->paginate($length, ['*'], 'page', $page);
-        $data = CommonService::filterArray($data);
-
-        return Response::json([
-            'recordsFiltered' => $totalSearch,
-            'recordsTotal' => $totalSearch,
-            'data' => $data->data,
-        ]);
+        $limit = $request->get('limit');
+        $page = $request->get('page');
+        return $this->postService->getPostPaginate($page, $limit);      
     }
 
 
@@ -194,27 +162,19 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $req)
     {
-        $request->validate([
-            'title' =>'required',
-            'content' =>'required',  
-            'photo_thumbnail' => 'required',
-            'full_photo' => 'required',
-            'due_day' => 'required|date'
-            // 'hashtags' =>'required',
-        ]);
+        
+        $this->postService->validate($req);
 
-        $image = $request->file('image');
-
-        $post = new Post();
-        $post->title = $request->title;
-        $post->content = $request->content;
-        $post->photo_thumbnail = $request->photo_thumbnail;
-        $post->full_photo = $request->full_photo;
-        $post->due_day = $request->due_day;
-        $post->user_id = $request->user()->id;
-        $post->save();
+        $post = $this->postService->save(
+            $req->title, 
+            $req->content, 
+            $req->photo_thumbnail, 
+            $req->full_photo, 
+            $req->due_day,
+            $req->user()->id
+        );
 
        return response()->json(json_decode($post), 201);
     }
@@ -227,8 +187,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        if ($id == "me") 
+            return $this->postService->getPostPaginateByUser($request->get('limit'), $request->user()->id);
         return response()->json(Post::FindOrFail($id));
     }
 
@@ -258,20 +220,10 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         if ($post->user_id != $request->user()->id) return response()->json(['message' => 'FORBIDDEN'], 403);
-        
-        $validatedData = $request->validate([
-            'title' =>'required',
-            'content' =>'required',
-            'photo_thumbnail' =>'required',
-            'full_photo' =>'required',
-            'due_day' => 'required|date'
-        ]);
-        $post->title = $request->title;
-        $post->content = $request->content;
-        $post->photo_thumbnail = $request->photo_thumbnail;
-        $post->full_photo = $request->full_photo;
-        $post->save();
 
+        $this->postService->validate($request);
+        
+        $post = $this->postService->update($id, $request->all());
         return response()->json(json_decode($post), 200);
     }
 
@@ -297,37 +249,12 @@ class PostController extends Controller
         $request->validate([
             'photo' =>'required|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ]);
-
-        $image = $request->file('photo');
-        $name= time().'_'.$image->getClientOriginalName();
-        
-        $directory = "uploads/images/posts";
-
-        $path = Storage::putFileAs($directory, $image, $name);
-        
-        return response()->json([
-            'messeger' => 'success',
-            'image_directory' => $path,
-        ], 201);
+        return $this->postService->saveImage($request->file('photo'));
     }
 
     public function showPhoto(Request $request)
     {
-
-        
-        $fileName = $request->get('dir');
-
-        if (!Storage::exists($fileName)) 
-            return response()->json(['message' => 'Image not found'], 401);
-
-        $headers = [
-            'Cache-Control'         => 'must-revalidate, post-check=0, pre-check=0',
-            'Content-Type'          => Storage::mimeType($fileName),
-            'Content-Length'        => Storage::size($fileName),
-            'Content-Disposition'   => 'filename="' . basename($fileName) . '"',
-            'Pragma'                => 'public',
-        ];
-        return Storage::download($fileName, basename($fileName), $headers);
+        return $this->commonService->showImage($request->get('dir'));        
     }
     
 }
