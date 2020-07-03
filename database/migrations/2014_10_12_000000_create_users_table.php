@@ -34,7 +34,7 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('code_id')->nullable();
             $table->string('personal_photo')->nullable();
-            $table->integer('gender');
+            $table->integer('gender')->nullable();;
             $table->rememberToken();
             $table->timestamps();
 

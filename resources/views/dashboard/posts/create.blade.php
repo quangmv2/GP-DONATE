@@ -56,11 +56,11 @@ Create Posts
                         <strong>Categories:</strong>
                         <br/>
                         <div class="category_post_wrapper">
-                            @foreach($categories as $value)
+                            {{-- @foreach($categories as $value)
                                 <label>{{ Form::checkbox('category[]', $value->id, false, array('class' => 'name')) }}
                                 {{ $value->name }}</label>
                             <br/>
-                            @endforeach
+                            @endforeach --}}
                         </div>
                     </div>
 

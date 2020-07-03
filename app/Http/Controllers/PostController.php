@@ -32,7 +32,7 @@ class PostController extends Controller
     public function index()
     {
         // $categories = Category::whereNull('type')->orWhereIn('type', ['all', 'post'])->get();
-        // return view('dashboard.posts.index',compact('categories'));
+        return view('dashboard.posts.index');
     }
 
     /**
@@ -52,6 +52,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        return view('dashboard.posts.create');
     }
 
 

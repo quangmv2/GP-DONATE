@@ -47,9 +47,9 @@ Posts Management
                                 <label class="mt-2">Categories:</label>
                                 <select name="category" id="category" class="browser-default custom-select custom-select-lg mb-2">
                                   <option value="all" selected>All</option>
-                                  @foreach($categories as $category)
+                                  {{-- @foreach($categories as $category)
                                    <option value="{{$category->id}}">{{$category->name}}</option>
-                                  @endforeach
+                                  @endforeach --}}
                                 </select>
                             </div>
                         </div>
