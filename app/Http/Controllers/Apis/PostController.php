@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use DB;
 use Response;
 use App\Services\CommonService;
@@ -16,9 +17,9 @@ class PostController extends Controller
 { 
     function __construct(){
         $this->middleware('auth:api');
-        $this->middleware('permission:post-list|post-list-all|post-edit|post-delete', ['only' => ['index','show']]);
-        $this->middleware('permission:post-create', ['only' => ['create','store']]);
-        $this->middleware('permission:post-edit|post-edit-all', ['only' => ['edit','update']]);
+        $this->middleware('permission:post-list|post-list-all|post-edit|post-delete', ['only' => ['index']]);
+        $this->middleware('permission:post-create', ['only' => ['store']]);
+        $this->middleware('permission:post-edit|post-edit-all', ['only' => ['update']]);
         $this->middleware('permission:post-delete|post-delete-all', ['only' => ['destroy']]);
     }
 
@@ -228,7 +229,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Post::FindOrFail($id)->user);
+        return response()->json(Post::FindOrFail($id));
     }
 
 
@@ -257,6 +258,7 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         if ($post->user_id != $request->user()->id) return response()->json(['message' => 'FORBIDDEN'], 403);
+        
         $validatedData = $request->validate([
             'title' =>'required',
             'content' =>'required',
@@ -293,16 +295,39 @@ class PostController extends Controller
     public function storePhoto(Request $request)
     {
         $request->validate([
-            'photo' =>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]); 
-        $image = $request->file('image');
-        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-        $destinationPath = public_path('/images');
-        $image->move($destinationPath, $input['imagename']);
-        $photo_thumbnail = $request->photo_thumbnail;
-        $post->full_photo = $request->full_photo;
+            'photo' =>'required|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
+        ]);
 
-        return response()->json(['messeger' => 'success'], 201);
+        $image = $request->file('photo');
+        $name= time().'_'.$image->getClientOriginalName();
+        
+        $directory = "uploads/images/posts";
+
+        $path = Storage::putFileAs($directory, $image, $name);
+        
+        return response()->json([
+            'messeger' => 'success',
+            'image_directory' => $path,
+        ], 201);
+    }
+
+    public function showPhoto(Request $request)
+    {
+
+        
+        $fileName = $request->get('dir');
+
+        if (!Storage::exists($fileName)) 
+            return response()->json(['message' => 'Image not found'], 401);
+
+        $headers = [
+            'Cache-Control'         => 'must-revalidate, post-check=0, pre-check=0',
+            'Content-Type'          => Storage::mimeType($fileName),
+            'Content-Length'        => Storage::size($fileName),
+            'Content-Disposition'   => 'filename="' . basename($fileName) . '"',
+            'Pragma'                => 'public',
+        ];
+        return Storage::download($fileName, basename($fileName), $headers);
     }
     
 }

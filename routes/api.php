@@ -26,12 +26,19 @@ Route::group(['prefix' => 'oauth'], function () {
 
 });
 
-Route::apiResources([
-    'user' => 'Apis\UserController',
-    'posts'=> 'Apis\PostController'
-]);
-Route::get('photos/show', 'Apis\PostController@uploadForm');
-Route::post('photos/create', 'Apis\PostController@storePhoto');
+Route::group(['middleware' => ['auth:api']], function () {
+    
+    Route::get('posts/photo', 'Apis\PostController@showPhoto'); //get photo for driectory
+    Route::post('posts/photo', 'Apis\PostController@storePhoto'); //Upload image
+
+    Route::apiResources([
+        'user' => 'Apis\UserController',
+        'posts'=> 'Apis\PostController'
+    ]);
+
+});
+
+
 
 Route::group(['prefix' => 'user'], function () {
     Route::post('me/code-invitation', 'Apis\UserController@codeInvitation');
