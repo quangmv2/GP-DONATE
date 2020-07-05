@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('photo_thumbnail');
             $table->string('full_photo');
             $table->timestamp('due_day');
+            $table->integer('status')->nullable()->default(1);
             $table->timestamps();
 
             $table->foreign('user_id')

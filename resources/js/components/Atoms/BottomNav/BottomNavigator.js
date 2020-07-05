@@ -21,7 +21,7 @@ export default function BottomNavigator() {
     <Link to='' className="active">Search</Link>
     </div>
     <div className='bottom-nav-icon-container'>
-    <AddCircleRoundedIcon style={{ color: '#ddae53', fontSize: '18px',
+    <AddCircleRoundedIcon style={{ color: '#ddae53', fontSize: '22px',
     position: 'relative',
     top: '-20px',
     zIndex: 2 }}/>

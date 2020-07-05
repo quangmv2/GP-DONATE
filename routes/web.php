@@ -12,7 +12,7 @@
 */
 // Router for teaser
 Route::get('/', function () {
-    return view('teaser.teaser');
+    return view('client.app');
 });
 Route::get('/teaser', function () {
     return view('teaser.teaser');
@@ -26,6 +26,8 @@ Route::get('/client', function () {
     return view('client.app');
 });
 
+
+
 //Router for administrator 
 
 Route::group(['prefix' => 'admin'], function () {
@@ -34,7 +36,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('logout', 'Auth\LoginController@logout');
 
     Route::group(['middleware' => ['auth', 'auth', 'permission:admin-page']], function() {
-        Route::get('/', 'HomeController@index');
+        Route::get('/', 'HomeController@index')->name('adminHome');
         Route::get('/home', 'HomeController@index')->name('home');
         Route::resource('roles','RoleController');
         Route::resource('users','UserController');

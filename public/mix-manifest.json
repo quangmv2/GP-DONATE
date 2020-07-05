@@ -1,5 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
+<<<<<<< HEAD
     "/css/app.css": "/css/app.css",
     "/js/app.09b431390efac56d6c49.hot-update.js": "/js/app.09b431390efac56d6c49.hot-update.js",
     "/js/app.d5c5cf3870f4d8cd4435.hot-update.js": "/js/app.d5c5cf3870f4d8cd4435.hot-update.js",
@@ -460,4 +461,7 @@
     "/js/app.401a709caa1c969ea3ce.hot-update.js": "/js/app.401a709caa1c969ea3ce.hot-update.js",
     "/js/app.28b6949f1beb1a7453e4.hot-update.js": "/js/app.28b6949f1beb1a7453e4.hot-update.js",
     "/js/app.e95deb6f0df9e5179e78.hot-update.js": "/js/app.e95deb6f0df9e5179e78.hot-update.js"
+=======
+    "/css/app.css": "/css/app.css"
+>>>>>>> 172cc36a9b9e57ef556742ee25444039b4e16085
 }
