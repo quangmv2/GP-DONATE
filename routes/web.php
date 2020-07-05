@@ -11,9 +11,9 @@
 |
 */
 // Router for teaser
-// Route::get('/', function () {
-//     return view('teaser.teaser');
-// });
+Route::get('/', function () {
+    return view('client.app');
+});
 Route::get('/teaser', function () {
     return view('teaser.teaser');
 });
