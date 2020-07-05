@@ -11,7 +11,7 @@ import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
 import { URL_REDIRECT_LOGIN, ROUTE } from "constants";
 import { postLogin } from "modules/auth/actions";
-import "./InputCode.scss";
+import "./inputCode.scss";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import {
     selectIsLogged,

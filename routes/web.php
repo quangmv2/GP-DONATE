@@ -11,9 +11,9 @@
 |
 */
 // Router for teaser
-Route::get('/', function () {
-    return view('teaser.teaser');
-});
+// Route::get('/', function () {
+//     return view('teaser.teaser');
+// });
 Route::get('/teaser', function () {
     return view('teaser.teaser');
 });
@@ -25,6 +25,8 @@ Route::get('/{any}', function ($any) {
 Route::get('/client', function () {
     return view('client.app');
 });
+
+
 
 //Router for administrator 
 
