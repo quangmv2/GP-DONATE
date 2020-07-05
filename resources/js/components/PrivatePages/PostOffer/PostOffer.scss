@@ -1,4 +1,61 @@
-.app-bar-container {
-background-color: #081f47;
-height: 9%
+.centerText {
+  text-align: center;
+  width: 500px;
+}
+.post-image-text {
+    font-family: Muli;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: #262626;
+}
+.post-image-container {
+   padding: 30px;
+}
+.prev-image-container {
+    background-color: #dddddd;
+    min-height: 170px;
+    border-radius: 10px;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20%;
+    padding-bottom: 20%;
+
+}
+.thumbnail-container {
+    padding-left: 5%;
+}
+.post-border {
+    height: 5px;
+    width: 100%;
+    background-color: #eeeeee;
+    margin-top: 10%;
+
+}
+.other-info {
+    font-family: Muli;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: #262626;
+}
+.publish-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 3%;
+    padding-bottom: 20%;
+    
+   }
+.form-post-offer-container {
+    padding: 0 30px;
+    margin-top: 5%;
+
 }

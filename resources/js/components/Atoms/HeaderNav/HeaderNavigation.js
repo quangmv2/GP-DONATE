@@ -11,13 +11,16 @@ const HeaderNavigation = props => {
         <div>
             <AppBar position="static" >
                 <Toolbar className='app-bar-container' >
-                    <IconButton edge="start" color="inherit" aria-label="menu">
+                    <IconButton color="inherit" className='i'>
                         <ArrowBackIosIcon className='top-nav-icon' />
                     </IconButton>
                             <p>{props.headerName}</p>
-                            <IconButton edge="start" color="inherit" aria-label="menu">
+                            <div>
+                                {props.children}
+                            {/* <IconButton edge="start" color="inherit" aria-label="menu">
                         <ArrowBackIosIcon />
-                    </IconButton>
+                    </IconButton> */}
+                    </div>
                 </Toolbar>
             </AppBar>
         </div>

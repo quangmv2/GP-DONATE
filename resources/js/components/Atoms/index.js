@@ -4,6 +4,7 @@ import Input from "./Input";
 
 import SignInBackground from "./AuthBackground/SignInBackground";
 import HeaderNavigation from "./HeaderNav/HeaderNavigation";
+import BottomNavigator from "./BottomNav/BottomNavigator";
 
 export * from "./Alert";
 export * from "./Badge";
@@ -28,4 +29,4 @@ export * from "./TooltipAnt";
 export * from "./TreeAnt";
 export * from "./TreeTable";
 
-export { DataTable, LinkEnhance, Input, SignInBackground, HeaderNavigation };
+export { DataTable, LinkEnhance, Input, SignInBackground, HeaderNavigation, BottomNavigator };

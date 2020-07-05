@@ -66,7 +66,7 @@ export class Login extends Component {
 
         return (
             <div className="fullheight-wrapper flex-center">
-                <div className="container ">
+                <div className="container">
                     <SignInBackground>
                         <p className="text1">Sign In</p>
                         <p className="text2">To keep connected with us</p>
