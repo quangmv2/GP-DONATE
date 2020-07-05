@@ -29,7 +29,15 @@ p.MuiFormHelperText-root {
     align-items: center;
     justify-content: center;
 
-    > .container {
+    >.container {
         width: 100%;
+    }
+}
+.private-fullheight {
+    background-color: white;
+    min-height: 100vh;
+    >.container {
+        width: 100%;
+        margin: 0
     }
 }

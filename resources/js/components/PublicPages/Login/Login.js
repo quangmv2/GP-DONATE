@@ -9,7 +9,12 @@ import injectSaga from "core/saga/inject-saga";
 import reducer from "modules/auth/reducers";
 import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
-import { URL_REDIRECT_LOGIN, ROUTE, PUBLIC_ROUTE } from "constants";
+import {
+    URL_REDIRECT_LOGIN,
+    ROUTE,
+    PUBLIC_ROUTE,
+    PRIVATE_ROUTE
+} from "constants";
 import { postLogin } from "modules/auth/actions";
 import {
     selectIsLogged,
@@ -57,7 +62,7 @@ export class Login extends Component {
         }
         const { username, password } = values;
         const { login } = this.props;
-        this.props.history.push(PUBLIC_ROUTE.SIGNUP);
+        this.props.history.push(PRIVATE_ROUTE.HOME);
         //login(username, password);
     };
 
@@ -66,7 +71,7 @@ export class Login extends Component {
 
         return (
             <div className="fullheight-wrapper flex-center">
-                <div className="container ">
+                <div className="container">
                     <SignInBackground>
                         <p className="text1">Sign In</p>
                         <p className="text2">To keep connected with us</p>

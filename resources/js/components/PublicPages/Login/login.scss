@@ -10,73 +10,65 @@
 }
 .label {
     padding-left: 35px;
-margin-top: 25px;
-font-family: Muli;
-font-style: normal;
-font-weight: 500;
-font-size: 13px;
-line-height: 16px;
-color: #91969E;
+    margin-top: 25px;
+    font-family: Muli;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    color: #91969e;
 }
 
 .logo-login-wrapper {
     display: flex;
-
-    
 }
 .inputContainer {
     margin-top: -15px;
 }
- .borderInput {
- border-color: #262626;
+.borderInput {
+    border-color: #262626;
     border-bottom-width: 1px;
-   border-top-width: 0px;
-
+    border-top-width: 0px;
 }
 .textInput {
-   margin-top: -20px;
+    margin-top: -20px;
     margin-left: 21px;
-  }
- 
+}
 
-  .formFields {
+.formFields {
     margin-left: 40px;
     margin-right: 40px;
     margin-top: 10%;
-
 }
-.input{
-    border-width:0px;
-    border:none;
+.input {
+    border-width: 0px;
+    border: none;
 }
 *:focus {
     outline: none;
-    color: #777777;
 }
 *:active {
     outline: none;
-   color: #777777;
 }
 .formIcon {
     width: 13px;
     height: 16px;
     margin-top: 3px;
 }
-.fg-pw-text { 
-margin-top: 20px;
-font-family: Muli;
-font-style: normal;
-font-weight: normal;
-font-size: 16px;
-line-height: 20px;
-/* identical to box height */
+.fg-pw-text {
+    margin-top: 20px;
+    font-family: Muli;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height */
 
-
-color: #777777;
+    color: #777777;
 }
 .buttonContainer {
     width: 294px;
-    background-color: #DDAE53;
+    background-color: #ddae53;
     border-radius: 37.5px;
     text-align: center;
     height: 60px;
@@ -89,7 +81,6 @@ color: #777777;
     line-height: 1.44px;
 }
 .bottomText {
-            
     text-align: center;
     font-family: Muli;
     font-style: normal;
@@ -97,34 +88,31 @@ color: #777777;
     font-size: 16px;
     line-height: 20px;
     /* identical to box height */
-    
+
     color: #777777;
 }
 .bottomLink {
-color: #081F47;
-font-family: Muli;
-font-style: normal;
-font-weight: bold;
-font-size: 16px;
-line-height: 20px;
-padding-left: 5px;
- 
+    color: #081f47;
+    font-family: Muli;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    padding-left: 5px;
 }
 .filledButton {
-    
     display: flex;
     align-items: center;
     justify-content: center;
     padding-top: 10%;
-    
-   }
-   .bottomTextContainer {
-       margin-top: 5%;
-     display: flex;
+}
+.bottomTextContainer {
+    margin-top: 5%;
+    display: flex;
     align-items: center;
     justify-content: center;
-   }
-   .text1 {
+}
+.text1 {
     margin-left: 50px;
     padding-top: 54px;
     font-family: Muli;
@@ -134,7 +122,6 @@ padding-left: 5px;
     line-height: 50px;
     letter-spacing: normal;
     color: #081f47;
-
 }
 .text2 {
     margin-left: 50px;
@@ -159,7 +146,22 @@ padding-left: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 20%
+    padding-top: 20%;
 }
-
-
+.post-offer-button-container {
+    width: 374x;
+    background-color: #ddae53;
+    border-radius: 37.5px;
+    text-align: center;
+    height: 60px;
+    font-weight: bold;
+    font-family: Muli;
+    font-style: normal;
+    border: none;
+    color: #ffffff;
+    font-stretch: normal;
+    line-height: 1.44px;
+}
+.form-post-offer-container {
+    margin-top: 5%;
+}

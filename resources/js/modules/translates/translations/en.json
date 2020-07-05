@@ -50,6 +50,13 @@
   "chooseRole": {
     "submit": "Let the journey begin",
     "cantChange": "You will not be able to switch your role on this account"
+  },
+  "postOffer": {
+    "description": "Add optional description",
+    "value": "Offer Value",
+    "duedate": "Due date",
+    "hashtag": "Add hashtags",
+    "publish": "Publish"
   }
 
 
