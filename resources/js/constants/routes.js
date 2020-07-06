@@ -10,7 +10,7 @@ export const PUBLIC_ROUTE = {
 export const PRIVATE_ROUTE = {
     POST_OFFER: "/post-offer",
     HOME: "/home",
-    HOME_COMMENT: "/home-comment"
+    POST_COMMENT: "/post-comment"
 };
 
 export const ROUTE = {

@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import Grid from '@material-ui/core/Grid';
-export class PostOffer extends Component {
+export class PostComment extends Component {
     renderComment() {
         return _.map(Data, ({ username, content }) => {
             return (
@@ -58,7 +58,7 @@ export class PostOffer extends Component {
                     <div className='comment-list-container'>
                     {this.renderComment()}
                     </div>
-                    <div className='input-comment-container' >
+                    <div className='input-comment-container'>
                     <img
                             src={"./images/Bitmap.png"}
                             className="comment-avatar"
@@ -77,4 +77,4 @@ export class PostOffer extends Component {
     }
 }
 
-export default PostOffer;
+export default PostComment;

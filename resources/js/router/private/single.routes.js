@@ -1,5 +1,5 @@
 import Dashboard from "components/PrivatePages/Dashboard/Dashboard";
-import { PostOffer, HomePage, HomeComment } from "components/PrivatePages";
+import { PostOffer, HomePage, PostComment } from "components/PrivatePages";
 import { PRIVATE_ROUTE } from "constants";
 
 export const singleRoutes = [
@@ -14,8 +14,8 @@ export const singleRoutes = [
         exact: true
     }, 
     {
-        path: PRIVATE_ROUTE.HOME_COMMENT,
-        component: HomeComment,
+        path: PRIVATE_ROUTE.POST_COMMENT,
+        component: PostComment,
         exact: true
     }
 ];
