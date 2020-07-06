@@ -90,14 +90,18 @@
     flex-direction: row;
     padding-left: 20px;
     align-items: center;
-    justify-content: space-between;
-   
+    border-top-color: black;
+    border-width: 1px;
+    background-color: white;
+    padding-bottom: 20px;
+    width: 100%;
+    max-width: 786px;
 }
 .input-comment-with-icon {
     .MuiSvgIcon-root {
-        position: absolute;
-        right: -5%;
-        bottom: 12px;
+        position: relative;
+       left: 90%;
+        bottom: -38px;
     }
     >input {
         width: 100%;
@@ -114,6 +118,8 @@
     width: 45px;
   height: 45px;
   border-radius: 50%;
+  position: relative;
+  bottom: -15px;
 }
 .comment-list-container {
     padding-bottom: 5%;
