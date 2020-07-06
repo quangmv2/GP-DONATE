@@ -8,8 +8,9 @@ export const PUBLIC_ROUTE = {
 };
 
 export const PRIVATE_ROUTE = {
-    DASHBOARD: "/dashboard",
-    HOME: "/dashboard"
+    POST_OFFER: "/post-offer",
+    HOME: "/home",
+    HOME_COMMENT: "/home-comment"
 };
 
 export const ROUTE = {

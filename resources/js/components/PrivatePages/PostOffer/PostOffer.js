@@ -11,7 +11,7 @@ import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
 import { URL_REDIRECT_LOGIN, ROUTE, PUBLIC_ROUTE } from "constants";
 import { postLogin } from "modules/auth/actions";
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import {
     selectIsLogged,
     selectErrors,
@@ -24,9 +24,9 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
-import './PostOffer.scss';
-import BottomNavigator from "../../Atoms/BottomNav/BottomNavigator";
+import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
+import "./PostOffer.scss";
+import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 
 export class PostOffer extends Component {
     constructor(props) {
@@ -40,7 +40,7 @@ export class PostOffer extends Component {
         };
         this.setSubmitting = null;
     }
-    async componentDidMount() { }
+    async componentDidMount() {}
 
     componentDidUpdate(prevProps) {
         const { isLogged } = this.props;
@@ -68,40 +68,33 @@ export class PostOffer extends Component {
     render() {
         const { errors, loading } = this.props;
         return (
-            <div className='private-fullheight'>
+            <div className="private-fullheight">
                 <div className="container">
-                    <HeaderNavigation 
-                    headerName='Post an Offer'
-                    />
-                <Grid container className='post-image-container' >
-                        <Grid item xs={5} style={{paddingRight: '25px'}}>
-                            <p className='post-image-text'>Story photo</p>
-                            <div className='prev-image-container'>
-
-                                <PhotoCameraIcon
-                                    style={{ fontSize: '37px' }} />
-
+                    <HeaderNavigation headerName="Post an Offer" />
+                    <Grid container className="post-image-container">
+                        <Grid item xs={5} style={{ paddingRight: "25px" }}>
+                            <p className="post-image-text">Story photo</p>
+                            <div className="prev-image-container">
+                                <PhotoCameraIcon style={{ fontSize: "37px" }} />
                             </div>
                         </Grid>
                         <Grid item xs={7}>
-                            <p className='post-image-text '>Thumbnail photo</p>
-                            <div className='prev-image-container'>
-                                <PhotoCameraIcon style={{ fontSize: '37px' }} />
+                            <p className="post-image-text ">Thumbnail photo</p>
+                            <div className="prev-image-container">
+                                <PhotoCameraIcon style={{ fontSize: "37px" }} />
                             </div>
                         </Grid>
                     </Grid>
 
-                    <hr className='post-border' />
                     <div className="form-post-offer-container ">
                         {/* {this.renderFields()} */}
-                        <p className='other-info'>Offer information</p>
+                        <p className="other-info">Offer information</p>
                         <Formik
                             initialValues={{
                                 description: "",
                                 offervalue: "",
                                 duedate: "",
-                                hashtag: "",
-
+                                hashtag: ""
                             }}
                             layout="vertical"
                             validate={values => {
@@ -130,189 +123,173 @@ export class PostOffer extends Component {
                                 isSubmitting
                                 /* and other goodies */
                             }) => (
-                                    <form onSubmit={handleSubmit} layout="vertical" className='form-control-post-offer'>
-
-                                        <>
+                                <form
+                                    onSubmit={handleSubmit}
+                                    layout="vertical"
+                                    className="form-control-post-offer"
+                                >
+                                    <>
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
                                             <Grid
-                                                container
-                                                spacing={1}
-                                                alignItems="flex-end"
-                                                className="form-control"
+                                                item
+                                                className="item-flex input-post-offer"
                                             >
-                                                <Grid
-                                                    item
-                                                    className="item-flex input-post-offer"
-                                                >
-
-
-
-                                                    <TextField
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="postOffer.description"
-                                                                defaultMessage="postOffer.description"
-                                                            />
-                                                        }
-                                                        value={values.description}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        name="description"
-                                                    />
-                                                </Grid>
-                                            </Grid>
-                                            <Grid
-                                                container
-                                                spacing={1}
-                                                alignItems="flex-end"
-                                                className="form-control"
-                                            >
-                                                <Grid
-                                                    item
-                                                    className="item-flex post-offer-with-icon"
-                                                >
-                                                    <KeyboardArrowDownIcon />
-                                                    <TextField
-                                                        id="standard-select-currency"
-
-                                                        error={
-                                                            errors.offervalue &&
-                                                            touched.offervalue
-                                                        }
-
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="postOffer.value"
-                                                                defaultMessage="postOffer.value"
-                                                            />
-                                                        }
-                                                        value={values.offervalue}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        helperText={
-                                                            touched.offervalue
-                                                                ? errors.offervalue
-                                                                : ""
-                                                        }
-
-                                                        name="offervalue"
-                                                    >
-
-
-                                                    </TextField>
-                                                </Grid>
-                                                <Grid
-                                                    item
-                                                    className="item-flex post-offer-with-icon"
-                                                >
-                                                    <KeyboardArrowDownIcon />
-                                                    <TextField
-                                                        error={
-                                                            errors.duedate &&
-                                                            touched.duedate
-                                                        }
-
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="postOffer.duedate"
-                                                                defaultMessage="postOffer.duedate"
-                                                            />
-                                                        }
-                                                        value={values.duedate}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        helperText={
-                                                            touched.duedate
-                                                                ? errors.duedate
-                                                                : ""
-                                                        }
-
-                                                        name="duedate"
-
-                                                    >
-                                                    </TextField>
-                                                </Grid>
-                                            </Grid>
-
-                                            <Grid
-                                                container
-                                                spacing={1}
-                                                alignItems="flex-end"
-                                                className="form-control"
-                                            >
-                                                <Grid
-                                                    item
-                                                    className="item-flex input-post-offer"
-                                                >
-
-                                                    <TextField
-                                                        error={
-                                                            errors.hashtag &&
-                                                            touched.hashtag
-                                                        }
-
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="postOffer.hashtag"
-                                                                defaultMessage="postOffer.hashtag"
-                                                            />
-                                                        }
-                                                        value={values.hashtag}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        helperText={
-                                                            touched.hashtag
-                                                                ? errors.hashtag
-                                                                : ""
-                                                        }
-                                                        name="hashtag"
-                                                    />
-                                                </Grid>
-                                            </Grid>
-                                            <Link to="">
-                                                <div className="form-control publish-button">
-                                                    <ButtonAnt
-                                                        className="custom-button-login btn-block btn-round btn-red post-offer-button-container"
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        id="login-btn"
-                                                        loading={
-                                                            loading || isSubmitting
-                                                        }
-                                                        name="login-btn"
-                                                        onClick={handleSubmit}
-                                                        type="primary"
-                                                    >
+                                                <TextField
+                                                    label={
                                                         <FormattedMessage
-                                                            defaultMessage={
-                                                                "postOffer.publish"
-                                                            }
-                                                            id={"postOffer.publish"}
+                                                            id="postOffer.description"
+                                                            defaultMessage="postOffer.description"
                                                         />
-                                                    </ButtonAnt>
-                                                </div>
-                                            </Link>
-                                        </>
-                                    </form>
-                                )}
-                        </Formik>
-                    </div>  
-                   
-                    <BottomNavigator 
-                    style='bottom-nav'
-                    />
-                    </div>
-                    </div >
+                                                    }
+                                                    value={values.description}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    name="description"
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
+                                            <Grid
+                                                item
+                                                className="item-flex post-offer-with-icon"
+                                            >
+                                                <KeyboardArrowDownIcon />
+                                                <TextField
+                                                    id="standard-select-currency"
+                                                    error={
+                                                        errors.offervalue &&
+                                                        touched.offervalue
+                                                    }
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="postOffer.value"
+                                                            defaultMessage="postOffer.value"
+                                                        />
+                                                    }
+                                                    value={values.offervalue}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    helperText={
+                                                        touched.offervalue
+                                                            ? errors.offervalue
+                                                            : ""
+                                                    }
+                                                    name="offervalue"
+                                                ></TextField>
+                                            </Grid>
+                                            <Grid
+                                                item
+                                                className="item-flex post-offer-with-icon"
+                                            >
+                                                <KeyboardArrowDownIcon />
+                                                <TextField
+                                                    error={
+                                                        errors.duedate &&
+                                                        touched.duedate
+                                                    }
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="postOffer.duedate"
+                                                            defaultMessage="postOffer.duedate"
+                                                        />
+                                                    }
+                                                    value={values.duedate}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    helperText={
+                                                        touched.duedate
+                                                            ? errors.duedate
+                                                            : ""
+                                                    }
+                                                    name="duedate"
+                                                ></TextField>
+                                            </Grid>
+                                        </Grid>
 
-            
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
+                                            <Grid
+                                                item
+                                                className="item-flex input-post-offer"
+                                            >
+                                                <TextField
+                                                    error={
+                                                        errors.hashtag &&
+                                                        touched.hashtag
+                                                    }
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="postOffer.hashtag"
+                                                            defaultMessage="postOffer.hashtag"
+                                                        />
+                                                    }
+                                                    value={values.hashtag}
+                                                    onChange={handleChange}
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    helperText={
+                                                        touched.hashtag
+                                                            ? errors.hashtag
+                                                            : ""
+                                                    }
+                                                    name="hashtag"
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                        <Link to="">
+                                            <div className="form-control publish-button">
+                                                <ButtonAnt
+                                                    className="custom-button-login btn-block btn-round btn-red post-offer-button-container"
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    id="login-btn"
+                                                    loading={
+                                                        loading || isSubmitting
+                                                    }
+                                                    name="login-btn"
+                                                    onClick={handleSubmit}
+                                                    type="primary"
+                                                >
+                                                    <FormattedMessage
+                                                        defaultMessage={
+                                                            "postOffer.publish"
+                                                        }
+                                                        id={"postOffer.publish"}
+                                                    />
+                                                </ButtonAnt>
+                                            </div>
+                                        </Link>
+                                    </>
+                                </form>
+                            )}
+                        </Formik>
+                    </div>
+
+                    <BottomNavigator style="bottom-nav" />
+                </div>
+            </div>
         );
     }
 }
@@ -342,4 +319,9 @@ PostOffer.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(withReducer, withSaga, withConnect, withRouter)(PostOffer);
+export default compose(
+    withReducer,
+    withSaga,
+    withConnect,
+    withRouter
+)(PostOffer);

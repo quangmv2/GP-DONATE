@@ -1,15 +1,21 @@
 import Dashboard from "components/PrivatePages/Dashboard/Dashboard";
-import { PostOffer, GiverHomeScreen } from "components/PrivatePages";
+import { PostOffer, HomePage, HomeComment } from "components/PrivatePages";
+import { PRIVATE_ROUTE } from "constants";
 
 export const singleRoutes = [
     {
-        path: "/dashboard",
-        component: GiverHomeScreen,
+        path: PRIVATE_ROUTE.HOME,
+        component: HomePage,
         exact: true
     },
     {
-        path: "/client",
+        path: PRIVATE_ROUTE.POST_OFFER,
         component: PostOffer,
         exact: true
-    },
+    }, 
+    {
+        path: PRIVATE_ROUTE.HOME_COMMENT,
+        component: HomeComment,
+        exact: true
+    }
 ];
