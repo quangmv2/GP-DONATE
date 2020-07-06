@@ -21,16 +21,16 @@ const App = props => {
   
     return (
         <Provider store={store}>
-        <SocketProvider>
-            <ConnectedRouter history={history}>
-                <RouterContainer
-                    history={history}
-                    publicRoutes={flatten(publicRoutes)}
-                    privateRoutes={flatten(privateRoutes)}
-                />
-            </ConnectedRouter>
-        </SocketProvider>
-    </Provider>
+            <SocketProvider>
+                <ConnectedRouter history={history}>
+                    <RouterContainer
+                        history={history}
+                        publicRoutes={flatten(publicRoutes)}
+                        privateRoutes={flatten(privateRoutes)}
+                    />
+                </ConnectedRouter>
+            </SocketProvider>
+        </Provider>
       
     );
   }

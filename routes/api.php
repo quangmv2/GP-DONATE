@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     
     Route::get('posts/photo', 'Apis\PostController@showPhoto'); //get photo for driectory
     Route::post('posts/photo', 'Apis\PostController@storePhoto'); //Upload image
+    Route::get('posts/{id}/comments', 'Apis\PostController@getComments'); 
+    Route::get('posts/{id}/likes', 'Apis\PostController@getLikes'); 
 
     Route::apiResources([
         'user' => 'Apis\UserController',
