@@ -26,7 +26,6 @@ Route::group(['prefix' => 'oauth'], function () {
 
 });
 
-Route::group(['middleware' => ['auth:api']], function () {
     
     Route::get('posts/photo', 'Apis\PostController@showPhoto'); //get photo for driectory
     Route::post('posts/photo', 'Apis\PostController@storePhoto'); //Upload image
@@ -35,10 +34,10 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     Route::apiResources([
         'user' => 'Apis\UserController',
-        'posts'=> 'Apis\PostController'
+        'posts'=> 'Apis\PostController',
+        'comment' => 'Apis\CommentController'
     ]);
 
-});
 
 
 

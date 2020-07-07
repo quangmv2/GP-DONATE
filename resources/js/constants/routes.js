@@ -22,4 +22,4 @@ export const API_ROUTER = {
 };
 
 export const ROOT_API_URL = "http://52.205.200.96/";
-export const ROOT_WS = "52.205.200.96:9000";
+export const ROOT_WS = `localhost:9000`;

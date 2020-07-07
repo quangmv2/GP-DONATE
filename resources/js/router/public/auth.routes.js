@@ -42,7 +42,7 @@ export const authRoutes = [
         exact: true
     },
     {
-        path: "/client/test-socket",
+        path: "/test-socket",
         component: TestSocket,
         exact: true
     }

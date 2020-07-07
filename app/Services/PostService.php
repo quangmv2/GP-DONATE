@@ -7,6 +7,7 @@ use DB;
 use Hash;
 use Response;
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 
 
 class PostService

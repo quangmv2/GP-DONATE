@@ -22,11 +22,13 @@ class PostController extends Controller
     private CommonService $commonService;
 
 
-    function __construct(){
-        $this->postService = app()->make('PostService');
-        $this->commonService = app()->make('CommonService');
+    function __construct(PostService $postService, CommonService $commonService){
+        $this->postService = $postService;
+        $this->commonService = $commonService;
 
-        $this->middleware('auth:api');
+        // $this->middleware('cors', ['except' => ['showPhoto']]);
+        $this->middleware('auth:api', ['except' => ['showPhoto']]);
+
         $this->middleware('permission:post-list|post-list-all|post-edit|post-delete', ['only' => ['index']]);
         $this->middleware('permission:post-create', ['only' => ['store']]);
         $this->middleware('permission:post-edit|post-edit-all', ['only' => ['update']]);
@@ -257,4 +259,13 @@ class PostController extends Controller
         return $this->commonService->showImage($request->get('dir'));        
     }
     
+    public function getComments(Request $request, $id)
+    {
+        $comments = \App\Models\Comment::where('post_id', $id)->get();
+        foreach ($comments as $key => $comment) {
+            $comment->user;
+        }
+        return $comments;
+    }
+
 }
