@@ -62,11 +62,12 @@ class RoleController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+            'show_name' => 'required|unique:roles,show_name',
+            // 'permission' => 'required',
         ]);
 
 
-        $role = Role::create(['name' => $request->input('name')]);
+        $role = Role::create(['name' => $request->input('name'),'show_name' => $request->input('show_name')]);
         $role->syncPermissions($request->input('permission'));
 
 
@@ -117,12 +118,14 @@ class RoleController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'permission' => 'required',
+            'show_name' => 'required',
+            // 'permission' => 'required',
         ]);
 
 
         $role = Role::find($id);
         $role->name = $request->input('name');
+        $role->show_name = $request->input('show_name');
         $role->save();
 
 

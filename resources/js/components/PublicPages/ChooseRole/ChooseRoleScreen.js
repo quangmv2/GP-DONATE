@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./ChooseRole.scss";
+import "./chooseRole.scss";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-import Role from "../../../../../public/images/role.png";
+
 import { ButtonAnt } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
 import { PUBLIC_ROUTE } from "constants";
@@ -14,7 +14,6 @@ export default function ChooseRoleScreen() {
     };
     const onChangeValue = event => {
         setUserRole(event.target.value);
-        console.log(userRole);
     };
     let content = (
         <Link>
@@ -85,7 +84,7 @@ export default function ChooseRoleScreen() {
                     </Grid>
                 </div>
                 <div>
-                    <img src={Role} className="image" />
+                    <img src={"/images/role.png"} className="image" />
                 </div>
                 <div className=" filledButton ">{content}</div>
                 <div className="bottomTextContainer cant-change-text">

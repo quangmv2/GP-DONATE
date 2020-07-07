@@ -40,6 +40,12 @@ Edit Role {{$role->show_name}}
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
+                    <strong>Show Name:</strong>
+                    {!! Form::text('show_name', null, array('placeholder' => 'Show Name','class' => 'form-control')) !!}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
                     <strong>Permission:</strong>
                     <br/>
                     @foreach($permission as $value)

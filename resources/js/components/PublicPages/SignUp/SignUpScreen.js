@@ -25,9 +25,9 @@ import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import { Link } from 'react-router-dom';
-import './SignUp.scss';
-import { PUBLIC_ROUTE } from "../../../constants";
+import { Link } from "react-router-dom";
+import "./signUp.scss";
+import { PUBLIC_ROUTE } from "constants";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
 export class SignUpScreen extends Component {
@@ -84,8 +84,7 @@ export class SignUpScreen extends Component {
                             initialValues={{
                                 email: "",
                                 username: "",
-                                password: "",
-                               
+                                password: ""
                             }}
                             layout="vertical"
                             validate={values => {
@@ -133,8 +132,8 @@ export class SignUpScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
- <AccountCircle />
- <AccountCircle />
+                                                <AccountCircle />
+                                                <AccountCircle />
                                                 <TextField
                                                     error={
                                                         errors.username &&
@@ -157,7 +156,6 @@ export class SignUpScreen extends Component {
                                                             ? errors.username
                                                             : ""
                                                     }
-                
                                                     name="username"
                                                 />
                                             </Grid>
@@ -172,7 +170,7 @@ export class SignUpScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                           <AccountCircle />
+                                                <AccountCircle />
                                                 <TextField
                                                     error={
                                                         errors.email &&
@@ -195,7 +193,7 @@ export class SignUpScreen extends Component {
                                                             ? errors.email
                                                             : ""
                                                     }
-                                                    type='email'
+                                                    type="email"
                                                     name="email"
                                                 />
                                             </Grid>
@@ -211,7 +209,7 @@ export class SignUpScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                          <AccountCircle />
+                                                <AccountCircle />
                                                 <TextField
                                                     error={
                                                         errors.password &&
@@ -234,7 +232,7 @@ export class SignUpScreen extends Component {
                                                             ? errors.password
                                                             : ""
                                                     }
-                                                    type='password'
+                                                    type="password"
                                                     name="password"
                                                 />
                                             </Grid>
@@ -242,63 +240,69 @@ export class SignUpScreen extends Component {
                                     </>
 
                                     <div className="form-control filledButton">
-                                        <Link to='/choose-role'>
-                                        <ButtonAnt
-                                            className="custom-button-login btn-block btn-round btn-red buttonContainer"
-                                            disabled={loading || isSubmitting}
-                                            id="login-btn"
-                                            loading={loading || isSubmitting}
-                                            name="login-btn"
-                                            onClick={handleSubmit}
-                                            type="primary"
-                                        >
-                                            <FormattedMessage
-                                                defaultMessage={
-                                                    "signupPage.createacc"
+                                        <Link to="/choose-role">
+                                            <ButtonAnt
+                                                className="custom-button-login btn-block btn-round btn-red buttonContainer"
+                                                disabled={
+                                                    loading || isSubmitting
                                                 }
-                                                id={"signupPage.createacc"}
-                                            />
-                                        </ButtonAnt>
+                                                id="login-btn"
+                                                loading={
+                                                    loading || isSubmitting
+                                                }
+                                                name="login-btn"
+                                                onClick={handleSubmit}
+                                                type="primary"
+                                            >
+                                                <FormattedMessage
+                                                    defaultMessage={
+                                                        "signupPage.createacc"
+                                                    }
+                                                    id={"signupPage.createacc"}
+                                                />
+                                            </ButtonAnt>
                                         </Link>
                                     </div>
                                     <div className="form-control outlineButton">
-                                    <Link to='/input-code'>
-                                        <ButtonAnt
-                                            className="btn-block btn-round btn-red ol-bn-container"
-                                            disabled={loading || isSubmitting}
-                                            id="login-btn"
-                                            loading={loading || isSubmitting}
-                                            name="login-btn"
-                                            onClick={handleSubmit}
-                                            type="primary"
-                                        >
-                                            <FormattedMessage
-                                                defaultMessage={
-                                                    "signupPage.gotCode"
+                                        <Link to="/input-code">
+                                            <ButtonAnt
+                                                className="btn-block btn-round btn-red ol-bn-container"
+                                                disabled={
+                                                    loading || isSubmitting
                                                 }
-                                                id={"signupPage.gotCode"}
-                                            />
-                                        </ButtonAnt>
+                                                id="login-btn"
+                                                loading={
+                                                    loading || isSubmitting
+                                                }
+                                                name="login-btn"
+                                                onClick={handleSubmit}
+                                                type="primary"
+                                            >
+                                                <FormattedMessage
+                                                    defaultMessage={
+                                                        "signupPage.gotCode"
+                                                    }
+                                                    id={"signupPage.gotCode"}
+                                                />
+                                            </ButtonAnt>
                                         </Link>
                                     </div>
 
                                     <div className="bottomTextContainer">
-                                    <FormattedMessage
-                                                defaultMessage={
-                                                    "signupPage.onboard"
-                                                }
-                                                id={"signupPage.onboard"}
-                                            >
-                                      </FormattedMessage>
-                                      <Link className ='bottomLink' to= '/'>
-                                      <FormattedMessage
+                                        <FormattedMessage
+                                            defaultMessage={
+                                                "signupPage.onboard"
+                                            }
+                                            id={"signupPage.onboard"}
+                                        ></FormattedMessage>
+                                        <Link className="bottomLink" to="/">
+                                            <FormattedMessage
                                                 defaultMessage={
                                                     "signupPage.signed"
                                                 }
                                                 id={"signupPage.signed"}
-                                            >
-                                      </FormattedMessage>
-                                      </Link>
+                                            ></FormattedMessage>
+                                        </Link>
                                     </div>
                                 </form>
                             )}
@@ -335,4 +339,9 @@ SignUpScreen.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(withReducer, withSaga, withConnect, withRouter)(SignUpScreen);
+export default compose(
+    withReducer,
+    withSaga,
+    withConnect,
+    withRouter
+)(SignUpScreen);

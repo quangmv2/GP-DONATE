@@ -1,0 +1,118 @@
+.bottom-nav {
+  position: fixed;
+  bottom: 0px;
+  background-color: rgba(40, 53, 82, 0.75);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  max-width: 768px;
+  padding: 12px 15px 16px 15px;
+  z-index: 2;
+}
+.active {
+  color: #f2f2f2;
+  text-decoration: none;
+  font-size: 13px;
+}
+.bottom-nav-icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+
+  > a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 15px;
+    line-height: 19px;
+
+    &:before {
+      content: "";
+      width: 22px;
+      height: 2px;
+      position: absolute;
+      bottom: 20px;
+      left: 0px;
+      background-color: #e8c889;
+      left: 0px;
+      right: 0px;
+      margin: 0 auto;
+      opacity: 0;
+      transition: all ease-in-out 0.2;
+    }
+
+    .icon-bottom-nav {
+      font-size: 20px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    &:hover {
+      color: #e8c889;
+      &:before {
+        opacity: 1;
+      }
+      .icon-bottom-nav {
+        &:before {
+        }
+      }
+    }
+
+    &.center-button {
+      &:hover {
+        &:before {
+          opacity: 0;
+        }
+      }
+    }
+  }
+}
+
+.circle-plus-wrapper {
+  position: relative;
+  display: block;
+  min-height: 20px;
+  margin-bottom: 8px;
+  width: 100%;
+
+  .cirlce-plus-icon {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #ddae53;
+    border-radius: 100%;
+    top: -30px;
+    left: 0px;
+    right: 0px;
+    margin: 0 auto;
+
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      background: #fff;
+      height: 2px;
+      width: 24px;
+      top: 24px;
+      left: 0px;
+      right: 0px;
+      margin: 0 auto;
+    }
+
+    &:after {
+      transform: rotate(90deg);
+    }
+  }
+}
+.bottom-nav-elements {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

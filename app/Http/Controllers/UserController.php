@@ -43,7 +43,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::where('name', '!=', 'super_admin')->pluck('name','name');
         return view('dashboard.users.create',compact('roles'));
     }
 
@@ -71,6 +71,7 @@ class UserController extends Controller
 
         
 
+        $orderColumn = $orderColumn=="full_name"?"first_name":$orderColumn;
         $totalSearch = $query->count();
         $data = $query->orderBy($orderColumn, $orderDesc)->with('roles')->paginate($length, ['*'], 'page', $page);
         // return $query->get();
@@ -94,7 +95,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'username' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
@@ -137,7 +139,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::pluck('name','name')->all();
+        $roles = Role::where('name', '!=', 'super_admin')->pluck('name','name');
         $userRole = $user->roles->pluck('name','name')->all();
 
 
@@ -155,7 +157,8 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',

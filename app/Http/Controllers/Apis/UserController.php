@@ -8,6 +8,8 @@ use App\Models\Code;
 use Illuminate\Support\Facades\DB;
 use App\Events\CommentEvent;
 
+use App\Models\User;
+
 class UserController extends Controller
 {
 
@@ -47,7 +49,7 @@ class UserController extends Controller
     public function show(Request $req, $id)
     {
         if ($id == 'me')
-        return response()->json(json_decode($req->user()), 200);
+            return response()->json(json_decode($req->user()), 200);
         $user = User::findOrFail($id);
         return response()->json(json_decode($user), 200);
     }

@@ -56,9 +56,9 @@ class User extends Authenticatable
         return $this->where('username', $username)->orWhere('email', $username)->first();
     }
 
-    // public function posts(){
-    //     return $this->hasMany(Post::class, 'user_id', 'id');
-    // }
+    public function posts(){
+        return $this->hasMany(Post::class, 'user_id', 'id');
+    }
 
     // public function categories(){
     //     return $this->hasMany(Category::class, 'user_id', 'id');

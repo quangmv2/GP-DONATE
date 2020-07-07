@@ -4,9 +4,20 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Services\CommonService;
+use App\Services\CommentService;
+use App\Services\PostService;
+
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    public $singletons = [
+        CommonService::class => CommonService::class,
+        CommentService::class => CommentService::class,
+        PostService::class => PostService::class,
+    ]
+    ;
     /**
      * Register any application services.
      *
@@ -14,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**

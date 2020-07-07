@@ -1,35 +1,52 @@
 body {
-    padding: 0px;
-    margin: 0px;
-    font-size: var(--fs-normal);
-    color: var(--text-color);
+  padding: 0px;
+  margin: 0px;
+  font-size: var(--fs-normal);
+  color: var(--text-color);
+  > div.container {
+    margin: 0 auto;
+  }
 }
 body * {
-    font-size: var(--fs-normal);
-    font-family: "Muli", sans-serif;
+  font-size: var(--fs-normal);
+  font-family: "Muli", sans-serif;
 }
 .MuiInputBase-input,
 label.MuiFormLabel-root,
 p.MuiFormHelperText-root {
-    font-family: "Muli", sans-serif;
+  font-family: "Muli", sans-serif;
 }
 .ant-layout {
-    background: var(--layout-body-background);
-    min-height: 100vh;
+  background: var(--layout-body-background);
+  min-height: 100vh;
 }
 
 .fullheight-wrapper {
-    min-height: 100vh;
-    padding-top: 5vh;
-    padding-bottom: 5vh;
+  min-height: 100vh;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
 }
 
 .flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    > .container {
-        width: 100%;
-    }
+  > .container {
+    width: 100%;
+  }
+}
+.private-fullheight {
+  background-color: white;
+  min-height: 100vh;
+  > .container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+  }
+}
+.container {
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
