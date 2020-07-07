@@ -37,7 +37,14 @@ p.MuiFormHelperText-root {
     background-color: white;
     min-height: 100vh;
     >.container {
+        height: 100%;
         width: 100%;
         margin: 0
     }
 }
+.container {
+    height: 100%;
+    width: 100%;
+    margin: 0
+}
+

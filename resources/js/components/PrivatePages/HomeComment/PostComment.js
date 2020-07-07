@@ -28,7 +28,9 @@ export class PostComment extends Component {
                 </div>
                 </div>
                 </div>
+                <button className='button-trans'>
                 <FavoriteBorderIcon style={{marginTop: '28px'}} />
+                </button>
             </div>
 
             );
@@ -40,7 +42,9 @@ export class PostComment extends Component {
             <div className="private-fullheight">
                 <div className="container">
                     <HeaderNavigation headerName="Raise Your Voice">
+                        <button className='button-trans'>
                         <MoreVertIcon />
+                        </button>
                     </HeaderNavigation>
                     <div className='content-container post-info-container'>
                         <img
@@ -65,8 +69,13 @@ export class PostComment extends Component {
                         />
                     <div 
                     className='input-comment-with-icon'>
+                        <button className='button-trans post-comment-button'>
                         <ArrowForwardOutlinedIcon style={{backgroundColor: '#ddae53', color: 'white', borderRadius: '50%'}}/>
-                    <input 
+                        </button>
+                    <textarea
+                    type='text'
+                    cols='3'
+                    row='3'
                     placeholder='Write a comment...'
                      />
                     </div>

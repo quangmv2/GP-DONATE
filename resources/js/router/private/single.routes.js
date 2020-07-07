@@ -1,4 +1,4 @@
-import Dashboard from "components/PrivatePages/Dashboard/Dashboard";
+
 import { PostOffer, HomePage, PostComment } from "components/PrivatePages";
 import { PRIVATE_ROUTE } from "constants";
 
