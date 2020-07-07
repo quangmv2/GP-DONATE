@@ -6,6 +6,8 @@ namespace App\Services;
 use DB;
 use Hash;
 use Response;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class CommonService
@@ -19,5 +21,21 @@ class CommonService
         return json_decode($json);
     }
 
+    public function showImage($path)
+    {
+        $fileName = $path;
+
+        if (!Storage::exists($fileName)) 
+            return response()->json(['message' => 'Image not found'], 401);
+
+        $headers = [
+            'Cache-Control'         => 'must-revalidate, post-check=0, pre-check=0',
+            'Content-Type'          => Storage::mimeType($fileName),
+            'Content-Length'        => Storage::size($fileName),
+            'Content-Disposition'   => 'filename="' . basename($fileName) . '"',
+            'Pragma'                => 'public',
+        ];
+        return Storage::download($fileName, basename($fileName), $headers);
+    }
 
 }
