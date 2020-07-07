@@ -193,7 +193,9 @@ class PostController extends Controller
     {
         if ($id == "me") 
             return $this->postService->getPostPaginateByUser($request->get('limit'), $request->user()->id);
-        return response()->json(Post::FindOrFail($id));
+        $post = Post::FindOrFail($id);
+        $post->user;
+        return response()->json(json_decode($post), 200);
     }
 
 

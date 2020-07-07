@@ -3,12 +3,14 @@
     flex-direction: row;
     padding-right: 28px;
     justify-content: space-between;
+    
 }
 .comment-body-conatiner {
     padding-right: 12.5%;
 }
 
 .content-container {
+    flex: 11;
     padding-left: 20px;
     padding-top: 22px;
     padding-bottom: 20px;
@@ -23,9 +25,9 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        flex-grow: 1;
         > p{
             margin-bottom: 5px;
-            
         }
         >.post-offer-content {
             padding-right: 22.7%;
@@ -37,10 +39,11 @@
             color: #333333;
         }
         >.offer-content {
-        font-size: 16px;
-      font-weight: normal;
-      line-height: 1.25;
-      color: #666666;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 1.25;
+            color: #666666;
+            flex: 1;
         }
         .time-post-offer {
             font-size: 14px;
@@ -62,7 +65,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding-right: 34.5%;
+    padding-right: 10%;
     padding-top: 9px;
     >.reply {
         position: relative;
@@ -84,25 +87,35 @@
     }
 }
 .input-comment-container {
+    border-top: 1px solid #999999;
     position: fixed;
     bottom: 0;
     display: flex;
     flex-direction: row;
     padding-left: 20px;
-    align-items: center;
-    border-top-color: black;
+    // align-items: center;
+    border-top-color: #999999;
     border-width: 1px;
     background-color: white;
-    padding-bottom: 20px;
+    // padding-bottom: 20px;
+    height: 69px;
     width: 100%;
     max-width: 786px;
+    padding-right: 20px;
+    // align-items: center;;
 }
 .input-comment-with-icon {
-    width: 80%;
+    // width: 80%;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
    >.post-comment-button {
-        position: relative;
-        left: 90%;
-        top: 39px;
+        position: absolute;
+        // left: 87%;
+        right: 2%;
+        top: 48,26086957%;
     }
     >textarea {
         width: 100%;
@@ -113,25 +126,29 @@
         border-width: 0;
         padding-left: 20px;
         padding-right: 40px;
-        padding-top: 5px;
+        padding-top: 10px;
         padding-bottom: 5px;
+        resize: none;
     }
 
 }
 .comment-avatar {
+    flex-grow: 0;
     width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  position: relative;
-  bottom: -10px;
+    height: 45px;
+    border-radius: 50%;
+    position: relative;
+    bottom: -10px;
 }
 .comment-list-container {
-    padding-bottom: 12%;
+    padding-bottom: 15%;
 }
 .button-trans {
+    flex: 1;
+    display: flex;
+    justify-content: center;
     background-color: Transparent;
     border: none;
     background-repeat:no-repeat;
     cursor:pointer;
-    
 }
