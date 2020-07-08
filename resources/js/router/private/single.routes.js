@@ -1,5 +1,10 @@
 import Dashboard from "components/PrivatePages/Dashboard/Dashboard";
-import { PostOffer, HomePage } from "components/PrivatePages";
+import {
+    PostOffer,
+    HomePage,
+    ProfileSetting,
+    EditProfile
+} from "components/PrivatePages";
 import { PRIVATE_ROUTE } from "constants";
 
 export const singleRoutes = [
@@ -11,6 +16,16 @@ export const singleRoutes = [
     {
         path: PRIVATE_ROUTE.POST_OFFER,
         component: PostOffer,
+        exact: true
+    },
+    {
+        path: "/profile-setting",
+        component: ProfileSetting,
+        exact: true
+    },
+    {
+        path: "/edit-profile",
+        component: EditProfile,
         exact: true
     }
 ];
