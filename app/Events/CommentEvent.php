@@ -20,9 +20,11 @@ class CommentEvent implements ShouldBroadcast
      * @return void
      */
     public $message;
-    public function __construct($message)
+    public $event;
+    public function __construct($event, $message)
     {
         $this->message = $message;
+        $this->event = $event;
     }
 
     /**
@@ -39,7 +41,7 @@ class CommentEvent implements ShouldBroadcast
     public function broadcastAs()
     {
         // return new PrivateChannel('channel-name');
-        return 'comment';
+        return $this->event;
     }
 
 }

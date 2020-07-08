@@ -3,5 +3,13 @@ import PostOffer from "./PostOffer/PostOffer";
 import HomePage from "./Home/HomePage";
 import ProfileSetting from "./ProfileSetting";
 import EditProfile from "./EditProfile";
+import PostComment from "./HomeComment/PostComment";
 
-export { Dashboard, PostOffer, HomePage, ProfileSetting, EditProfile };
+export {
+    Dashboard,
+    PostOffer,
+    HomePage,
+    ProfileSetting,
+    EditProfile,
+    PostComment
+};

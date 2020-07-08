@@ -3,7 +3,8 @@ import {
     PostOffer,
     HomePage,
     ProfileSetting,
-    EditProfile
+    EditProfile,
+    PostComment
 } from "components/PrivatePages";
 import { PRIVATE_ROUTE } from "constants";
 
@@ -25,7 +26,11 @@ export const singleRoutes = [
     },
     {
         path: "/edit-profile",
-        component: EditProfile,
+        component: EditProfile
+    },
+    {
+        path: PRIVATE_ROUTE.POST_COMMENT,
+        component: PostComment,
         exact: true
     }
 ];

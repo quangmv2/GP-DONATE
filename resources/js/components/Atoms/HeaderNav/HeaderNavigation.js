@@ -15,8 +15,9 @@ const HeaderNavigation = props => {
                         <ArrowBackIosIcon className="top-nav-icon" />
                     </IconButton>
                     <p>{props.headerName}</p>
+                    <div>{props.children}</div>
                 </Toolbar>
-                <div>{props.children}</div>
+               
             </AppBar>
         </div>
     );
