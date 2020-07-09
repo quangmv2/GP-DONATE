@@ -1,0 +1,79 @@
+.bgImg {
+    background-image: url(/images/background.png);
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 178.15px;
+    text-align: center;
+    border-bottom: #cdcdcd solid 1px;
+}
+.info-bg {
+    position: relative;
+    padding: 50px 15px 10px 15px;
+    .icon-star {
+        border-radius: 50%;
+        background-color: #ddae53;
+        color: #ffffff;
+        position: absolute;
+        right: 0px;
+        border: 3px solid #ffffff;
+        padding: 3px;
+        font-size: 23px;
+        line-height: 10px;
+    }
+    .image {
+        position: relative;
+        max-width: 100px;
+        margin: 0 auto;
+        img {
+            width: 100%;
+            height: auto;
+            max-height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+    .text {
+        font-size: 20px 0px 10px 20px;
+        color: #262626;
+    }
+}
+.wrapper-profile {
+    padding: 25px;
+    .form-submit {
+        padding-bottom: 45px;
+
+        .form-text {
+            width: 100%;
+            font-size: 18px;
+            line-height: 24px;
+        }
+    }
+}
+.form-upload {
+    width: 100%;
+}
+.thumbnail-image {
+    margin-bottom: 50px;
+    .btn-primary {
+        width: 100%;
+        height: 20px;
+        background-color: #ddae53;
+        color: #ffffff;
+    }
+}
+.button {
+    width: 100%;
+    height: 50px;
+    background-color: #ddae53;
+    color: #ffffff;
+    border-radius: 30px;
+    border: 0px;
+}
+
+.avatar-uploader {
+    .ant-upload.ant-upload-select-picture-card {
+        width: 100%;
+        border-radius: 5px;
+    }
+}

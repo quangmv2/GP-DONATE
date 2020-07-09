@@ -13,7 +13,7 @@ const BottomNavigator = () => {
         <div className="bottom-nav-container">
             <div className="bottom-nav">
                 <div className="bottom-nav-icon-container">
-                    <Link to="" className="active">
+                    <Link to={PRIVATE_ROUTE.HOME} className="active">
                         <HomeIcon className="icon-bottom-nav" />
                         Home
                     </Link>
@@ -36,13 +36,13 @@ const BottomNavigator = () => {
                     </Link>
                 </div>
                 <div className="bottom-nav-icon-container">
-                    <Link to="" className="active">
+                    <Link to="/activities" className="active">
                         <StarBorderRoundedIcon className="icon-bottom-nav" />
                         Activities
                     </Link>
                 </div>
                 <div className="bottom-nav-icon-container">
-                    <Link to="" className="active">
+                    <Link to="/profile-setting" className="active">
                         <PersonOutlineRoundedIcon className="icon-bottom-nav" />
                         Account
                     </Link>

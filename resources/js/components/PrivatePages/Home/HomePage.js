@@ -14,6 +14,7 @@ import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 //swiper css must come first
 import "swiper/swiper.scss";
 import "./HomeScreen.scss";
+import { Link } from "react-router-dom";
 // your custom css must come second to overwrite certain stylings in swiper.css
 
 class HomePage extends Component {
@@ -35,15 +36,24 @@ class HomePage extends Component {
                                     <div className="home-image">
                                         <div className="top-navbar-giver-home">
                                             <div className="navbar-giver-home-container">
-                                                <img
-                                                    src={"./images/Bitmap.png"}
-                                                    className="giver-avatar"
-                                                />
+                                                <Link to="/user-profile">
+                                                    <img
+                                                        src={
+                                                            "./images/avatar/_0008_Alina Baikova.jpg"
+                                                        }
+                                                        className="giver-avatar"
+                                                    />
+                                                </Link>
                                                 <div className="info-user">
                                                     <p className="username">
-                                                        Alina
+                                                        <Link to="/user-profile">
+                                                            Alina{" "}
+                                                        </Link>
                                                     </p>
-                                                    <p>4 hours a go</p>
+
+                                                    <p className="hours-ago">
+                                                        4 hours a go
+                                                    </p>
                                                 </div>
                                             </div>
                                             <MailOutlineIcon
