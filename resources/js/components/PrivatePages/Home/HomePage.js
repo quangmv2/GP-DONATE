@@ -36,14 +36,14 @@ class HomePage extends Component {
                                         <div className="top-navbar-giver-home">
                                             <div className="navbar-giver-home-container">
                                                 <img
-                                                    src={"./images/Bitmap.png"}
+                                                    src={"./images/avatar/_0008_Alina Baikova.jpg"}
                                                     className="giver-avatar"
                                                 />
                                                 <div className="info-user">
                                                     <p className="username">
                                                         Alina
                                                     </p>
-                                                    <p>4 hours a go</p>
+                                                    <p className='hours-ago'>4 hours a go</p>
                                                 </div>
                                             </div>
                                             <MailOutlineIcon

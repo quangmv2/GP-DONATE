@@ -1,0 +1,61 @@
+.mess-avatar {
+    width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+.message-component-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.mess-hours-ago {
+    font-family: Muli;
+      font-size: 14px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.07;
+      letter-spacing: normal;
+      text-align: center;
+      color: #999999;
+        }
+.message-preview-container {
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+   
+}
+.info-user {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.22;
+    letter-spacing: normal;
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding-left: 10px;
+    
+    >p{
+      margin-bottom: 0px;
+      &.username {
+        font-weight: bold;
+      }
+      &.mess-content {
+        font-size: 16px;
+        color: #666666;
+      }
+    }
+  }
+  .mess-border-bottom {
+    border-bottom: 1px #cdcdcd;
+    margin-left: 75px;
+    margin-right: 20px;
+    margin-top: 10px;
+  }
