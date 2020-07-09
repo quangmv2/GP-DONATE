@@ -1,7 +1,11 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+<<<<<<< HEAD
     "/js/app.c3399a9f7cfb289ba851.hot-update.js": "/js/app.c3399a9f7cfb289ba851.hot-update.js",
     "/js/app.e3f48b0b3c79edd78150.hot-update.js": "/js/app.e3f48b0b3c79edd78150.hot-update.js",
     "/js/app.48e8b4a1615acc33f6fb.hot-update.js": "/js/app.48e8b4a1615acc33f6fb.hot-update.js"
+=======
+    "/js/app.848c92a5a34e948bd5aa.hot-update.js": "/js/app.848c92a5a34e948bd5aa.hot-update.js"
+>>>>>>> fdf90bb25d89101a39ea25984d02991095847a9d
 }

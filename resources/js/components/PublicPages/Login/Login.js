@@ -13,13 +13,13 @@ import {
     URL_REDIRECT_LOGIN,
     ROUTE,
     PUBLIC_ROUTE,
-    PRIVATE_ROUTE
+    PRIVATE_ROUTE,
 } from "constants";
 import { postLogin } from "modules/auth/actions";
 import {
     selectIsLogged,
     selectErrors,
-    selectLoading
+    selectLoading,
 } from "modules/auth/selectors";
 import { ButtonAnt, SignInBackground } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
@@ -36,7 +36,7 @@ export class Login extends Component {
         this.state = {
             username: "",
             password: "",
-            errorValidLogin: {}
+            errorValidLogin: {},
         };
         this.setSubmitting = null;
     }
@@ -82,10 +82,10 @@ export class Login extends Component {
                             initialValues={{
                                 username: "",
                                 password: "",
-                                passchange: ""
+                                passchange: "",
                             }}
                             layout="vertical"
-                            validate={values => {
+                            validate={(values) => {
                                 const errors = {};
                                 if (!values.username) {
                                     errors.username = "Required";
@@ -106,7 +106,7 @@ export class Login extends Component {
                                 handleChange,
                                 //handleBlur,
                                 handleSubmit,
-                                isSubmitting
+                                isSubmitting,
                                 /* and other goodies */
                             }) => (
                                 <form onSubmit={handleSubmit} layout="vertical">
@@ -253,13 +253,13 @@ export class Login extends Component {
 }
 
 const mapDispatchToProps = {
-    login: postLogin
+    login: postLogin,
 };
 
 const mapStateToProps = createStructuredSelector({
     isLogged: selectIsLogged(),
     errors: selectErrors(),
-    loading: selectLoading()
+    loading: selectLoading(),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
@@ -269,12 +269,12 @@ const withSaga = injectSaga({ key: FEATURE_NAME_AUTH, saga });
 
 Login.defaultProps = {
     login: () => null,
-    errors: {}
+    errors: {},
 };
 
 Login.propTypes = {
     login: PropTypes.func,
-    isLogged: PropTypes.bool
+    isLogged: PropTypes.bool,
 };
 
 export default compose(withReducer, withSaga, withConnect, withRouter)(Login);
