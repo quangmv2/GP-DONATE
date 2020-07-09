@@ -35,7 +35,8 @@ Route::group(['prefix' => 'oauth'], function () {
     Route::apiResources([
         'user' => 'Apis\UserController',
         'posts'=> 'Apis\PostController',
-        'comment' => 'Apis\CommentController'
+        'comment' => 'Apis\CommentController',
+        'like' => 'Apis\LikeController',
     ]);
 
 

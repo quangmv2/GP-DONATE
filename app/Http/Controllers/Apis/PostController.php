@@ -108,56 +108,6 @@ class PostController extends Controller
 
 
     /**
-     * @SWG\Get(
-     *     path="/api/posts/{id}",
-     *     tags={"Posts"},
-     *     summary={"Post detail"},
-     *     description="Return post detail by Id",  
-     *     @SWG\Parameter(
-     *         name="id",
-     *         in="path",
-     *         type="integer",
-     *         description="Length of record need to response",
-     *         required=true,
-     *     ),
-     *     @SWG\Response(
-     *         response=200,
-     *         description="OK",
-     *         @SWG\Schema(type="object",
-     *              @SWG\Property(property="data", type="object"),
-     *          )
-     *     ),
-     *     @SWG\Response(
-     *         response=422,
-     *         description="Missing Data"
-     *     )
-     * )
-     */
-    public function detail($id){
-
-        $post = Post::where('id', $id)->whereIn('status', [1])
-                    ->where('post_type', constants('post_type.post'))->with('categories')->first();
-        $postCategories = DB::table("category_post")->where("category_post.post_id",$id)
-            ->pluck('category_post.category_id')
-            ->all();
-
-        $postRelated = Post::select('posts.id','title', 'slug', 'description', 'feature_image')
-            ->distinct()
-            ->join('category_post', 'posts.id', '=', 'category_post.post_id')
-            ->whereIn('category_post.category_id', $postCategories)
-            ->where('posts.id', "<>", $id)
-            ->take(10)
-            ->get();
-
-        $postRelated = CommonService::filterArray($postRelated);
-        $data = CommonService::filterArray($post);
-        $data->related = $postRelated;
-        return Response::json([
-            'data' => $data ? $data : [],
-        ]);
-    }
-
-    /**
      * POST route
      * Store a newly created resource in storage.
      *
@@ -181,7 +131,62 @@ class PostController extends Controller
        return response()->json(json_decode($post), 201);
     }
 
-
+    /**
+     * @SWG\Get(
+     *     path="/api/posts/{id}",
+     *     tags={"Posts"},
+     *     summary={"Post detail"},
+     *     description="Return post detail by Id",  
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="Length of record need to response",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="OK",
+     *         @SWG\Schema(type="object",
+     *              @SWG\Property(property="id", type="number", example=1),
+     *              @SWG\Property(property="user_id", type="number", example=1),
+     *              @SWG\Property(property="title", type="string", example="First Project"),
+     *              @SWG\Property(property="content", type="string", example="Hello World"),
+     *              @SWG\Property(property="photo_thumbnail", type="string", example="..."),
+     *              @SWG\Property(property="full_photo", type="string", example="..."),
+     *              @SWG\Property(property="due_day", type="string", example="2000-12-03 12:20:20"),
+     *              @SWG\Property(property="status", type="number", example=0   ),
+     *              @SWG\Property(property="user", type="object",
+        *              @SWG\Property(property="id", type="number", example=1),
+        *              @SWG\Property(property="first_name", type="string", example="admin"),
+        *              @SWG\Property(property="last_name", type="string", example="admin"),
+        *              @SWG\Property(property="username", type="string", example="admin"),
+        *              @SWG\Property(property="email", type="string", example="admin@gmail.com"),
+        *              @SWG\Property(property="address", type="string", example="Danang, Vietnam"),
+        *              @SWG\Property(property="code_id", type="string", example="admincode"),
+        *              @SWG\Property(property="personal_photo", type="string", example="..."),
+        *              @SWG\Property(property="gender", type="number", example=0),
+        *              @SWG\Property(property="created_at", type="string", example="2000-12-03 12:20:20"),
+        *              @SWG\Property(property="updated_at", type="string", example="2000-12-03 12:20:20"),
+        *          ),
+    *            @SWG\Property(property="created_at", type="string"),
+    *            @SWG\Property(property="updated_at", type="string"),
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="Missing Data"
+     *     ),
+     *     @SWG\Response(
+     *         response=404,
+     *         description="NotFound Data"
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Unauthenticated"
+     *     )
+     * )
+     */
     /**
      * GET route  {id_post}
      * Display the specified resource.
@@ -195,6 +200,7 @@ class PostController extends Controller
             return $this->postService->getPostPaginateByUser($request->get('limit'), $request->user()->id);
         $post = Post::FindOrFail($id);
         $post->user;
+        $post->likes;
         return response()->json(json_decode($post), 200);
     }
 

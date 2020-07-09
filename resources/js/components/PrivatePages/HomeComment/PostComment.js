@@ -19,7 +19,7 @@ const token = tokenAD;
 
 TimeAgo.addLocale(en)
 const timeAgo = new TimeAgo('en-US')
-const UTC = (new Date()).getUTCDate()*60*60*1000;
+const UTC = ((new Date()).getUTCDate() - 1)*60*60*1000;
 
 const PostComment = () => {
     const [data, setData] = useState(null);
