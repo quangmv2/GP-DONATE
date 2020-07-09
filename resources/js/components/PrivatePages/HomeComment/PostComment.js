@@ -116,7 +116,7 @@ const PostComment = () => {
                 <div className='home-comment-container' key={`comment${index}`}>
                     <div className='content-container'>
                         <img
-                            src={"./images/Bitmap.png"}
+                            src={"./images/avatar/_0008_Alina Baikova.jpg"}
                             className="giver-avatar"
                         />
                         <div className='info-post'>
@@ -148,7 +148,7 @@ const PostComment = () => {
                 </HeaderNavigation>
                 <div className='content-container post-info-container'>
                     <img
-                        src={"./images/Bitmap.png"}
+                        src={"./images/avatar/_0008_Alina Baikova.jpg"}
                         className="giver-avatar"
                     />
                     <div className='info-post'>
@@ -164,7 +164,7 @@ const PostComment = () => {
                 </div>
                 <div className='input-comment-container'>
                     <img
-                        src={"./images/Bitmap.png"}
+                        src={"./images/avatar/_0010_user.jpg"}
                         className="comment-avatar"
                     />
                     <div

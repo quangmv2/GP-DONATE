@@ -28,7 +28,7 @@ const UserProfile = () => {
             <div className="top-navbar-giver-home">
                 <div className="navbar-giver-home-container">
                     <img
-                        src={"./images/Bitmap.png"}
+                        src={"./images/_0009_Scott Harrison.jpg"}
                         className="giver-avatar"
                     />
                     <div className="info-user">

@@ -36,7 +36,7 @@ class HomePage extends Component {
                                         <div className="top-navbar-giver-home">
                                             <div className="navbar-giver-home-container">
                                                 <img
-                                                    src={"./images/Bitmap.png"}
+                                                    src={"./images/avatar/_0008_Alina Baikova.jpg"}
                                                     className="giver-avatar"
                                                 />
                                                 <div className="info-user">
