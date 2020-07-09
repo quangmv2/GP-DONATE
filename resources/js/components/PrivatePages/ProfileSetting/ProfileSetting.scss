@@ -1,0 +1,48 @@
+.info-box {
+    font-size: 18px;
+    color: #999999;
+    padding: 25px 0px 0px 20px;
+}
+.list-box {
+    // border-bottom: #cdcdcd solid 1px;
+    padding: 22px 26px;
+    position: relative;
+    &:before {
+        content: "";
+        width: calc(100% - 85px);
+        position: absolute;
+        bottom: 0px;
+        height: 1px;
+        background: #cdcdcd;
+        left: 60px;
+    }
+}
+.icon {
+    padding-right: 40px;
+    width: 16px;
+    height: 20px;
+}
+.text-box {
+    color: #32363e;
+    font-size: 18px;
+}
+.rightlined {
+    float: right;
+}
+.box-logout {
+    padding: 31px 281px 63px 26px;
+
+    padding: 22px 26px;
+    position: relative;
+    &:before {
+        content: "";
+        width: calc(100% - 85px);
+        position: absolute;
+        left: 60px;
+    }
+}
+.text-logout {
+    color: #999999;
+    font-size: 18px;
+    padding-right: 40px;
+}

@@ -13,7 +13,7 @@ const BottomNavigator = () => {
         <div className="bottom-nav-container">
             <div className="bottom-nav">
                 <div className="bottom-nav-icon-container">
-                    <Link to="" className="active">
+                    <Link  to={PRIVATE_ROUTE.HOME} className="active">
                         <HomeIcon className="icon-bottom-nav" />
                         Home
                     </Link>

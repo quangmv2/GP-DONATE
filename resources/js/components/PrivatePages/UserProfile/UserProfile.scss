@@ -10,11 +10,11 @@
     color: white;
     display: flex;
     flex-direction: column;
-    padding-left: 7%;
-    padding-top: 10px;
+    padding-left: 29px;
+    padding-top: 15px;
     >.account-profile-info {
         >.account-profile-number {
-            font-family: Muli-Regular_;
+    font-family: Muli;
       font-size: 36px;
       font-weight: 800;
       font-stretch: normal;
@@ -22,7 +22,7 @@
       line-height: normal;
       letter-spacing: normal;
         }
-        >.account-profile-action {
+        >p {
             font-family: Muli;
             font-size: 22px;
             font-weight: 500;
@@ -30,14 +30,14 @@
             font-style: normal;
             line-height: normal;
             letter-spacing: normal;
-            margin-top: -25px;
+            
         }
     }
 }
 .link-to-propositions-container {
     display: flex;
     flex-direction: row;
-    padding-left: 7%;
+    padding-left: 29px;
     padding-top: 10px;
     >p {
         font-family: Muli;
@@ -102,10 +102,14 @@
     }
    }
    .edit-button-container {
-    padding-top: 20px;
+    padding-top: 30px;
    }
    .prop-container {
     overflow: auto;
     white-space: nowrap;
-    padding-left: 7%;
+    padding-left: 14px;
    }
+   .user-charity {
+    font-size: 16px;
+   }
+  

@@ -12,7 +12,8 @@ export const PRIVATE_ROUTE = {
     POST_OFFER: "/post-offer",
     HOME: "/home",
     POST_COMMENT: "/post-comment",
-    USER_PROFILE: "/user-profile"
+    USER_PROFILE: "/user-profile",
+    ACTIVITIES: "/activities"
 };
 
 export const ROUTE = {

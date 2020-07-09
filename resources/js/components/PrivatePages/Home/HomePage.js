@@ -43,7 +43,7 @@ class HomePage extends Component {
                                                     <p className="username">
                                                         Alina
                                                     </p>
-                                                    <p>4 hours a go</p>
+                                                    <p className='hours-ago'>4 hours a go</p>
                                                 </div>
                                             </div>
                                             <MailOutlineIcon

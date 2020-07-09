@@ -11,9 +11,9 @@ const UserProfile = () => {
     const renderFields = () => {
         return _.map(UserPropositions, ({ label, name }) => {
           return (
-            <div className='propositons-container'>
+            <Link className='propositons-container'>
              <p numberOfLines='2' >Between Heaven  Earth</p>
-             </div>
+             </Link>
           );
         });
       }
@@ -35,7 +35,7 @@ const UserProfile = () => {
                         <p className="username">
                             Alina
                         </p>
-                        <p>Charity: Water</p>
+                        <p className='user-charity'>Charity: Water</p>
                     </div>
                    
                 </div>
@@ -44,20 +44,20 @@ const UserProfile = () => {
             </div>
             <div className='user-account-profile'>
                 <div className='account-profile-info'>
-                    <p className='account-profile-number'>05</p>
-                    <p className='account-profile-action'>Projects</p>
+                    <span className='account-profile-number'>05</span>
+                    <p>Projects</p>
                 </div>
                 <div className='account-profile-info'>
-                    <p className='account-profile-number'>54K</p>
-                    <p className='account-profile-action'>Likes</p>
+                    <span className='account-profile-number'>54K</span>
+                    <p>Likes</p>
                 </div>
                 <div className='account-profile-info'>
-                    <p className='account-profile-number'>102K</p>
-                    <p className='account-profile-action'>Followers</p>
+                    <span className='account-profile-number'>102K</span>
+                    <p>Followers</p>
                 </div>
                 <div className='account-profile-info'>
-                    <p className='account-profile-number'>25</p>
-                    <p className='account-profile-action'>Following</p>
+                    <span className='account-profile-number'>25</span>
+                    <p>Following</p>
                 </div>
                 
             </div>
