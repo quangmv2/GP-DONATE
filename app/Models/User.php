@@ -11,6 +11,8 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Module;
 use App\Models\Code;
+use App\Models\Like;
+use App\Models\Follow;
 
 class User extends Authenticatable
 {
@@ -57,8 +59,25 @@ class User extends Authenticatable
     }
 
     public function posts(){
-        return $this->hasMany(Post::class, 'user_id', 'id');
+        return $this->hasMany(Post::class);
     }
+
+    public function likes(){
+        return $this->hasMany(Like::class);
+    }
+
+    public function following(){
+        return $this->hasMany(Follow::class, 'user_id_from', 'id');
+    }
+
+    public function followed(){
+        return $this->hasMany(Follow::class, 'user_id_to', 'id');
+    }
+
+    // public function getCountPosts()
+    // {
+    //     return $this->posts->id->count();
+    // }
 
     // public function categories(){
     //     return $this->hasMany(Category::class, 'user_id', 'id');

@@ -4,6 +4,9 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -52,7 +55,17 @@ class Handler extends ExceptionHandler
             $arr = explode(',', $str);
             if (isset($arr[0]) && $arr[0] == "application/json") return response()->json(['message'=>'User have not permission for this page access.']);
             return response()->view('errors.403', ['User have not permission for this page access.'], 403);
-            return response()->json(['User have not permission for this page access.']);
+            return response()->json(['User have not permission for this page access.'], 403);
+        }
+        // dd($exception);
+        if ($exception instanceof ModelNotFoundException) {
+            return response()->json(['message' => 'Not Found Data.'], 404);
+        }
+        if ($exception instanceof NotFoundHttpException) {
+            return response()->json(['message' => 'For Not Found.'], 404);
+        }
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return response()->json(['message' => 'Method underfine.'], 405);
         }
         return parent::render($request, $exception);
     }
