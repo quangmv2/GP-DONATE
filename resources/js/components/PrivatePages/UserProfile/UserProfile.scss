@@ -1,0 +1,111 @@
+.user-image-container {
+    background-image: url(/images/1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    max-width: 768px;
+  height: 100%;
+  min-height: 120vh ;
+}
+.user-account-profile {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-left: 7%;
+    padding-top: 10px;
+    >.account-profile-info {
+        >.account-profile-number {
+            font-family: Muli-Regular_;
+      font-size: 36px;
+      font-weight: 800;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+        }
+        >.account-profile-action {
+            font-family: Muli;
+            font-size: 22px;
+            font-weight: 500;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            margin-top: -25px;
+        }
+    }
+}
+.link-to-propositions-container {
+    display: flex;
+    flex-direction: row;
+    padding-left: 7%;
+    padding-top: 10px;
+    >p {
+        font-family: Muli;
+  font-size: 22px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #ffffff;
+    }
+    >img {
+        position: relative;
+        top: -8.5px;
+        left: 5px;
+    }
+}
+.edit-profile-container {
+    width: 294px;
+    border-radius: 37.5px;
+    text-align: center;
+    height: 60px;
+    font-weight: bold;
+    font-family: Muli;
+    font-style: normal;
+    color: white;
+    font-stretch: normal;
+    line-height: 1.44px;
+    background-color: transparent;
+    border-color: white;
+   }
+   .image-propositions {
+    width: 160px;
+    height: 180px;
+    border-radius: 18px;
+   }
+   .propositons-container {
+   display: inline-block;
+    background-image: url(/images/slider.png);
+    background-size: 100% 100%;
+    width: 160px;
+    height: 180px;
+    border-radius: 18px;
+    background-repeat: no-repeat;
+    margin-left: 15px;
+    >p {
+        padding-left: 12px;
+        position: relative;
+        padding-right: 5px;
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        font-family: Muli;
+        font-size: 16px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #ffffff;
+        padding-top: 120px;
+    }
+   }
+   .edit-button-container {
+    padding-top: 20px;
+   }
+   .prop-container {
+    overflow: auto;
+    white-space: nowrap;
+    padding-left: 7%;
+   }

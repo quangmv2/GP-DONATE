@@ -57,7 +57,12 @@
     "duedate": "Due date",
     "hashtag": "Add hashtags",
     "publish": "Publish"
+  },
+  "userProfile": {
+    "sendMess": "Send Message",
+    "edit": "Edit your profile"
   }
+
 
 
 }

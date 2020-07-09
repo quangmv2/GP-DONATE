@@ -10,7 +10,7 @@ import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import Grid from '@material-ui/core/Grid';
 import { SocketContext } from "../../../context/SocketProvider";
 import TimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en'
+import en from 'javascript-time-ago/locale/en';
 
 const id_post = 114;
 const tokenGV = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMTA1NTFhNDM5ZGUwNDBiMDA5OWM2YTU0N2RhMjhkZWUwNmQ0NjY5YzQ2OTMwYzljZDcwMjIyODQwMjAyMzdlODFkOTY2NjlmNGZhZDllZDYiLCJpYXQiOjE1OTQwOTMwMjQsIm5iZiI6MTU5NDA5MzAyNCwiZXhwIjoxNTk0MzUyMjI0LCJzdWIiOiIyIiwic2NvcGVzIjpbIioiXX0.v50S4LF__rJ2aEaFF9izgaHCR4cWIhklTw32hsMSEP8LymbVhRbDjbzjTsOMjgwR2b9utuCoQrH_JWbri-MF5CPq1g9zC1FzCvCcGCAqDVR0-zYN3K5nIYKWpEU50sbf2duZxoZDMftkIu9ijgPCk3i70qXOI5VNY-DARA-lUk7wX2C8BiHGSTuVcMIV3N3IdEjzQR45VYsgEVvdwsGmwkS6bEbejCJwEAaMFrKYEjUNbrq45VtjTDT9q29LxAXcJ5WCXSyD07zvbCfoYUjCCHAaTL17m5w8S1vx_pF4BKeLJsbnORMFM0KHjgKsD1NfEXVolM_RFKK9wVAC-qaFFc2r9aemvleE5a2pYifd9DdeC-8iMaUCh359tZWwBWmDftv578jUapxyCfk9ivAd7UU25FCa4cxUcIeJV5lyNeUI5bJDEoseI6Gk_Ze0eCcmDVOORPZvlZ_VR11b3X-rDeYW1gnNYXYSeE-CKokAobeypQNMlYs4JwYGXytqFmkOTYCqpFt42fEp_HjCr1AU3Wh17DEcJ-mznbOiFp5atBHcUagyRqd4mLvM1SyLUbt1gWZmtxgV-OePIVAL4Rbu0cmNhiihTm5qEb8poCC93PLbXEUxiE8RdkGbZeq0e4XKF5XjV3FUQecMCJ1vh5mAUwOzdt8Y7fzK-okSqYekm3w';
@@ -173,6 +173,7 @@ const PostComment = () => {
                             <ArrowForwardOutlinedIcon style={{ backgroundColor: '#ddae53', color: 'white', borderRadius: '50%' }} />
                         </button>
                         <textarea
+                            wrap
                             type='text'
                             cols='3'
                             row='3'
