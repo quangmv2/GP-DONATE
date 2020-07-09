@@ -1,203 +1,205 @@
 .home-image {
-  background-image: url(/images/FullScreen/Full_screen_01.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  max-width: 768px;
-  min-height: 100vh;
+    background-image: url(/images/FullScreen/Full_screen_01.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    max-width: 768px;
+    min-height: 100vh;
 }
 .giver-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 .top-navbar-giver-home {
-  background-color: rgba(34, 34, 34, 0.4);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 17px;
-  padding-left: 16px;
-  padding-right: 26px;
+    background-color: rgba(34, 34, 34, 0.4);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 17px;
+    padding-left: 16px;
+    padding-right: 26px;
 }
 .navbar-giver-home-container {
-  display: flex;
-  flex-direction: row;
-  > .info-user {
-    text-shadow: 0 2px 6px rgba(18, 16, 60, 0.45);
+    display: flex;
+    flex-direction: row;
+    > .info-user {
+        text-shadow: 0 2px 6px rgba(18, 16, 60, 0.45);
+        font-family: Muli;
+        font-size: 18px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.22;
+        letter-spacing: normal;
+        color: #ffffff;
+        padding-left: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        > p {
+            margin-bottom: 0px;
+            font-weight: 300;
+
+            &.username,
+            &.username a {
+                font-weight: 600;
+                color: #ffffff;
+            }
+        }
+    }
+}
+.title-post {
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
     font-family: Muli;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.22;
+    line-height: 1.27;
     letter-spacing: normal;
     color: #ffffff;
-    padding-left: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    > p {
-      margin-bottom: 0px;
-      font-weight: 300;
-
-      &.username {
-        font-weight: 600;
-      }
-    }
-  }
-}
-.title-post {
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-  font-family: Muli;
-  font-size: 22px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.27;
-  letter-spacing: normal;
-  color: #ffffff;
 }
 .home-text {
-  text-shadow: 0 2px 6px rgba(18, 16, 60, 0.45);
-  font-family: Muli;
-  font-size: 17px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.41;
-  letter-spacing: normal;
-  color: #ffffff;
-  padding-left: 5.8px;
-  span {
+    text-shadow: 0 2px 6px rgba(18, 16, 60, 0.45);
+    font-family: Muli;
     font-size: 17px;
-  }
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.41;
+    letter-spacing: normal;
+    color: #ffffff;
+    padding-left: 5.8px;
+    span {
+        font-size: 17px;
+    }
 }
 .action-container {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 .raise-a-voice-container {
-  border-top-right-radius: 18px;
-  border-bottom-right-radius: 18px;
-  box-shadow: 0 5px 10px 0 rgba(10, 20, 58, 0.08);
-  background-color: rgba(102, 102, 102, 0.5);
-  display: flex;
-  text-shadow: 0 2px 6px rgba(18, 16, 60, 0.45);
-  font-family: Muli-Regular;
-  font-size: 16px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #ffffff;
-  padding: 2px 15px 2px 20px;
-  line-height: 24px;
-  max-width: 200px;
-
-  > .commentIcon {
-    margin-left: 10px;
-  }
-
-  button {
-    border: 0px;
-    padding: 0px;
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+    box-shadow: 0 5px 10px 0 rgba(10, 20, 58, 0.08);
+    background-color: rgba(102, 102, 102, 0.5);
     display: flex;
-    color: #fff;
-    align-items: center;
+    text-shadow: 0 2px 6px rgba(18, 16, 60, 0.45);
+    font-family: Muli-Regular;
     font-size: 16px;
-    &:hover,
-    &:focus {
-      background: transparent;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #ffffff;
+    padding: 2px 15px 2px 20px;
+    line-height: 24px;
+    max-width: 200px;
+
+    > .commentIcon {
+        margin-left: 10px;
     }
 
-    svg {
-      font-size: 18px;
-      margin: 0 12px;
+    button {
+        border: 0px;
+        padding: 0px;
+        display: flex;
+        color: #fff;
+        align-items: center;
+        font-size: 16px;
+        &:hover,
+        &:focus {
+            background: transparent;
+        }
+
+        svg {
+            font-size: 18px;
+            margin: 0 12px;
+        }
     }
-  }
 }
 .home-content {
-  padding: 0 20px;
-  margin-top: 3.6%;
+    padding: 0 20px;
+    margin-top: 3.6%;
 }
 .home-time-content {
-  display: flex;
+    display: flex;
 }
 .available-time-text {
-  padding-left: 5.8%;
+    padding-left: 5.8%;
 }
 .time-container {
-  padding-top: 3%;
+    padding-top: 3%;
 }
 .hashtags {
-  margin-top: -10px;
+    margin-top: -10px;
 }
 .due-date {
-  padding-top: 2%;
+    padding-top: 2%;
 }
 .comment-wrapper {
-  position: absolute;
-  bottom: 120px;
-  display: inline-block;
+    position: absolute;
+    bottom: 120px;
+    display: inline-block;
 }
 
 .comment-container {
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
-  font-family: Muli;
-  font-size: 15px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.2;
-  letter-spacing: normal;
-  color: #ffffff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    font-family: Muli;
+    font-size: 15px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    color: #ffffff;
 }
 .comment-text-style {
-  display: flex;
+    display: flex;
 }
 .demo-comment {
-  padding-left: 20px;
-  float: left;
-  display: flex;
+    padding-left: 20px;
+    float: left;
+    display: flex;
 }
 .action {
-  font-family: Muli-Regular_;
-  font-size: 18px;
-  font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.11;
-  letter-spacing: normal;
-  color: #ffffff;
+    font-family: Muli-Regular_;
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.11;
+    letter-spacing: normal;
+    color: #ffffff;
 }
 .action-container {
-  position: relative;
-  .social-action-wrapper {
-    position: absolute;
-    right: 20px;
-    bottom: -25px;
+    position: relative;
+    .social-action-wrapper {
+        position: absolute;
+        right: 20px;
+        bottom: -25px;
 
-    > div {
-      margin-bottom: 35px;
+        > div {
+            margin-bottom: 35px;
 
-      &:last-child {
-        margin-bottom: 0px;
-      }
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+
+        .button-action {
+            padding: 0px;
+            border: 0px;
+            color: #fff;
+
+            &:hover,
+            &:focus {
+                background: transparent;
+                color: #fff;
+            }
+        }
     }
-
-    .button-action {
-      padding: 0px;
-      border: 0px;
-      color: #fff;
-
-      &:hover,
-      &:focus {
-        background: transparent;
-        color: #fff;
-      }
-    }
-  }
 }
