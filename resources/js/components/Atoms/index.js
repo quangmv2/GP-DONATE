@@ -1,5 +1,7 @@
 import DataTable from "./DataTable";
 import LinkEnhance from "./LinkEnhance";
+import LinkItem from "./LinkItem";
+import LinkEdit from "./LinkEdit";
 import Input from "./Input";
 
 import SignInBackground from "./AuthBackground/SignInBackground";
@@ -28,4 +30,12 @@ export * from "./TooltipAnt";
 export * from "./TreeAnt";
 export * from "./TreeTable";
 
-export { DataTable, LinkEnhance, Input, SignInBackground, HeaderNavigation };
+export {
+    DataTable,
+    LinkEnhance,
+    Input,
+    SignInBackground,
+    HeaderNavigation,
+    LinkItem,
+    LinkEdit
+};
