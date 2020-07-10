@@ -4,7 +4,8 @@ import {
     HomePage,
     ProfileSetting,
     EditProfile,
-    PostComment
+    PostComment,
+    Search
 } from "components/PrivatePages";
 import { PRIVATE_ROUTE } from "constants";
 
@@ -31,6 +32,11 @@ export const singleRoutes = [
     {
         path: PRIVATE_ROUTE.POST_COMMENT,
         component: PostComment,
+        exact: true
+    },
+    {
+        path: "/search",
+        component: Search,
         exact: true
     }
 ];
