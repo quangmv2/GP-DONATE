@@ -32,18 +32,8 @@ import {
 } from "@ant-design/icons";
 import Posts from "../../Molecules/Post";
 import { Tabs } from "antd";
-
-function beforeUpload(file) {
-    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-    if (!isJpgOrPng) {
-        message.error("You can only upload JPG/PNG file!");
-    }
-    const isLt2M = file.size / 1024 / 1024 < 4;
-    if (!isLt2M) {
-        message.error("Image must smaller than 4MB!");
-    }
-    return isJpgOrPng && isLt2M;
-}
+import { Patron } from "components/Molecules";
+import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 
 export class Search extends Component {
     constructor(props) {
@@ -90,25 +80,48 @@ export class Search extends Component {
                 <div className="ant-upload-text">Upload</div>
             </div>
         );
+        const patronData = [
+            {
+                username: "Charity",
+                content: "@alina.baikova",
+                avatar: "./images/avatar/_0008_Alina Baikova.jpg",
+                isFriend: true
+            },
+            {
+                username: "Social Mobility",
+                content: "@alina.baikova",
+                avatar: "./images/avatar/_0008_Alina Baikova.jpg",
+                isFriend: true
+            },
+            {
+                username: "The Nyaka AIDS Orphans",
+                content: "@alina.baikova",
+                avatar: "./images/avatar/_0008_Alina Baikova.jpg"
+            },
+            {
+                username: "Emma Watson",
+                content: "@alina.baikova",
+                avatar: "./images/avatar/_0008_Alina Baikova.jpg"
+            },
+            {
+                username: "Mapelo Onzcu",
+                content: "@alina.baikova",
+                avatar: "./images/avatar/_0008_Alina Baikova.jpg"
+            }
+        ];
         return (
             <div className="private-fullheight">
                 <div className="container">
                     <HeaderNavigation headerName="Search" />
+                    <div className="search-container">
+                        <input type="text" placeholder="Search" />
+                        <button className="icon-search-normal icon-search"></button>
+                    </div>
 
-                    <TextField
-                        className=" search-text"
-                        type="text"
-                        placeholder="Search"
-                        required
-                        name="name"
-                    >
-                        <SearchOutlined />
-                    </TextField>
-
-                    <div className="body-wrapper wrapper-search">
-                        <Tabs defaultActiveKey="2">
-                            <TabPane tab={<span>Patrons</span>} key="1">
-                                Tab 1
+                    <div className="ant-tabs-container custom-tabs">
+                        <Tabs defaultActiveKey="0">
+                            <TabPane tab={<span>Patrons</span>} key="0">
+                                <Patron data={patronData} />
                             </TabPane>
                             <TabPane
                                 tab={<span>Generous Supports</span>}
@@ -116,15 +129,46 @@ export class Search extends Component {
                             >
                                 <div className="info-content">
                                     <Posts
+                                        className="info-list"
                                         url="#"
                                         img="./images/product/search1.jpg"
+                                        likeNumber="135"
                                         title={
-                                            <h1 className="title-img">
-                                                Give happiness for those are
-                                                less with each medical mask!
-                                            </h1>
+                                            "Give happiness for those are less with each medical mask!"
                                         }
                                         description="10k packs of medical masks"
+                                        duedate="2020/28/10"
+                                        author={{
+                                            username: "Hailee Steinfeld",
+                                            avatar:
+                                                "./images/product/search1.jpg"
+                                        }}
+                                        createTime="2020/28/10"
+                                    />
+
+                                    <Posts
+                                        className="info-list"
+                                        url="#"
+                                        img="./images/product/search1.jpg"
+                                        title={"Give happiness 2"}
+                                        likeNumber="135"
+                                        description="10k packs of medical masks"
+                                        duedate="2020/28/10"
+                                        author={{
+                                            username: "Hailee Steinfeld",
+                                            avatar:
+                                                "./images/product/search1.jpg"
+                                        }}
+                                        createTime="2020/28/10"
+                                    />
+
+                                    <Posts
+                                        className="info-list"
+                                        url="#"
+                                        img="./images/product/search1.jpg"
+                                        title={"Test tile"}
+                                        description="10k packs of medical masks"
+                                        likeNumber="135"
                                         duedate="2020/28/10"
                                         author={{
                                             username: "Hailee Steinfeld",
@@ -137,6 +181,10 @@ export class Search extends Component {
                             </TabPane>
                         </Tabs>
                     </div>
+                    {/* <div className="body-wrapper wrapper-search">
+                        
+                    </div> */}
+                    <BottomNavigator />
                 </div>
             </div>
         );

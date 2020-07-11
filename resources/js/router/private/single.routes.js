@@ -1,11 +1,13 @@
-import Dashboard from "components/PrivatePages/Dashboard/Dashboard";
+import EditProfile from "components/PrivatePages/EditProfile/EditProfile";
+import ProfileSetting from "components/PrivatePages/ProfileSetting/ProfileSetting";
 import {
     PostOffer,
     HomePage,
-    ProfileSetting,
-    EditProfile,
     PostComment,
-    Search
+    UserProfile,
+    ActivitiesScreen,
+    Search,
+    PostLike
 } from "components/PrivatePages";
 import { PRIVATE_ROUTE } from "constants";
 
@@ -37,6 +39,21 @@ export const singleRoutes = [
     {
         path: "/search",
         component: Search,
+        exact: true
+    },
+    {
+        path: PRIVATE_ROUTE.USER_PROFILE,
+        component: UserProfile,
+        exact: true
+    },
+    {
+        path: PRIVATE_ROUTE.ACTIVITIES,
+        component: ActivitiesScreen,
+        exact: true
+    },
+    {
+        path: "/post-like",
+        component: PostLike,
         exact: true
     }
 ];

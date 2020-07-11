@@ -78,7 +78,7 @@ export class ProfileSetting extends Component {
                         <div className="list-box">
                             <LinkItem
                                 className="text-box link-center"
-                                url={"#"}
+                                url={"/user-profile"}
                                 icon={<UserOutlined className="icon" />}
                                 title="Manage My Account"
                                 arrow={<RightOutlined className="rightlined" />}

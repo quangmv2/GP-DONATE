@@ -8,22 +8,22 @@
 .wrapper-search {
     padding: 10px 20px 30px 20px;
 }
-.photo-summary {
-    position: relative;
-    .icon-star {
-        border-radius: 50%;
-        background-color: #ddae53;
-        color: #ffffff;
-        position: absolute;
-        border: 1px solid #ffffff;
-        font-size: 23px;
-        line-height: 10px;
+
+.icon-search {
+    border: none;
+    background: none;
+    font-size: 22px;
+    color: #faad14;
+}
+.info-list {
+    border-radius: 12px;
+}
+.custom-tabs {
+    padding: 20px 20px 100px 20px;
+    .ant-tabs {
+        overflow: auto;
     }
-    .info-photo {
-        border-radius: 50%;
-    }
-    .text {
-        font-size: 20px 0px 10px 20px;
-        color: #262626;
+    span {
+        font-size: 18px;
     }
 }
