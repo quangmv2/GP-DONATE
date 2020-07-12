@@ -1,0 +1,37 @@
+.avatar-wrapper {
+    position: relative;
+    padding-bottom: 20px;
+    .icon-star {
+        border-radius: 50%;
+        background-color: #ddae53;
+        color: #ffffff;
+        position: absolute;
+        border: 2px solid #ffffff;
+        left: 30px;
+        padding: 1px;
+        line-height: 10px;
+    }
+    .info-user {
+        padding-left: 15px;
+        .username {
+            font-size: 18px;
+            line-height: 20px;
+            color: #333333;
+            font-weight: bold;
+        }
+    }
+}
+.icon-account-active {
+    font-size: 20px;
+    color: #081f47;
+}
+.message-preview-container {
+    &.message-component-container {
+        padding-left: 0;
+        padding-right: 0;
+        justify-content: space-between;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
