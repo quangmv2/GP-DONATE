@@ -1,4 +1,4 @@
-import React from "React";
+import React from "react";
 import messData from './messData';
 import './Mess.scss';
 import { Link } from 'react-router-dom';

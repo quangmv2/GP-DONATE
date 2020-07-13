@@ -8,17 +8,8 @@ import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import "./PostOffer.scss";
 import { DatePicker, TimePicker } from 'antd';
 import moment from 'moment';
+import ButtonComponent from './Button';
 const PostOffer = props => {
-    const [day, setDay] = useState();
-    const onChangeDay = () => {
-        setDay('1')
-    }
-    let dayContainer = <button>{props.children}</button>
-    if (day == '1') {
-        dayContainer = (
-            <button className='button-trans'>{props.childre}</button>
-        )
-    }
     const { RangePicker } = TimePicker;
     const dateFormat = 'DD MMM YYYY';
     const [typeOffer, setTypeOffer] = useState();
@@ -47,37 +38,23 @@ const PostOffer = props => {
                     value={[moment('00:00', 'HH:mm'), moment('1:00', 'HH:mm:ss')]}
                     format="HH:mm"
                     showTime={{ format: 'HH:mm' }}/>
-                   
                     <span className="icon-arrow-next range-picker-icon"></span>
                     </div>
-                    <button className="button-trans">
                         <div className='weekdays-container'>
-                        <button className='button-trans'>
-                            S
-                        </button>
-                        <button className='button-chossen'>
-                            M
-                        </button>
-                        <button className='button-trans'>
-                          T
-                        </button>
-                        <button className='button-trans'>
-                            W
-                        </button>
-                        <button className='button-trans'>
-                       T
-                        </button>
-                        <button className='button-trans'>
-                       F
-                        </button>
-                        <button className='button-trans'>
-                        S
-                        </button>
+                        <ButtonComponent key={1} name='S'/>
+                        <ButtonComponent key={2} name='M'/>
+                        <ButtonComponent key={3} name='T'/>
+                        <ButtonComponent key={4} name='W'/>
+                        <ButtonComponent key={5} name='T'/>
+                        <ButtonComponent key={6} name='F'/>
+                        <ButtonComponent key={7} name='S'/>
                         </div>
+                        <div className='minus-icon-container'>
                         <img src={"./images/icon/minus.svg"}
                             className='minus-icon'
                         />
-                    </button>
+                        </div>
+                
                 </div>
             </div>
         );

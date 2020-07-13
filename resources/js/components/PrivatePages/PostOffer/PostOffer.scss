@@ -163,11 +163,17 @@ height: 169px;
 } 
 
 }
-.minus-icon {
-    width: 32px;
-  height: 32px;
-  position: relative;
-  top: -15px;
+.minus-icon-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+    .minus-icon {
+        width: 32px;
+      height: 32px;
+    
+}
+
 
 }
 .input-post-offer {
@@ -191,8 +197,6 @@ height: 169px;
         transform: translate(0, 1.5px);
         font-weight: 300;
     }
-  
-
 }
 
 .ant-picker-input-active {
@@ -209,20 +213,19 @@ height: 169px;
     }
     .weekdays-container {
         display: flex;
+        flex: 1;
         position: relative;
         top: -27px;
         justify-content: space-between;
         padding: 0px 20px;
     }
-    .button-chossen {
+    .button-choosen {
         background-color: #ddae53;
         border-radius: 50%;
         border-width: 0px;
         width: 36px;
         height: 37px;
         color: white;
-        
-
     }
     .time-range-picker {
         display: flex;
