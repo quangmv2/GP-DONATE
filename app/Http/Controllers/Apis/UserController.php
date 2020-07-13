@@ -51,6 +51,16 @@ class UserController extends Controller
         if ($id == 'me')
             return response()->json(json_decode($req->user()), 200);
         $user = User::findOrFail($id);
+        $posts  = $user->posts;
+        $totalLike = 0;
+        foreach ($posts as $key => $post) {
+            $totalLike+=$post->likes()->count();
+        }
+        $user["totalLike"] = $totalLike;
+        $user["totalPost"] = $posts->count();
+        $user["following"] = $user->following()->count();
+        $user["followed"] = $user->followed()->count();
+        unset($user["posts"]);
         return response()->json(json_decode($user), 200);
     }
 

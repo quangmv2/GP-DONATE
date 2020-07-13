@@ -73,10 +73,7 @@ class PostService
 
         $path = Storage::putFileAs($directory, $image, $name);
         
-        return response()->json([
-            'messeger' => 'success',
-            'image_directory' => $path,
-        ], 201);
+        return $path;
     }
 
     public function showImage()

@@ -10,7 +10,7 @@ use App\Events\CommentEvent;
 class CommentController extends Controller
 {
 
-    private CommentService $commentService;
+    private $commentService;
 
     function __construct(CommentService $commentService){
         $this->commentService = $commentService;
