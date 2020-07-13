@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Schema;
 use App\Services\CommonService;
 use App\Services\CommentService;
 use App\Services\PostService;
+use App\Services\LikeService;
+use App\Services\UserService;
+use App\Services\FollowService;
+use App\Services\AuthService;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -16,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
         CommonService::class => CommonService::class,
         CommentService::class => CommentService::class,
         PostService::class => PostService::class,
+        LikeService::class => LikeService::class,
+        UserService::class => UserService::class,
+        FollowService::class => FollowService::class,
+        AuthService::class => AuthService::class,
     ]
     ;
     /**

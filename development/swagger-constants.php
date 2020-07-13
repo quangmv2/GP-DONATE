@@ -1,2 +1,2 @@
 <?php
-define("API_HOST", 'niembinhan.com');
+define("API_HOST", '/');

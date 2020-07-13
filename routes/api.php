@@ -19,7 +19,7 @@ Route::group(['prefix' => 'oauth'], function () {
     
     Route::post('register', 'Apis\AuthController@register');
     Route::post('login', 'Apis\AuthController@login');
-    Route::post('logout', 'Apis\AuthController@logout')->middleware('auth:api');
+    Route::delete('logout', 'Apis\AuthController@logout')->middleware('auth:api');
     Route::post('refresh-token', 'Apis\AuthController@refreshToken');
     Route::post('password/reset', 'Apis\AuthController@resetPasswordToMail');
     Route::post('password/reset-confirm-token', 'Apis\AuthController@resetPasswordConfirmToken');
@@ -27,16 +27,31 @@ Route::group(['prefix' => 'oauth'], function () {
 });
 
     
-    Route::get('posts/photo', 'Apis\PostController@showPhoto'); //get photo for driectory
-    Route::post('posts/photo', 'Apis\PostController@storePhoto'); //Upload image
-    Route::get('posts/{id}/comments', 'Apis\PostController@getComments'); 
-    Route::get('posts/{id}/likes', 'Apis\PostController@getLikes'); 
 
-    Route::apiResources([
-        'user' => 'Apis\UserController',
-        'posts'=> 'Apis\PostController',
-        'comment' => 'Apis\CommentController'
-    ]);
+
+Route::group(['prefix' => 'posts'], function () {
+    Route::get('photo', 'Apis\PostController@showPhoto'); //get photo for driectory
+    Route::post('photo', 'Apis\PostController@storePhoto'); //Upload image
+    Route::get('{id}/comments', 'Apis\PostController@getComments'); 
+    Route::get('{id}/likes', 'Apis\PostController@getLikes'); 
+});
+
+Route::group(['prefix' => 'profile'], function () {
+    Route::get('{id}/following', "Apis\ProfileController@getFollowingOfUser");
+    Route::get('{id}/followed', "Apis\ProfileController@getFollowedOfUser");
+    Route::get('{id}/posts', "Apis\ProfileController@getPostOfUser");
+    Route::put('{id}/follow', "Apis\ProfileController@followUser");
+    Route::delete('{id}/un-follow', "Apis\ProfileController@unfollowUser");
+
+});
+
+Route::apiResources([
+    'user' => 'Apis\UserController',
+    'posts'=> 'Apis\PostController',
+    'comment' => 'Apis\CommentController',
+    'like' => 'Apis\LikeController',
+    'profile' => 'Apis\ProfileController',
+]);
 
 
 
