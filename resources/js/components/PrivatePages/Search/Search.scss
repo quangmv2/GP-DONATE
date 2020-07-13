@@ -1,0 +1,29 @@
+.search-text {
+    width: 100%;
+
+    .MuiInput-formControl {
+        height: 60px;
+    }
+}
+.wrapper-search {
+    padding: 10px 20px 30px 20px;
+}
+
+.icon-search {
+    border: none;
+    background: none;
+    font-size: 22px;
+    color: #faad14;
+}
+.info-list {
+    border-radius: 12px;
+}
+.custom-tabs {
+    padding: 20px 20px 100px 20px;
+    .ant-tabs {
+        overflow: auto;
+    }
+    span {
+        font-size: 18px;
+    }
+}

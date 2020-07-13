@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { ButtonAnt } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
 import UserPropositions from "./UserPropositions";
-import FlatList from "flatlist-react";
 
 const UserProfile = () => {
     const renderFields = () => {
