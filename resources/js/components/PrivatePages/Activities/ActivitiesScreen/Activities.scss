@@ -1,0 +1,67 @@
+.search-container {
+    border-bottom: 1px solid #cdcdcd;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-bottom-color: #cdcdcd;
+    border-width: 1px;
+    height: 60px;
+    width: 100%;
+    max-width: 786px;
+    padding-right: 20px;
+    > input {
+        padding-left: 20px;
+        width: 100%;
+        border: none;
+        background-color: transparent;
+    }
+}
+::placeholder {
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: italic;
+    line-height: 1.25;
+    letter-spacing: normal;
+    color: #999999;
+}
+
+.ant-tabs-tab {
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #666666;
+}
+.ant-tabs-nav-wrap {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.ant-tabs-container {
+    .ant-tabs-tab-active {
+        font-weight: bold;
+        color: #333333;
+    }
+    .ant-tabs-ink-bar {
+        background: #081f47;
+    }
+}
+
+.custom-tabs {
+    .ant-tabs-nav-list {
+        width: 100vw;
+        > button {
+            flex: 1;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
