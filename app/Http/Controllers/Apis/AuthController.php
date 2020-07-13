@@ -18,6 +18,8 @@ use Illuminate\Validation\Rule;
 
 use App\Models\User;
 use App\Events\CommentEvent;
+use App\Services\AuthService;
+
 
 
 class AuthController extends Controller
@@ -25,8 +27,11 @@ class AuthController extends Controller
 
     private $successStatus = 200;
 
+    private $authService;
 
-    function __construct(){}
+    function __construct(AuthService $authService){
+        $this->authService = $authService;
+    }
 
     public function register(Request $req){
 
@@ -68,7 +73,7 @@ class AuthController extends Controller
             $oClient = OClient::where('password_client', 1)->first();
             // get correct username
             $usernameInput = $username ? $username : $email;
-            return $this->getTokenAndRefreshToken($oClient, Auth::user()->email, $password);
+            return $this->authService->getTokenAndRefreshToken($oClient, Auth::user()->email, $password);
         } 
         else { 
             return response()->json(['error'=>'Unauthorised'], 401); 
@@ -97,7 +102,7 @@ class AuthController extends Controller
         $oClient = OClient::where('password_client', 1)->first();
         $refresh_token = $req->refresh_token;  
         // return response(json_decode($refresh_token));
-        return $this->refreshAndGetToken($oClient, $refresh_token);
+        return $this->authService->refreshAndGetToken($oClient, $refresh_token);
     }
 
     /*
@@ -107,14 +112,7 @@ class AuthController extends Controller
     */
     public function resetPasswordToMail(Request $req)
     {
-        $email = $req->email;
-        $user = User::where('email', $email)->firstOrFail();
-        $passwordReset = PasswordReset::updateOrCreate([
-            'email' => $user->email,
-        ],[
-            'token' => Str::random(6),
-        ]);
-        
+        $this->authService->resetPassword($req->email);
         return response()->json([
             'message' => 'We have e-mailed your password reset link!'
         ], 200);
@@ -155,87 +153,5 @@ class AuthController extends Controller
             'success' => $updatePasswordUser,
         ], 200);
     }
-    
-    //===================================================================================================================================
-    //  Function
-
-    /*
-        Request url /oauth/token with type password.
-        Get access_token and refresh_token
-    */
-    public function getTokenAndRefreshToken(OClient $oClient, $email, $password) { 
-
-
-        $client = new Client([
-            'headers' => [ 'Content-Type' => 'application/json' ], //set body json
-            'base_uri' => env('APP_URL') //get from env APP_URL or app config url
-        ]);  // Create Client with baseUri
-
-        /*
-            Request this server
-            If success get body and get code
-            else get body exception and code
-        */
-        try {
-            $response = $client->post('/oauth/token',
-                ['body' => json_encode(
-                    [
-                        'grant_type' => 'password',
-                        'client_id' => $oClient->id,
-                        'client_secret' => $oClient->secret,
-                        'username' => $email,
-                        'password' => $password,
-                        'scope' => '*',
-                    ]
-                )]
-            );
-            $result = $response->getBody()->getContents();
-            $code = $response->getStatusCode();
-
-        } catch (\Exception $exception) {
-            $result = $exception->getMessage();
-            $code = $exception->getCode();
-        }
-
-        return response()->json(json_decode($result), $code); // return code and result
-    }
-
-
-    /*
-        Request url /oauth/token with type refresh_token.
-        Get access_token and refresh_token
-    */
-    public function refreshAndGetToken(OClient $oClient, $refresh_token)
-    {
-        $client = new Client([
-            'headers' => [ 'Content-Type' => 'application/json' ], //set body json
-            'base_uri' => env('APP_URL') //get from env APP_URL or app config url
-        ]); // Create Client with baseUri
-        /*
-            Request this server
-            If success get body and get code
-            else get body exception and code
-        */
-        try {
-
-            $response = $client->post('/oauth/token',
-                ['body' => json_encode([
-                    'grant_type' => 'refresh_token',
-                    'refresh_token' => $refresh_token,
-                    'client_id' => $oClient->id,
-                    'client_secret' => $oClient->secret,
-                ])
-            ]);
-
-            $result = $response->getBody()->getContents();
-            $code = $response->getStatusCode();
-
-        } catch (\Exception $exception) {
-            $result = $exception->getMessage();
-            $code = $exception->getCode();
-        }
-
-        return response()->json(json_decode($result), $code); // return code and result
-    }
-
+   
 }

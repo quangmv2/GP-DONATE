@@ -38,7 +38,7 @@ class PostController extends Controller
 
     /**
      * @SWG\Get(
-     *     path="/api/posts",
+     *     path="api/posts",
      *     tags={"Posts"},
      *     summary={"Posts list"},
      *     description="Return posts list",
@@ -133,7 +133,7 @@ class PostController extends Controller
 
     /**
      * @SWG\Get(
-     *     path="/api/posts/{id}",
+     *     path="api/posts/{id}",
      *     tags={"Posts"},
      *     summary={"Post detail"},
      *     description="Return post detail by Id",  
@@ -204,20 +204,101 @@ class PostController extends Controller
         return response()->json(json_decode($post), 200);
     }
 
-
     /**
-     * GET route {id_post}/edit
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
+     * @SWG\Put(
+     *     path="api/posts/{id}",
+     *     tags={"Posts"},
+     *     summary={"Update Post"},
+     *     description="Return post detail by Id",  
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="Length of record need to response",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="title",
+     *         in="formData",
+     *         type="string",
+     *         description="Title Post",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="content",
+     *         in="formData",
+     *         type="string",
+     *         description="Content Post",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="photo_thumbnail",
+     *         in="formData",
+     *         type="string",
+     *         description="Photo thumbnail Post",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="full_photo",
+     *         in="formData",
+     *         type="string",
+     *         description="Full photo Post",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="due_day",
+     *         in="formData",
+     *         type="string",
+     *         description="Due day Post",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="OK",
+     *         @SWG\Schema(type="object",
+     *              @SWG\Property(property="id", type="number", example=1),
+     *              @SWG\Property(property="user_id", type="number", example=1),
+     *              @SWG\Property(property="title", type="string", example="First Project"),
+     *              @SWG\Property(property="content", type="string", example="Hello World"),
+     *              @SWG\Property(property="photo_thumbnail", type="string", example="..."),
+     *              @SWG\Property(property="full_photo", type="string", example="..."),
+     *              @SWG\Property(property="due_day", type="string", example="2000-12-03 12:20:20"),
+     *              @SWG\Property(property="status", type="number", example=0   ),
+     *              @SWG\Property(property="user", type="object",
+        *              @SWG\Property(property="id", type="number", example=1),
+        *              @SWG\Property(property="first_name", type="string", example="admin"),
+        *              @SWG\Property(property="last_name", type="string", example="admin"),
+        *              @SWG\Property(property="username", type="string", example="admin"),
+        *              @SWG\Property(property="email", type="string", example="admin@gmail.com"),
+        *              @SWG\Property(property="address", type="string", example="Danang, Vietnam"),
+        *              @SWG\Property(property="code_id", type="string", example="admincode"),
+        *              @SWG\Property(property="personal_photo", type="string", example="..."),
+        *              @SWG\Property(property="gender", type="number", example=0),
+        *              @SWG\Property(property="created_at", type="string", example="2000-12-03 12:20:20"),
+        *              @SWG\Property(property="updated_at", type="string", example="2000-12-03 12:20:20"),
+        *          ),
+    *            @SWG\Property(property="created_at", type="string"),
+    *            @SWG\Property(property="updated_at", type="string"),
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="Missing Data"
+     *     ),
+     *     @SWG\Response(
+     *         response=404,
+     *         description="NotFound Data"
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     )
+     * )
      */
-    public function edit(Post $post)
-    {
-
-    }
-
-
     /**
      * PUT/PATCH route {id_post}
      * Update the specified resource in storage.
@@ -237,6 +318,40 @@ class PostController extends Controller
         return response()->json(json_decode($post), 200);
     }
 
+    /**
+     * @SWG\Delete(
+     *     path="api/posts/{id}",
+     *     tags={"Posts"},
+     *     summary={"Delete Post"},
+     *     description="Delete post by Id",  
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="integer",
+     *         description="Length of record need to response",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="OK",
+     *         @SWG\Schema(type="object",
+    *            @SWG\Property(property="message", type="string", example="success"),
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *         response=404,
+     *         description="Not Found Data"
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="FORBIDDEN",
+     *     )
+     * )
+     */
 
     /**
      * DELETE route {id_posts}
