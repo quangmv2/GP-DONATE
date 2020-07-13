@@ -19,7 +19,7 @@ Route::group(['prefix' => 'oauth'], function () {
     
     Route::post('register', 'Apis\AuthController@register');
     Route::post('login', 'Apis\AuthController@login');
-    Route::post('logout', 'Apis\AuthController@logout')->middleware('auth:api');
+    Route::delete('logout', 'Apis\AuthController@logout')->middleware('auth:api');
     Route::post('refresh-token', 'Apis\AuthController@refreshToken');
     Route::post('password/reset', 'Apis\AuthController@resetPasswordToMail');
     Route::post('password/reset-confirm-token', 'Apis\AuthController@resetPasswordConfirmToken');

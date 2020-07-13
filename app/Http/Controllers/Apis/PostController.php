@@ -18,8 +18,8 @@ use App\Services\PostService;
 class PostController extends Controller
 { 
 
-    private PostService $postService;
-    private CommonService $commonService;
+    private $postService;
+    private $commonService;
 
 
     function __construct(PostService $postService, CommonService $commonService){
@@ -43,55 +43,49 @@ class PostController extends Controller
      *     summary={"Posts list"},
      *     description="Return posts list",
      *     @SWG\Parameter(
-     *         name="order",
+     *         name="limit",
      *         in="query",
      *         type="string",
-     *         description="Order Coulumn need to Order By, default is created_date",
-     *         required=false,
-     *     ),
-     *     @SWG\Parameter(
-     *         name="length",
-     *         in="query",
-     *         type="int",
-     *         description="Length of record need to response",
-     *         required=false,
-     *     ),
-     *      @SWG\Parameter(
-     *         name="start",
-     *         in="query",
-     *         type="int",
-     *         description="Start possition",
+     *         description="Số lượng bài trong 1 lần load thêm",
      *         required=false,
      *     ),
      *		@SWG\Parameter(
-     *         name="Seach",
+     *         name="page",
      *         in="query",
      *         type="string",
-     *         description="Seach value",
+     *         description="Trang thứ page",
      *         required=false,
      *     ),
-     *      @SWG\Parameter(
-     *         name="category",
-     *         in="query",
-     *         type="string",
-     *         description="Category Id",
-     *         required=false,
-     *     ),
-     *      @SWG\Parameter(
-     *         name="orderDesc",
-     *         in="query",
-     *         type="string",
-     *         description="orderDesc",
-     *         required=false,
-     *      ),
      *     @SWG\Response(
      *         response=200,
      *         description="OK",
-     *     	   @SWG\Schema(type="object",
-     *         		@SWG\Property(property="data", type="object"),
-     *         		@SWG\Property(property="recordsTotal", type="number"),
-     *         		@SWG\Property(property="recordsFiltered", type="number"),
-     *     		)
+     *     	   @SWG\Schema(type="array",
+     *          @SWG\Items(
+     *              @SWG\Property(property="id", type="number", example=1),
+     *              @SWG\Property(property="user_id", type="number", example=1),
+     *              @SWG\Property(property="title", type="string", example="First Project"),
+     *              @SWG\Property(property="content", type="string", example="Hello World"),
+     *              @SWG\Property(property="photo_thumbnail", type="string", example="..."),
+     *              @SWG\Property(property="full_photo", type="string", example="..."),
+     *              @SWG\Property(property="due_day", type="string", example="2000-12-03 12:20:20"),
+     *              @SWG\Property(property="status", type="number", example=0   ),
+     *              @SWG\Property(property="user", type="object",
+        *              @SWG\Property(property="id", type="number", example=1),
+        *              @SWG\Property(property="first_name", type="string", example="admin"),
+        *              @SWG\Property(property="last_name", type="string", example="admin"),
+        *              @SWG\Property(property="username", type="string", example="admin"),
+        *              @SWG\Property(property="email", type="string", example="admin@gmail.com"),
+        *              @SWG\Property(property="address", type="string", example="Danang, Vietnam"),
+        *              @SWG\Property(property="code_id", type="string", example="admincode"),
+        *              @SWG\Property(property="personal_photo", type="string", example="..."),
+        *              @SWG\Property(property="gender", type="number", example=0),
+        *              @SWG\Property(property="created_at", type="string", example="2000-12-03 12:20:20"),
+        *              @SWG\Property(property="updated_at", type="string", example="2000-12-03 12:20:20"),
+        *          ),
+    *            @SWG\Property(property="created_at", type="string"),
+    *            @SWG\Property(property="updated_at", type="string"),
+    *             ),
+     *     		),
      *     ),
      *     @SWG\Response(
      *         response=422,
@@ -293,10 +287,6 @@ class PostController extends Controller
      *         response=401,
      *         description="Unauthenticated",
      *     ),
-     *     @SWG\Response(
-     *         response=401,
-     *         description="Unauthenticated",
-     *     )
      * )
      */
     /**
@@ -352,7 +342,6 @@ class PostController extends Controller
      *     )
      * )
      */
-
     /**
      * DELETE route {id_posts}
      * Remove the specified resource from storage.
@@ -368,20 +357,146 @@ class PostController extends Controller
         return response()->json(["message" => "success"], 200);
     }
 
-
+    /**
+     * @SWG\Post(
+     *     path="api/posts/photo",
+     *     tags={"Posts"},
+     *     summary={"Tải lên hình ảnh"},
+     *     description="Tải lên hình ảnh cho bài post",  
+     *     @SWG\Parameter(
+     *         name="photo",
+     *         in="path",
+     *         type="file",
+     *         description="File ảnh",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="OK",
+     *         @SWG\Schema(type="object",
+    *            @SWG\Property(property="message", type="string", example="success"),
+    *            @SWG\Property(property="image_directory", type="string", example="/upload/image/photo/example.jpg"),
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *         response=404,
+     *         description="Not Found Data"
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="FORBIDDEN",
+     *     )
+     * )
+     */
     public function storePhoto(Request $request)
     {
         $request->validate([
             'photo' =>'required|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ]);
-        return $this->postService->saveImage($request->file('photo'));
+        $path =  $this->postService->saveImage($request->file('photo'));
+        return response()->json([
+            'messeger' => 'success',
+            'image_directory' => $path,
+        ], 201);
     }
 
+    /**
+     * @SWG\Get(
+     *     path="api/posts/photo",
+     *     tags={"Posts"},
+     *     summary={"Tải về hình ảnh"},
+     *     description="Tải về hình ảnh cho bài post",  
+     *     @SWG\Parameter(
+     *         name="dir",
+     *         in="path",
+     *         type="string",
+     *         description="đường dẫn ảnh",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="OK",
+     *         @SWG\Schema(type="object",
+    *            
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *         response=404,
+     *         description="Not Found Data"
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="FORBIDDEN",
+     *     )
+     * )
+     */
     public function showPhoto(Request $request)
     {
         return $this->commonService->showImage($request->get('dir'));        
     }
     
+    /**
+     * @SWG\Get(
+     *     path="api/posts/comments",
+     *     tags={"Posts"},
+     *     summary={"Comment Post"},
+     *     description="Tất cả comment của post",  
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         type="string",
+     *         description="Id post",
+     *         required=true,
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="OK",
+     *         @SWG\Property(type="array",
+    *            @SWG\Items(
+ *                    @SWG\Property(property="id", type="string"),
+ *                    @SWG\Property(property="post_id", type="string"),
+ *                    @SWG\Property(property="user_id", type="string"),
+ *                    @SWG\Property(property="content", type="string"),
+ *                    @SWG\Property(property="created_at", type="string"),
+ *                    @SWG\Property(property="updated_at", type="string"),
+ *                    @SWG\Property(property="user", type="object",
+                    *              @SWG\Property(property="id", type="number", example=1),
+                    *              @SWG\Property(property="first_name", type="string", example="admin"),
+                    *              @SWG\Property(property="last_name", type="string", example="admin"),
+                    *              @SWG\Property(property="username", type="string", example="admin"),
+                    *              @SWG\Property(property="email", type="string", example="admin@gmail.com"),
+                    *              @SWG\Property(property="address", type="string", example="Danang, Vietnam"),
+                    *              @SWG\Property(property="code_id", type="string", example="admincode"),
+                    *              @SWG\Property(property="personal_photo", type="string", example="..."),
+                    *              @SWG\Property(property="gender", type="number", example=0),
+                    *              @SWG\Property(property="created_at", type="string", example="2000-12-03 12:20:20"),
+                    *              @SWG\Property(property="updated_at", type="string", example="2000-12-03 12:20:20"),
+                    *),
+    *               ),
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *         response=404,
+     *         description="Not Found Data"
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="FORBIDDEN",
+     *     )
+     * )
+     */
     public function getComments(Request $request, $id)
     {
         $comments = \App\Models\Comment::where('post_id', $id)->get();

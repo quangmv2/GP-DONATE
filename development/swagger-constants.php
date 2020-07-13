@@ -1,2 +1,2 @@
 <?php
-define("API_HOST", 'donate/');
+define("API_HOST", '/');
