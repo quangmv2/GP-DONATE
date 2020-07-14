@@ -41,7 +41,7 @@ export class Login extends Component {
         this.setSubmitting = null;
     }
 
-    async componentDidMount() {}
+    async componentDidMount() { }
 
     componentDidUpdate(prevProps) {
         const { isLogged } = this.props;
@@ -62,8 +62,8 @@ export class Login extends Component {
         }
         const { username, password } = values;
         const { login } = this.props;
-        this.props.history.push(PRIVATE_ROUTE.HOME);
-        //login(username, password);
+        // this.props.history.push(PRIVATE_ROUTE.HOME);
+        login(username, password);
     };
 
     render() {
@@ -109,141 +109,141 @@ export class Login extends Component {
                                 isSubmitting,
                                 /* and other goodies */
                             }) => (
-                                <form onSubmit={handleSubmit} layout="vertical">
-                                    <>
-                                        <Grid
-                                            container
-                                            spacing={1}
-                                            alignItems="flex-end"
-                                            className="form-control"
-                                        >
+                                    <form onSubmit={handleSubmit} layout="vertical">
+                                        <>
                                             <Grid
-                                                item
-                                                className="item-flex input-with-icon"
+                                                container
+                                                spacing={1}
+                                                alignItems="flex-end"
+                                                className="form-control"
                                             >
-                                                <AccountCircle />
-                                                <TextField
-                                                    error={
-                                                        errors.username &&
-                                                        touched.username
-                                                    }
-                                                    id="input-with-icon-grid"
-                                                    label={
-                                                        <FormattedMessage
-                                                            id="common.username"
-                                                            defaultMessage="common.username"
-                                                        />
-                                                    }
-                                                    value={values.username}
-                                                    onChange={handleChange}
-                                                    disabled={
-                                                        loading || isSubmitting
-                                                    }
-                                                    helperText={
-                                                        touched.username
-                                                            ? errors.username
-                                                            : ""
-                                                    }
-                                                    name="username"
-                                                />
+                                                <Grid
+                                                    item
+                                                    className="item-flex input-with-icon"
+                                                >
+                                                    <AccountCircle />
+                                                    <TextField
+                                                        error={
+                                                            errors.username &&
+                                                            touched.username
+                                                        }
+                                                        id="input-with-icon-grid"
+                                                        label={
+                                                            <FormattedMessage
+                                                                id="common.username"
+                                                                defaultMessage="common.username"
+                                                            />
+                                                        }
+                                                        value={values.username}
+                                                        onChange={handleChange}
+                                                        disabled={
+                                                            loading || isSubmitting
+                                                        }
+                                                        helperText={
+                                                            touched.username
+                                                                ? errors.username
+                                                                : ""
+                                                        }
+                                                        name="username"
+                                                    />
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
 
-                                        <Grid
-                                            container
-                                            spacing={1}
-                                            alignItems="flex-end"
-                                            className="form-control"
-                                        >
                                             <Grid
-                                                item
-                                                className="item-flex input-with-icon"
+                                                container
+                                                spacing={1}
+                                                alignItems="flex-end"
+                                                className="form-control"
                                             >
-                                                {/* <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel> */}
-                                                <AccountCircle />
-                                                <TextField
-                                                    error={
-                                                        errors.password &&
-                                                        touched.password
-                                                    }
-                                                    id="input-with-icon-grid"
-                                                    label={
-                                                        <FormattedMessage
-                                                            id="common.password"
-                                                            defaultMessage="common.password"
-                                                        />
-                                                    }
-                                                    value={values.password}
-                                                    onChange={handleChange}
-                                                    disabled={
-                                                        loading || isSubmitting
-                                                    }
-                                                    helperText={
-                                                        touched.password
-                                                            ? errors.password
-                                                            : ""
-                                                    }
-                                                    type="password"
-                                                    name="password"
-                                                />
+                                                <Grid
+                                                    item
+                                                    className="item-flex input-with-icon"
+                                                >
+                                                    {/* <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel> */}
+                                                    <AccountCircle />
+                                                    <TextField
+                                                        error={
+                                                            errors.password &&
+                                                            touched.password
+                                                        }
+                                                        id="input-with-icon-grid"
+                                                        label={
+                                                            <FormattedMessage
+                                                                id="common.password"
+                                                                defaultMessage="common.password"
+                                                            />
+                                                        }
+                                                        value={values.password}
+                                                        onChange={handleChange}
+                                                        disabled={
+                                                            loading || isSubmitting
+                                                        }
+                                                        helperText={
+                                                            touched.password
+                                                                ? errors.password
+                                                                : ""
+                                                        }
+                                                        type="password"
+                                                        name="password"
+                                                    />
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
-                                    </>
-                                    <Link
-                                        className="fg-pw-text"
-                                        to="/forgot-password"
-                                    >
-                                        <FormattedMessage
-                                            defaultMessage={
-                                                "loginPage.forgotPassword"
-                                            }
-                                            id={"loginPage.forgotPassword"}
-                                        ></FormattedMessage>
-                                    </Link>
-                                    <Link to="/signup">
-                                        <div className="form-control filledButton">
-                                            <ButtonAnt
-                                                className="custom-button-login btn-block btn-round btn-red buttonContainer"
-                                                disabled={
-                                                    loading || isSubmitting
-                                                }
-                                                id="login-btn"
-                                                loading={
-                                                    loading || isSubmitting
-                                                }
-                                                name="login-btn"
-                                                onClick={handleSubmit}
-                                                type="primary"
-                                            >
-                                                <FormattedMessage
-                                                    defaultMessage={
-                                                        "loginPage.login"
-                                                    }
-                                                    id={"loginPage.login"}
-                                                />
-                                            </ButtonAnt>
-                                        </div>
-                                    </Link>
-
-                                    <div className="bottomTextContainer">
-                                        <FormattedMessage
-                                            defaultMessage={"loginPage.newbie"}
-                                            id={"loginPage.newbie"}
-                                        ></FormattedMessage>
+                                        </>
                                         <Link
-                                            className="bottomLink"
-                                            to="/signup"
+                                            className="fg-pw-text"
+                                            to="/forgot-password"
                                         >
                                             <FormattedMessage
                                                 defaultMessage={
-                                                    "loginPage.signup"
+                                                    "loginPage.forgotPassword"
                                                 }
-                                                id={"loginPage.signup"}
+                                                id={"loginPage.forgotPassword"}
                                             ></FormattedMessage>
                                         </Link>
-                                    </div>
-                                </form>
-                            )}
+                                        <Link to="/signup">
+                                            <div className="form-control filledButton">
+                                                <ButtonAnt
+                                                    className="custom-button-login btn-block btn-round btn-red buttonContainer"
+                                                    disabled={
+                                                        loading || isSubmitting
+                                                    }
+                                                    id="login-btn"
+                                                    loading={
+                                                        loading || isSubmitting
+                                                    }
+                                                    name="login-btn"
+                                                    onClick={handleSubmit}
+                                                    type="primary"
+                                                >
+                                                    <FormattedMessage
+                                                        defaultMessage={
+                                                            "loginPage.login"
+                                                        }
+                                                        id={"loginPage.login"}
+                                                    />
+                                                </ButtonAnt>
+                                            </div>
+                                        </Link>
+
+                                        <div className="bottomTextContainer">
+                                            <FormattedMessage
+                                                defaultMessage={"loginPage.newbie"}
+                                                id={"loginPage.newbie"}
+                                            ></FormattedMessage>
+                                            <Link
+                                                className="bottomLink"
+                                                to="/signup"
+                                            >
+                                                <FormattedMessage
+                                                    defaultMessage={
+                                                        "loginPage.signup"
+                                                    }
+                                                    id={"loginPage.signup"}
+                                                ></FormattedMessage>
+                                            </Link>
+                                        </div>
+                                    </form>
+                                )}
                         </Formik>
                     </div>
                 </div>
@@ -263,7 +263,6 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
 const withReducer = injectReducer({ key: FEATURE_NAME_AUTH, reducer });
 const withSaga = injectSaga({ key: FEATURE_NAME_AUTH, saga });
 

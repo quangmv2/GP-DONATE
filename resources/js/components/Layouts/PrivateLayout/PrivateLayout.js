@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Layout } from "antd";
-
+import { fetchService } from "services";
 import {
     selectIsLogged,
     selectErrors,
     selectLoading
 } from "modules/auth/selectors";
-import { postLogout } from "modules/auth/actions";
+import { postLogout, getProfile } from "modules/auth/actions";
 
 import ReactResizeDetector from "react-resize-detector";
 import { createStructuredSelector } from "reselect";
@@ -30,17 +30,29 @@ class PrivateLayout extends Component {
         this.interval = null;
     }
 
-    async componentDidMount() {}
+    async componentDidMount() {
+        const accesstoken = localStorage.getItem("ACCESS_TOKEN");
+        const refreshToken = localStorage.getItem("REFRESH_TOKEN");
 
-    componentDidUpdate(prevProps) {}
+        fetchService.addTokenHeader({ access_token: accesstoken });
 
-    componentWillUnmount() {}
+        const { getProfileFnc } = this.props;
+        console.log(accesstoken);
+        if (accesstoken && accesstoken != "") {
+            getProfileFnc();
+        }
+
+    }
+
+    componentDidUpdate(prevProps) { }
+
+    componentWillUnmount() { }
 
     handleResize = () => {
         const windowSize = window.innerWidth;
     };
 
-    onResize = () => {};
+    onResize = () => { };
 
     render() {
         const { children } = this.props;
@@ -76,7 +88,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-    logout: postLogout
+    logout: postLogout,
+    getProfileFnc: getProfile
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PrivateLayout);
