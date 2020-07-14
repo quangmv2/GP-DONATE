@@ -1,70 +1,257 @@
 .centerText {
-    text-align: center;
-    width: 500px;
+  text-align: center;
+  width: 500px;
 }
 .post-image-text {
-    font-family: Muli;
-    font-size: 18px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.2;
-    letter-spacing: normal;
-    color: #262626;
+  font-family: Muli;
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: #262626;
 }
 .post-image-container {
-    padding: 30px;
+  padding: 30px;
 }
 .prev-image-container {
-    background-color: #dddddd;
-    min-height: 170px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 20%;
-    padding-bottom: 20%;
+  background-color: #dddddd;
+  min-height: 170px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20%;
+  padding-bottom: 20%;
+  height: 217px;
 }
 .thumbnail-container {
-    padding-left: 5%;
+  padding-left: 5%;
 }
 .post-border {
-    height: 5px;
-    width: 100%;
-    background-color: #eeeeee;
-    margin-top: 10%;
+  height: 5px;
+  width: 100%;
+  background-color: #eeeeee;
+  margin-top: 10%;
 }
 .other-info {
-    font-family: Muli;
-    font-size: 20px;
-    font-weight: 600;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.2;
-    letter-spacing: normal;
-    color: #262626;
+  font-family: Muli;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: #262626;
 }
 .publish-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 3%;
-    padding-bottom: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 3%;
+  padding-bottom: 20%;
 }
 .form-post-offer-container {
-    padding: 0 30px;
-    margin-top: 5%;
+  padding: 0 30px;
+  margin-top: 5%;
 }
 .post-offer-button-container {
-    background-color: #ddae53;
-    border-radius: 37.5px;
-    text-align: center;
-    height: 60px;
-    font-weight: bold;
-    font-family: Muli;
-    font-style: normal;
+  background-color: #ddae53;
+  border-radius: 37.5px;
+  text-align: center;
+  height: 60px;
+  font-weight: bold;
+  font-family: Muli;
+  font-style: normal;
+  border: none;
+  color: #ffffff;
+  font-stretch: normal;
+  line-height: 1.44px;
+}
+textarea {
+  width: 100%;
+  height: 217px;
+  border: none;
+  resize: none;
+}
+select {
+  width: 100%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.due-date-container {
+  height: 169px;
+  border-radius: 8px;
+  box-shadow: 0 3px 15px 0 rgba(16, 14, 54, 0.12);
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  .ant-picker {
     border: none;
-    color: #ffffff;
+    display: flex;
+    width: 100%;
+    outline: none;
+    &:focus {
+      outline: none;
+    }
+    &.ant-picker-focused {
+      box-shadow: none;
+    }
+  }
+  .ant-picker-clear {
+    display: none;
+  }
+  .ant-picker-input {
+    border-radius: 22.5px;
+    border: solid 1px #081f47;
+    > input {
+      height: 45px;
+      font-family: Muli;
+      font-size: 22px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.27;
+      letter-spacing: normal;
+      text-align: center;
+      color: #333333;
+    }
+  }
+}
+.post-offer-label {
+  font-family: Muli;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: normal;
+  color: #262626;
+  padding-top: 20px;
+}
+.plus-icon {
+  width: 26px;
+  height: 26px;
+}
+.availble-time-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.availble-time-table {
+  height: 150px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 3px 15px 0 rgba(16, 14, 54, 0.12);
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  position: relative;
+  .ant-picker-range {
+    border: none;
+    padding: 22px 22px 10px;
+    margin-bottom: 12px;
+    width: 100%;
+  }
+  .ant-picker-input {
+    > input {
+      height: 45px;
+      font-family: Muli;
+      font-size: 40px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.1;
+      letter-spacing: normal;
+      text-align: center;
+      color: #333333;
+      min-width: 120px;
+      padding-left: 10px;
+    }
+  }
+  .ant-picker-range .ant-picker-active-bar {
+    margin-left: 25px;
+  }
+}
+.minus-icon-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  .minus-icon {
+    width: 32px;
+    height: 32px;
+  }
+}
+.input-post-offer {
+  position: relative;
+  .MuiInput-formControl {
+    padding-left: 10px;
+  }
+
+  .MuiInputLabel-formControl {
+    margin-top: -5px;
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: normal;
     font-stretch: normal;
-    line-height: 1.44px;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: #ddae53;
+  }
+  .MuiInputLabel-shrink {
+    transform: translate(0, 1.5px);
+    font-weight: 300;
+  }
+}
+
+.ant-picker-input-active {
+  border: none;
+}
+.anticon {
+  > svg {
+    visibility: hidden;
+  }
+}
+.range-picker-icon {
+  font-size: 20px;
+  position: relative;
+  top: -55px;
+}
+.weekdays-container {
+  display: flex;
+  flex: 1;
+  position: relative;
+  top: -27px;
+  justify-content: space-between;
+  padding: 0px 20px;
+  button {
+    min-width: 37px;
+    min-height: 37px;
+  }
+}
+.button-choosen {
+  background-color: #ddae53;
+  border-radius: 50%;
+  border-width: 0px;
+  width: 36px;
+  height: 37px;
+  color: white;
+}
+.time-range-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .ant-picker-focused {
+    box-shadow: none;
+  }
 }

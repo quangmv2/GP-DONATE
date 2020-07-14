@@ -13,7 +13,8 @@ export const PRIVATE_ROUTE = {
     HOME: "/home",
     POST_COMMENT: "/post-comment",
     USER_PROFILE: "/user-profile",
-    ACTIVITIES: "/activities"
+    ACTIVITIES: "/activities",
+    MESSAGES: '/messages'
 };
 
 export const ROUTE = {

@@ -1,115 +1,119 @@
 .MuiGrid-root.item-flex {
-    flex: 1;
-    > div {
-        width: 100%;
-    }
+  flex: 1;
+  > div {
+    width: 100%;
+  }
 }
 p.MuiFormHelperText-root.Mui-error,
 p.MuiFormHelperText-root {
-    position: absolute;
-    bottom: -25px;
+  position: absolute;
+  bottom: -25px;
 }
 
 div.form-control {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 .input-with-icon {
-    position: relative;
-    .MuiInput-formControl {
-        padding-left: 35px;
-    }
+  position: relative;
+  .MuiInput-formControl {
+    padding-left: 35px;
+  }
 
-    .MuiInputLabel-formControl {
-        text-transform: uppercase;
-        padding-left: 50px;
-       margin-top: -5px;
-        font-family: Muli;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 16px;
-        color: #91969E;
-    }
+  .MuiInputLabel-formControl {
+    text-transform: uppercase;
+    padding-left: 50px;
+    margin-top: -5px;
+    font-family: Muli;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    color: black;
+  }
 
-    .MuiSvgIcon-root {
-         position: absolute;
-        left: 3px;
-        bottom: 12px;
-    }
+  .MuiSvgIcon-root {
+    position: absolute;
+    left: 3px;
+    bottom: 12px;
+  }
 
-    .MuiInputLabel-shrink {
-        text-transform: uppercase;
-        transform: translate(0, 1.5px);
-        font-weight: 300;
-    }
+  .MuiInputLabel-shrink {
+    text-transform: uppercase;
+    transform: translate(0, 1.5px);
+    font-weight: 300;
+  }
 }
 .bottomContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   margin-top: 50px;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  flex-direction: column;
 }
 .input-post-offer {
-    position: relative;
-    .MuiInput-formControl {
-        padding-left: 10px;
-    }
+  position: relative;
+  .MuiInput-formControl {
+    padding-left: 10px;
+  }
 
-    .MuiInputLabel-formControl {
-       margin-top: -5px;
-       font-family: Muli;
-  font-size: 18px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.33;
-  letter-spacing: normal;
-  color: #666666;
-    }
+  .MuiInputLabel-formControl {
+    margin-top: -5px;
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: #666666;
+  }
 
-    .MuiSvgIcon-root {
-        // position: absolute;
-        // left: 3px;
-        // bottom: 12px;
-    }
+  .MuiSvgIcon-root {
+    // position: absolute;
+    // left: 3px;
+    // bottom: 12px;
+  }
 
-    .MuiInputLabel-shrink {
-        transform: translate(0, 1.5px);
-        font-weight: 300;
-    }
+  .MuiInputLabel-shrink {
+    transform: translate(0, 1.5px);
+    font-weight: 300;
+  }
 }
-.post-offer-with-icon{
-    position: relative;
-    .MuiInput-formControl {
-       padding-left: 10px;
-    }
+.post-offer-with-icon {
+  position: relative;
+  .MuiInput-formControl {
+    padding-left: 10px;
+  }
 
-    .MuiInputLabel-formControl {
-       margin-top: -5px;
-       font-family: Muli;
-       font-size: 18px;
-       font-weight: normal;
-       font-stretch: normal;
-       font-style: normal;
-       line-height: 1.33;
-       letter-spacing: normal;
-       color: #666666;
-    }
+  .MuiInputLabel-formControl {
+    margin-top: -5px;
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: #666666;
+  }
 
-    .MuiSvgIcon-root {
-        position: absolute;
-        right: 10px;
-        bottom: 12px;
-    }
+  .MuiSvgIcon-root {
+    position: absolute;
+    right: 10px;
+    bottom: 12px;
+  }
 
-    .MuiInputLabel-shrink {
-        
-        transform: translate(0, 1.5px);
-        font-weight: 300;
-    }
+  .MuiInputLabel-shrink {
+    transform: translate(0, 1.5px);
+    font-weight: 300;
+  }
 }
 .form-control-post-offer {
-    margin-top: -15px;
+  margin-top: -30px;
 }
-
+.form-group .ant-select {
+  width: 100%;
+}
+textarea {
+  padding: 5px;
+}
