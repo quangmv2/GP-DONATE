@@ -1,5 +1,8 @@
 import EditProfile from "components/PrivatePages/EditProfile/EditProfile";
 import ProfileSetting from "components/PrivatePages/ProfileSetting/ProfileSetting";
+<<<<<<< HEAD
+import { PostOffer, HomePage, PostComment, UserProfile, ActivitiesScreen, MessagesDetail } from "components/PrivatePages";
+=======
 import {
     PostOffer,
     HomePage,
@@ -9,6 +12,7 @@ import {
     Search,
     PostLike
 } from "components/PrivatePages";
+>>>>>>> 490611e3110f3daa4645622fd6b3a34c64c531a1
 import { PRIVATE_ROUTE } from "constants";
 
 export const singleRoutes = [
@@ -52,8 +56,13 @@ export const singleRoutes = [
         exact: true
     },
     {
+<<<<<<< HEAD
+        path: PRIVATE_ROUTE.MESSAGES,
+        component: MessagesDetail,
+=======
         path: "/post-like",
         component: PostLike,
+>>>>>>> 490611e3110f3daa4645622fd6b3a34c64c531a1
         exact: true
     }
 ];

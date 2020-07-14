@@ -1,0 +1,130 @@
+.back-messages, .sort-messages {
+    font-size: 22px;
+    color: #fff;
+}
+.message-top-nav {
+    height: 95px;
+    background-color: #081f47;
+    justify-content: space-between;
+    .navbar-message-container {
+        display: flex;
+        align-items: center;
+    }
+   
+}
+.bottom-border-message-detail {
+  max-width: 100%;
+  width: 32%;
+  height: 5px;
+  border-radius: 100px;
+  background-color: #000000;
+  position: absolute;
+  bottom: 0px;
+  left: 34%;
+  right: 34%;
+}
+.mess-time {
+  font-family: Muli;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #666666;
+  padding-top: 20px;
+}
+.input-messages-container {
+    border-top: 1px solid #999999;
+    position: fixed;
+    bottom: 0;
+    height: 101px;
+    width: 100%;
+    max-width: 786px;
+    background-color: white;
+  .input-message {
+    padding-left: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 22px;
+   
+  }
+}
+.input-comment-with-icon {
+ 
+ >.post-comment-button {
+    top: 17.5px;
+    right: 0px
+  }
+  >textarea {
+   margin-top: 16px;
+      height: 36px;
+      
+  }
+
+}
+.arrow-next-button {
+  background-color: #ddae53 ;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  .arrow-next-mess {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    padding-right: 4px;
+  }
+}
+.message-content-container {
+  margin-top: 8px;
+  border-radius: 18px;
+  background-color: #e0ebff;
+  
+  >p {
+    font-family: Muli;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.38;
+  letter-spacing: normal;
+  color: #666666;
+  padding: 10px 13px ;
+  }
+}
+.render-message {
+  float: right;
+  padding-right: 20px;
+  width: 67%;
+}
+.render-recieve-message {
+  width: 67%;
+  display: flex;
+  flex-direction: row;
+  padding-left: 20px;
+  align-items: flex-end;
+  >div {
+    padding-left: 15px ;
+  }
+}
+.recieve-message-content-container {
+  background-color: white;
+  border: solid 1px #999999;
+  >p {
+    padding-bottom: 0;
+  }
+}
+.recieve-avatar  {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.mess-body {
+  padding-bottom: 350px;
+}
+
+
+
