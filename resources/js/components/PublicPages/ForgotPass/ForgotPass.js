@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { fetchService } from "services";
 import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
@@ -9,7 +10,12 @@ import injectSaga from "core/saga/inject-saga";
 import reducer from "modules/auth/reducers";
 import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
-import { URL_REDIRECT_LOGIN, ROUTE, PUBLIC_ROUTE } from "constants";
+import {
+    URL_REDIRECT_LOGIN,
+    ROUTE,
+    PUBLIC_ROUTE,
+    ROOT_API_URL
+} from "constants";
 import { postLogin } from "modules/auth/actions";
 import "./ForgotPass.scss";
 import {
@@ -27,7 +33,8 @@ import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import { NOTIFICATION_TYPE } from "constants";
+import { openNotification } from "helpers";
 
 export class ForgotPass extends Component {
     constructor(props) {
@@ -69,6 +76,29 @@ export class ForgotPass extends Component {
         //login(username, password);
 
         // gui request toi API forgot-password
+        const data = { email };
+        fetchService
+            .fetch(`${ROOT_API_URL}/api/oauth/password/reset`, {
+                method: "POST",
+                body: JSON.stringify(data)
+            })
+            .then(([resp, status]) => {
+                // api tra ve ket qua check thanh cong hay khong o cho nay
+
+                console.log(resp);
+                console.log(status);
+
+                if (status === 200) {
+                    this.props.history.push(PUBLIC_ROUTE.CHANGEPASSWORD);
+                    // xu ly code thanh cong
+                    // ney thanh cong thi redirect sang man hinh change password
+                } else {
+                    // cho phep form duoc submit tro lai
+                    const { message } = resp;
+                    openNotification(NOTIFICATION_TYPE.ERROR, message);
+                    this.setSubmitting(false);
+                }
+            });
     };
 
     render() {

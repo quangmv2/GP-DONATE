@@ -27,5 +27,5 @@ export const API_ROUTER = {
     FORGOTPASSWORD: "/api/oauth/pasword/reset"
 };
 
-export const ROOT_API_URL = "";
+export const ROOT_API_URL = "http://52.205.200.96";
 export const ROOT_WS = "localhost:9000";
