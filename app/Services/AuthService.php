@@ -17,6 +17,7 @@ use App\Notifications\ResetPasswordRequest;
 use Illuminate\Support\Str;
 
 use App\Services\UserService;
+use App\Models\User;
 
 class AuthService
 {
@@ -103,7 +104,8 @@ class AuthService
         $passwordReset = PasswordReset::updateOrCreate([
             'email' => $user->email,
         ],[
-            'token' => Str::random(6),
+            // 'token' => Str::random(6),
+            'token' => "ABCDEF",
         ]);
     }
 

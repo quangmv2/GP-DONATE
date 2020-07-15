@@ -9,7 +9,7 @@
         },
         "version": "1.0.0"
     },
-    "host": "/",
+    "host": "52.205.200.96/",
     "basePath": "/",
     "schemes": [
         "http"
