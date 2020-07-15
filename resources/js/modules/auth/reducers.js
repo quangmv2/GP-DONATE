@@ -9,6 +9,7 @@ import { URL_REDIRECT_LOGIN } from "../../constants/variables";
 export const initialState = fromJS({
   loading: false,
   logged: false,
+  logout: false,
   accessToken: "",
   refreshToken: "",
   identity: null,
@@ -33,6 +34,7 @@ const reducer = (state = initialState, action) => {
       localStorage.setItem(REFRESH_TOKEN, refreshToken);
       return state
         .set("loading", false)
+        .set('logout', false)
         .set("logged", true)
         .set("accessToken", accessToken)
         .set("refreshToken", refreshToken);
@@ -66,6 +68,7 @@ const reducer = (state = initialState, action) => {
       localStorage.removeItem(URL_REDIRECT_LOGIN);
       return state
         .set("loading", false)
+        .set('logout', true)
         .set("logged", false)
         .set("accessToken", "")
         .set("refreshToken", "")
@@ -86,6 +89,7 @@ const reducer = (state = initialState, action) => {
       const { accessToken, refreshToken, userInfor } = action.payload;
       return state
         .set("loading", false)
+        .set('logout', false)
         .set("logged", true)
         .set("accessToken", accessToken)
         .set("refreshToken", refreshToken)

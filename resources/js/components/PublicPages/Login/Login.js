@@ -49,6 +49,7 @@ export class Login extends Component {
         const { isLogged, access_token } = this.props;
         if (isLogged && access_token && access_token != "") {
             this.redirectPrivatePage();
+            localStorage.removeItem(URL_REDIRECT_LOGIN);
         }
     }
 
