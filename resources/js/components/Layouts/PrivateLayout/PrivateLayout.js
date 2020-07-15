@@ -54,9 +54,8 @@ class PrivateLayout extends Component {
     componentDidUpdate(prevProps) {
         const { isLogged } = this.props;
         if (prevProps.isLogged === isLogged) return false;
-        console.log(prevProps.isLogged, isLogged);
         if (!isLogged) {
-            // localStorage.setItem(URL_REDIRECT_LOGIN, location.pathname);
+            localStorage.setItem(URL_REDIRECT_LOGIN, location.pathname);
             this.redirectLogin();
         }
     }

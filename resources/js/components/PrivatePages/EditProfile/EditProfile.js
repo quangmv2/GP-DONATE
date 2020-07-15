@@ -1,23 +1,14 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
-import injectReducer from "core/reducer/inject-reducer";
-import injectSaga from "core/saga/inject-saga";
-import reducer from "modules/auth/reducers";
-import saga from "modules/auth/sagas";
-import { FEATURE_NAME_AUTH } from "modules/auth/constants";
-import { URL_REDIRECT_LOGIN, ROUTE, PUBLIC_ROUTE } from "constants";
 import { postLogin } from "modules/auth/actions";
-import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import {
     selectIsLogged,
     selectErrors,
     selectLoading
 } from "modules/auth/selectors";
-import { HeaderNavigation, LinkEdit } from "components/Atoms";
+import { HeaderNavigation } from "components/Atoms";
 import "./EditProfile.scss";
 import { StarFilled } from "@ant-design/icons";
 import { Formik } from "formik";
@@ -25,7 +16,6 @@ import TextField from "@material-ui/core/TextField";
 import { Upload, message } from "antd";
 import {
     LoadingOutlined,
-    CameraOutlined,
     PlusOutlined
 } from "@ant-design/icons";
 
@@ -53,30 +43,9 @@ export class EditProfile extends Component {
         };
         this.setSubmitting = null;
     }
-    async componentDidMount() {}
+    async componentDidMount() { }
 
-    componentDidUpdate(prevProps) {
-        const { isLogged } = this.props;
-        if (isLogged) {
-            this.redirectLogin();
-        }
-    }
-
-    redirectLogin = () => {
-        const { history } = this.props;
-        const url_redirect_login = localStorage.getItem(URL_REDIRECT_LOGIN);
-        history.push(url_redirect_login ?? ROUTE.HOME);
-    };
-
-    onSubmit = (values, { setSubmitting }) => {
-        if (!this.setSubmitting) {
-            this.setSubmitting = setSubmitting;
-        }
-        const { description, offervalue, duedate, hashtag } = values;
-        const { login } = this.props;
-        this.props.history.push(PUBLIC_ROUTE.SIGNUP);
-        //login(username, password);
-    };
+    componentDidUpdate(prevProps) { }
 
     render() {
         const { errors, loading } = this.props;
@@ -140,77 +109,77 @@ export class EditProfile extends Component {
                                 isSubmitting
                                 /* and other goodies */
                             }) => (
-                                <form onSubmit={handleSubmit}>
-                                    <div className="form-submit">
-                                        <TextField
-                                            className="form-text"
-                                            id="standard-password-input"
-                                            label="Name"
-                                            type="text"
-                                            required
-                                            name="name"
-                                            value={values.name}
-                                            onChange={handleChange}
-                                            error={errors.name && touched.name}
-                                            helperText={
-                                                touched.name ? errors.name : ""
-                                            }
-                                        />
-                                    </div>
-                                    <div className="form-submit">
-                                        <TextField
-                                            className="form-text"
-                                            id="standard-password-input"
-                                            label="Username"
-                                            type="text"
-                                            name="username"
-                                            value={values.username}
-                                            onChange={handleChange}
-                                            error={
-                                                errors.username &&
-                                                touched.username
-                                            }
-                                            helperText={
-                                                touched.username
-                                                    ? errors.username
-                                                    : ""
-                                            }
-                                        />
-                                    </div>
-                                    <div className="form-submit">
-                                        <TextField
-                                            className="form-text"
-                                            id="standard-password-input"
-                                            label="Foudation"
-                                            type="text"
-                                            name="foundation"
-                                            onChange={handleChange}
-                                            value={values.foundation}
-                                        />
-                                    </div>
+                                    <form onSubmit={handleSubmit}>
+                                        <div className="form-submit">
+                                            <TextField
+                                                className="form-text"
+                                                id="standard-password-input"
+                                                label="Name"
+                                                type="text"
+                                                required
+                                                name="name"
+                                                value={values.name}
+                                                onChange={handleChange}
+                                                error={errors.name && touched.name}
+                                                helperText={
+                                                    touched.name ? errors.name : ""
+                                                }
+                                            />
+                                        </div>
+                                        <div className="form-submit">
+                                            <TextField
+                                                className="form-text"
+                                                id="standard-password-input"
+                                                label="Username"
+                                                type="text"
+                                                name="username"
+                                                value={values.username}
+                                                onChange={handleChange}
+                                                error={
+                                                    errors.username &&
+                                                    touched.username
+                                                }
+                                                helperText={
+                                                    touched.username
+                                                        ? errors.username
+                                                        : ""
+                                                }
+                                            />
+                                        </div>
+                                        <div className="form-submit">
+                                            <TextField
+                                                className="form-text"
+                                                id="standard-password-input"
+                                                label="Foudation"
+                                                type="text"
+                                                name="foundation"
+                                                onChange={handleChange}
+                                                value={values.foundation}
+                                            />
+                                        </div>
 
-                                    <div className="form-submit form-upload">
-                                        <Upload
-                                            name="avatar"
-                                            listType="picture-card"
-                                            className="avatar-uploader"
-                                            showUploadList={false}
-                                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                            beforeUpload={beforeUpload}
-                                            onChange={this.handleChange}
+                                        <div className="form-submit form-upload">
+                                            <Upload
+                                                name="avatar"
+                                                listType="picture-card"
+                                                className="avatar-uploader"
+                                                showUploadList={false}
+                                                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                                beforeUpload={beforeUpload}
+                                                onChange={this.handleChange}
+                                            >
+                                                {uploadButton}
+                                            </Upload>
+                                        </div>
+                                        <button
+                                            type="submit"
+                                            className="button"
+                                            onClick={handleSubmit}
                                         >
-                                            {uploadButton}
-                                        </Upload>
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        className="button"
-                                        onClick={handleSubmit}
-                                    >
-                                        Submit
+                                            Submit
                                     </button>
-                                </form>
-                            )}
+                                    </form>
+                                )}
                         </Formik>
                     </div>
                 </div>
@@ -229,11 +198,6 @@ const mapStateToProps = createStructuredSelector({
     loading: selectLoading()
 });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: FEATURE_NAME_AUTH, reducer });
-const withSaga = injectSaga({ key: FEATURE_NAME_AUTH, saga });
-
 EditProfile.defaultProps = {
     login: () => null,
     errors: {}
@@ -244,9 +208,4 @@ EditProfile.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(
-    withReducer,
-    withSaga,
-    withConnect,
-    withRouter
-)(EditProfile);
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);
