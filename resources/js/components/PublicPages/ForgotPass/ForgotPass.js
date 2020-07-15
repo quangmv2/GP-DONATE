@@ -38,8 +38,9 @@ export class ForgotPass extends Component {
         };
         this.setSubmitting = null;
     }
-
+    // /api/oauth/password/reset
     async componentDidMount() {}
+
     handleBack = () => {
         this.props.history.goBack();
     };
@@ -62,10 +63,12 @@ export class ForgotPass extends Component {
             this.setSubmitting = setSubmitting;
         }
         const { email } = values;
-        const { login } = this.props;
-        this.props.history.push(PUBLIC_ROUTE.CHANGEPASSWORD);
+
+        // this.props.history.push(PUBLIC_ROUTE.CHANGEPASSWORD);
 
         //login(username, password);
+
+        // gui request toi API forgot-password
     };
 
     render() {
