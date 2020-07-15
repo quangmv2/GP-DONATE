@@ -104,6 +104,7 @@ class ProfileController extends Controller
         if ($id=="me") $id = $request->user()->id;
         $user = $this->userService->getUserById($id);
         $posts  = $user->posts;
+        $user->roles;
         $totalLike = 0;
         foreach ($posts as $key => $post) {
             $totalLike+=$post->likes()->count();
