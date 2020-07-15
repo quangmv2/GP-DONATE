@@ -79,7 +79,7 @@ class HomePage extends Component {
                                                             fontSize: "27px"
                                                         }}
                                                     />
-                                                    <div class="home-text">
+                                                    <div className="home-text">
                                                         <span>
                                                             Mon, Tue: 09:00 -
                                                             12:00{" "}
@@ -139,7 +139,7 @@ class HomePage extends Component {
                                                 xs={2}
                                                 className="action-container"
                                             >
-                                                <div class="social-action-wrapper">
+                                                <div className="social-action-wrapper">
                                                     <div>
                                                         <ButtonAnt className="button-action">
                                                             <ShareIcon

@@ -7,13 +7,16 @@ import {
     selectErrors,
     selectLoading
 } from "modules/auth/selectors";
-import { postLogout, getProfile } from "modules/auth/actions";
+import { verifyToken } from "modules/auth/actions";
 
 import ReactResizeDetector from "react-resize-detector";
 import { createStructuredSelector } from "reselect";
 
 import { ROUTE, TIME_INTERVAL_SESSION } from "constants";
 import "./private-layout.scss";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../constants/auth";
+import { withRouter } from "react-router-dom";
+import { URL_REDIRECT_LOGIN } from "../../../constants/variables";
 
 const { Content } = Layout;
 
@@ -28,23 +31,35 @@ class PrivateLayout extends Component {
         };
 
         this.interval = null;
+        this.redirectLogin = this.redirectLogin.bind(this);
     }
 
-    async componentDidMount() {
-        const accesstoken = localStorage.getItem("ACCESS_TOKEN");
-        const refreshToken = localStorage.getItem("REFRESH_TOKEN");
-
-        fetchService.addTokenHeader({ access_token: accesstoken });
-
-        const { getProfileFnc } = this.props;
-        console.log(accesstoken);
+    componentDidMount() {
+        const accesstoken = localStorage.getItem(ACCESS_TOKEN);
+        const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+        const { verifyTokenFnc } = this.props;
         if (accesstoken && accesstoken != "") {
-            getProfileFnc();
+            fetchService.addTokenHeader({ access_token: accesstoken });
+            verifyTokenFnc(accesstoken, refreshToken);    
+        } else {
+            this.redirectLogin();
         }
-
     }
 
-    componentDidUpdate(prevProps) { }
+    redirectLogin = () => {
+        const { history, location } = this.props;
+        history.push(ROUTE.LOGIN);
+    };
+
+    componentDidUpdate(prevProps) {
+        const { isLogged } = this.props;
+        if (prevProps.isLogged === isLogged) return false;
+        console.log(prevProps.isLogged, isLogged);
+        if (!isLogged) {
+            // localStorage.setItem(URL_REDIRECT_LOGIN, location.pathname);
+            this.redirectLogin();
+        }
+    }
 
     componentWillUnmount() { }
 
@@ -56,7 +71,6 @@ class PrivateLayout extends Component {
 
     render() {
         const { children } = this.props;
-
         return (
             <Layout id="tripto-private-layout" theme="dark" className="dark">
                 <Layout>
@@ -88,8 +102,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-    logout: postLogout,
-    getProfileFnc: getProfile
+    verifyTokenFnc: verifyToken,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PrivateLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PrivateLayout));

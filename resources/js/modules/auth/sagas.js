@@ -1,6 +1,5 @@
 import { fetchService } from "services";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { isEmptyString } from "helpers";
 import * as types from "./constants";
 
 import {
@@ -8,8 +7,8 @@ import {
     loginFailed,
     logoutSuccess,
     logoutFailed,
-    getProfileSuccess,
-    getProfileFailed
+    verifyTokenSuccess,
+    verifyTokenFailed
 } from "./actions";
 import { ROOT_API_URL } from "constants";
 
@@ -17,8 +16,12 @@ export default function* root() {
     yield all([
         watcherLogin(),
         watcherLogout(),
-        watcherProfile()
+        watchVerifyToken()
     ]);
+}
+
+export function* watchVerifyToken() {
+    yield takeLatest(types.VERIFY_TOKEN, verifyToken);
 }
 
 export function* watcherLogin() {
@@ -29,9 +32,6 @@ export function* watcherLogout() {
     yield takeLatest(types.LOGOUT, logoutSaga);
 }
 
-export function* watcherProfile() {
-    yield takeLatest(types.GET_PROFILE, getProfile);
-}
 
 ///////////////////////////////////////////////////// FUNCTIONS //////////////////
 
@@ -67,15 +67,13 @@ export function* logoutSaga() {
     }
 }
 
-export function* getProfile() {
-    console.log('pass saga');
-    const resp = yield call(requestGetProfile);
+export function* verifyToken(accessToken, refreshToken) {
+    const resp = yield call(requestVerifyToken);
     const { data, status } = resp;
-    console.log('data after request', data)
     if (status === 200) {
-        yield put(getProfileSuccess(data));
+        yield put(verifyTokenSuccess({userInfor: {...data}, accessToken, refreshToken}));
     } else {
-        yield put(getProfileFailed(data));
+        yield put(verifyTokenFailed(data));
     }
 }
 
@@ -99,9 +97,18 @@ function requestLogin(username, password) {
         });
 }
 
-function requestLogout() { }
+function requestLogout() {
+    return fetchService
+        .fetch(`${ROOT_API_URL}/api/oauth/logout`, { method: "DELETE" })
+        .then(([resp, status]) => {
+            return {
+                data: resp,
+                status,
+            };
+        });
+}
 
-function requestGetProfile() {
+function requestVerifyToken() {
     console.log('pass get profile request');
     return fetchService
         .fetch(`${ROOT_API_URL}/api/profile/me`, { method: "GET" })
