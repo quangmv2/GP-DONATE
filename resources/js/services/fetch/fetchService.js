@@ -36,13 +36,12 @@ class FetchService {
         delete this.defaultHeaders[key];
     }
 
-    addTokenHeader(session) {
-        if (session && session.accessToken) {
+    addTokenHeader(data) {
+        if (data && data.access_token) {
             this.addDefaultHeader(
                 "Authorization",
-                `Bearer ${session.accessToken.jwtToken}`
+                `Bearer ${data.access_token}`
             );
-            this.addDefaultHeader("IdToken", `${session.idToken.jwtToken}`);
             this.addDefaultHeader("Pragma", "no-cache");
             this.addDefaultHeader("cache-control", "no-cache");
         }

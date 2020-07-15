@@ -1,6 +1,7 @@
 import * as types from "./constants";
 
-export const postLogin = ( username, password ) => {
+export const postLogin = (username, password) => {
+  console.log('pass action');
   return {
     type: types.LOGIN,
     payload: {
@@ -24,22 +25,26 @@ export const loginFailed = (error) => {
   };
 };
 
-export const serverChallengePass = (data) => {
+export const getProfile = () => {
+  console.log('pass action');
   return {
-    type: types.SERVER_CHALLENGE_CHANGEPASS,
+    type: types.GET_PROFILE,
+  };
+};
+
+export const getProfileSuccess = (data) => {
+  return {
+    type: types.GET_PROFILE_SUCCESS,
     payload: data,
   };
 };
 
-export const postChallengeChangePass = (user, password) =>{
+export const getProfileFailed = (error) => {
   return {
-    type: types.CHALLENGE_CHANGEPASS,
-    payload: {
-      user,
-      password
-    }
-  }
-}
+    type: types.GET_PROFILE_FAILED,
+    payload: error,
+  };
+};
 
 export const setLogged = (data) => {
   return {
@@ -48,7 +53,9 @@ export const setLogged = (data) => {
   };
 };
 
-export const postLogout = ( ) => {
+
+
+export const postLogout = () => {
   return {
     type: types.LOGOUT,
   };

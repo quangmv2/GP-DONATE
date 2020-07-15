@@ -12,6 +12,7 @@ export const initialState = fromJS({
   identity: null,
   challenge: "",
   userChangePass: null,
+  userInfo: {}
 });
 
 const reducer = (state = initialState, action) => {
@@ -24,15 +25,15 @@ const reducer = (state = initialState, action) => {
         .set("refreshToken", "");
     }
     case types.LOGIN_SUCCESS: {
-      const { accessToken, refreshToken, identity } = action.payload;
+      const { accessToken, refreshToken } = action.payload;
       openNotification(NOTIFICATION_TYPE.SUCCESS, "Login", "Login Success");
+      localStorage.setItem("ACCESS_TOKEN", accessToken);
+      localStorage.setItem("REFRESH_TOKEN", refreshToken);
       return state
         .set("loading", false)
         .set("logged", true)
         .set("accessToken", accessToken)
-        .set("refreshToken", refreshToken)
-        .set("identity", identity)
-        .set("challenge", "");
+        .set("refreshToken", refreshToken);
     }
     case types.LOGIN_FAILED: {
       const error = action.payload;
@@ -41,20 +42,24 @@ const reducer = (state = initialState, action) => {
         .set("loading", false)
         .set("errors", { serverLogin: message });
     }
-    // aws require change pas
-    case types.SERVER_CHALLENGE_CHANGEPASS: {
-      const { challengeName } = action.payload;
+    case types.GET_PROFILE: {
+      console.log('pass reducer');
+      return state
+        .set("loading", true);
+    }
+    case types.GET_PROFILE_SUCCESS: {
+      const { data } = action.payload;
+
       return state
         .set("loading", false)
-        .set("challenge", challengeName)
-        .set("userChangePass", action.payload);
+        .set("userProfile", data);
     }
-    case types.CHALLENGE_CHANGEPASS: {
+    case types.GET_PROFILE_FAILED: {
+      const error = action.payload;
+      const { message } = error;
       return state
-        .set("loading", true)
-        .set("logged", false)
-        .set("accessToken", "")
-        .set("refreshToken", "");
+        .set("loading", false)
+        .set("errors", { serverLogin: message });
     }
     // set logged when come in to private layout
     case types.SET_LOGGED: {
