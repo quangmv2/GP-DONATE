@@ -140,7 +140,7 @@ class PostOffer extends Component {
                   className='form-control'
                 >
                   <Grid item className='item-flex input-post-offer'>
-                    <div class='form-group'>
+                    <div className='form-group'>
                       <p className='post-offer-label'>Type of Offer</p>
                       <Select
                         name='post-type'

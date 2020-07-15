@@ -1,6 +1,6 @@
 // require('dotenv').config()
 export const PUBLIC_ROUTE = {
-    LOGIN: "/",
+    LOGIN: "/login",
     CHANGEPASSWORD: "/reset-password",
     FORGOTPASSWORD: "/forgot-password",
     SIGNUP: "/signup",
@@ -10,7 +10,7 @@ export const PUBLIC_ROUTE = {
 
 export const PRIVATE_ROUTE = {
     POST_OFFER: "/post-offer",
-    HOME: "/home",
+    HOME: "/",
     POST_COMMENT: "/post-comment",
     USER_PROFILE: "/user-profile",
     ACTIVITIES: "/activities",
@@ -27,4 +27,4 @@ export const API_ROUTER = {
 };
 
 export const ROOT_API_URL = 'http://52.205.200.96';
-export const ROOT_WS = 'localhost:9000';
+export const ROOT_WS = '52.205.200.96:9000';

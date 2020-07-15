@@ -26,8 +26,8 @@ const BottomNavigator = () => {
         </div>
         <div className='bottom-nav-icon-container '>
           <Link to={PRIVATE_ROUTE.POST_OFFER} className='active center-button'>
-            <div class='circle-plus-wrapper'>
-              <div class='cirlce-plus-icon'></div>
+            <div className='circle-plus-wrapper'>
+              <div className='cirlce-plus-icon'></div>
             </div>
             Post Offer
           </Link>

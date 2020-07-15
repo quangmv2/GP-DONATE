@@ -30,9 +30,9 @@ const UserItem = ({
                 </div>
                 <div className="icon-time-wrapper">
                     {isFriend & isSearchUser ? (
-                        <span class="icon-account-active">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
+                        <span className="icon-account-active">
+                            <span className="path1"></span>
+                            <span className="path2"></span>
                         </span>
                     ) : null}
                     {!isSearchUser && time ? (

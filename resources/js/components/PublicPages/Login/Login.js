@@ -1,25 +1,17 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
-import injectReducer from "core/reducer/inject-reducer";
-import injectSaga from "core/saga/inject-saga";
-import reducer from "modules/auth/reducers";
-import saga from "modules/auth/sagas";
-import { FEATURE_NAME_AUTH } from "modules/auth/constants";
 import {
     URL_REDIRECT_LOGIN,
     ROUTE,
-    PUBLIC_ROUTE,
-    PRIVATE_ROUTE,
 } from "constants";
-import { postLogin } from "modules/auth/actions";
+import { postLogin, verifyToken } from "modules/auth/actions";
 import {
     selectIsLogged,
     selectErrors,
     selectLoading,
+    selectAccessToken
 } from "modules/auth/selectors";
 import { ButtonAnt, SignInBackground } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
@@ -29,6 +21,8 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../constants/auth";
+import { fetchService } from "../../../services/fetch/fetchService";
 
 export class Login extends Component {
     constructor(props) {
@@ -41,16 +35,24 @@ export class Login extends Component {
         this.setSubmitting = null;
     }
 
-    async componentDidMount() { }
-
-    componentDidUpdate(prevProps) {
-        const { isLogged } = this.props;
-        if (isLogged) {
-            this.redirectLogin();
+    async componentDidMount() {
+        const accesstoken = localStorage.getItem(ACCESS_TOKEN);
+        const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+        const { verifyTokenFnc, isLogged } = this.props;
+        if (accesstoken && accesstoken != "" && !isLogged) {
+            fetchService.addTokenHeader({ access_token: accesstoken });
+            verifyTokenFnc(accesstoken);
         }
     }
 
-    redirectLogin = () => {
+    componentDidUpdate(prevProps) {
+        const { isLogged, access_token } = this.props;
+        if (isLogged && access_token && access_token != "") {
+            this.redirectPrivatePage();
+        }
+    }
+
+    redirectPrivatePage = () => {
         const { history } = this.props;
         const url_redirect_login = localStorage.getItem(URL_REDIRECT_LOGIN);
         history.push(url_redirect_login ?? ROUTE.HOME);
@@ -62,7 +64,6 @@ export class Login extends Component {
         }
         const { username, password } = values;
         const { login } = this.props;
-        // this.props.history.push(PRIVATE_ROUTE.HOME);
         login(username, password);
     };
 
@@ -254,17 +255,15 @@ export class Login extends Component {
 
 const mapDispatchToProps = {
     login: postLogin,
+    verifyTokenFnc: verifyToken,
 };
 
 const mapStateToProps = createStructuredSelector({
     isLogged: selectIsLogged(),
     errors: selectErrors(),
     loading: selectLoading(),
+    access_token: selectAccessToken()
 });
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const withReducer = injectReducer({ key: FEATURE_NAME_AUTH, reducer });
-const withSaga = injectSaga({ key: FEATURE_NAME_AUTH, saga });
 
 Login.defaultProps = {
     login: () => null,
@@ -276,4 +275,4 @@ Login.propTypes = {
     isLogged: PropTypes.bool,
 };
 
-export default compose(withReducer, withSaga, withConnect, withRouter)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
