@@ -60,7 +60,7 @@ const UserProfile = () => {
                     <p>See all Propositions</p>
                     <img
                         src={"./images/icon/arrow-next.svg"}
-                        class="Arrow-next"
+                        className="Arrow-next"
                     ></img>
                 </Link>
             </div>

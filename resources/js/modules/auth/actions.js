@@ -25,27 +25,6 @@ export const loginFailed = (error) => {
   };
 };
 
-export const getProfile = () => {
-  console.log('pass action');
-  return {
-    type: types.GET_PROFILE,
-  };
-};
-
-export const getProfileSuccess = (data) => {
-  return {
-    type: types.GET_PROFILE_SUCCESS,
-    payload: data,
-  };
-};
-
-export const getProfileFailed = (error) => {
-  return {
-    type: types.GET_PROFILE_FAILED,
-    payload: error,
-  };
-};
-
 export const setLogged = (data) => {
   return {
     type: types.SET_LOGGED,
@@ -71,6 +50,30 @@ export const logoutSuccess = (data) => {
 export const logoutFailed = (error) => {
   return {
     type: types.LOGOUT_FAILED,
+    payload: error,
+  };
+};
+
+export const verifyToken = (accessToken, refreshToken) => {
+  return {
+    type: types.VERIFY_TOKEN,
+    payload: {
+      accessToken,
+      refreshToken
+    }
+  };
+};
+
+export const verifyTokenSuccess = (data) => {
+  return {
+    type: types.VERIFY_TOKEN_SUCCESS,
+    payload: data,
+  };
+};
+
+export const verifyTokenFailed = (error) => {
+  return {
+    type: types.VERIFY_TOKEN_FAILED,
     payload: error,
   };
 };

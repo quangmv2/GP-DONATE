@@ -84,7 +84,7 @@ export class ChangePassScreen extends Component {
 
                 if (status === 200) {
                     // neu thanh cong thi lam chi do
-                    // this.props.history.push(PUBLIC_ROUTE.LOGIN);
+                    this.props.history.push(PUBLIC_ROUTE.LOGIN);
                     // xu ly code thanh cong
                 } else {
                     // neu that bai thi lam chi do
