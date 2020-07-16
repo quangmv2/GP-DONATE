@@ -17,7 +17,8 @@ class FetchService {
 
     constructor() {
         this.defaultHeaders = {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Accept": "application/json"
         };
         this.beforeRequestInterceptors = [];
         this.afterResponseInterceptors = [];

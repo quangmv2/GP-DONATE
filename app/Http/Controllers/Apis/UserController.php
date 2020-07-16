@@ -49,9 +49,14 @@ class UserController extends Controller
     public function show(Request $req, $id)
     {
         if ($id == 'me')
-            return response()->json(json_decode($req->user()), 200);
+        {   
+            $user = $req->user();
+            $user->roles;
+            return response()->json(json_decode($user), 200);
+        }
         $user = User::findOrFail($id);
         $posts  = $user->posts;
+        $user->roles();
         $totalLike = 0;
         foreach ($posts as $key => $post) {
             $totalLike+=$post->likes()->count();
@@ -92,6 +97,95 @@ class UserController extends Controller
         # code...
     }
 
+    /**
+     * @SWG\Post(
+     *     path="api/user/me/update-role",
+     *     tags={"OAUTH"},
+     *     summary={"Role"},
+     *     description="Cập nhật Role",  
+     *     @SWG\Parameter(
+     *         name="role",
+     *         in="formData",
+     *         type="string",
+     *         description="Taker or Giver",
+     *         required=true,
+     *     ),
+     *     
+     *     @SWG\Response(
+     *         response=200,
+     *         description="OK",
+     *         @SWG\Schema(type="object",
+     *            @SWG\Property(property="messafe", type="string", example="success"),
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="UNPROCESSABLE ENTITY",
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="FORBIDDEN",
+     *     ),
+     * )
+     */
+    public function updateRole(Request $request)
+    {
+        $this->validate($request, [
+            'role' => 'required|in:giver,taker'
+        ]);
+        $input = $request->all();
+        $role = $request->user()->roles;
+        if (count($role) > 0) 
+            return abort(response()->json(['message' => 'FORBIDDEN'], 403));
+        $request->user()->assignRole($input['role']);
+        return response()->json([
+            'message' => 'success'
+        ], 200);
+    }
+
+    /**
+     * @SWG\Post(
+     *     path="api/user/me/code-invitation",
+     *     tags={"OAUTH"},
+     *     summary={"Code invitation"},
+     *     description="Cập nhật Code invitation",  
+     *     @SWG\Parameter(
+     *         name="code_invitation",
+     *         in="formData",
+     *         type="string",
+     *         description="code",
+     *         required=true,
+     *     ),
+     *     
+     *     @SWG\Response(
+     *         response=200,
+     *         description="OK",
+     *         @SWG\Schema(type="object",
+     *            @SWG\Property(property="messafe", type="string", example="success"),
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="UNPROCESSABLE ENTITY",
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="FORBIDDEN",
+     *     ),
+     *     @SWG\Response(
+     *         response=404,
+     *         description="Code not found",
+     *     ),
+     * )
+     */
     public function codeInvitation(Request $req)
     {
         $codeInput = $req->code_invitation;
@@ -114,7 +208,7 @@ class UserController extends Controller
             ], 404);
         }
         return response()->json([
-           $user
+            'message' => 'success'
         ], 200);
     }
 

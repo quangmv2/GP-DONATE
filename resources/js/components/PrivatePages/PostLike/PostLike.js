@@ -23,39 +23,11 @@ import Posts from "../../Molecules/Post";
 export class PostLike extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            description: "",
-            offervalue: "",
-            duedate: "",
-            hastag: "",
-            errorValidLogin: {}
-        };
-        this.setSubmitting = null;
+        
     }
-    async componentDidMount() {}
+    componentDidMount() {}
 
-    componentDidUpdate(prevProps) {
-        const { isLogged } = this.props;
-        if (isLogged) {
-            this.redirectLogin();
-        }
-    }
-
-    redirectLogin = () => {
-        const { history } = this.props;
-        const url_redirect_login = localStorage.getItem(URL_REDIRECT_LOGIN);
-        history.push(url_redirect_login ?? ROUTE.HOME);
-    };
-
-    onSubmit = (values, { setSubmitting }) => {
-        if (!this.setSubmitting) {
-            this.setSubmitting = setSubmitting;
-        }
-        const { description, offervalue, duedate, hashtag } = values;
-        const { login } = this.props;
-        this.props.history.push(PUBLIC_ROUTE.SIGNUP);
-        //login(username, password);
-    };
+    componentDidUpdate(prevProps) {}
 
     render() {
         const { errors, loading } = this.props;
@@ -129,11 +101,6 @@ const mapStateToProps = createStructuredSelector({
     loading: selectLoading()
 });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: FEATURE_NAME_AUTH, reducer });
-const withSaga = injectSaga({ key: FEATURE_NAME_AUTH, saga });
-
 PostLike.defaultProps = {
     login: () => null,
     errors: {}
@@ -144,9 +111,4 @@ PostLike.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(
-    withReducer,
-    withSaga,
-    withConnect,
-    withRouter
-)(PostLike);
+export default connect(mapStateToProps, mapDispatchToProps)(PostLike);

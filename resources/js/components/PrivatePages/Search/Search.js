@@ -1,15 +1,7 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
-import injectReducer from "core/reducer/inject-reducer";
-import injectSaga from "core/saga/inject-saga";
-import reducer from "modules/auth/reducers";
-import saga from "modules/auth/sagas";
-import { FEATURE_NAME_AUTH } from "modules/auth/constants";
-import { URL_REDIRECT_LOGIN, ROUTE, PUBLIC_ROUTE } from "constants";
 import { postLogin } from "modules/auth/actions";
 import {
     selectIsLogged,
@@ -18,18 +10,6 @@ import {
 } from "modules/auth/selectors";
 import { HeaderNavigation } from "components/Atoms";
 import "./Search.scss";
-// import { StarFilled } from "@ant-design/icons";
-import { Formik } from "formik";
-import TextField from "@material-ui/core/TextField";
-import { Upload, message } from "antd";
-import {
-    LoadingOutlined,
-    SearchOutlined,
-    PlusOutlined,
-    GiftOutlined,
-    CalendarOutlined,
-    StarFilled
-} from "@ant-design/icons";
 import Posts from "../../Molecules/Post";
 import { Tabs } from "antd";
 import { Patron } from "components/Molecules";
@@ -38,48 +18,14 @@ import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 export class Search extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            description: "",
-            offervalue: "",
-            duedate: "",
-            hastag: "",
-            errorValidLogin: {}
-        };
-        this.setSubmitting = null;
-    }
-    async componentDidMount() {}
-
-    componentDidUpdate(prevProps) {
-        const { isLogged } = this.props;
-        if (isLogged) {
-            this.redirectLogin();
-        }
+        
     }
 
-    redirectLogin = () => {
-        const { history } = this.props;
-        const url_redirect_login = localStorage.getItem(URL_REDIRECT_LOGIN);
-        history.push(url_redirect_login ?? ROUTE.HOME);
-    };
+    componentDidMount() {}
 
-    onSubmit = (values, { setSubmitting }) => {
-        if (!this.setSubmitting) {
-            this.setSubmitting = setSubmitting;
-        }
-        const { description, offervalue, duedate, hashtag } = values;
-        const { login } = this.props;
-        this.props.history.push(PUBLIC_ROUTE.SIGNUP);
-    };
+    componentDidUpdate(prevProps) {}
 
     render() {
-        const { errors, loading } = this.props;
-
-        const uploadButton = (
-            <div>
-                {this.state.loading ? <LoadingOutlined /> : <PlusOutlined />}
-                <div className="ant-upload-text">Upload</div>
-            </div>
-        );
         const patronData = [
             {
                 username: "Charity",
@@ -203,10 +149,6 @@ const mapStateToProps = createStructuredSelector({
     loading: selectLoading()
 });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: FEATURE_NAME_AUTH, reducer });
-const withSaga = injectSaga({ key: FEATURE_NAME_AUTH, saga });
 
 Search.defaultProps = {
     login: () => null,
@@ -218,4 +160,4 @@ Search.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(withReducer, withSaga, withConnect, withRouter)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
