@@ -1,13 +1,11 @@
-
-import { 
-    Login, 
-    ChooseRoleScreen, 
-    ForgotPass, 
+import {
+    Login,
+    ChooseRoleScreen,
+    ForgotPass,
     SignUpScreen,
     ChangePassScreen,
     InputCode
-} 
-    from 'components/PublicPages';
+} from "components/PublicPages";
 import { PUBLIC_ROUTE } from "constants";
 import TestSocket from "components/PublicPages/TestSocket";
 export const authRoutes = [
@@ -46,5 +44,4 @@ export const authRoutes = [
         component: TestSocket,
         exact: true
     }
-
-];  
+];

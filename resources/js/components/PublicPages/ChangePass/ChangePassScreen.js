@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { fetchService } from "services";
 import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
@@ -9,7 +10,12 @@ import injectSaga from "core/saga/inject-saga";
 import reducer from "modules/auth/reducers";
 import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
-import { URL_REDIRECT_LOGIN, ROUTE, PUBLIC_ROUTE } from "constants";
+import {
+    URL_REDIRECT_LOGIN,
+    ROUTE,
+    PUBLIC_ROUTE,
+    ROOT_API_URL
+} from "constants";
 import { postLogin } from "modules/auth/actions";
 import {
     selectIsLogged,
@@ -56,10 +62,38 @@ export class ChangePassScreen extends Component {
         if (!this.setSubmitting) {
             this.setSubmitting = setSubmitting;
         }
+        // const { resetpasscode, password, passchange } = values;
         const { resetpasscode, password, passchange } = values;
-        const { login } = this.props;
-        this.props.history.push(PUBLIC_ROUTE.LOGIN);
-        //login(username, password);
+
+        // this.props.history.push(PUBLIC_ROUTE.LOGIN);
+
+        const data = {
+            token: resetpasscode,
+            password: password,
+            password_confirm: passchange
+        };
+
+        fetchService
+            // o ham nay minh se gui request toi API change pass
+            .fetch(`${ROOT_API_URL}/api/oauth/password/reset-confirm-token`, {
+                method: "POST",
+                body: JSON.stringify(data)
+            })
+            .then(([resp, status]) => {
+                // api tra ve ket qua check thanh cong hay khong o cho nay
+
+                if (status === 200) {
+                    // neu thanh cong thi lam chi do
+                    this.props.history.push(PUBLIC_ROUTE.LOGIN);
+                    // xu ly code thanh cong
+                } else {
+                    // neu that bai thi lam chi do
+                    // cho phep form duoc submit tro lai
+                    const { message } = resp;
+                    openNotification(NOTIFICATION_TYPE.ERROR, message);
+                    this.setSubmitting(false);
+                }
+            });
     };
 
     render() {
@@ -94,6 +128,11 @@ export class ChangePassScreen extends Component {
 
                                 if (!values.password) {
                                     errors.password = "Required";
+                                }
+
+                                if (!(values.password === values.passchange)) {
+                                    errors.passchange =
+                                        "Confirm password did not match";
                                 }
 
                                 return errors;
@@ -169,8 +208,8 @@ export class ChangePassScreen extends Component {
                                                     id="input-with-icon-grid"
                                                     label={
                                                         <FormattedMessage
-                                                            id="common.password"
-                                                            defaultMessage="common.password"
+                                                            id="common.newPassword"
+                                                            defaultMessage="new password"
                                                         />
                                                     }
                                                     value={values.password}
@@ -207,11 +246,11 @@ export class ChangePassScreen extends Component {
                                                     id="input-with-icon-grid"
                                                     label={
                                                         <FormattedMessage
-                                                            id="common.password"
-                                                            defaultMessage="common.password"
+                                                            id="common.confirmNewPassword"
+                                                            defaultMessage="Confirm New Pasword"
                                                         />
                                                     }
-                                                    value={values.password}
+                                                    value={values.passchange}
                                                     onChange={handleChange}
                                                     disabled={
                                                         loading || isSubmitting
