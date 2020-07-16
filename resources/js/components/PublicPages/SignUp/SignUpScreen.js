@@ -324,11 +324,6 @@ const mapStateToProps = createStructuredSelector({
     loading: selectLoading()
 });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: FEATURE_NAME_AUTH, reducer });
-const withSaga = injectSaga({ key: FEATURE_NAME_AUTH, saga });
-
 SignUpScreen.defaultProps = {
     login: () => null,
     errors: {}
@@ -339,9 +334,4 @@ SignUpScreen.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(
-    withReducer,
-    withSaga,
-    withConnect,
-    withRouter
-)(SignUpScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen);
