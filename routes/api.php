@@ -58,6 +58,7 @@ Route::apiResources([
 
 Route::group(['prefix' => 'user'], function () {
     Route::post('me/code-invitation', 'Apis\UserController@codeInvitation');
+    Route::post('me/update-role', 'Apis\UserController@updateRole');
 });
 
 Route::post('test-socket', "Apis\UserController@testSoket");

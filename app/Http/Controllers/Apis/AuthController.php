@@ -44,14 +44,14 @@ class AuthController extends Controller
      *         in="formData",
      *         type="string",
      *         description="first_name",
-     *         required=true,
+     *         required=false,
      *     ),
      *     @SWG\Parameter(
      *         name="last_name",
      *         in="formData",
      *         type="string",
      *         description="last_name",
-     *         required=true,
+     *         required=false,
      *     ),
      *     @SWG\Parameter(
      *         name="username",
@@ -79,21 +79,21 @@ class AuthController extends Controller
      *         in="formData",
      *         type="string",
      *         description="confirm password",
-     *         required=true,
+     *         required=false,
      *     ),
      *     @SWG\Parameter(
      *         name="gender",
      *         in="formData",
      *         type="string",
      *         description="Giới tính",
-     *         required=true,
+     *         required=false,
      *     ),
      *     @SWG\Parameter(
      *         name="role",
      *         in="formData",
      *         type="string",
      *         description="Vai trò",
-     *         required=true,
+     *         required=false,
      *     ),
      *     @SWG\Response(
      *         response=200,
@@ -113,22 +113,24 @@ class AuthController extends Controller
      */
     public function register(Request $req){
         $this->validate($req, [
-            'first_name' => 'required',
-            'last_name' => 'required',
             'username' => 'required|unique:users,username',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'gender' => 'required|numeric|min:0|max:2',
-            'role' => 'required|in:giver,taker'
+            'password' => 'required',
+            'gender' => 'numeric|min:0|max:2',
+            'role' => 'in:giver,taker'
         ]);
         $input = $req->all();
         $input['password'] = Hash::make($input['password']);
 
+        if (empty($input['first_name'])) $input['first_name'] = $input['username'];
+        if (empty($input['last_name'])) $input['last_name'] = $input['username'];
+
         $user = User::create($input);
-        $user->assignRole($input['role']);
+        if (!empty($input['role']))
+            $user->assignRole($input['role']);
 
         $oClient = OClient::where('password_client', 1)->first();
-        return $this->getTokenAndRefreshToken($oClient, $user->username, $req->password);
+        return $this->authService->getTokenAndRefreshToken($oClient, $user->username, $req->password);
    }
 
 
