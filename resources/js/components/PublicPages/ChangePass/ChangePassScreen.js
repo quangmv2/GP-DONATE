@@ -1,27 +1,11 @@
 import React, { Component } from "react";
 import { fetchService } from "services";
-import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { createStructuredSelector } from "reselect";
-import injectReducer from "core/reducer/inject-reducer";
-import injectSaga from "core/saga/inject-saga";
-import reducer from "modules/auth/reducers";
-import saga from "modules/auth/sagas";
-import { FEATURE_NAME_AUTH } from "modules/auth/constants";
+
 import {
-    URL_REDIRECT_LOGIN,
-    ROUTE,
     PUBLIC_ROUTE,
     ROOT_API_URL
 } from "constants";
-import { postLogin } from "modules/auth/actions";
-import {
-    selectIsLogged,
-    selectErrors,
-    selectLoading
-} from "modules/auth/selectors";
 import { ButtonAnt, SignInBackground } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
 import { Formik } from "formik";
@@ -29,7 +13,6 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
 export class ChangePassScreen extends Component {
     constructor(props) {
@@ -42,21 +25,6 @@ export class ChangePassScreen extends Component {
         };
         this.setSubmitting = null;
     }
-
-    async componentDidMount() {}
-
-    componentDidUpdate(prevProps) {
-        const { isLogged } = this.props;
-        if (isLogged) {
-            this.redirectLogin();
-        }
-    }
-
-    redirectLogin = () => {
-        const { history } = this.props;
-        const url_redirect_login = localStorage.getItem(URL_REDIRECT_LOGIN);
-        history.push(url_redirect_login ?? ROUTE.HOME);
-    };
 
     onSubmit = (values, { setSubmitting }) => {
         if (!this.setSubmitting) {
@@ -295,20 +263,7 @@ export class ChangePassScreen extends Component {
     }
 }
 
-const mapDispatchToProps = {
-    login: postLogin
-};
 
-const mapStateToProps = createStructuredSelector({
-    isLogged: selectIsLogged(),
-    errors: selectErrors(),
-    loading: selectLoading()
-});
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: FEATURE_NAME_AUTH, reducer });
-const withSaga = injectSaga({ key: FEATURE_NAME_AUTH, saga });
 
 ChangePassScreen.defaultProps = {
     login: () => null,
@@ -320,9 +275,4 @@ ChangePassScreen.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(
-    withReducer,
-    withSaga,
-    withConnect,
-    withRouter
-)(ChangePassScreen);
+export default ChangePassScreen;
