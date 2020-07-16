@@ -18,6 +18,9 @@ const selectRefreshToken = () =>
 const selectIsLogged = () =>
   createSelector(getAuthState, state => state.get("logged"));
 
+const selectIsLogout = () =>
+  createSelector(getAuthState, state => state.get("logout"));
+
 const selectLoading = () =>
   createSelector(getAuthState, state => state.get("loading"));
 
@@ -34,6 +37,7 @@ export {
   selectRefreshToken,
   selectErrors,
   selectIsLogged,
+  selectIsLogout,
   selectLoading,
   selectChallenge,
   selectUserChangePass
