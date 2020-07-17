@@ -6,7 +6,6 @@ import {
     selectIsLogged,
     selectErrors,
     selectLoading,
-    selectUserInfo
 } from "modules/auth/selectors";
 import { verifyToken } from "modules/auth/actions";
 import ReactResizeDetector from "react-resize-detector";
@@ -57,15 +56,15 @@ class PrivateLayout extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        const { isLogged } = this.props;
+        const { isLogged, logout } = this.props;
         if (prevProps.isLogged === isLogged) return false;
         if (!isLogged) {
-            localStorage.setItem(URL_REDIRECT_LOGIN, location.pathname);
+            if (!logout) localStorage.setItem(URL_REDIRECT_LOGIN, location.pathname);
             this.redirectLogin();
         }
     }
 
-    componentWillUnmount() { }
+    componentWillUnmount() {}
 
     handleResize = () => {
         const windowSize = window.innerWidth;
