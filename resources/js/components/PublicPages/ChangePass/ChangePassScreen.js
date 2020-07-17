@@ -1,21 +1,11 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { fetchService } from "services";
 import { PropTypes } from "prop-types";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import { createStructuredSelector } from "reselect";
-import injectReducer from "core/reducer/inject-reducer";
-import injectSaga from "core/saga/inject-saga";
-import reducer from "modules/auth/reducers";
-import saga from "modules/auth/sagas";
-import { FEATURE_NAME_AUTH } from "modules/auth/constants";
-import { URL_REDIRECT_LOGIN, ROUTE, PUBLIC_ROUTE } from "constants";
-import { postLogin } from "modules/auth/actions";
+
 import {
-    selectIsLogged,
-    selectErrors,
-    selectLoading
-} from "modules/auth/selectors";
+    PUBLIC_ROUTE,
+    ROOT_API_URL
+} from "constants";
 import { ButtonAnt, SignInBackground } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
 import { Formik } from "formik";
@@ -23,7 +13,6 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
 export class ChangePassScreen extends Component {
     constructor(props) {
@@ -37,29 +26,42 @@ export class ChangePassScreen extends Component {
         this.setSubmitting = null;
     }
 
-    async componentDidMount() {}
-
-    componentDidUpdate(prevProps) {
-        const { isLogged } = this.props;
-        if (isLogged) {
-            this.redirectLogin();
-        }
-    }
-
-    redirectLogin = () => {
-        const { history } = this.props;
-        const url_redirect_login = localStorage.getItem(URL_REDIRECT_LOGIN);
-        history.push(url_redirect_login ?? ROUTE.HOME);
-    };
-
     onSubmit = (values, { setSubmitting }) => {
         if (!this.setSubmitting) {
             this.setSubmitting = setSubmitting;
         }
+        // const { resetpasscode, password, passchange } = values;
         const { resetpasscode, password, passchange } = values;
-        const { login } = this.props;
-        this.props.history.push(PUBLIC_ROUTE.LOGIN);
-        //login(username, password);
+
+        // this.props.history.push(PUBLIC_ROUTE.LOGIN);
+
+        const data = {
+            token: resetpasscode,
+            password: password,
+            password_confirm: passchange
+        };
+
+        fetchService
+            // o ham nay minh se gui request toi API change pass
+            .fetch(`${ROOT_API_URL}/api/oauth/password/reset-confirm-token`, {
+                method: "POST",
+                body: JSON.stringify(data)
+            })
+            .then(([resp, status]) => {
+                // api tra ve ket qua check thanh cong hay khong o cho nay
+
+                if (status === 200) {
+                    // neu thanh cong thi lam chi do
+                    this.props.history.push(PUBLIC_ROUTE.LOGIN);
+                    // xu ly code thanh cong
+                } else {
+                    // neu that bai thi lam chi do
+                    // cho phep form duoc submit tro lai
+                    const { message } = resp;
+                    openNotification(NOTIFICATION_TYPE.ERROR, message);
+                    this.setSubmitting(false);
+                }
+            });
     };
 
     render() {
@@ -94,6 +96,11 @@ export class ChangePassScreen extends Component {
 
                                 if (!values.password) {
                                     errors.password = "Required";
+                                }
+
+                                if (!(values.password === values.passchange)) {
+                                    errors.passchange =
+                                        "Confirm password did not match";
                                 }
 
                                 return errors;
@@ -169,8 +176,8 @@ export class ChangePassScreen extends Component {
                                                     id="input-with-icon-grid"
                                                     label={
                                                         <FormattedMessage
-                                                            id="common.password"
-                                                            defaultMessage="common.password"
+                                                            id="common.newPassword"
+                                                            defaultMessage="new password"
                                                         />
                                                     }
                                                     value={values.password}
@@ -207,11 +214,11 @@ export class ChangePassScreen extends Component {
                                                     id="input-with-icon-grid"
                                                     label={
                                                         <FormattedMessage
-                                                            id="common.password"
-                                                            defaultMessage="common.password"
+                                                            id="common.confirmNewPassword"
+                                                            defaultMessage="Confirm New Pasword"
                                                         />
                                                     }
-                                                    value={values.password}
+                                                    value={values.passchange}
                                                     onChange={handleChange}
                                                     disabled={
                                                         loading || isSubmitting
@@ -256,20 +263,7 @@ export class ChangePassScreen extends Component {
     }
 }
 
-const mapDispatchToProps = {
-    login: postLogin
-};
 
-const mapStateToProps = createStructuredSelector({
-    isLogged: selectIsLogged(),
-    errors: selectErrors(),
-    loading: selectLoading()
-});
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: FEATURE_NAME_AUTH, reducer });
-const withSaga = injectSaga({ key: FEATURE_NAME_AUTH, saga });
 
 ChangePassScreen.defaultProps = {
     login: () => null,
@@ -281,9 +275,4 @@ ChangePassScreen.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(
-    withReducer,
-    withSaga,
-    withConnect,
-    withRouter
-)(ChangePassScreen);
+export default ChangePassScreen;
