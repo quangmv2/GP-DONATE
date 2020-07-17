@@ -15,16 +15,25 @@
 .post-image-container {
   padding: 30px;
 }
+.imgPrew-container {
+  border-radius: 10px;
+  overflow: hidden;
+
+}
 .prev-image-container {
   background-color: #dddddd;
   min-height: 170px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding-top: 20%;
   padding-bottom: 20%;
   height: 217px;
+}
+.imgPreview {
+  min-height: 170px;
+  overflow: hidden;
+  height: 217px;
+  display: flex;
+ 
+ 
 }
 .thumbnail-container {
   padding-left: 5%;

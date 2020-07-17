@@ -1,16 +1,8 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
-import injectReducer from "core/reducer/inject-reducer";
-import injectSaga from "core/saga/inject-saga";
-import reducer from "modules/auth/reducers";
-import saga from "modules/auth/sagas";
-import { FEATURE_NAME_AUTH } from "modules/auth/constants";
-import { URL_REDIRECT_LOGIN, ROUTE } from "constants";
-import { postLogin } from "modules/auth/actions";
+import { postSignUp } from "modules/auth/actions";
 import SignInBackground from "../../Atoms/AuthBackground/SignInBackground";
 import {
     selectIsLogged,
@@ -28,49 +20,48 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 import "./signUp.scss";
 import { PUBLIC_ROUTE } from "constants";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import { ROUTE } from "../../../constants/routes";
+
 
 export class SignUpScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: "",
-            username: "",
+            usersname: "",
             password: "",
             errorValidLogin: {}
         };
         this.setSubmitting = null;
+        this.redirectPrivatePage = this.redirectPrivatePage.bind(this);
     }
 
-    async componentDidMount() {}
-
-    componentDidUpdate(prevProps) {
-        const { isLogged } = this.props;
-        if (isLogged) {
-            this.redirectLogin();
-        }
-    }
-
-    redirectLogin = () => {
-        const { history } = this.props;
-        const url_redirect_login = localStorage.getItem(URL_REDIRECT_LOGIN);
-        history.push(url_redirect_login ?? ROUTE.HOME);
-    };
+    async componentDidMount() {};
 
     onSubmit = (values, { setSubmitting }) => {
         if (!this.setSubmitting) {
             this.setSubmitting = setSubmitting;
         }
         const { email, username, password } = values;
-        const { login } = this.props;
-        this.props.history.push(PUBLIC_ROUTE.CHOOSEROLE);
+        const { signUp } = this.props;
+        console.log('submit')
+        signUp(username, email, password);
+        
+    }
+    componentDidUpdate() {
+        const { isLogged } = this.props;
+        if ( isLogged ) {
+            this.redirectPrivatePage();
+        }
+    }
 
-        //login( email, username, password);
+    redirectPrivatePage = () => {
+        const { history } = this.props;
+        history.push(ROUTE.CHOOSEROLE);
     };
 
     render() {
-        const { errors, loading } = this.props;
-
+       const { loading, error } = this.props;
         return (
             <div className="fullheight-wrapper flex-center">
                 <div className="container ">
@@ -264,7 +255,7 @@ export class SignUpScreen extends Component {
                                         </Link>
                                     </div>
                                     <div className="form-control outlineButton">
-                                        <Link to="/input-code">
+                                        {/* <Link to="/input-code">
                                             <ButtonAnt
                                                 className="btn-block btn-round btn-red ol-bn-container"
                                                 disabled={
@@ -285,7 +276,7 @@ export class SignUpScreen extends Component {
                                                     id={"signupPage.gotCode"}
                                                 />
                                             </ButtonAnt>
-                                        </Link>
+                                        </Link> */}
                                     </div>
 
                                     <div className="bottomTextContainer">
@@ -315,7 +306,7 @@ export class SignUpScreen extends Component {
 }
 
 const mapDispatchToProps = {
-    login: postLogin
+    signUp: postSignUp
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -323,11 +314,6 @@ const mapStateToProps = createStructuredSelector({
     errors: selectErrors(),
     loading: selectLoading()
 });
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: FEATURE_NAME_AUTH, reducer });
-const withSaga = injectSaga({ key: FEATURE_NAME_AUTH, saga });
 
 SignUpScreen.defaultProps = {
     login: () => null,
@@ -339,9 +325,4 @@ SignUpScreen.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(
-    withReducer,
-    withSaga,
-    withConnect,
-    withRouter
-)(SignUpScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpScreen);

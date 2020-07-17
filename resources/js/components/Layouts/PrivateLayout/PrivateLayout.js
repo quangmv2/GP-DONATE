@@ -5,13 +5,12 @@ import { fetchService } from "services";
 import {
     selectIsLogged,
     selectErrors,
-    selectLoading
+    selectLoading,
+    selectUserInfo
 } from "modules/auth/selectors";
 import { verifyToken } from "modules/auth/actions";
-
 import ReactResizeDetector from "react-resize-detector";
 import { createStructuredSelector } from "reselect";
-
 import { ROUTE, TIME_INTERVAL_SESSION } from "constants";
 import "./private-layout.scss";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../constants/auth";
@@ -37,11 +36,17 @@ class PrivateLayout extends Component {
     componentDidMount() {
         const accesstoken = localStorage.getItem(ACCESS_TOKEN);
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-        const { verifyTokenFnc } = this.props;
+        const { verifyTokenFnc, userInfo} = this.props;
         if (accesstoken && accesstoken != "") {
             fetchService.addTokenHeader({ access_token: accesstoken });
             verifyTokenFnc(accesstoken, refreshToken);    
-        } else {
+        }
+        // if ( userInfo.roles.length() <1 ){
+        //     this.props.history.push(ROUTE.CHOOSEROLE);
+        //     console.log('choosed');
+
+        // }
+        else {
             this.redirectLogin();
         }
     }
@@ -97,9 +102,9 @@ class PrivateLayout extends Component {
 const mapStateToProps = createStructuredSelector({
     isLogged: selectIsLogged(),
     errors: selectErrors(),
-    loading: selectLoading()
+    loading: selectLoading(),
+    userInfo: selectUserInfo(),
 });
-
 const mapDispatchToProps = {
     verifyTokenFnc: verifyToken,
 };

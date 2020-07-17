@@ -1,0 +1,226 @@
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { PropTypes } from "prop-types";
+import { connect } from "react-redux";
+import { openNotification } from "helpers";
+import { compose } from "redux";
+import { createStructuredSelector } from "reselect";
+import injectReducer from "core/reducer/inject-reducer";
+import injectSaga from "core/saga/inject-saga";
+import reducer from "modules/auth/reducers";
+import saga from "modules/auth/sagas";
+import { FEATURE_NAME_AUTH } from "modules/auth/constants";
+import { URL_REDIRECT_LOGIN, ROUTE, NOTIFICATION_TYPE } from "constants";
+import { postLogin } from "modules/auth/actions";
+import "./inputCode.scss";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import {
+    selectIsLogged,
+    selectErrors,
+    selectLoading
+} from "modules/auth/selectors";
+import { ButtonAnt, SignInBackground } from "components/Atoms";
+import { FormattedMessage } from "react-intl";
+import { Formik } from "formik";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import { Link } from "react-router-dom";
+import { fetchService } from "../../../services/fetch/fetchService";
+import { ROOT_API_URL } from "../../../constants";
+
+export class InputCode extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            code_invitation: ""
+        };
+    }
+
+    async componentDidMount() {}
+
+    onSubmit = async (values) => {
+        console.log('submit');
+        const { code_invitation } = values;
+        const res = await fetchService.fetch(`${ROOT_API_URL}/api/user/me/code-invitation`, {
+            method: "POST",
+            body:  JSON.stringify({
+                code_invitation: code_invitation     
+            })
+        }).then(([resp, status]) => {
+                return {
+                    data: resp,
+                    status,
+                };
+            });
+        const { data, status } = res;
+        if ( status == 200) {
+            this.props.history.push(ROUTE.HOME)
+        }    
+        else {
+            openNotification(NOTIFICATION_TYPE.ERROR, "Failed", "Not found code invitation");
+        }
+    }
+
+
+   
+    render() {
+        const { loading, error } = this.props;
+        return (
+            <div className="fullheight-wrapper flex-center">
+                <div className="container ">
+                    <SignInBackground>
+                        <p className="ic-t1">Sign up by</p>
+                        <p className="ic-t2">Invitation Code</p>
+                    </SignInBackground>
+                    <div className="formFields">
+                        {/* {this.renderFields()} */}
+                        <Formik
+                            initialValues={{
+                                code_invitation : ""
+                            }}
+                            layout="vertical"
+                            validate={values => {
+                                const errors = {};
+                                if (!values.code_invitation) {
+                                    errors.code_invitation = "Required";
+                                }
+
+                                return errors;
+                            }}
+                            onSubmit={this.onSubmit}
+                        >
+                            {({
+                                values,
+                                errors,
+                                touched,
+                                handleChange,
+                                //handleBlur,
+                                handleSubmit
+                                /* and other goodies */
+                            }) => (
+                                <form onSubmit={handleSubmit} layout="vertical">
+                                    <>
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
+                                            <Grid
+                                                item
+                                                className="item-flex input-with-icon"
+                                            >
+                                                <AccountCircle />
+                                                <TextField
+                                                    error={
+                                                        errors.code_invitation &&
+                                                        touched.code_invitation
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="codePage.code"
+                                                            defaultMessage="codePage.code"
+                                                        />
+                                                    }
+                                                    value={values.code_invitation}
+                                                    onChange={handleChange}
+    
+                                                    helperText={
+                                                        touched.code_invitation
+                                                            ? errors.code_invitation
+                                                            : ""
+                                                    }
+                                                    name="code_invitation"
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </>
+
+                                    <div className="form-control inputButton">
+                                        <ButtonAnt
+                                            className="custom-button-login btn-block btn-round btn-red buttonContainer"               
+                                            id="login-btn"
+                                            name="login-btn"
+                                            onClick={handleSubmit}
+                                            type="primary"
+                                        >
+                                            <FormattedMessage
+                                                defaultMessage={
+                                                    "codePage.submit"
+                                                }
+                                                id={"codePage.submit"}
+                                            />
+                                        </ButtonAnt>
+                                    </div>
+                                    <div className="form-control outlineButton">
+                                        {/* <ButtonAnt
+                                            className="btn-block btn-round btn-red ol-bn-container"
+                                            disabled={loading || isSubmitting}
+                                            id="login-btn"
+                                            loading={loading || isSubmitting}
+                                            name="login-btn"
+                                            onClick={handleSubmit}
+                                            type="primary"
+                                        >
+                                            <FormattedMessage
+                                                defaultMessage={
+                                                    "signupPage.createacc"
+                                                }
+                                                id={"signupPage.createacc"}
+                                            />
+                                        </ButtonAnt> */}
+                                    </div>
+
+                                    <div className="bottomTextContainer">
+                                        <FormattedMessage
+                                            defaultMessage={
+                                                "signupPage.onboard"
+                                            }
+                                            id={"signupPage.onboard"}
+                                        ></FormattedMessage>
+                                        <Link
+                                            className="bottomLink"
+                                            to="/signup"
+                                        >
+                                            <FormattedMessage
+                                                defaultMessage={
+                                                    "signupPage.signed"
+                                                }
+                                                id={"signupPage.signed"}
+                                            ></FormattedMessage>
+                                        </Link>
+                                    </div>
+                                </form>
+                            )}
+                        </Formik>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+const mapDispatchToProps = {
+    login: postLogin
+};
+
+const mapStateToProps = createStructuredSelector({
+    isLogged: selectIsLogged(),
+    errors: selectErrors(),
+    loading: selectLoading()
+});
+
+
+InputCode.defaultProps = {
+    login: () => null,
+    errors: {}
+};
+
+InputCode.propTypes = {
+    login: PropTypes.func,
+    isLogged: PropTypes.bool
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InputCode);

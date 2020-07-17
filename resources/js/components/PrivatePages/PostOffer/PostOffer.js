@@ -18,11 +18,19 @@ class PostOffer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      file: null,
       typeOffer: '',
       timeSlotArray: [{}],
     };
+    this.uploadSingleFile = this.uploadSingleFile.bind(this);
   }
-
+  
+  uploadSingleFile(e) {
+    this.setState({
+        file: URL.createObjectURL(e.target.files[0])
+        
+    })
+}
   onChangeValue = (value) => {
     this.setState({ typeOffer: value });
   };
@@ -105,15 +113,18 @@ class PostOffer extends Component {
   };
 
   render() {
+    let imgPreview =<div className='imgPrew-container'><img src={this.state.file} alt='' className='imgPreview'/></div>
     return (
       <div className='private-fullheight'>
         <div className='container'>
           <HeaderNavigation headerName='Post a Propositions' />
           <Grid container className='post-image-container'>
             <Grid item xs={5} style={{ paddingRight: '25px' }}>
-              <div className='prev-image-container'>
-                <PhotoCameraIcon style={{ fontSize: '37px' }} />
-              </div>
+          {this.state.file ? imgPreview : (<div className='prev-image-container'>
+          <label for="upload"><PhotoCameraIcon style={{ fontSize: '37px' }} /></label>
+          <input id="upload" type="file" style={{visibility: 'hidden'}} onChange={this.uploadSingleFile}/>
+          </div>)}
+        
             </Grid>
             <Grid item xs={7}>
               <textarea placeholder='This is content...' />
