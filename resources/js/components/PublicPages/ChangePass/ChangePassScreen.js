@@ -22,8 +22,6 @@ import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import { Link } from "react-router-dom";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
 export class ChangePassScreen extends Component {
     constructor(props) {
