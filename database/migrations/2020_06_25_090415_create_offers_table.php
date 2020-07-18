@@ -22,6 +22,8 @@ class CreateOffersTable extends Migration
         Schema::create('post_has_offer', function (Blueprint $table) {
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('offer_id');
+            $table->timestamp('time')->nullable();
+            $table->string('content')->nullable();
             $table->timestamps();
 
             $table->primary(['post_id', 'offer_id']);
