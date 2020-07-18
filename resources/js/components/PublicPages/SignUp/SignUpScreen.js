@@ -63,7 +63,6 @@ export class SignUpScreen extends Component {
 
     render() {
        const { loading, error } = this.props;
-       console.log("ld", loading);
         return (
             <div className="fullheight-wrapper flex-center">
                 <div className="container ">

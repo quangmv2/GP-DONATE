@@ -9,7 +9,10 @@ import './PostOffer.scss';
 import { DatePicker, TimePicker } from 'antd';
 import moment from 'moment';
 import ButtonComponent from './Button';
+import { fetchService } from "../../../services/fetch/fetchService";
 import { Select } from 'antd';
+import { ROOT_API_URL, GET_IMAGE } from "../../../constants";
+import { AutoComplete } from 'antd';
 const dateFormat = 'DD MMM YYYY';
 const { Option } = Select;
 const { RangePicker } = TimePicker;
@@ -18,10 +21,60 @@ class PostOffer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      hashtag: [],
+      file: null,
       typeOffer: '',
       timeSlotArray: [{}],
+      image: null
     };
+    this.uploadSingleFile = this.uploadSingleFile.bind(this);
+
   }
+  Complete = () => (
+    <AutoComplete
+      onChange={this.fetchHashtag}
+      options={this.state.options}
+      filterOption={(inputValue, option) =>
+        option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+      }
+    />
+  );
+  fetchHashtag = async () => {
+    const [options] = await fetchService.fetch(`${ROOT_API_URL}/api/hastag`, {
+      method: 'GET'
+    });
+    this.setState({
+      hashtag: options
+    })
+    console.log(this.state.hashtag);
+  }
+
+  uploadSingleFile = async (e) => {
+    this.setState({
+      file: URL.createObjectURL(e.target.files[0])
+    })
+    console.log( e.target.files  )
+    const formData = new FormData();
+    formData.append('photo',  e.target.files[0]) 
+    const res = await fetchService.fetch(`${ROOT_API_URL}/api/posts/photo`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Content-Length": e.target.files[0].length
+      }
+    }).then(([resp, status]) => {
+      console.log(resp)
+      if (status === 200) {
+        this.setState({
+          image: resp.image_directory
+        })
+      }
+
+    });
+    console.log(status);
+  }
+
 
   onChangeValue = (value) => {
     this.setState({ typeOffer: value });
@@ -105,15 +158,18 @@ class PostOffer extends Component {
   };
 
   render() {
+    let imgPreview = <div className='imgPrew-container'><img src={GET_IMAGE(this.state.image)} alt='' className='imgPreview' /></div>
     return (
       <div className='private-fullheight'>
         <div className='container'>
           <HeaderNavigation headerName='Post a Propositions' />
           <Grid container className='post-image-container'>
             <Grid item xs={5} style={{ paddingRight: '25px' }}>
-              <div className='prev-image-container'>
-                <PhotoCameraIcon style={{ fontSize: '37px' }} />
-              </div>
+              {this.state.image ? imgPreview : (<div className='prev-image-container'>
+                <label for="upload"><PhotoCameraIcon style={{ fontSize: '37px' }} /></label>
+                <input id="upload" type="file" style={{ visibility: 'hidden' }} onChange={this.uploadSingleFile} />
+              </div>)}
+
             </Grid>
             <Grid item xs={7}>
               <textarea placeholder='This is content...' />
@@ -130,7 +186,7 @@ class PostOffer extends Component {
                   className='form-control'
                 >
                   <Grid item className='item-flex input-post-offer'>
-                    <TextField />
+                    <this.Complete />
                   </Grid>
                 </Grid>
                 <Grid

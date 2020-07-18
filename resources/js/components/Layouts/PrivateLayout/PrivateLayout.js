@@ -11,11 +11,9 @@ import {
     selectUserInfo
 } from "modules/auth/selectors";
 import { verifyToken } from "modules/auth/actions";
-
 import ReactResizeDetector from "react-resize-detector";
 import { createStructuredSelector } from "reselect";
-
-import { ROUTE } from "constants";
+import { ROUTE, TIME_INTERVAL_SESSION } from "constants";
 import "./private-layout.scss";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../constants/auth";
 import { withRouter } from "react-router-dom";
@@ -45,12 +43,17 @@ class PrivateLayout extends Component {
     componentDidMount() {
         const accesstoken = localStorage.getItem(ACCESS_TOKEN);
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-        const { verifyTokenFnc } = this.props;
+        const { verifyTokenFnc, userInfo} = this.props;
         if (accesstoken && accesstoken != "") {
             fetchService.addTokenHeader({ access_token: accesstoken });
             verifyTokenFnc(accesstoken, refreshToken);    
-        } else {
-            localStorage.setItem(URL_REDIRECT_LOGIN, location.pathname);
+        }
+        // if ( userInfo.roles.length() <1 ){
+        //     this.props.history.push(ROUTE.CHOOSEROLE);
+        //     console.log('choosed');
+
+        // }
+        else {
             this.redirectLogin();
         }
     }
@@ -121,7 +124,6 @@ const mapStateToProps = createStructuredSelector({
     logout: selectIsLogout(),
     userInfo: selectUserInfo()
 });
-
 const mapDispatchToProps = {
     verifyTokenFnc: verifyToken,
 };

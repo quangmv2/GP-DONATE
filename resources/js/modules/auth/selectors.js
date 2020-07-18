@@ -5,7 +5,7 @@ const getAuthState = state => {
   return state[FEATURE_NAME_AUTH];
 };
 const selectUserInfo = () => 
-  createSelector(getAuthState, state => state.get("userInfor"));
+  createSelector(getAuthState, state => state.get("userInfo"));
 
 const selectErrors = () =>
   createSelector(getAuthState, state => state.get("errors"));

@@ -41,7 +41,6 @@ const reducer = (state = initialState, action) => {
     case types.SIGNUP_FAILED: {
       const error = action.payload;
       const { message } = error;
-      console.log(error);
       return state
         .set("loading", false)
         .set("errors", { serverLogin: message });
