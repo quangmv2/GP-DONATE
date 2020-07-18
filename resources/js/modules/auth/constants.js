@@ -13,3 +13,8 @@ export const VERIFY_TOKEN_SUCCESS = "VERIFY_TOKEN_SUCCESS";
 export const VERIFY_TOKEN_FAILED = "VERIFY_TOKEN_FAILED";
 
 export const SET_LOGGED = "SET_LOGGED";
+
+export const SIGN_UP = 'SIGN_UP';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNUP_FAILED = 'SIGNUP_FAILED';
+

@@ -1,11 +1,12 @@
-import {
-    Login,
-    ChooseRoleScreen,
-    ForgotPass,
+
+import { 
+    Login, 
+    ForgotPass, 
     SignUpScreen,
     ChangePassScreen,
-    InputCode
-} from "components/PublicPages";
+
+} 
+    from 'components/PublicPages';
 import { PUBLIC_ROUTE } from "constants";
 import TestSocket from "components/PublicPages/TestSocket";
 export const authRoutes = [
@@ -27,16 +28,6 @@ export const authRoutes = [
     {
         path: PUBLIC_ROUTE.FORGOTPASSWORD,
         component: ForgotPass,
-        exact: true
-    },
-    {
-        path: PUBLIC_ROUTE.CHOOSEROLE,
-        component: ChooseRoleScreen,
-        exact: true
-    },
-    {
-        path: PUBLIC_ROUTE.INPUTCODE,
-        component: InputCode,
         exact: true
     },
     {

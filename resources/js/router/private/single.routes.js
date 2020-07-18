@@ -9,6 +9,9 @@ import {
   Search,
   PostLike,
   MessagesDetail,
+  ChooseRoleScreen, 
+  InputCode
+
 } from 'components/PrivatePages';
 import { PRIVATE_ROUTE } from 'constants';
 
@@ -60,5 +63,15 @@ export const singleRoutes = [
     path: '/post-like',
     component: PostLike,
     exact: true,
+  },
+  {
+    path: PRIVATE_ROUTE.CHOOSEROLE,
+    component: ChooseRoleScreen,
+    exact: true
+  },
+  {
+    path: PRIVATE_ROUTE.INPUTCODE,
+    component: InputCode,
+    exact: true
   },
 ];

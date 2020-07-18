@@ -12,6 +12,8 @@ import MessagesComponent from './Activities/MessagesComponent/MessagesComponent'
 import NotificationComponent from './Activities/NotificationComponent/NotificationComponent';
 import UserProfile from './UserProfile/UserProfile';
 import MessagesDetail from './Activities/MessageDetail/MessagesDetail';
+import ChooseRoleScreen from "./ChooseRole/ChooseRoleScreen";
+import InputCode from './InputCode/InputCode';
 
 export {
   Dashboard,
@@ -27,4 +29,6 @@ export {
   UserProfile,
   PostLike,
   MessagesDetail,
+  ChooseRoleScreen,
+  InputCode
 };
