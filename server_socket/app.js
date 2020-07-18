@@ -19,7 +19,7 @@ io.on('error', (err) => {
 io.on('connection', (socket) => {
     console.log('new connet', socket.id);
     socket.on('watch-post', (data) => {
-        const {id} = data;
+        const { id } = data;
         socket.join(`watch-post:${id}`);
     });
 });

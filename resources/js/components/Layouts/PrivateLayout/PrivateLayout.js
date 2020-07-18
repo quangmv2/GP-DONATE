@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
 import { Layout } from "antd";
 import { fetchService } from "services";
 import {
@@ -18,6 +19,11 @@ import "./private-layout.scss";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../constants/auth";
 import { withRouter } from "react-router-dom";
 import { URL_REDIRECT_LOGIN } from "../../../constants/variables";
+import { FEATURE_NAME_POST } from "../../../modules/post/constants";
+import saga from "modules/post/sagas";
+import reducer from "modules/post/reducers";
+import injectReducer from "core/reducer/inject-reducer";
+import injectSaga from "core/saga/inject-saga";
 
 const { Content } = Layout;
 
@@ -96,6 +102,14 @@ class PrivateLayout extends Component {
     }
 }
 
+
+const withReducer = injectReducer({ key: FEATURE_NAME_POST, reducer });
+
+const withSaga = injectSaga({
+    key: FEATURE_NAME_POST,
+    saga
+});
+
 const mapStateToProps = createStructuredSelector({
     isLogged: selectIsLogged(),
     errors: selectErrors(),
@@ -107,4 +121,8 @@ const mapDispatchToProps = {
     verifyTokenFnc: verifyToken,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PrivateLayout));
+export default compose(
+    withReducer,
+    withSaga,
+    withRouter
+)(connect(mapStateToProps, mapDispatchToProps)(PrivateLayout));

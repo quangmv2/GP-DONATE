@@ -29,10 +29,10 @@ class PostController extends Controller
         // $this->middleware('cors', ['except' => ['showPhoto']]);
         $this->middleware('auth:api', ['except' => ['showPhoto']]);
 
-        $this->middleware('permission:post-list|post-list-all|post-edit|post-delete', ['only' => ['index']]);
-        $this->middleware('permission:post-create', ['only' => ['store']]);
-        $this->middleware('permission:post-edit|post-edit-all', ['only' => ['update']]);
-        $this->middleware('permission:post-delete|post-delete-all', ['only' => ['destroy']]);
+        // $this->middleware('permission:post-list|post-list-all|post-edit|post-delete', ['only' => ['index']]);
+        // $this->middleware('permission:post-create', ['only' => ['store']]);
+        // $this->middleware('permission:post-edit|post-edit-all', ['only' => ['update']]);
+        // $this->middleware('permission:post-delete|post-delete-all', ['only' => ['destroy']]);
 
     }
 
@@ -96,8 +96,16 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $limit = $request->get('limit');
-        $page = $request->get('page');
-        return $this->postService->getPostPaginate($page, $limit);      
+        $posts = $this->postService->getPostPaginate($limit); 
+        foreach ($posts as $key => $post) {
+            $post->user;
+            $post->likes;
+            $post["comments"] = $post->comments;
+            foreach ($post["comments"] as $key => $comment) {
+                $comment->user;
+            }
+        }     
+        return $posts;
     }
 
 
