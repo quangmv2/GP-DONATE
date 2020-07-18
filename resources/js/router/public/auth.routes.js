@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 import { 
     Login, 
@@ -8,16 +7,6 @@ import {
 
 } 
     from 'components/PublicPages';
-=======
-import {
-    Login,
-    ChooseRoleScreen,
-    ForgotPass,
-    SignUpScreen,
-    ChangePassScreen,
-    InputCode
-} from "components/PublicPages";
->>>>>>> ad154f157827fcf32e61681c1573dfe083845d82
 import { PUBLIC_ROUTE } from "constants";
 import TestSocket from "components/PublicPages/TestSocket";
 export const authRoutes = [

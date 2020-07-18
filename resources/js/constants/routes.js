@@ -13,13 +13,9 @@ export const PRIVATE_ROUTE = {
     POST_COMMENT: "/post-comment",
     USER_PROFILE: "/user-profile",
     ACTIVITIES: "/activities",
-<<<<<<< HEAD
     MESSAGES: '/messages',
     CHOOSEROLE: "/choose-role",
     INPUTCODE: "/input-code"
-=======
-    MESSAGES: "/messages"
->>>>>>> ad154f157827fcf32e61681c1573dfe083845d82
 };
 
 export const ROUTE = {

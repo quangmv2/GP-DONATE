@@ -9,7 +9,9 @@ import './PostOffer.scss';
 import { DatePicker, TimePicker } from 'antd';
 import moment from 'moment';
 import ButtonComponent from './Button';
+import { fetchService } from "../../../services/fetch/fetchService";
 import { Select } from 'antd';
+import { ROOT_API_URL } from "../../../constants";
 const dateFormat = 'DD MMM YYYY';
 const { Option } = Select;
 const { RangePicker } = TimePicker;
@@ -24,13 +26,66 @@ class PostOffer extends Component {
     };
     this.uploadSingleFile = this.uploadSingleFile.bind(this);
   }
+//   const onSubmit = async () => {
+//     console.log(userRole);
+//     const res = await fetchService.fetch(`${ROOT_API_URL}/api/user/me/update-role`, {
+//         method: "POST",
+//         body:  JSON.stringify({
+//             role: userRole                
+//         })
+//     }).then(([resp, status]) => {
+//             return {
+//                 data: resp,
+//                 status,
+//             };
+//         });
+//     const { data, status } = res;
+//     if ( status == 200) {
+//         if ( userRole ===  "giver" ) {
+//             props.history.push(ROUTE.INPUTCODE)
+//         }
+//         else {
+//             props.history.push(ROUTE.HOME)
+//         }
+//     } 
+//     else if ( status == 403  ) {
+//         openNotification(NOTIFICATION_TYPE.ERROR, "Failed", "Cannot change your role");
+//     }   
+//     else {
+//         openNotification(NOTIFICATION_TYPE.ERROR, "Failed", "Choose Role Failed");
+//     }
+// }
+
   
-  uploadSingleFile(e) {
+  uploadSingleFile = async (e) => {
     this.setState({
         file: URL.createObjectURL(e.target.files[0])
-        
     })
-}
+   
+    const res = await fetchService.fetch(`${ROOT_API_URL}/api/posts/photo`, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        },
+      method: 'POST',
+      body: JSON.stringify({
+        photo: this.state.file
+      }),
+     
+    }).then(([ resp, status]) => {
+      return {
+        data: resp,
+        status
+      };
+    });
+    console.log(status);
+  }
+  // fetchImage = async () => {
+  //   const [ image ] =  await fetchService.fetchImageBase64(`${ROOT_API_URL}/api/post/photo?dir=${linkImage}`, {
+  //     method: 'GET'
+  //   });
+  //   console.log(image);
+  // }
+        
   onChangeValue = (value) => {
     this.setState({ typeOffer: value });
   };

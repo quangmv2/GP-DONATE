@@ -102,7 +102,6 @@ const mapStateToProps = createStructuredSelector({
     isLogged: selectIsLogged(),
     errors: selectErrors(),
     loading: selectLoading(),
-    userInfo: selectUserInfo(),
 });
 const mapDispatchToProps = {
     verifyTokenFnc: verifyToken,
