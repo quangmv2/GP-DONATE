@@ -14,7 +14,7 @@ export const PRIVATE_ROUTE = {
     POST_COMMENT: "/post-comment",
     USER_PROFILE: "/user-profile",
     ACTIVITIES: "/activities",
-    MESSAGES: '/messages'
+    MESSAGES: "/messages"
 };
 
 export const ROUTE = {
@@ -23,7 +23,8 @@ export const ROUTE = {
 };
 
 export const API_ROUTER = {
-    AUTH: "/api/auth"
+    AUTH: "/api/auth",
+    FORGOTPASSWORD: "/api/oauth/pasword/reset"
 };
 
 export const ROOT_API_URL = 'http://52.205.200.96';
