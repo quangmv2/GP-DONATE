@@ -26,27 +26,27 @@ class DatabaseSeeder extends Seeder
         $this->call(CodesTableSeeder::class);
 
         Hastag::create([
-            'name' => 'post'
+            'value' => 'post'
         ]);
 
         Hastag::create([
-            'name' => 'covid19'
+            'value' => 'covid19'
         ]);
 
         Hastag::create([
-            'name' => 'vietnam'
+            'value' => 'vietnam'
         ]);
 
         Hastag::create([
-            'name' => '2020'
+            'value' => '2020'
         ]);
 
         Hastag::create([
-            'name' => 'center'
+            'value' => 'center'
         ]);
 
         Hastag::create([
-            'name' => 'country'
+            'value' => 'country'
         ]);
 
         $admin = User::create([

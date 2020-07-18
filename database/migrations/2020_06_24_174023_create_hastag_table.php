@@ -15,7 +15,7 @@ class CreateHastagTable extends Migration
     {
         Schema::create('hastags', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('value')->unique();
             $table->timestamps();
         });
 

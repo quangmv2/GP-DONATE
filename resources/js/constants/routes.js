@@ -4,8 +4,7 @@ export const PUBLIC_ROUTE = {
     CHANGEPASSWORD: "/reset-password",
     FORGOTPASSWORD: "/forgot-password",
     SIGNUP: "/signup",
-    CHOOSEROLE: "/choose-role",
-    INPUTCODE: "/input-code"
+    
 };
 
 export const PRIVATE_ROUTE = {
@@ -14,7 +13,9 @@ export const PRIVATE_ROUTE = {
     POST_COMMENT: "/post-comment",
     USER_PROFILE: "/user-profile",
     ACTIVITIES: "/activities",
-    MESSAGES: "/messages"
+    MESSAGES: '/messages',
+    CHOOSEROLE: "/choose-role",
+    INPUTCODE: "/input-code"
 };
 
 export const ROUTE = {
