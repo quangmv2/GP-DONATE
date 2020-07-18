@@ -1,6 +1,8 @@
 import { fetchService } from "services";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import * as types from "./constants";
+import { NOTIFICATION_TYPE } from "constants";
+import { openNotification } from "helpers";
 
 import {
     loginSuccess,
@@ -8,16 +10,23 @@ import {
     logoutSuccess,
     logoutFailed,
     verifyTokenSuccess,
-    verifyTokenFailed
+    verifyTokenFailed,
+    signUpFailed,
+    signUpSuccess
 } from "./actions";
 import { ROOT_API_URL } from "constants";
 
 export default function* root() {
     yield all([
+        watchSignUp(),
         watcherLogin(),
         watcherLogout(),
-        watchVerifyToken()
+        watchVerifyToken(),
     ]);
+}
+
+export function* watchSignUp() {
+    yield takeLatest(types.SIGN_UP, signUp);
 }
 
 export function* watchVerifyToken() {
@@ -34,6 +43,32 @@ export function* watcherLogout() {
 
 
 ///////////////////////////////////////////////////// FUNCTIONS //////////////////
+
+export function* signUp({ payload }) {
+    const { username, email, password } = payload;
+    const resp = yield call(resquestSignUp, username, email, password );
+    const { data, status } = resp;
+    if (status === 200 ) {
+        fetchService.addTokenHeader(data);
+        yield put(
+            signUpSuccess({
+               accessToken: data.access_token,
+               refreshToken: data.refresh_token,
+            })
+        );
+    }
+    if ( status === 422) {
+        const { errors } = data;
+        const keys = Object.keys(errors);
+        keys.forEach(key => {
+            errors[key].forEach(err => openNotification(NOTIFICATION_TYPE.ERROR, "Error", err))
+        });
+        yield put(signUpFailed(data));
+    }
+    else {
+        yield put(signUpFailed(data));
+    }
+}
 
 export function* loginSaga({ payload }) {
     const { username, password } = payload;
@@ -78,6 +113,25 @@ export function* verifyToken(accessToken, refreshToken) {
 }
 
 ///////////////////////////////////////////////////// REQUEST //////////////////
+
+function resquestSignUp(username, email, password) {
+    const data = {
+        username,
+        email,
+        password
+    }
+    return fetchService
+    .fetch(`${ROOT_API_URL}/api/oauth/register`, {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+    .then(([resp, status]) => {
+        return {
+            data: resp,
+            status,
+        };
+    });
+}
 
 function requestLogin(username, password) {
     const data = {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
@@ -49,4 +49,4 @@ const BottomNavigator = () => {
   );
 };
 
-export default BottomNavigator;
+export default memo(BottomNavigator);

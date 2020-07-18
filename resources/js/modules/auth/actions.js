@@ -77,3 +77,27 @@ export const verifyTokenFailed = (error) => {
     payload: error,
   };
 };
+
+export const postSignUp = (username, email, password) => {
+  return {
+    type: types.SIGN_UP,
+    payload: {
+      username: username,
+      email: email,
+      password: password
+    }
+  }
+};
+export const signUpSuccess = (data) => {
+  return {
+    type: types.SIGNUP_SUCCESS,
+    payload: data
+  }
+};
+
+export const signUpFailed = (error) => {
+  return {
+    type: types.SIGNUP_FAILED,
+    payload: error
+  }
+};

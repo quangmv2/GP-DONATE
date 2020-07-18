@@ -1,53 +1,77 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, memo } from "react";
 import "./chooseRole.scss";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
-
+import { openNotification } from "helpers";
 import { ButtonAnt } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
-import { PUBLIC_ROUTE } from "constants";
+import { PUBLIC_ROUTE, NOTIFICATION_TYPE, ROUTE } from "constants";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-export default function ChooseRoleScreen() {
+import { fetchService } from "../../../services/fetch/fetchService";
+import { ROOT_API_URL } from "../../../constants";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { selectUserInfo } from "../../../modules/auth/selectors";
+
+function ChooseRoleScreen(props) {
+
     const [userRole, setUserRole] = useState();
+
+    useEffect(() => {
+        const { userInfo, history } = props;
+        if (userInfo && userInfo.roles.length > 0) {
+            history.push(ROUTE.HOME)
+        }
+    }, [props.userInfo]); 
+
     const handleBack = () => {
         this.props.history.goBack();
     };
     const onChangeValue = event => {
         setUserRole(event.target.value);
     };
-    let content = (
-        <Link>
-            <ButtonAnt className="custom-button-login btn-block btn-round btn-red buttonContainer">
-                <FormattedMessage
-                    defaultMessage={"chooseRole.submit"}
-                    id={"chooseRole.submit"}
-                />
-            </ButtonAnt>
-        </Link>
-    );
-    if (userRole == "0") {
-        content = (
-            <Link to={PUBLIC_ROUTE.INPUTCODE}>
-                <ButtonAnt className="custom-button-login btn-block btn-round btn-red buttonContainer">
-                    <FormattedMessage
-                        defaultMessage={"chooseRole.submit"}
-                        id={"chooseRole.submit"}
-                    />
-                </ButtonAnt>
-            </Link>
-        );
-    } else if (userRole == "1") {
-        content = (
-            <Link to={PUBLIC_ROUTE.LOGIN}>
-                <ButtonAnt className="custom-button-login btn-block btn-round btn-red buttonContainer">
-                    <FormattedMessage
-                        defaultMessage={"chooseRole.submit"}
-                        id={"chooseRole.submit"}
-                    />
-                </ButtonAnt>
-            </Link>
-        );
+
+    const onSubmit = async () => {
+        console.log(userRole);
+        const res = await fetchService.fetch(`${ROOT_API_URL}/api/user/me/update-role`, {
+            method: "POST",
+            body: JSON.stringify({
+                role: userRole
+            })
+        }).then(([resp, status]) => {
+            return {
+                data: resp,
+                status,
+            };
+        });
+        const { data, status } = res;
+        if (status == 200) {
+            if (userRole === "giver") {
+                props.history.push(ROUTE.INPUTCODE)
+            }
+            else {
+                props.history.push(ROUTE.HOME)
+            }
+        }
+        else if (status == 403) {
+            openNotification(NOTIFICATION_TYPE.ERROR, "Failed", "Cannot change your role");
+        }
+        else {
+            openNotification(NOTIFICATION_TYPE.ERROR, "Failed", "Choose Role Failed");
+        }
     }
+
+    let content = (
+        <ButtonAnt
+            onClick={onSubmit}
+            className="custom-button-login btn-block btn-round btn-red buttonContainer">
+            <FormattedMessage
+                defaultMessage={"chooseRole.submit"}
+                id={"chooseRole.submit"}
+            />
+        </ButtonAnt>
+    );
+
     return (
         <div className="fullheight-wrapper flex-center">
             <div className="container">
@@ -64,7 +88,7 @@ export default function ChooseRoleScreen() {
                                 type="radio"
                                 className="radio radioGiver"
                                 name="role"
-                                value="1"
+                                value="giver"
                             />
                             <p className="roleText">
                                 Generous <br /> Patron
@@ -75,7 +99,7 @@ export default function ChooseRoleScreen() {
                                 type="radio"
                                 className="radio radioTaker"
                                 name="role"
-                                value="0"
+                                value="taker"
                             />
                             <p className="roleText">
                                 Generous <br /> Implementer
@@ -97,3 +121,11 @@ export default function ChooseRoleScreen() {
         </div>
     );
 }
+const mapStateToProps = createStructuredSelector({
+    userInfo: selectUserInfo()
+});
+
+const mapDispatchToProps = {
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(memo(ChooseRoleScreen));

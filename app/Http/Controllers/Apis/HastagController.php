@@ -29,7 +29,7 @@ class HastagController extends Controller
      *     	   @SWG\Schema(type="array",
      *          @SWG\Items(
      *              @SWG\Property(property="id", type="number", example=1),
-     *              @SWG\Property(property="name", type="number", example="covid19"),
+     *              @SWG\Property(property="value", type="number", example="covid19"),
     *               @SWG\Property(property="created_at", type="string"),
     *               @SWG\Property(property="updated_at", type="string"),
     *             ),
@@ -49,7 +49,7 @@ class HastagController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('q');
-        $hastags = Hastag::where('name', 'like', '%'.$search.'%')->get();
+        $hastags = Hastag::where('value', 'like', '%'.$search.'%')->get();
         return response()->json(
             json_decode($hastags),
             200

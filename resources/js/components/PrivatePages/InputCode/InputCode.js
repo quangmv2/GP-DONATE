@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
+import { openNotification } from "helpers";
 import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
 import injectReducer from "core/reducer/inject-reducer";
@@ -9,7 +10,7 @@ import injectSaga from "core/saga/inject-saga";
 import reducer from "modules/auth/reducers";
 import saga from "modules/auth/sagas";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
-import { URL_REDIRECT_LOGIN, ROUTE } from "constants";
+import { URL_REDIRECT_LOGIN, ROUTE, NOTIFICATION_TYPE } from "constants";
 import { postLogin } from "modules/auth/actions";
 import "./inputCode.scss";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -25,49 +26,46 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
-import { PUBLIC_ROUTE } from "../../../constants";
+import { fetchService } from "../../../services/fetch/fetchService";
+import { ROOT_API_URL } from "../../../constants";
 
 export class InputCode extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
-            password: "",
-            passchange: "",
-            errorValidLogin: {}
+            code_invitation: ""
         };
-        this.setSubmitting = null;
     }
 
     async componentDidMount() {}
 
-    componentDidUpdate(prevProps) {
-        const { isLogged } = this.props;
-        if (isLogged) {
-            this.redirectLogin();
+    onSubmit = async (values) => {
+        console.log('submit');
+        const { code_invitation } = values;
+        const res = await fetchService.fetch(`${ROOT_API_URL}/api/user/me/code-invitation`, {
+            method: "POST",
+            body:  JSON.stringify({
+                code_invitation: code_invitation     
+            })
+        }).then(([resp, status]) => {
+                return {
+                    data: resp,
+                    status,
+                };
+            });
+        const { data, status } = res;
+        if ( status == 200) {
+            this.props.history.push(ROUTE.HOME)
+        }    
+        else {
+            openNotification(NOTIFICATION_TYPE.ERROR, "Failed", "Not found code invitation");
         }
     }
 
-    redirectLogin = () => {
-        const { history } = this.props;
-        const url_redirect_login = localStorage.getItem(URL_REDIRECT_LOGIN);
-        history.push(url_redirect_login ?? ROUTE.HOME);
-    };
 
-    onSubmit = (values, { setSubmitting }) => {
-        if (!this.setSubmitting) {
-            this.setSubmitting = setSubmitting;
-        }
-        const { code } = values;
-        const { login } = this.props;
-        this.props.history.push(PUBLIC_ROUTE.LOGIN);
-
-        //login(username, password);
-    };
-
+   
     render() {
-        const { errors, loading } = this.props;
-
+        const { loading, error } = this.props;
         return (
             <div className="fullheight-wrapper flex-center">
                 <div className="container ">
@@ -79,14 +77,13 @@ export class InputCode extends Component {
                         {/* {this.renderFields()} */}
                         <Formik
                             initialValues={{
-                                code: ""
+                                code_invitation : ""
                             }}
                             layout="vertical"
                             validate={values => {
                                 const errors = {};
-
-                                if (!values.code) {
-                                    errors.code = "Required";
+                                if (!values.code_invitation) {
+                                    errors.code_invitation = "Required";
                                 }
 
                                 return errors;
@@ -96,12 +93,10 @@ export class InputCode extends Component {
                             {({
                                 values,
                                 errors,
-
                                 touched,
                                 handleChange,
                                 //handleBlur,
-                                handleSubmit,
-                                isSubmitting
+                                handleSubmit
                                 /* and other goodies */
                             }) => (
                                 <form onSubmit={handleSubmit} layout="vertical">
@@ -119,8 +114,8 @@ export class InputCode extends Component {
                                                 <AccountCircle />
                                                 <TextField
                                                     error={
-                                                        errors.code &&
-                                                        touched.code
+                                                        errors.code_invitation &&
+                                                        touched.code_invitation
                                                     }
                                                     id="input-with-icon-grid"
                                                     label={
@@ -129,17 +124,15 @@ export class InputCode extends Component {
                                                             defaultMessage="codePage.code"
                                                         />
                                                     }
-                                                    value={values.code}
+                                                    value={values.code_invitation}
                                                     onChange={handleChange}
-                                                    disabled={
-                                                        loading || isSubmitting
-                                                    }
+    
                                                     helperText={
-                                                        touched.code
-                                                            ? errors.code
+                                                        touched.code_invitation
+                                                            ? errors.code_invitation
                                                             : ""
                                                     }
-                                                    name="code"
+                                                    name="code_invitation"
                                                 />
                                             </Grid>
                                         </Grid>
@@ -147,10 +140,8 @@ export class InputCode extends Component {
 
                                     <div className="form-control inputButton">
                                         <ButtonAnt
-                                            className="custom-button-login btn-block btn-round btn-red buttonContainer"
-                                            disabled={loading || isSubmitting}
+                                            className="custom-button-login btn-block btn-round btn-red buttonContainer"               
                                             id="login-btn"
-                                            loading={loading || isSubmitting}
                                             name="login-btn"
                                             onClick={handleSubmit}
                                             type="primary"
@@ -164,7 +155,7 @@ export class InputCode extends Component {
                                         </ButtonAnt>
                                     </div>
                                     <div className="form-control outlineButton">
-                                        <ButtonAnt
+                                        {/* <ButtonAnt
                                             className="btn-block btn-round btn-red ol-bn-container"
                                             disabled={loading || isSubmitting}
                                             id="login-btn"
@@ -179,7 +170,7 @@ export class InputCode extends Component {
                                                 }
                                                 id={"signupPage.createacc"}
                                             />
-                                        </ButtonAnt>
+                                        </ButtonAnt> */}
                                     </div>
 
                                     <div className="bottomTextContainer">
@@ -221,10 +212,6 @@ const mapStateToProps = createStructuredSelector({
     loading: selectLoading()
 });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: FEATURE_NAME_AUTH, reducer });
-const withSaga = injectSaga({ key: FEATURE_NAME_AUTH, saga });
 
 InputCode.defaultProps = {
     login: () => null,
@@ -236,9 +223,4 @@ InputCode.propTypes = {
     isLogged: PropTypes.bool
 };
 
-export default compose(
-    withReducer,
-    withSaga,
-    withConnect,
-    withRouter
-)(InputCode);
+export default connect(mapStateToProps, mapDispatchToProps)(InputCode);
