@@ -64,7 +64,7 @@ const HomePage = (props) => {
         >
             <Swiper
                 // spaceBetween={812}
-                // slidesPerView={3}
+                slidesPerView={1}
                 // navigation
                 // loop={true}
                 direction="vertical"
