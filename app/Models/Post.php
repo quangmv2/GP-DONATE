@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Like;
 use App\Models\Comment;
+use App\Models\PostHasOffer;
 
 
 class Post extends Model
@@ -35,7 +36,7 @@ class Post extends Model
     
     public function hastags()
     {
-        return $this->belongsToMany(Hastag::class, 'post_has_hastags', 'post_id', 'hastag_id');
+        return $this->belongsToMany(Hastag::class, 'post_has_hastags', 'post_id');
     }
 
     public function likes()
@@ -46,6 +47,11 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class, 'post_id', 'id');
+    }
+
+    public function offers()
+    {
+        return $this->hasMany(PostHasOffer::class, 'post_id', 'id');
     }
 
 	// public function categories() {
