@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, memo, useContext, useCallback } from "react";
 import { Link } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
@@ -13,177 +13,202 @@ import axios from "axios";
 
 import "swiper/swiper.scss";
 import "./HomeScreen.scss";
-import { ROOT_API_URL } from "../../../constants/routes";
+import { ROOT_API_URL, GET_IMAGE, GET_COMMENT } from "../../../constants/routes";
 import { OmitProps } from "antd/lib/transfer/ListBody";
+import UserAvatar from "react-user-avatar";
+import CommentItem from "./CommentItem";
+import { SocketContext } from "../../../context/SocketProvider";
 
 const linkImage = 'uploads/images/posts/1594885437_03oSmzkC2SFhtWcPHlpwaIn-35.fit_scale.size_2698x1517.v1569486010.png'
 
 const PostItem = (props) => {
 
-    // const [data, setData] = useState(null);
+    const [comments, setComments] = useState(props.comments);
+    const { socket } = useContext(SocketContext);
+    const homeImage = useRef(null);
+    const commentsElement = useRef(null);
 
-    // useEffect(() => {
-    //     fetchImage();
-    // }, [])
+    useEffect(() => {
+        fetchFirstData();
+        commentsElement.current.scrollTop = 5000
+    }, []);
 
-    // const fetchImage = async () => {
+    useEffect(() => {
+        commentsElement.current.scrollTop = 5000
+    }, [comments])
 
-    //     const image = await fetchService.fetchImageBase64(`${ROOT_API_URL}/api/posts/photo?dir=${linkImage}`, {
-    //         method: "GET"
-    //     });
-    //     console.log(image);
-    // }
-
-    console.log(props);
+    const fetchFirstData = useCallback(async () => {
+        console.log(1);
+        socket.emit('watch-post', {id: props.id});
+        socket.on(`new-comment`, data => {
+            console.log(data);
+            setComments(cmts => {
+                if (cmts.find(({id}) => id === data.id)) return cmts;
+                const newCmts = [...cmts];
+                newCmts.push(data);
+                return newCmts;
+            })
+        });
+        socket.on('delete-comment', data => {
+            console.log(data);
+            setComments(cmts => {
+                const newCmts = [...cmts];
+                return newCmts.filter(({id}) => {
+                    console.log(id !== data.id);
+                    return id !== data.id;
+                });
+            })
+        })
+    })
 
     return (
-        <div className="swiper-slide-item">
-            <div className="container">
-                <div className="home-image">
-                    <div className="top-navbar-giver-home">
-                        <div className="navbar-giver-home-container">
-                            <Link to="/user-profile">
-                                <img
-                                    // src={data ? `data:image;base64, ${data}` : ''}
+        <div className="container">
+            <div className="image-background-div">
+                <img className="image-background" src={GET_IMAGE(props.photo_thumbnail)} alt={props.title} />
+            </div>
+            <div className="home-image" ref={homeImage}>
+                <div className="top-navbar-giver-home">
+                    <div className="navbar-giver-home-container">
+                        <Link to="/user-profile">
+                            {
+                                props.user.personal_photo ? <img
+                                    src={GET_IMAGE(props.user.personal_photo)}
                                     className="giver-avatar"
-                                />
-                            </Link>
-                            <div className="info-user">
-                                <p className="username">
-                                    <Link to="/user-profile">
-                                        Alina{" "}
-                                    </Link>
-                                </p>
+                                /> :
+                                    <UserAvatar size="50" name={`${props.user.first_name}`} />
+                            }
+                        </Link>
+                        <div className="info-user">
+                            <p className="username">
+                                <Link to="/user-profile">
+                                    {`${props.user.first_name} ${props.user.last_name}`}
+                                </Link>
+                            </p>
 
-                                <p className="hours-ago">
-                                    4 hours a go
+                            <p className="hours-ago">
+                                4 hours a go
                                                     </p>
-                            </div>
                         </div>
-                        <MailOutlineIcon
-                            style={{
-                                color: "white",
-                                fontSize: "27px"
-                            }}
-                        />
                     </div>
-                    <div className="home-content">
-                        <p className="title-post">{props.title}</p>
-                        <p className="home-text hashtags">
-                            #endregion #....
+                    <MailOutlineIcon
+                        style={{
+                            color: "white",
+                            fontSize: "27px"
+                        }}
+                    />
+                </div>
+                <div className="home-content">
+                    <p className="title-post">{props.title}</p>
+                    <p className="home-text hashtags">
+                        #endregion #....
                                             </p>
-                        <div className="home-time-content time-container">
-                            <div className="home-time-content ">
-                                <AccessTimeIcon
-                                    style={{
-                                        color: "white",
-                                        fontSize: "27px"
-                                    }}
-                                />
-                                <div className="home-text">
-                                    <span>
-                                        Mon, Tue: 09:00 - 12:00{" "}
-                                    </span>
-                                    <br />
-                                    <span>
-                                        Tue, Thurs: 16:00 - 18:00
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="home-time-content due-date">
-                            <EventAvailableIcon
+                    <div className="home-time-content time-container">
+                        <div className="home-time-content ">
+                            <AccessTimeIcon
                                 style={{
                                     color: "white",
                                     fontSize: "27px"
                                 }}
                             />
-                            <p className="home-text ">
-                                Due date til 24 Jul 2020
-                                                </p>
+                            <div className="home-text">
+                                <span>
+                                    Mon, Tue: 09:00 - 12:00{" "}
+                                </span>
+                                <br />
+                                <span>
+                                    Tue, Thurs: 16:00 - 18:00
+                                    </span>
+                            </div>
                         </div>
                     </div>
+                    <div className="home-time-content due-date">
+                        <EventAvailableIcon
+                            style={{
+                                color: "white",
+                                fontSize: "27px"
+                            }}
+                        />
+                        <p className="home-text ">
+                            Due date til 24 Jul 2020
+                                                </p>
+                    </div>
+                </div>
+                <Grid
+                    container
+                    className="grid-container comment-wrapper"
+                >
                     <Grid
-                        container
-                        className="grid-container comment-wrapper"
+                        item
+                        xs={10}
+                        className="comment-container"
                     >
-                        <Grid
-                            item
-                            xs={10}
-                            className="comment-container"
-                        >
-                            <p className="demo-comment">
-                                @faceforafrica: Hi Alina, we
-                                are a charity organization
-                                involved with educating
-                                African Chidren...
-                                                </p>
-                            <p className="demo-comment">
-                                @faceforafrica: Hi Alina, we
-                                are a charity organization
-                                involved with educating
-                                African Chidren...
-                                                </p>
-                            <div className="raise-a-voice-container">
-                                <ButtonAnt>
-                                    <span>
-                                        Raise a voice
+                        <div className="coment-item-container" ref={commentsElement}>
+                            {
+                                comments.map(comment =>
+                                    <CommentItem key={`cooment${comment.id} post${props.id}`}
+                                        author={comment.user.first_name} content={comment.content} />
+                                )
+                            }
+                        </div>
+                        <div className="raise-a-voice-container">
+                            <ButtonAnt>
+                                <span>
+                                    Raise a voice
                                                         </span>
-                                    <ChatBubbleIcon className="commentIcon" />
+                                <ChatBubbleIcon className="commentIcon" />
+                            </ButtonAnt>
+                        </div>
+                    </Grid>
+                    <Grid
+                        item
+                        xs={2}
+                        className="action-container"
+                    >
+                        <div className="social-action-wrapper">
+                            <div>
+                                <ButtonAnt className="button-action">
+                                    <ShareIcon
+                                        style={{
+                                            color:
+                                                "white",
+                                            fontSize:
+                                                "29px"
+                                        }}
+                                    />
                                 </ButtonAnt>
                             </div>
-                        </Grid>
-                        <Grid
-                            item
-                            xs={2}
-                            className="action-container"
-                        >
-                            <div className="social-action-wrapper">
-                                <div>
-                                    <ButtonAnt className="button-action">
-                                        <ShareIcon
-                                            style={{
-                                                color:
-                                                    "white",
-                                                fontSize:
-                                                    "29px"
-                                            }}
-                                        />
-                                    </ButtonAnt>
-                                </div>
-                                <div className="action">
-                                    <ButtonAnt className="button-action">
-                                        <ChatBubbleIcon
-                                            style={{
-                                                color:
-                                                    "white",
-                                                fontSize:
-                                                    "29px"
-                                            }}
-                                        />
-                                        <p>315</p>
-                                    </ButtonAnt>
-                                </div>
-                                <div className="action">
-                                    <ButtonAnt className="button-action">
-                                        <FavoriteIcon
-                                            style={{
-                                                color:
-                                                    "white",
-                                                fontSize:
-                                                    "29px"
-                                            }}
-                                        />
-                                        <p>315</p>
-                                    </ButtonAnt>
-                                </div>
+                            <div className="action">
+                                <ButtonAnt className="button-action">
+                                    <ChatBubbleIcon
+                                        style={{
+                                            color:
+                                                "white",
+                                            fontSize:
+                                                "29px"
+                                        }}
+                                    />
+                                    <p>{comments.length}</p>
+                                </ButtonAnt>
                             </div>
-                        </Grid>
+                            <div className="action">
+                                <ButtonAnt className="button-action">
+                                    <FavoriteIcon
+                                        style={{
+                                            color:
+                                                "white",
+                                            fontSize:
+                                                "29px"
+                                        }}
+                                    />
+                                    <p>{props.likes.length}</p>
+                                </ButtonAnt>
+                            </div>
+                        </div>
                     </Grid>
-                </div>
+                </Grid>
             </div>
         </div>
     )
 }
 
-export default PostItem;
+export default (PostItem);

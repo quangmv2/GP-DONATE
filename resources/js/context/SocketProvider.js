@@ -4,9 +4,7 @@ import { ROOT_WS } from '../constants/routes';
 
 export const SocketContext = createContext();
 
-const socket = io(ROOT_WS, {
-    query: "token=123"
-});
+const socket = io(ROOT_WS);
 
 export const SocketProvider = (props) => {   
 

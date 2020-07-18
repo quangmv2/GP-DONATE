@@ -1,5 +1,5 @@
-import React, { Component, useEffect } from "react";
-import Swiper from "swiper";
+import React, { Component, useEffect, useState, memo } from "react";
+// import Swiper from "swiper";
 import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -28,43 +28,62 @@ import {
     selectPost
 } from "modules/post/selectors";
 import { getPosts } from "modules/post/actions";
+import { LIMIT_POST } from "../../../modules/post/constants";
 
 
 const HomePage = (props) => {
+    
+    const [index, setIndex] = useState(0);
+
     useEffect(() => {
-        new Swiper(".swiper-container", {
-            loop: false,
-            direction: "vertical",
-            // on: {
-            //     slideChangeTransitionEnd: (swiper) => {
-            //         console.log(swiper);
-            //     }
-            // }
-        });
         const { fetchMore, page } = props;
         fetchMore(page + 1);
-    }, [])
+    }, []);
 
-    console.log(props.posts);
+    useEffect(() => {
+        handleLoadMore();
+    }, [index])
+
+    const handleLoadMore = () => {
+        const { posts } = props;
+        if (posts.length - index < 3 ) {
+            const { fetchMore, page } = props;
+            fetchMore(page + 1);
+        }
+    }
 
     const { posts } = props;
 
     return (
-        <div>
+        <div 
+            style={{
+                backgroundImage: "url('https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb')",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover"
+            }}
+        >
             <Swiper
-                spaceBetween={50}
-                slidesPerView={3}
-                navigation
-                pagination={{ clickable: true }}
-                scrollbar={{ draggable: true }}
-                onSwiper={(swiper) => console.log(swiper)}
-                onSlideChange={() => console.log('slide change')}
+                // spaceBetween={812}
+                // slidesPerView={3}
+                // navigation
+                // loop={true}
+                direction="vertical"
+                // pagination={{ clickable: true }}
+                // scrollbar={{ draggable: true }}
+                // onSwiper={(swiper) => console.log(swiper)}
+                // onSlideChange={(swiper) => console.log(swiper)}
+                // virtual
+                onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
             >
-                <SwiperSlide>Slide 1</SwiperSlide>
-                <SwiperSlide>Slide 2</SwiperSlide>
-                <SwiperSlide>Slide 3</SwiperSlide>
-                <SwiperSlide>Slide 4</SwiperSlide>
-            </Swiper>
+
+                {
+                    posts.map(post => 
+                        <SwiperSlide key={`post ${post.id} ${Date.now()}`}>
+                            <PostItem {...post} />    
+                        </SwiperSlide>
+                    )
+                }
+            </Swiper>   
             <BottomNavigator />
         </div>
     );
@@ -81,4 +100,4 @@ const mapStateToProps = createStructuredSelector({
     posts: selectPost()
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(HomePage));

@@ -191,25 +191,25 @@ class FetchService {
         });
     }
 
-    // async fetchImageBase64(input, init ={}) {
-    //     let initWithDefaultHeaders = {
-    //         ...init,
-    //         headers: mergeWithDefaultHeaders(init.headers, this.defaultHeaders)
-    //     };
-    //     let beforeRequestInterceptorsResult = applyBeforeRequestInterceptors(
-    //         this.beforeRequestInterceptors
-    //     );
-    //     if (beforeRequestInterceptorsResult === false) {
-    //         throw new Error(
-    //             "Fetch Promise was canceled by interceptor before requested"
-    //         );
-    //     }
-    //     let response = await fetch.apply(null, [input, initWithDefaultHeaders]);
-    //     let status = response.status;
-    //     const reader = response.body.getReader();
-    //     return [reader.read().then(({value}) => value), status];
+    async fetchImageBase64(input, init ={}) {
+        let initWithDefaultHeaders = {
+            ...init,
+            headers: mergeWithDefaultHeaders(init.headers, this.defaultHeaders)
+        };
+        let beforeRequestInterceptorsResult = applyBeforeRequestInterceptors(
+            this.beforeRequestInterceptors
+        );
+        if (beforeRequestInterceptorsResult === false) {
+            throw new Error(
+                "Fetch Promise was canceled by interceptor before requested"
+            );
+        }
+        let response = await fetch.apply(null, [input, initWithDefaultHeaders]);
+        let status = response.status;
+        const reader = await response.body.getReader();
+        return [await reader.read().then(({value}) => value), status];
 
-    // }
+    }
 }
 
 /*** PRIVATE METHODS: ***/

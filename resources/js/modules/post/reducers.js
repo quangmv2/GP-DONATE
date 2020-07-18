@@ -22,11 +22,12 @@ const reducer = (state = initialState, action) => {
     }
 
     case types.FETCH_POST_SUCCESS: {
+      console.log('red', action.payload);
       const { data } = action.payload;
       return state 
         .set('loading', false)
-        .set('page', state.get('page') + 1)
-        .set('posts', [...state.get('posts'), ...data])
+        .set('page', data.length>0?state.get('page') + 1:state.get('page'))
+        .set('posts', data.length>0?[...state.get('posts'), ...data]:state.get('posts'))
     }
 
     default:

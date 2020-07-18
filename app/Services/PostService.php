@@ -25,11 +25,10 @@ class PostService
         ]);
     }
 
-    public function getPostPaginate($page, $limit)
+    public function getPostPaginate($limit)
     {
-        if (empty($page)) $page = 1;
         if (empty($limit)) $limit = 1;
-        return Post::simplePaginate($page);       
+        return Post::simplePaginate($limit);       
     }
 
     public function getPostPaginateByUser($limit, $user_id)
