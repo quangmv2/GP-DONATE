@@ -22,7 +22,9 @@ class PostController extends Controller
     private $commonService;
 
 
-    function __construct(PostService $postService, CommonService $commonService){
+    function __construct(PostService $postService, CommonService $commonService, Request $request){
+
+        $this->request = $request;
         $this->postService = $postService;
         $this->commonService = $commonService;
 
@@ -108,7 +110,98 @@ class PostController extends Controller
         return $posts;
     }
 
-
+    /**
+     * @SWG\Post(
+     *     path="api/posts/",
+     *     tags={"Posts"},
+     *     summary={"Create Post"},
+     *     description="Create Post",  
+     *     @SWG\Parameter(
+     *         name="title",
+     *         in="formData",
+     *         type="string",
+     *         description="Title Post",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="content",
+     *         in="formData",
+     *         type="string",
+     *         description="Content Post",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="photo_thumbnail",
+     *         in="formData",
+     *         type="string",
+     *         description="Photo thumbnail Post",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="full_photo",
+     *         in="formData",
+     *         type="string",
+     *         description="Full photo Post",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="due_day",
+     *         in="formData",
+     *         type="string",
+     *         description="Due day Post",
+     *         required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *         name="offers",
+     *         in="formData",
+     *         type="object",
+     *         description="Due day Post",
+     *         required=true,
+     *         @SWG\Property(property="id", type="number", example=1),
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="OK",
+     *         @SWG\Schema(type="object",
+     *              @SWG\Property(property="id", type="number", example=1),
+     *              @SWG\Property(property="user_id", type="number", example=1),
+     *              @SWG\Property(property="title", type="string", example="First Project"),
+     *              @SWG\Property(property="content", type="string", example="Hello World"),
+     *              @SWG\Property(property="photo_thumbnail", type="string", example="..."),
+     *              @SWG\Property(property="full_photo", type="string", example="..."),
+     *              @SWG\Property(property="due_day", type="string", example="2000-12-03 12:20:20"),
+     *              @SWG\Property(property="status", type="number", example=0   ),
+     *              @SWG\Property(property="user", type="object",
+        *              @SWG\Property(property="id", type="number", example=1),
+        *              @SWG\Property(property="first_name", type="string", example="admin"),
+        *              @SWG\Property(property="last_name", type="string", example="admin"),
+        *              @SWG\Property(property="username", type="string", example="admin"),
+        *              @SWG\Property(property="email", type="string", example="admin@gmail.com"),
+        *              @SWG\Property(property="address", type="string", example="Danang, Vietnam"),
+        *              @SWG\Property(property="code_id", type="string", example="admincode"),
+        *              @SWG\Property(property="personal_photo", type="string", example="..."),
+        *              @SWG\Property(property="gender", type="number", example=0),
+        *              @SWG\Property(property="created_at", type="string", example="2000-12-03 12:20:20"),
+        *              @SWG\Property(property="updated_at", type="string", example="2000-12-03 12:20:20"),
+        *          ),
+    *            @SWG\Property(property="created_at", type="string"),
+    *            @SWG\Property(property="updated_at", type="string"),
+     *          )
+     *     ),
+     *     @SWG\Response(
+     *         response=422,
+     *         description="Missing Data"
+     *     ),
+     *     @SWG\Response(
+     *         response=404,
+     *         description="NotFound Data"
+     *     ),
+     *     @SWG\Response(
+     *         response=401,
+     *         description="Unauthenticated",
+     *     ),
+     * )
+     */
     /**
      * POST route
      * Store a newly created resource in storage.
@@ -118,8 +211,8 @@ class PostController extends Controller
      */
     public function store(Request $req)
     {
-        
         $this->postService->validate($req);
+        $input = $this->request->all();
 
         $post = $this->postService->save(
             $req->title, 
@@ -129,6 +222,25 @@ class PostController extends Controller
             $req->due_day,
             $req->user()->id
         );
+
+        if (!empty($input['hastags'])) {
+            $this->postService->createAndAddHastag($post->id, $input['hastags']);
+        }
+
+        if (!empty($input['offer']) && !empty($input['offer']['type'])) {
+            if ($input['offer']['type'] == 'time' && !empty($input['offer']['time'])) {
+                $post->update([
+                    
+                ]);
+                $this->postService->saveOfferTime($post->id, $input['offer']['time']);
+            }
+            if ($input['offer']['type'] == 'goods' && !empty($input['offer']['value'])) {
+                $this->postService->saveOfferGoods($post->id, $input['offer']['value']);
+            }
+        }
+
+        $post->offers;
+        $post->hastags;
 
        return response()->json(json_decode($post), 201);
     }
@@ -203,6 +315,7 @@ class PostController extends Controller
         $post = Post::FindOrFail($id);
         $post->user;
         $post->likes;
+        $post->offers;
         return response()->json(json_decode($post), 200);
     }
 

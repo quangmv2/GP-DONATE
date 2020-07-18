@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Follow extends Model
+class PostHasOffer extends Model
 {
     protected $fillable = [
-        'user_id_from', 'user_id_to'
+        'post_id', 'type_offer', 'time', 'content'
     ];
 }

@@ -19,7 +19,7 @@ class CreateHastagTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('posts_has_hastags', function (Blueprint $table) {
+        Schema::create('post_has_hastags', function (Blueprint $table) {
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('hastag_id');
             $table->timestamps();
@@ -50,7 +50,7 @@ class CreateHastagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts_has_hastags');
+        Schema::dropIfExists('post_has_hastags');
         Schema::dropIfExists('hastags');
     }
 }

@@ -24,13 +24,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PermissionTableSeeder::class);
         $this->call(CodesTableSeeder::class);
-        // $this->call(OfferTableSeeder::class);
-        $code = Offer::create([
-            'offer_value' => 'time'
-        ]);
-        $code = Offer::create([
-            'offer_value' => 'goods'
-        ]);
 
         Hastag::create([
             'name' => 'post'
