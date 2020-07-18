@@ -24,8 +24,7 @@ class AppServiceProvider extends ServiceProvider
         UserService::class => UserService::class,
         FollowService::class => FollowService::class,
         AuthService::class => AuthService::class,
-    ]
-    ;
+    ];
     /**
      * Register any application services.
      *
