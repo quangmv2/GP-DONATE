@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 use App\Models\User;
+use App\Models\Offer;
+use App\Models\Hastag;
 use App\Models\Code;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -22,6 +24,38 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PermissionTableSeeder::class);
         $this->call(CodesTableSeeder::class);
+        // $this->call(OfferTableSeeder::class);
+        $code = Offer::create([
+            'offer_value' => 'time'
+        ]);
+        $code = Offer::create([
+            'offer_value' => 'goods'
+        ]);
+
+        Hastag::create([
+            'name' => 'post'
+        ]);
+
+        Hastag::create([
+            'name' => 'covid19'
+        ]);
+
+        Hastag::create([
+            'name' => 'vietnam'
+        ]);
+
+        Hastag::create([
+            'name' => '2020'
+        ]);
+
+        Hastag::create([
+            'name' => 'center'
+        ]);
+
+        Hastag::create([
+            'name' => 'country'
+        ]);
+
         $admin = User::create([
             'first_name' => 'admin',
             'last_name' => 'admin',
