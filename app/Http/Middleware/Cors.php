@@ -8,7 +8,7 @@ class Cors
 {
 
     protected $except = [
-        'api/posts/photo',
+        'api/photo',
     ];
     
     /**

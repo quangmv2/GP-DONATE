@@ -527,7 +527,7 @@ class PostController extends Controller
 
     /**
      * @SWG\Get(
-     *     path="api/posts/photo",
+     *     path="api/photo",
      *     tags={"Posts"},
      *     summary={"Tải về hình ảnh"},
      *     description="Tải về hình ảnh cho bài post",  
