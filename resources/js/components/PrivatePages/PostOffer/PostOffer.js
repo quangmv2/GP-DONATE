@@ -26,35 +26,6 @@ class PostOffer extends Component {
     };
     this.uploadSingleFile = this.uploadSingleFile.bind(this);
   }
-//   const onSubmit = async () => {
-//     console.log(userRole);
-//     const res = await fetchService.fetch(`${ROOT_API_URL}/api/user/me/update-role`, {
-//         method: "POST",
-//         body:  JSON.stringify({
-//             role: userRole                
-//         })
-//     }).then(([resp, status]) => {
-//             return {
-//                 data: resp,
-//                 status,
-//             };
-//         });
-//     const { data, status } = res;
-//     if ( status == 200) {
-//         if ( userRole ===  "giver" ) {
-//             props.history.push(ROUTE.INPUTCODE)
-//         }
-//         else {
-//             props.history.push(ROUTE.HOME)
-//         }
-//     } 
-//     else if ( status == 403  ) {
-//         openNotification(NOTIFICATION_TYPE.ERROR, "Failed", "Cannot change your role");
-//     }   
-//     else {
-//         openNotification(NOTIFICATION_TYPE.ERROR, "Failed", "Choose Role Failed");
-//     }
-// }
 
   
   uploadSingleFile = async (e) => {
