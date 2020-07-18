@@ -42,6 +42,7 @@ class CreateUsersTable extends Migration
             //     ->references('id')
             //     ->on('codes')
             //     ->onDelete('cascade');
+            
             $table->foreign('code_id')
                 ->references('code')
                 ->on('codes')

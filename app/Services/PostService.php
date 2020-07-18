@@ -7,6 +7,9 @@ use DB;
 use Hash;
 use Response;
 use App\Models\Post;
+use App\Models\Hastag;
+use App\Models\PostHasOffer;
+use App\Models\PostHasHastag;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -17,11 +20,14 @@ class PostService
     {
         $request->validate([
             'title' =>'required',
-            'content' =>'required',  
+            // 'content' =>'required',  
             'photo_thumbnail' => 'required',
             'full_photo' => 'required',
-            'due_day' => 'required|date'
-            // 'hashtags' =>'required',
+            'due_day' => 'required|date|date_format:"Y-m-d"|after:now',
+            'offer' => 'required',
+            'offer.type' => 'required|in:time,goods',
+            'offer.time' => 'array',
+            // 'offer.value' => 'string',
         ]);
     }
 
@@ -75,9 +81,39 @@ class PostService
         return $path;
     }
 
-    public function showImage()
+    public function saveOfferTime($id, $times)
     {
-        # code...
+        foreach ($times as $key => $time) {
+            PostHasOffer::create([
+                'post_id' => $id,
+                'type_offer' => 'time',
+                'time' => $time
+            ]);
+        }
+    }
+
+    public function saveOfferGoods($id, $content)
+    {
+        PostHasOffer::create([
+            'post_id' => $id,
+            'type_offer' => 'good',
+            'content' => $content
+        ]);
+    }
+
+    public function createAndAddHastag($id, $hastags)
+    {
+        foreach ($hastags as $key => $value) {
+            // return $value;
+            $hastag = Hastag::updateOrCreate([
+                'name' => $value,
+            ], []);
+            // return $hastag;
+            $posthas = PostHasHastag::create([
+                'post_id' => $id,
+                'hastag_id' => $hastag->id
+            ]);
+        }
     }
 
 }
