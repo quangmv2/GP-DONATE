@@ -186,6 +186,7 @@ class FetchService {
                 xhr.setRequestHeader(k, opts.headers[k]);
             xhr.onload = e => res(e.target.responseText);
             xhr.onerror = rej;
+            // xhr.withCredentials = true;
             if (xhr.upload && onProgress) xhr.upload.onprogress = onProgress; // event.loaded / event.total * 100 ; //event.lengthComputable
             xhr.send(opts.body);
         });

@@ -11,7 +11,7 @@ import moment from 'moment';
 import ButtonComponent from './Button';
 import { fetchService } from "../../../services/fetch/fetchService";
 import { Select } from 'antd';
-import { ROOT_API_URL, GET_IMAGE } from "../../../constants";
+import { ROOT_API_URL, GET_IMAGE, ACCESS_TOKEN } from "../../../constants";
 import { AutoComplete } from 'antd';
 const dateFormat = 'DD MMM YYYY';
 const { Option } = Select;
@@ -21,7 +21,7 @@ class PostOffer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hashtag: [],
+      hastag: [],
       file: null,
       typeOffer: '',
       timeSlotArray: [{}],
@@ -30,49 +30,55 @@ class PostOffer extends Component {
     this.uploadSingleFile = this.uploadSingleFile.bind(this);
 
   }
+
+  async componentDidMount() {
+    this.fetchHastag();
+  }
+
+  componentDidUpdate() {
+    console.log(this.state.typeOffer, this.state.timeSlotArray);
+  }
+
   Complete = () => (
-    <AutoComplete
-      onChange={this.fetchHashtag}
-      options={this.state.options}
-      filterOption={(inputValue, option) =>
-        option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-      }
-    />
+    <Select
+      mode="tags" style={{ width: '100%' }} placeholder="Hastags" onChange={(value) => {console.log(value)}}
+      options={this.state.hastag}
+    >
+    </Select>
   );
-  fetchHashtag = async () => {
-    const [options] = await fetchService.fetch(`${ROOT_API_URL}/api/hastag`, {
+  fetchHastag = async (search="") => {
+    const [options] = await fetchService.fetch(`${ROOT_API_URL}/api/hastag?q=${search}`, {
       method: 'GET'
     });
     this.setState({
-      hashtag: options
+      hastag: options
     })
-    console.log(this.state.hashtag);
   }
 
   uploadSingleFile = async (e) => {
     this.setState({
       file: URL.createObjectURL(e.target.files[0])
     })
-    console.log( e.target.files  )
-    const formData = new FormData();
-    formData.append('photo',  e.target.files[0]) 
-    const res = await fetchService.fetch(`${ROOT_API_URL}/api/posts/photo`, {
+    console.log(e.target.files[0])
+    var formData = new FormData();
+    formData.append("photo", e.target.files[0]);
+    const res = await fetchService.upload(`${ROOT_API_URL}/api/posts/photo`, false, {
       method: 'POST',
       body: formData,
       headers: {
-        "Content-Type": "multipart/form-data",
-        "Content-Length": e.target.files[0].length
+        "Authorization": `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+        "Accept": "application/json",
+        'Access-Control-Expose-Headers': 'Access-Control-Allow-Origin',
+        'Access-Control-Allow-Origin': '*',
       }
-    }).then(([resp, status]) => {
-      console.log(resp)
-      if (status === 200) {
+    }).then(data => {
+      const { image_directory } = JSON.parse(data);
+      if (image_directory) {
         this.setState({
-          image: resp.image_directory
-        })
+          image: image_directory
+        });
       }
-
     });
-    console.log(status);
   }
 
 
@@ -157,8 +163,11 @@ class PostOffer extends Component {
     return typeOfOffer;
   };
 
+
   render() {
-    let imgPreview = <div className='imgPrew-container'><img src={GET_IMAGE(this.state.image)} alt='' className='imgPreview' /></div>
+    let imgPreview = <div className='imgPrew-container'><img src={GET_IMAGE(this.state.image)} alt='' className='imgPreview' /></div>;
+    console.log('image', this.state.image);
+
     return (
       <div className='private-fullheight'>
         <div className='container'>
@@ -166,8 +175,8 @@ class PostOffer extends Component {
           <Grid container className='post-image-container'>
             <Grid item xs={5} style={{ paddingRight: '25px' }}>
               {this.state.image ? imgPreview : (<div className='prev-image-container'>
-                <label for="upload"><PhotoCameraIcon style={{ fontSize: '37px' }} /></label>
-                <input id="upload" type="file" style={{ visibility: 'hidden' }} onChange={this.uploadSingleFile} />
+                <label htmlFor="upload"><PhotoCameraIcon style={{ fontSize: '37px' }} /></label>
+                <input id="upload" type="file" name="photo" style={{ visibility: 'hidden' }} onChange={this.uploadSingleFile} />
               </div>)}
 
             </Grid>

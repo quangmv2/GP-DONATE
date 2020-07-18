@@ -29,7 +29,7 @@ class PostController extends Controller
         $this->commonService = $commonService;
 
         // $this->middleware('cors', ['except' => ['showPhoto']]);
-        $this->middleware('auth:api', ['except' => ['showPhoto']]);
+        $this->middleware('auth:api', ['except' => ['showPhoto', 'storePhoto']]);
 
         // $this->middleware('permission:post-list|post-list-all|post-edit|post-delete', ['only' => ['index']]);
         // $this->middleware('permission:post-create', ['only' => ['store']]);
