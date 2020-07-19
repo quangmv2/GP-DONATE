@@ -8,7 +8,7 @@ import {
     selectErrors,
     selectLoading
 } from "modules/auth/selectors";
-import { HeaderNavigation } from "components/Atoms";
+import { HeaderNavigation, SearchInput } from "components/Atoms";
 import "./Search.scss";
 import Posts from "../../Molecules/Post";
 import { Tabs } from "antd";
@@ -59,10 +59,7 @@ export class Search extends Component {
             <div className="private-fullheight">
                 <div className="container">
                     <HeaderNavigation headerName="Search" />
-                    <div className="search-container">
-                        <input type="text" placeholder="Search" />
-                        <button className="icon-search-normal icon-search"></button>
-                    </div>
+                    <SearchInput />
 
                     <div className="ant-tabs-container custom-tabs">
                         <Tabs defaultActiveKey="0">

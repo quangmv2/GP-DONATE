@@ -1,3 +1,11 @@
+.icon-left {
+    margin-right: 10px;
+    font-size: 20px;
+
+    &.icon-account-normal{
+        font-size: 16px;
+    }
+}
 .info-box {
     font-size: 18px;
     color: #999999;
@@ -15,6 +23,12 @@
         height: 1px;
         background: #cdcdcd;
         left: 60px;
+    }
+
+    .link-center{
+        > div{
+            display: flex;
+        }
     }
 }
 .icon {
@@ -45,4 +59,8 @@
     color: #999999;
     font-size: 18px;
     padding-right: 40px;
+
+    > div{
+        display: flex;
+    }
 }
