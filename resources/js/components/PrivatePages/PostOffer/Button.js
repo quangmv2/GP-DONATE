@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import './PostOffer.scss';
 
 const Button = props => {
-    const [color, setColor] = useState(true);
-    const onChangeDay = () => {
-        event.preventDefault();
-        setColor(!color);
-    }
+  
 
     return (
-    <button onClick={onChangeDay} className={color ? 'button-trans' : 'button-choosen'}>{props.name}</button>
+        <div onClick={() => {props.onChangeWeekdays(props.index, props.inputId, props.name)}}>
+            <input type="checkbox" value={props.name}
+                className='hiddenInput'
+            />
+            <label htmlFor={props.forId}> <p className={props.active ? 'checkedLabel' : 'uncheckedLabel'}>{props.label}</p></label>
+        </div>
     )
+
 };
 export default Button;
