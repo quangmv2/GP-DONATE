@@ -75,7 +75,7 @@ const PostItem = (props) => {
                                     src={GET_IMAGE(props.user.personal_photo)}
                                     className="giver-avatar"
                                 /> :
-                                    <UserAvatar size="50" name={`${props.user.first_name}`} />
+                                    <UserAvatar size="42" name={`${props.user.first_name}`} />
                             }
                         </Link>
                         <div className="info-user">
@@ -152,10 +152,8 @@ const PostItem = (props) => {
                         </div>
                         <div className="raise-a-voice-container">
                             <ButtonAnt>
-                                <span>
-                                    Raise a voice
-                                                        </span>
-                                <ChatBubbleIcon className="commentIcon" />
+                                <span>Raise a voice</span>
+                                <i class="icon-social icon-comment-active"></i>
                             </ButtonAnt>
                         </div>
                     </Grid>
@@ -167,40 +165,19 @@ const PostItem = (props) => {
                         <div className="social-action-wrapper">
                             <div>
                                 <ButtonAnt className="button-action">
-                                    <ShareIcon
-                                        style={{
-                                            color:
-                                                "white",
-                                            fontSize:
-                                                "29px"
-                                        }}
-                                    />
+                                   <i className="icon-social icon-share" />
                                 </ButtonAnt>
                             </div>
                             <div className="action">
                                 <ButtonAnt className="button-action">
-                                    <ChatBubbleIcon
-                                        style={{
-                                            color:
-                                                "white",
-                                            fontSize:
-                                                "29px"
-                                        }}
-                                    />
-                                    <p>{comments.length}</p>
+                                    <i className="icon-social icon-comment-active" />
+                                    <span>{comments.length}</span>
                                 </ButtonAnt>
                             </div>
                             <div className="action">
                                 <ButtonAnt className="button-action">
-                                    <FavoriteIcon
-                                        style={{
-                                            color:
-                                                "white",
-                                            fontSize:
-                                                "29px"
-                                        }}
-                                    />
-                                    <p>{props.likes.length}</p>
+                                    <i className="icon-social icon-like-active" />
+                                    <span>{props.likes.length}</span>
                                 </ButtonAnt>
                             </div>
                         </div>

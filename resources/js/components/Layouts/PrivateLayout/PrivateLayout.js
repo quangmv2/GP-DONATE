@@ -48,11 +48,7 @@ class PrivateLayout extends Component {
             fetchService.addTokenHeader({ access_token: accesstoken });
             verifyTokenFnc(accesstoken, refreshToken);    
         }
-        // if ( userInfo.roles.length() <1 ){
-        //     this.props.history.push(ROUTE.CHOOSEROLE);
-        //     console.log('choosed');
 
-        // }
         else {
             this.redirectLogin();
         }

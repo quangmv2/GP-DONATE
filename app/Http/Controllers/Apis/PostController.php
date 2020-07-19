@@ -102,6 +102,7 @@ class PostController extends Controller
         foreach ($posts as $key => $post) {
             $post->user;
             $post->likes;
+            $post->hastags;
             $post["comments"] = $post->comments;
             foreach ($post["comments"] as $key => $comment) {
                 $comment->user;
@@ -527,7 +528,7 @@ class PostController extends Controller
 
     /**
      * @SWG\Get(
-     *     path="api/posts/photo",
+     *     path="api/photo",
      *     tags={"Posts"},
      *     summary={"Tải về hình ảnh"},
      *     description="Tải về hình ảnh cho bài post",  
