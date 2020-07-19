@@ -21,7 +21,8 @@ const reducer = (state = initialState, action) => {
       if (payload.page === 1) {
         return state
         .set('loading', true)
-        .set('posts', []);
+        .set('posts', [])
+        .set('page', 0);
       }
       return state
         .set('loading', true)
