@@ -54,7 +54,7 @@ const ProfileSetting = (props) => {
                     <div className="list-box">
                         <LinkItem
                             className="text-box link-center"
-                            url={"#"}
+                            url={"/post-like"}
                             icon={<i className="icon-left icon-like-normal" />}
                             title="Project you have liked"
                             arrow={<i className="icon-next" />}

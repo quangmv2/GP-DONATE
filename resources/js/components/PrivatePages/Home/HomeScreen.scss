@@ -36,9 +36,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-top: 17px;
-  padding-left: 16px;
-  padding-right: 26px;
+  padding: 30px 15px 17px;
 }
 .navbar-giver-home-container {
   display: flex;
@@ -46,7 +44,7 @@
   > .info-user {
     text-shadow: 0 2px 6px rgba(18, 16, 60, 0.45);
     font-family: Muli;
-    font-size: 18px;
+    font-size: 1.2em;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
@@ -73,7 +71,7 @@
 .title-post {
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   font-family: Muli;
-  font-size: 22px;
+  font-size: 1.5em;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -84,7 +82,7 @@
 .home-text {
   text-shadow: 0 2px 6px rgba(18, 16, 60, 0.45);
   font-family: Muli;
-  font-size: 17px;
+  font-size: 1em;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -93,7 +91,7 @@
   color: #ffffff;
   padding-left: 5.8px;
   span {
-    font-size: 17px;
+    font-size: 1em;
   }
 }
 .action-container {
@@ -108,7 +106,7 @@
   display: flex;
   text-shadow: 0 2px 6px rgba(18, 16, 60, 0.45);
   font-family: Muli-Regular;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -129,14 +127,14 @@
     display: flex;
     color: #fff;
     align-items: center;
-    font-size: 16px;
+    font-size: 1em;
     &:hover,
     &:focus {
       background: transparent;
     }
 
     svg {
-      font-size: 18px;
+      font-size: 1em;
       margin: 0 12px;
     }
   }
@@ -189,7 +187,7 @@
   // overflow-y: auto;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   font-family: Muli;
-  font-size: 15px;
+  font-size: 1em;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -208,7 +206,7 @@
 }
 .action {
   font-family: Muli;
-  font-size: 18px;
+  font-size: 1.2em;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -235,12 +233,24 @@
       padding: 0px;
       border: 0px;
       color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: auto;
 
       &:hover,
       &:focus {
         background: transparent;
         color: #fff;
       }
+
+      > span{
+        line-height: 10px;
+      }
+    }
+
+    .icon-social{
+      font-size: 2.5rem;
     }
   }
 }
