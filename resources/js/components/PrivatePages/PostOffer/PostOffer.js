@@ -25,12 +25,14 @@ class PostOffer extends Component {
       file: null,
       typeOffer: '',
       timeSlotArray: [{}],
-      image: null
-    };
+      image: null,
+      content: '',
+      dueDate: '',
+      materials: '',
+      weekdays: []
+     };
     this.uploadSingleFile = this.uploadSingleFile.bind(this);
-
   }
-
   async componentDidMount() {
     this.fetchHastag();
   }
@@ -38,6 +40,12 @@ class PostOffer extends Component {
   componentDidUpdate() {
     console.log(this.state.typeOffer, this.state.timeSlotArray);
   }
+  onChangeWeekdays = (e) => {
+    this.setState({
+      weekdays: e.target.value
+    });
+    console.log(this.state.weekdays);
+ }
 
   Complete = () => (
     <Select
@@ -47,14 +55,31 @@ class PostOffer extends Component {
     </Select>
   );
   fetchHastag = async (search="") => {
-    const [options] = await fetchService.fetch(`${ROOT_API_URL}/api/hastag?q=${search}`, {
+    const [options] =  await fetchService.fetch(`${ROOT_API_URL}/api/hastag?q=${search}`, {
       method: 'GET'
     });
     this.setState({
       hastag: options
     })
   }
-
+  
+  inputMaterials = (e) => {
+    this.setState({
+      materials: e.target.value
+    });
+    console.log(this.state.materials)
+  }
+  inputContent = (e) => {
+    this.setState({
+      content: e.target.value
+    });
+    console.log(this.state.content)
+  };
+  onDueDate = (value, dateString) => {
+   this.setState({
+     dueDate: dateString
+   });
+  }
   uploadSingleFile = async (e) => {
     this.setState({
       file: URL.createObjectURL(e.target.files[0])
@@ -80,7 +105,9 @@ class PostOffer extends Component {
       }
     });
   }
-
+onRangeTime = (value, dateString) => {
+  console.log(dateString);
+}
 
   onChangeValue = (value) => {
     this.setState({ typeOffer: value });
@@ -97,7 +124,9 @@ class PostOffer extends Component {
     timeSlotArray.splice(index, 1);
     this.setState({ timeSlotArray });
   };
-
+  onOk(value) {
+    console.log('onOk: ', value);
+  }
   renderInputDate = () => {
     const { typeOffer, timeSlotArray } = this.state;
     let typeOfOffer = <div></div>;
@@ -122,17 +151,19 @@ class PostOffer extends Component {
                     ]}
                     format='HH:mm'
                     showTime={{ format: 'HH:mm' }}
+                    onChange={this.onRangeTime}
+                    onOk={this.onOk}
                   />
                   <span className='icon-arrow-next range-picker-icon'></span>
                 </div>
                 <div className='weekdays-container'>
-                  <ButtonComponent key={1} name='S' />
-                  <ButtonComponent key={2} name='M' />
-                  <ButtonComponent key={3} name='T' />
-                  <ButtonComponent key={4} name='W' />
-                  <ButtonComponent key={5} name='T' />
-                  <ButtonComponent key={6} name='F' />
-                  <ButtonComponent key={7} name='S' />
+                  <ButtonComponent onChangeWeekdays={this.onChangeWeekdays} inputId='sunday' key={1} forId='sunday' label='S' name='sunday'/>
+                  <ButtonComponent  onChangeWeekdays={this.onChangeWeekdays} inputId='monday' key={2} forId='monday' label='M' name='monday'/>
+                  <ButtonComponent  onChangeWeekdays={this.onChangeWeekdays} inputId='tuesday' key={3} forId='tuesday' label='T' name='tuesday'/>
+                  <ButtonComponent  onChangeWeekdays={this.onChangeWeekdays} inputId='wednesday' key={4} forId='wednesday' label='W' name='wednesday'/>
+                  <ButtonComponent  onChangeWeekdays={this.onChangeWeekdays} inputId='thursday' key={5} forId='thursday' label='T' name='thursday'/>
+                  <ButtonComponent  onChangeWeekdays={this.onChangeWeekdays} inputId='friday' key={6} forId='friday' label='F' name='friday'/>
+                  <ButtonComponent  onChangeWeekdays={this.onChangeWeekdays}  inputId='saturday' key={7} forId='saturday' label='S' name='saturday'/>
                 </div>
                 <div
                   className='minus-icon-container'
@@ -152,22 +183,25 @@ class PostOffer extends Component {
           spacing={1}
           alignItems='flex-end'
           className='form-control'
+
         >
           <Grid item className='item-flex input-post-offer'>
-            <TextField label='Construction Materials' name='goods' />
+            <TextField 
+            onChange={this.inputMaterials}
+            value={this.state.materials}
+            label='Construction Materials' name='goods' />
           </Grid>
         </Grid>
       );
     }
 
-    return typeOfOffer;
+    return typeOfOffer; 
   };
 
 
   render() {
     let imgPreview = <div className='imgPrew-container'><img src={GET_IMAGE(this.state.image)} alt='' className='imgPreview' /></div>;
     console.log('image', this.state.image);
-
     return (
       <div className='private-fullheight'>
         <div className='container'>
@@ -181,7 +215,10 @@ class PostOffer extends Component {
 
             </Grid>
             <Grid item xs={7}>
-              <textarea placeholder='This is content...' />
+              <textarea 
+              onChange={this.inputContent}
+              value={this.state.content}
+              placeholder='This is content...' />
             </Grid>
           </Grid>
 
@@ -233,6 +270,7 @@ class PostOffer extends Component {
                       <DatePicker
                         defaultValue={moment('19/01/2020', dateFormat)}
                         format={dateFormat}
+                        onChange={this.onDueDate}
                       />
                     </div>
                   </Grid>
