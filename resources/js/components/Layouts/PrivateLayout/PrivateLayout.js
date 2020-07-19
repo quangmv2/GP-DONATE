@@ -48,11 +48,7 @@ class PrivateLayout extends Component {
             fetchService.addTokenHeader({ access_token: accesstoken });
             verifyTokenFnc(accesstoken, refreshToken);    
         }
-        // if ( userInfo.roles.length() <1 ){
-        //     this.props.history.push(ROUTE.CHOOSEROLE);
-        //     console.log('choosed');
 
-        // }
         else {
             this.redirectLogin();
         }
@@ -70,7 +66,8 @@ class PrivateLayout extends Component {
             if (!logout) localStorage.setItem(URL_REDIRECT_LOGIN, location.pathname);
             this.redirectLogin();
         }
-        if ( userInfo && userInfo.roles.length < 1) {
+        console.log(userInfo);
+        if ( userInfo && userInfo.roles && userInfo.roles.length < 1) {
             this.props.history.push(ROUTE.CHOOSEROLE);
         }
     }

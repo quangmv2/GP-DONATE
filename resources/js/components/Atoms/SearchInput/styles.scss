@@ -1,0 +1,19 @@
+.search-container {
+    border-bottom: 1px solid #cdcdcd;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-bottom-color: #cdcdcd;
+    border-width: 1px;
+    height: 60px;
+    width: 100%;
+    max-width: 786px;
+    padding-right: 20px;
+    > input {
+        padding-left: 20px;
+        width: 100%;
+        border: none;
+        background-color: transparent;
+    }
+}

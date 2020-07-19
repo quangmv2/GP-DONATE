@@ -1,5 +1,6 @@
 import React from "react";
-import { HeaderNavigation } from "components/Atoms";
+
+import { HeaderNavigation, SearchInput } from "components/Atoms";
 import "./Activities.scss";
 import BottomNavigator from "../../../Molecules/BottomNav/BottomNavigator";
 import { Tabs } from "antd";
@@ -16,18 +17,10 @@ const ActivitesScreen = () => {
             <div className="container">
                 <HeaderNavigation headerName="Activities">
                     <button className="button-trans">
-                        <img src={"./images/icon/more.svg"} />
+                        <i className="icon-more icon-top"  />
                     </button>
                 </HeaderNavigation>
-                <div className="search-container">
-                    <input
-                        type="text"
-                        placeholder="Search by keyword, hashtag..."
-                    />
-                    <button className="button-trans search-icon">
-                        <img src={"./images/icon/search-normal.svg"} />
-                    </button>
-                </div>
+                <SearchInput />
                 <div className="ant-tabs-container custom-tabs">
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Messages" key="1">
