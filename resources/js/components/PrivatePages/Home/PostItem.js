@@ -6,7 +6,7 @@ import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import Grid from "@material-ui/core/Grid";
 import { ButtonAnt } from "components/Atoms";
 import { fetchService } from "services";
-
+import Modal from './ModalComment';
 import "swiper/swiper.scss";
 import "./HomeScreen.scss";
 import { ROOT_API_URL, GET_IMAGE, GET_COMMENT } from "../../../constants/routes";
@@ -17,7 +17,6 @@ import { SocketContext } from "../../../context/SocketProvider";
 import moment from "moment";
 
 const PostItem = (props) => {
-
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState(props.likes);
     const { socket } = useContext(SocketContext);
@@ -57,6 +56,8 @@ const PostItem = (props) => {
             })
         })
     });
+
+    
 
     const fetchComments = useCallback(async (id) => {
         try {
@@ -98,7 +99,7 @@ const PostItem = (props) => {
         console.log(times);
     }
     return (
-        <div className="container">
+       <div className="container">
             <div className="image-background-div">
                 <img className="image-background" src={GET_IMAGE(props.photo_thumbnail)} alt={props.title} />
             </div>
@@ -188,7 +189,7 @@ const PostItem = (props) => {
                             }
                         </div>
                         <div className="raise-a-voice-container">
-                            <ButtonAnt>
+                            <ButtonAnt onClick={props.open}>
                                 <span>Raise a voice</span>
                                 <i className="icon-social icon-comment-active"></i>
                             </ButtonAnt>

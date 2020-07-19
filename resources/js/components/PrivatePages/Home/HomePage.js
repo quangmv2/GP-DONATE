@@ -4,9 +4,8 @@ import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import Modal from './ModalComment';
 // Import Swiper styles
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
@@ -39,7 +38,7 @@ import { withRouter } from "react-router-dom";
 
 
 const HomePage = (props) => {
-    
+    const [show, setShow] = useState(false); 
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
@@ -60,9 +59,19 @@ const HomePage = (props) => {
     }
 
     const { posts } = props;
-
+    const showModal = () => {
+        setShow(true);
+    };
+    const hideModal = () => {
+        setShow(false);
+    }
     return (
-        <div 
+      <> { show ?   <Modal
+        className="modal"
+        show={show}
+      close={hideModal}
+        >
+    </Modal> : <div 
             style={{
                 // backgroundImage: "url('https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb')",
                 // backgroundRepeat: "no-repeat",
@@ -83,13 +92,14 @@ const HomePage = (props) => {
                 {
                     posts.map(post => 
                         <SwiperSlide key={`post ${post.id} ${post.title}`}>
-                            <PostItem {...post} />    
+                            <PostItem {...post} open={showModal}/>    
                         </SwiperSlide>
                     )
                 }
             </Swiper>   
             <BottomNavigator />
-        </div>
+        </div>}
+        </>
     );  
 }
 

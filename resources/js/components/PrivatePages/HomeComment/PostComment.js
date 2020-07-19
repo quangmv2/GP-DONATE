@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import { SocketContext } from "../../../context/SocketProvider";
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en';
-
+import CloseIcon from '@material-ui/icons/Close';
 const id_post = 1;
 const tokenGV = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMTA1NTFhNDM5ZGUwNDBiMDA5OWM2YTU0N2RhMjhkZWUwNmQ0NjY5YzQ2OTMwYzljZDcwMjIyODQwMjAyMzdlODFkOTY2NjlmNGZhZDllZDYiLCJpYXQiOjE1OTQwOTMwMjQsIm5iZiI6MTU5NDA5MzAyNCwiZXhwIjoxNTk0MzUyMjI0LCJzdWIiOiIyIiwic2NvcGVzIjpbIioiXX0.v50S4LF__rJ2aEaFF9izgaHCR4cWIhklTw32hsMSEP8LymbVhRbDjbzjTsOMjgwR2b9utuCoQrH_JWbri-MF5CPq1g9zC1FzCvCcGCAqDVR0-zYN3K5nIYKWpEU50sbf2duZxoZDMftkIu9ijgPCk3i70qXOI5VNY-DARA-lUk7wX2C8BiHGSTuVcMIV3N3IdEjzQR45VYsgEVvdwsGmwkS6bEbejCJwEAaMFrKYEjUNbrq45VtjTDT9q29LxAXcJ5WCXSyD07zvbCfoYUjCCHAaTL17m5w8S1vx_pF4BKeLJsbnORMFM0KHjgKsD1NfEXVolM_RFKK9wVAC-qaFFc2r9aemvleE5a2pYifd9DdeC-8iMaUCh359tZWwBWmDftv578jUapxyCfk9ivAd7UU25FCa4cxUcIeJV5lyNeUI5bJDEoseI6Gk_Ze0eCcmDVOORPZvlZ_VR11b3X-rDeYW1gnNYXYSeE-CKokAobeypQNMlYs4JwYGXytqFmkOTYCqpFt42fEp_HjCr1AU3Wh17DEcJ-mznbOiFp5atBHcUagyRqd4mLvM1SyLUbt1gWZmtxgV-OePIVAL4Rbu0cmNhiihTm5qEb8poCC93PLbXEUxiE8RdkGbZeq0e4XKF5XjV3FUQecMCJ1vh5mAUwOzdt8Y7fzK-okSqYekm3w';
 const tokenAD = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNTc5NDdkMTJiZWViN2FlYWZhYWRiNTEyOTczMDgzMWJlZGUyYjFmZmM5YjJmMGQyODQ2NjIwZWQ0NTU4MDc1Nzg4NDk3MjM0ZDQ1ZDUyZjAiLCJpYXQiOjE1OTQxMTE2NTQsIm5iZiI6MTU5NDExMTY1NCwiZXhwIjoxNTk0MzcwODU0LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.jtRTsPCSdNTXcL3JphnsILlpNgku1QEjypsvt-m5u_UMbXeTiVllK1j6xWCuqKDhu_L3a4zRAZRv9nI3aZTzTPiTxpLeZiJVPVynU-FpJdFQGulRt81CRFK__W1gBci3Teob4c_zVGeBxztElen9eJyYGZriThZze1RmX-oDAgghGrMjyorKVcdDRY4s9DKiWCO_zmDLb_cuM3fmHi626gZlGfAWN0fSm2wCvd7269DWXWRU53LCSt35qUIfeHCzDH1DHi3nBgjW9D7KrL1IvUwwpX5RLdH0bTmIaFWVFGIBqczuBa4pGaP3VwaPcbiIeExHnDHyBLZWtmOypPMJ1eRgmAfURa8XktYUQYrVtZ7X215kPD3n86DUiZwCldjWFBMqGHLHC4QDEXKhRhki_BA0PQesIyc-oTiSSJOR7iTL93qXVQrAB6WwhCV-bbJZmdHS2ujYSDKqlBQLcBqUWneTdUQQeKdj2tYlHYJDtxbFi861fHE1mQB_ODMXmx6YdF8ImUGG7SrUg2GzM64UXy-sUIvBfhzSAJnPMkaGoFGxJ8FOyVcmsgZS5WE5LptkQ5SRhhH70dUbFfH6QPjpWAuK2brWlSBQVbZ5hz_hKwtWncp13gYGkGGQam5UWjxA5wuXOY8C6MZH03NVmrpN82qeb8Xe4vSrLBmDj9Kw9fc';
@@ -21,7 +21,7 @@ TimeAgo.addLocale(en)
 const timeAgo = new TimeAgo('en-US')
 const UTC = ((new Date()).getUTCDate() - 2)*60*60*1000;
 
-const PostComment = () => {
+const PostComment = (props) => {
     const [data, setData] = useState(null);
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
@@ -142,8 +142,8 @@ const PostComment = () => {
         <div className="private-fullheight">
             <div className="container">
                 <HeaderNavigation headerName={data?data.title:'Loading...'}>
-                    <button className='button-trans'>
-                        <MoreVertIcon />
+                    <button className='button-trans' onClick={props.onCloseModal}>
+                        <CloseIcon />
                     </button>
                 </HeaderNavigation>
                 <div className='content-container post-info-container'>
