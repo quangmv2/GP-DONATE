@@ -8,21 +8,21 @@ const MessagesComponent = () => {
         return _.map(messData, ({ username, content }) => {
             return (
                 <>
-                <Link className='message-preview-container' >
-                    <div className='message-component-container'>
-                    <img
-                        src={"./images/avatar/_0008_Alina Baikova.jpg"}
-                        className="mess-avatar"
-                    />
-                    <div className="info-user mess-content-container">
-                        <p className='username'>{username}</p>
-                        <p className='mess-content'>{content}</p>
-                    </div>
-                    </div>
-                    <p className='mess-hours-ago'>3 hours ago </p>
-           
-                </Link>
-                <hr className='mess-border-bottom'/>
+                    <Link className='message-preview-container' >
+                        <div className='message-component-container'>
+                        <img
+                            src={"./images/avatar/_0008_Alina Baikova.jpg"}
+                            className="mess-avatar"
+                        />
+                        <div className="info-user mess-content-container">
+                            <p className='username'>{username}</p>
+                            <p className='mess-content'>{content}</p>
+                        </div>
+                        </div>
+                        <p className='mess-hours-ago'>3 hours ago </p>
+            
+                    </Link>
+                    <hr className='mess-border-bottom'/>
                 </>
 
             );

@@ -1,33 +1,10 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import { compose } from "redux";
 import { createStructuredSelector } from "reselect";
-import injectReducer from "core/reducer/inject-reducer";
-import injectSaga from "core/saga/inject-saga";
-import reducer from "modules/auth/reducers";
-import saga from "modules/auth/sagas";
-import { FEATURE_NAME_AUTH } from "modules/auth/constants";
-import { URL_REDIRECT_LOGIN, ROUTE, PUBLIC_ROUTE } from "constants";
 import { postLogout } from "modules/auth/actions";
-import {
-    selectErrors,
-    selectLoading
-} from "modules/auth/selectors";
 import { HeaderNavigation, LinkItem } from "components/Atoms";
 import "./ProfileSetting.scss";
-import {
-    UserOutlined,
-    RightOutlined,
-    HeartOutlined,
-    LockOutlined,
-    ShareAltOutlined,
-    BellOutlined,
-    SendOutlined,
-    QuestionCircleOutlined,
-    LogoutOutlined
-} from "@ant-design/icons";
 
 const ProfileSetting = (props) => {
    
