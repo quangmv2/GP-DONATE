@@ -3,13 +3,9 @@ import { Link } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
-import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import Grid from "@material-ui/core/Grid";
-import ShareIcon from "@material-ui/icons/Share";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import { ButtonAnt } from "components/Atoms";
 import { fetchService } from "services";
-import axios from "axios";
 
 import "swiper/swiper.scss";
 import "./HomeScreen.scss";
@@ -23,7 +19,7 @@ const linkImage = 'uploads/images/posts/1594885437_03oSmzkC2SFhtWcPHlpwaIn-35.fi
 
 const PostItem = (props) => {
 
-    const [comments, setComments] = useState(props.comments);
+    const [comments, setComments] = useState([]);
     const { socket } = useContext(SocketContext);
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
@@ -38,16 +34,17 @@ const PostItem = (props) => {
     }, [comments])
 
     const fetchFirstData = useCallback(async () => {
-        console.log(1);
+        fetchComments();
         socket.emit('watch-post', {id: props.id});
         socket.on(`new-comment`, data => {
-            console.log(data);
-            setComments(cmts => {
-                if (cmts.find(({id}) => id === data.id)) return cmts;
-                const newCmts = [...cmts];
-                newCmts.push(data);
-                return newCmts;
-            })
+            if (data.post_id === props.id) {
+                setComments(cmts => {
+                    if (cmts.find(({id}) => id === data.id)) return cmts;
+                    const newCmts = [...cmts];
+                    newCmts.push(data);
+                    return newCmts;
+                })
+            }
         });
         socket.on('delete-comment', data => {
             console.log(data);
@@ -59,6 +56,22 @@ const PostItem = (props) => {
                 });
             })
         })
+    });
+
+    const fetchComments = useCallback(async (id) => {
+        try {
+            const [comments, status] = await fetchService.fetch(`${ROOT_API_URL}/api/posts/${props.id}/comments`, {
+                method: "GET"
+            });
+            console.log(comments);
+            if (status === 200) {
+                setComments(comments);
+                return comments;
+            }
+        } catch (error) {
+            console.log(err);
+            
+        }
     })
 
     return (
@@ -153,7 +166,7 @@ const PostItem = (props) => {
                         <div className="raise-a-voice-container">
                             <ButtonAnt>
                                 <span>Raise a voice</span>
-                                <i class="icon-social icon-comment-active"></i>
+                                <i className="icon-social icon-comment-active"></i>
                             </ButtonAnt>
                         </div>
                     </Grid>
@@ -188,4 +201,4 @@ const PostItem = (props) => {
     )
 }
 
-export default (PostItem);
+export default memo(PostItem);

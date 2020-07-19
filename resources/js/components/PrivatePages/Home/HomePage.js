@@ -46,7 +46,7 @@ const HomePage = (props) => {
 
     const handleLoadMore = () => {
         const { posts } = props;
-        if (posts.length - index < 3 ) {
+        if (posts.length - index < 2 ) {
             const { fetchMore, page } = props;
             fetchMore(page + 1);
         }
@@ -63,10 +63,7 @@ const HomePage = (props) => {
             }}
         >
             <Swiper
-                // spaceBetween={812}
-                // slidesPerView={3}
-                // navigation
-                // loop={true}
+            
                 direction="vertical"
                 // pagination={{ clickable: true }}
                 // scrollbar={{ draggable: true }}
@@ -78,7 +75,7 @@ const HomePage = (props) => {
 
                 {
                     posts.map(post => 
-                        <SwiperSlide key={`post ${post.id} ${Date.now()}`}>
+                        <SwiperSlide key={`post ${post.id} ${post.title}`}>
                             <PostItem {...post} />    
                         </SwiperSlide>
                     )

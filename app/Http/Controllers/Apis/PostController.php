@@ -102,10 +102,6 @@ class PostController extends Controller
         foreach ($posts as $key => $post) {
             $post->user;
             $post->likes;
-            $post["comments"] = $post->comments;
-            foreach ($post["comments"] as $key => $comment) {
-                $comment->user;
-            }
         }     
         return $posts;
     }

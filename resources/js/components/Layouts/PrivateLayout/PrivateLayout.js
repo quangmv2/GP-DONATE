@@ -129,4 +129,4 @@ export default compose(
     withReducer,
     withSaga,
     // withRouter
-)(connect(mapStateToProps, mapDispatchToProps)(memo(PrivateLayout)));
+)(connect(mapStateToProps, mapDispatchToProps)((PrivateLayout)));
