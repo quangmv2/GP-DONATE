@@ -15,11 +15,10 @@ import UserAvatar from "react-user-avatar";
 import CommentItem from "./CommentItem";
 import { SocketContext } from "../../../context/SocketProvider";
 
-const linkImage = 'uploads/images/posts/1594885437_03oSmzkC2SFhtWcPHlpwaIn-35.fit_scale.size_2698x1517.v1569486010.png'
-
 const PostItem = (props) => {
 
     const [comments, setComments] = useState([]);
+    const [likes, setLikes] = useState(props.likes);
     const { socket } = useContext(SocketContext);
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
@@ -35,11 +34,11 @@ const PostItem = (props) => {
 
     const fetchFirstData = useCallback(async () => {
         fetchComments();
-        socket.emit('watch-post', {id: props.id});
+        socket.emit('watch-post', { id: props.id });
         socket.on(`new-comment`, data => {
             if (data.post_id === props.id) {
                 setComments(cmts => {
-                    if (cmts.find(({id}) => id === data.id)) return cmts;
+                    if (cmts.find(({ id }) => id === data.id)) return cmts;
                     const newCmts = [...cmts];
                     newCmts.push(data);
                     return newCmts;
@@ -50,7 +49,7 @@ const PostItem = (props) => {
             console.log(data);
             setComments(cmts => {
                 const newCmts = [...cmts];
-                return newCmts.filter(({id}) => {
+                return newCmts.filter(({ id }) => {
                     console.log(id !== data.id);
                     return id !== data.id;
                 });
@@ -70,7 +69,7 @@ const PostItem = (props) => {
             }
         } catch (error) {
             console.log(err);
-            
+
         }
     })
 
@@ -112,9 +111,11 @@ const PostItem = (props) => {
                 </div>
                 <div className="home-content">
                     <p className="title-post">{props.title}</p>
-                    <p className="home-text hashtags">
-                        #endregion #....
-                                            </p>
+                    <p className="home-text hastags">
+                        { `#${props.hastags.map(hastag=>hastag.value).join(' #')}`}
+                    </p>
+
+
                     <div className="home-time-content time-container">
                         <div className="home-time-content ">
                             <AccessTimeIcon
@@ -178,7 +179,7 @@ const PostItem = (props) => {
                         <div className="social-action-wrapper">
                             <div>
                                 <ButtonAnt className="button-action">
-                                   <i className="icon-social icon-share" />
+                                    <i className="icon-social icon-share" />
                                 </ButtonAnt>
                             </div>
                             <div className="action">
