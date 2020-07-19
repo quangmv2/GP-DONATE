@@ -122,8 +122,10 @@ const PostItem = (props) => {
                             </p>
 
                             <p className="hours-ago">
-                                4 hours a go
-                                                    </p>
+                                {
+                                    moment(props.created_at).add((new Date()).getUTCDate()-12, 'hours').fromNow()
+                                }
+                            </p>
                         </div>
                     </div>
                     <MailOutlineIcon
