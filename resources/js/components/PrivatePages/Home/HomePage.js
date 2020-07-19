@@ -28,7 +28,14 @@ import {
     selectPost
 } from "modules/post/selectors";
 import { getPosts } from "modules/post/actions";
-import { LIMIT_POST } from "../../../modules/post/constants";
+import { LIMIT_POST, FEATURE_NAME_POST } from "../../../modules/post/constants";
+import saga from "modules/post/sagas";
+import reducer from "modules/post/reducers";
+import injectReducer from "core/reducer/inject-reducer";
+import injectSaga from "core/saga/inject-saga";
+import { compose } from "recompose";
+import { withRouter } from "react-router-dom";
+
 
 
 const HomePage = (props) => {
@@ -37,7 +44,7 @@ const HomePage = (props) => {
 
     useEffect(() => {
         const { fetchMore, page } = props;
-        fetchMore(page + 1);
+        fetchMore(1);
     }, []);
 
     useEffect(() => {
@@ -97,4 +104,15 @@ const mapStateToProps = createStructuredSelector({
     posts: selectPost()
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(memo(HomePage));
+const withReducer = injectReducer({ key: FEATURE_NAME_POST, reducer });
+
+const withSaga = injectSaga({
+    key: FEATURE_NAME_POST,
+    saga
+});
+
+export default compose(
+    withReducer,
+    withSaga,
+    withRouter
+)(connect(mapStateToProps, mapDispatchToProps)(memo(HomePage)));

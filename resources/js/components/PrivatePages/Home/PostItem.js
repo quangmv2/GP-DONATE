@@ -14,6 +14,7 @@ import { OmitProps } from "antd/lib/transfer/ListBody";
 import UserAvatar from "react-user-avatar";
 import CommentItem from "./CommentItem";
 import { SocketContext } from "../../../context/SocketProvider";
+import moment from "moment";
 
 const PostItem = (props) => {
 
@@ -71,8 +72,31 @@ const PostItem = (props) => {
             console.log(err);
 
         }
-    })
+    });
 
+    const convertOffer = (offer) => {
+        if (!offer) return
+        if (offer.type_offer == "goods") {
+            console.log(offer.content);
+            return (
+                <span>
+                    {offer.content}
+                </span>
+            );
+        }
+        const times = JSON.parse(offer.content);
+        times.sort((a, b) => {
+            if (a.start > b.start) return 1
+            return -1;
+        });
+        return times.map(time => {
+            const keys = Object.keys(time.days);
+            return keys.map(key => <span key={`offer post ${props.id} ${time.days[key]}`}>
+                {`${time.days[key]}: ${time.start}-${time.end}`}<br />
+            </span>)
+        })
+        console.log(times);
+    }
     return (
         <div className="container">
             <div className="image-background-div">
@@ -112,7 +136,7 @@ const PostItem = (props) => {
                 <div className="home-content">
                     <p className="title-post">{props.title}</p>
                     <p className="home-text hastags">
-                        { `#${props.hastags.map(hastag=>hastag.value).join(' #')}`}
+                        {`#${props.hastags.map(hastag => hastag.value).join(' #')}`}
                     </p>
 
 
@@ -124,14 +148,11 @@ const PostItem = (props) => {
                                     fontSize: "27px"
                                 }}
                             />
+
                             <div className="home-text">
-                                <span>
-                                    Mon, Tue: 09:00 - 12:00{" "}
-                                </span>
-                                <br />
-                                <span>
-                                    Tue, Thurs: 16:00 - 18:00
-                                    </span>
+                                {
+                                    convertOffer(props.offers)
+                                }
                             </div>
                         </div>
                     </div>
@@ -143,8 +164,8 @@ const PostItem = (props) => {
                             }}
                         />
                         <p className="home-text ">
-                            Due date til 24 Jul 2020
-                                                </p>
+                            Due date til {moment(props.due_day).format("DD MMM YYYY")}
+                        </p>
                     </div>
                 </div>
                 <Grid

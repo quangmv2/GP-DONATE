@@ -103,6 +103,7 @@ class PostController extends Controller
             $post->user;
             $post->likes;
             $post->hastags;
+            $post->offers;
         }     
         return $posts;
     }
