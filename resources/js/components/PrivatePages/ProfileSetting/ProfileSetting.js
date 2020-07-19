@@ -46,45 +46,45 @@ const ProfileSetting = (props) => {
                         <LinkItem
                             className="text-box link-center"
                             url={"/user-profile"}
-                            icon={<UserOutlined className="icon" />}
+                            icon={<i className="icon-left icon-account-normal" />}
                             title="Manage My Account"
-                            arrow={<RightOutlined className="rightlined" />}
+                            arrow={<i className="icon-next" />}
                         />
                     </div>
                     <div className="list-box">
                         <LinkItem
                             className="text-box link-center"
                             url={"#"}
-                            icon={<HeartOutlined className="icon" />}
+                            icon={<i className="icon-left icon-like-normal" />}
                             title="Project you have liked"
-                            arrow={<RightOutlined className="rightlined" />}
+                            arrow={<i className="icon-next" />}
                         />
                     </div>
                     <div className="list-box">
                         <LinkItem
                             className="text-box link-center"
                             url={"#"}
-                            icon={<LockOutlined className="icon" />}
+                            icon={<i className="icon-left icon-password" />}
                             title="Privacy & Safety"
-                            arrow={<RightOutlined className="rightlined" />}
+                            arrow={<i className="icon-next" />}
                         />
                     </div>
                     <div className="list-box">
                         <LinkItem
                             className="text-box link-center"
                             url={"#"}
-                            icon={<ShareAltOutlined className="icon" />}
+                            icon={<i className="icon-left icon-share-profile" />}
                             title="Share profile"
-                            arrow={<RightOutlined className="rightlined" />}
+                            arrow={<i className="icon-next" />}
                         />
                     </div>
                     <div className="list-box">
                         <LinkItem
                             className="text-box link-center"
                             url={"#"}
-                            icon={<BellOutlined className="icon" />}
+                            icon={<i className="icon-left icon-noti" />}
                             title="Push notifications"
-                            arrow={<RightOutlined className="rightlined" />}
+                            arrow={<i className="icon-next" />}
                         />
                     </div>
 
@@ -93,9 +93,9 @@ const ProfileSetting = (props) => {
                         <LinkItem
                             className="text-box link-center"
                             url={"#"}
-                            icon={<SendOutlined className="icon" />}
+                            icon={<i className="icon-left icon-mail-dark" />}
                             title="Report a problem"
-                            arrow={<RightOutlined className="rightlined" />}
+                            arrow={<i className="icon-next" />}
                         />
                     </div>
                     <div className="list-box">
@@ -103,10 +103,10 @@ const ProfileSetting = (props) => {
                             className="text-box link-center"
                             url={"#"}
                             icon={
-                                <QuestionCircleOutlined className="icon" />
+                                <i className="icon-left icon-help" />
                             }
                             title="Help Center"
-                            arrow={<RightOutlined className="rightlined" />}
+                            arrow={<i className="icon-next" />}
                         />
                     </div>
                     <div className="box-logout"
@@ -115,7 +115,7 @@ const ProfileSetting = (props) => {
                         <LinkItem
                             className="text-logout"
                             url={"#"}
-                            icon={<LogoutOutlined className="icon" />}
+                            icon={<i className="icon-left icon-log_out" />}
                             title="Log out"
                         />
                     </div>
