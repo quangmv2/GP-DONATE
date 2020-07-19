@@ -30,7 +30,7 @@
 
 .ant-tabs-tab {
     font-family: Muli;
-    font-size: 18px;
+    font-size: 1.3em;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -64,4 +64,12 @@
             justify-content: center;
         }
     }
+}
+
+.icon-top{
+    font-size: 30px;
+}
+
+.icon-search{
+    font-size: 22px;
 }
