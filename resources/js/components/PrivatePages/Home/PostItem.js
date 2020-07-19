@@ -3,13 +3,9 @@ import { Link } from "react-router-dom";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
-import ChatBubbleIcon from "@material-ui/icons/ChatBubble";
 import Grid from "@material-ui/core/Grid";
-import ShareIcon from "@material-ui/icons/Share";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import { ButtonAnt } from "components/Atoms";
 import { fetchService } from "services";
-import axios from "axios";
 
 import "swiper/swiper.scss";
 import "./HomeScreen.scss";
@@ -18,12 +14,12 @@ import { OmitProps } from "antd/lib/transfer/ListBody";
 import UserAvatar from "react-user-avatar";
 import CommentItem from "./CommentItem";
 import { SocketContext } from "../../../context/SocketProvider";
-
-const linkImage = 'uploads/images/posts/1594885437_03oSmzkC2SFhtWcPHlpwaIn-35.fit_scale.size_2698x1517.v1569486010.png'
+import moment from "moment";
 
 const PostItem = (props) => {
 
-    const [comments, setComments] = useState(props.comments);
+    const [comments, setComments] = useState([]);
+    const [likes, setLikes] = useState(props.likes);
     const { socket } = useContext(SocketContext);
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
@@ -38,29 +34,69 @@ const PostItem = (props) => {
     }, [comments])
 
     const fetchFirstData = useCallback(async () => {
-        console.log(1);
-        socket.emit('watch-post', {id: props.id});
+        fetchComments();
+        socket.emit('watch-post', { id: props.id });
         socket.on(`new-comment`, data => {
-            console.log(data);
-            setComments(cmts => {
-                if (cmts.find(({id}) => id === data.id)) return cmts;
-                const newCmts = [...cmts];
-                newCmts.push(data);
-                return newCmts;
-            })
+            if (data.post_id === props.id) {
+                setComments(cmts => {
+                    if (cmts.find(({ id }) => id === data.id)) return cmts;
+                    const newCmts = [...cmts];
+                    newCmts.push(data);
+                    return newCmts;
+                })
+            }
         });
         socket.on('delete-comment', data => {
             console.log(data);
             setComments(cmts => {
                 const newCmts = [...cmts];
-                return newCmts.filter(({id}) => {
+                return newCmts.filter(({ id }) => {
                     console.log(id !== data.id);
                     return id !== data.id;
                 });
             })
         })
-    })
+    });
 
+    const fetchComments = useCallback(async (id) => {
+        try {
+            const [comments, status] = await fetchService.fetch(`${ROOT_API_URL}/api/posts/${props.id}/comments`, {
+                method: "GET"
+            });
+            console.log(comments);
+            if (status === 200) {
+                setComments(comments);
+                return comments;
+            }
+        } catch (error) {
+            console.log(err);
+
+        }
+    });
+
+    const convertOffer = (offer) => {
+        if (!offer) return
+        if (offer.type_offer == "goods") {
+            console.log(offer.content);
+            return (
+                <span>
+                    {offer.content}
+                </span>
+            );
+        }
+        const times = JSON.parse(offer.content);
+        times.sort((a, b) => {
+            if (a.start > b.start) return 1
+            return -1;
+        });
+        return times.map(time => {
+            const keys = Object.keys(time.days);
+            return keys.map(key => <span key={`offer post ${props.id} ${time.days[key]}`}>
+                {`${time.days[key]}: ${time.start}-${time.end}`}<br />
+            </span>)
+        })
+        console.log(times);
+    }
     return (
         <div className="container">
             <div className="image-background-div">
@@ -86,8 +122,10 @@ const PostItem = (props) => {
                             </p>
 
                             <p className="hours-ago">
-                                4 hours a go
-                                                    </p>
+                                {
+                                    moment(props.created_at).add((new Date()).getUTCDate()-12, 'hours').fromNow()
+                                }
+                            </p>
                         </div>
                     </div>
                     <MailOutlineIcon
@@ -99,9 +137,11 @@ const PostItem = (props) => {
                 </div>
                 <div className="home-content">
                     <p className="title-post">{props.title}</p>
-                    <p className="home-text hashtags">
-                        #endregion #....
-                                            </p>
+                    <p className="home-text hastags">
+                        {`#${props.hastags.map(hastag => hastag.value).join(' #')}`}
+                    </p>
+
+
                     <div className="home-time-content time-container">
                         <div className="home-time-content ">
                             <AccessTimeIcon
@@ -110,14 +150,11 @@ const PostItem = (props) => {
                                     fontSize: "27px"
                                 }}
                             />
+
                             <div className="home-text">
-                                <span>
-                                    Mon, Tue: 09:00 - 12:00{" "}
-                                </span>
-                                <br />
-                                <span>
-                                    Tue, Thurs: 16:00 - 18:00
-                                    </span>
+                                {
+                                    convertOffer(props.offers)
+                                }
                             </div>
                         </div>
                     </div>
@@ -129,8 +166,8 @@ const PostItem = (props) => {
                             }}
                         />
                         <p className="home-text ">
-                            Due date til 24 Jul 2020
-                                                </p>
+                            Due date til {moment(props.due_day).format("DD MMM YYYY")}
+                        </p>
                     </div>
                 </div>
                 <Grid
@@ -153,7 +190,7 @@ const PostItem = (props) => {
                         <div className="raise-a-voice-container">
                             <ButtonAnt>
                                 <span>Raise a voice</span>
-                                <i class="icon-social icon-comment-active"></i>
+                                <i className="icon-social icon-comment-active"></i>
                             </ButtonAnt>
                         </div>
                     </Grid>
@@ -165,7 +202,7 @@ const PostItem = (props) => {
                         <div className="social-action-wrapper">
                             <div>
                                 <ButtonAnt className="button-action">
-                                   <i className="icon-social icon-share" />
+                                    <i className="icon-social icon-share" />
                                 </ButtonAnt>
                             </div>
                             <div className="action">
@@ -188,4 +225,4 @@ const PostItem = (props) => {
     )
 }
 
-export default (PostItem);
+export default memo(PostItem);
