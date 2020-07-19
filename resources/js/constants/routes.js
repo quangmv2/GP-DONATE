@@ -36,3 +36,4 @@ export const GET_COMMENT = id => `${ROOT_API_URL}/api/posts/${id}/comments`;
 export const GET_IMAGE = (dir) => {
     return `${ROOT_API_URL}/api/photo?dir=${dir}`;
 }
+export const POST_POST = () => `${ROOT_API_URL}/api/posts`;
