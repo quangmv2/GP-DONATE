@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import cn from 'classnames';
-import { HeaderNavigation } from "components/Atoms";
+import React from "react";
+
+import { HeaderNavigation, SearchInput } from "components/Atoms";
 import "./Activities.scss";
 import BottomNavigator from "../../../Molecules/BottomNav/BottomNavigator";
 import { Tabs } from "antd";
@@ -12,16 +12,6 @@ import {
 const { TabPane } = Tabs;
 
 const ActivitesScreen = () => {
-    const [focus, setFocus] = useState(false);
-
-    const onFocusInput = () => {
-        setFocus(true);
-    }
-
-    const onBlueInput = () => {
-        setFocus(false);
-    }
-
     return (
         <div className="private-fullheight">
             <div className="container">
@@ -30,17 +20,7 @@ const ActivitesScreen = () => {
                         <i className="icon-more icon-top"  />
                     </button>
                 </HeaderNavigation>
-                <div className="search-container">
-                    <input
-                        type="text"
-                        placeholder="Search by keyword, hashtag..."
-                        onFocus={ onFocusInput } 
-                        onBlur={ onBlueInput } 
-                    />
-                    <button className="button-trans search-icon">
-                        <i className={cn(focus ?"icon-search-active": "icon-search-normal"," icon-search")} />
-                    </button>
-                </div>
+                <SearchInput />
                 <div className="ant-tabs-container custom-tabs">
                     <Tabs defaultActiveKey="1">
                         <TabPane tab="Messages" key="1">
