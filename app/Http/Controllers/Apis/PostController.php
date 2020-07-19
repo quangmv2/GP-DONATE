@@ -29,7 +29,7 @@ class PostController extends Controller
         $this->commonService = $commonService;
 
         // $this->middleware('cors', ['except' => ['showPhoto']]);
-        $this->middleware('auth:api', ['except' => ['showPhoto']]);
+        $this->middleware('auth:api', ['except' => ['showPhoto', 'storePhoto']]);
 
         // $this->middleware('permission:post-list|post-list-all|post-edit|post-delete', ['only' => ['index']]);
         // $this->middleware('permission:post-create', ['only' => ['store']]);
@@ -225,14 +225,11 @@ class PostController extends Controller
         }
 
         if (!empty($input['offer']) && !empty($input['offer']['type'])) {
-            if ($input['offer']['type'] == 'time' && !empty($input['offer']['time'])) {
-                $post->update([
-                    
-                ]);
-                $this->postService->saveOfferTime($post->id, $input['offer']['time']);
+            if ($input['offer']['type'] == 'time' && !empty($input['offer']['content'])) {
+                $this->postService->saveOfferTime($post->id, $input['offer']['content']);
             }
-            if ($input['offer']['type'] == 'goods' && !empty($input['offer']['value'])) {
-                $this->postService->saveOfferGoods($post->id, $input['offer']['value']);
+            if ($input['offer']['type'] == 'goods' && !empty($input['offer']['content'])) {
+                $this->postService->saveOfferGoods($post->id, $input['offer']['content']);
             }
         }
 

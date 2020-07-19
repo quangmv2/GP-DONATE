@@ -57,9 +57,9 @@ const HomePage = (props) => {
     return (
         <div 
             style={{
-                backgroundImage: "url('https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb')",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover"
+                // backgroundImage: "url('https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb')",
+                // backgroundRepeat: "no-repeat",
+                // backgroundSize: "cover"
             }}
         >
             <Swiper
@@ -83,7 +83,7 @@ const HomePage = (props) => {
             </Swiper>   
             <BottomNavigator />
         </div>
-    );
+    );  
 }
 
 const mapDispatchToProps = {
