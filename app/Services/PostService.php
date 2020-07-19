@@ -106,7 +106,7 @@ class PostService
         foreach ($hastags as $key => $value) {
             // return $value;
             $hastag = Hastag::updateOrCreate([
-                'name' => $value,
+                'value' => $value,
             ], []);
             // return $hastag;
             $posthas = PostHasHastag::create([
