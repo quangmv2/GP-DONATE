@@ -115,7 +115,7 @@
   color: #ffffff;
   padding: 2px 15px 2px 20px;
   line-height: 24px;
-  max-width: 200px;
+  max-width: 170px;
 
   > .commentIcon {
     margin-left: 10px;
@@ -133,8 +133,8 @@
       background: transparent;
     }
 
-    svg {
-      font-size: 1em;
+    i {
+      font-size: 1.5em;
       margin: 0 12px;
     }
   }
@@ -154,6 +154,7 @@
 }
 .hashtags {
   margin-top: -10px;
+  margin-bottom: 0px;
 }
 .due-date {
   padding-top: 13px;

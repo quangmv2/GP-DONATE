@@ -152,10 +152,8 @@ const PostItem = (props) => {
                         </div>
                         <div className="raise-a-voice-container">
                             <ButtonAnt>
-                                <span>
-                                    Raise a voice
-                                                        </span>
-                                <ChatBubbleIcon className="commentIcon" />
+                                <span>Raise a voice</span>
+                                <i class="icon-social icon-comment-active"></i>
                             </ButtonAnt>
                         </div>
                     </Grid>
