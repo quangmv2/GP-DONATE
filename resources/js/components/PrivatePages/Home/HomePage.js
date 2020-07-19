@@ -28,7 +28,14 @@ import {
     selectPost
 } from "modules/post/selectors";
 import { getPosts } from "modules/post/actions";
-import { LIMIT_POST } from "../../../modules/post/constants";
+import { LIMIT_POST, FEATURE_NAME_POST } from "../../../modules/post/constants";
+import saga from "modules/post/sagas";
+import reducer from "modules/post/reducers";
+import injectReducer from "core/reducer/inject-reducer";
+import injectSaga from "core/saga/inject-saga";
+import { compose } from "recompose";
+import { withRouter } from "react-router-dom";
+
 
 
 const HomePage = (props) => {
@@ -37,7 +44,7 @@ const HomePage = (props) => {
 
     useEffect(() => {
         const { fetchMore, page } = props;
-        fetchMore(page + 1);
+        fetchMore(1);
     }, []);
 
     useEffect(() => {
@@ -46,7 +53,7 @@ const HomePage = (props) => {
 
     const handleLoadMore = () => {
         const { posts } = props;
-        if (posts.length - index < 3 ) {
+        if (posts.length - index < 2 ) {
             const { fetchMore, page } = props;
             fetchMore(page + 1);
         }
@@ -63,10 +70,7 @@ const HomePage = (props) => {
             }}
         >
             <Swiper
-                // spaceBetween={812}
-                // slidesPerView={3}
-                // navigation
-                // loop={true}
+            
                 direction="vertical"
                 // pagination={{ clickable: true }}
                 // scrollbar={{ draggable: true }}
@@ -78,7 +82,7 @@ const HomePage = (props) => {
 
                 {
                     posts.map(post => 
-                        <SwiperSlide key={`post ${post.id}`}>
+                        <SwiperSlide key={`post ${post.id} ${post.title}`}>
                             <PostItem {...post} />    
                         </SwiperSlide>
                     )
@@ -100,4 +104,15 @@ const mapStateToProps = createStructuredSelector({
     posts: selectPost()
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(memo(HomePage));
+const withReducer = injectReducer({ key: FEATURE_NAME_POST, reducer });
+
+const withSaga = injectSaga({
+    key: FEATURE_NAME_POST,
+    saga
+});
+
+export default compose(
+    withReducer,
+    withSaga,
+    withRouter
+)(connect(mapStateToProps, mapDispatchToProps)(memo(HomePage)));

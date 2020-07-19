@@ -32,7 +32,7 @@ class PostService
     public function getPostPaginate($limit)
     {
         if (empty($limit)) $limit = 1;
-        return Post::simplePaginate($limit);       
+        return Post::orderBy('created_at', 'desc')->simplePaginate($limit);       
     }
 
     public function getPostPaginateByUser($limit, $user_id)

@@ -11,7 +11,7 @@ import moment from 'moment';
 import ButtonComponent from './Button';
 import { fetchService } from "../../../services/fetch/fetchService";
 import { Select } from 'antd';
-import { ROOT_API_URL, GET_IMAGE, ACCESS_TOKEN, POST_POST } from "../../../constants";
+import { ROOT_API_URL, GET_IMAGE, ACCESS_TOKEN, POST_POST, ROUTE } from "../../../constants";
 import Hastag from './Hastag';
 import { set } from 'js-cookie';
 import { openNotification } from "helpers";
@@ -55,22 +55,24 @@ const PostOffer = props => {
     if (typeOffer === 'time'){
       data["offer"] = {
           type: "time",
-          time: JSON.stringify(timeSlotArray)
+          content: JSON.stringify(timeSlotArray)
       }
     } else {
       data["offer"] = {
           type: "goods",
-          time: materials
+          content: materials
       }
     }
 
-    console.log(data);
+    // console.log(data);
     const [res, status] = await fetchService.fetch(`${POST_POST()}`, {
       method: "POST",
       body: JSON.stringify(data)
     });
     if (status == 201) {
-
+      openNotification(NOTIFICATION_TYPE.SUCCESS, 'Success');
+      const { history } = props;
+      history.push(ROUTE.HOME)
     } else if (status == 422){
       const keys = Object.keys(res.errors);
       keys.forEach(key => openNotification(NOTIFICATION_TYPE.ERROR, res.errors[key]));

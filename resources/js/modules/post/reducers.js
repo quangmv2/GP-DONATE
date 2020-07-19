@@ -17,13 +17,21 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
 
     case types.FETCH_POST: {
+      const { payload } = action;
+      if (payload.page === 1) {
+        return state
+        .set('loading', true)
+        .set('posts', [])
+        .set('page', 0);
+      }
       return state
         .set('loading', true)
     }
 
     case types.FETCH_POST_SUCCESS: {
-      console.log('red', action.payload);
       const { data } = action.payload;
+      if (data.length< 0)
+        return state.set('loading', false);
       return state 
         .set('loading', false)
         .set('page', data.length>0?state.get('page') + 1:state.get('page'))

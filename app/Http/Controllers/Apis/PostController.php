@@ -103,10 +103,7 @@ class PostController extends Controller
             $post->user;
             $post->likes;
             $post->hastags;
-            $post["comments"] = $post->comments;
-            foreach ($post["comments"] as $key => $comment) {
-                $comment->user;
-            }
+            $post->offers;
         }     
         return $posts;
     }
