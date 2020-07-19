@@ -24,8 +24,7 @@ class CreateOffersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('post_id');
             $table->string('type_offer');
-            $table->timestamp('time')->nullable();
-            $table->string('content')->nullable();
+            $table->longText('content')->nullable();
             $table->timestamps();
 
             $table->index(['post_id', 'type_offer'], 'index_post_type_offer_post_has_offer');

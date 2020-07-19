@@ -66,7 +66,6 @@ class PrivateLayout extends Component {
             if (!logout) localStorage.setItem(URL_REDIRECT_LOGIN, location.pathname);
             this.redirectLogin();
         }
-        console.log(userInfo);
         if ( userInfo && userInfo.roles && userInfo.roles.length < 1) {
             this.props.history.push(ROUTE.CHOOSEROLE);
         }
@@ -128,5 +127,5 @@ const mapDispatchToProps = {
 export default compose(
     withReducer,
     withSaga,
-    // withRouter
+    withRouter
 )(connect(mapStateToProps, mapDispatchToProps)(memo(PrivateLayout)));
