@@ -15,7 +15,7 @@ export const initialState = fromJS({
   identity: null,
   challenge: "",
   userChangePass: null,
-  userInfo: {}
+  userInfo: undefined
 });
 
 const reducer = (state = initialState, action) => {
@@ -112,14 +112,14 @@ const reducer = (state = initialState, action) => {
     }
     case types.VERIFY_TOKEN_SUCCESS: {
       const { accessToken, refreshToken, userInfor } = action.payload;
-      console.log(userInfor);
+      // console.log(userInfor);
       return state
         .set("loading", false)
         .set('logout', false)
         .set("logged", true)
         .set("accessToken", accessToken)
         .set("refreshToken", refreshToken)
-        .set('userInfor', userInfor);
+        .set('userInfo', {...userInfor});
     }
     case types.VERIFY_TOKEN_FAILED: {
       const error = action.payload;
@@ -130,7 +130,7 @@ const reducer = (state = initialState, action) => {
         .set("loading", false)
         .set("logged", false)
         .set("errors", { serverLogin: message })
-        .set('userInfor', {});
+        .set('userInfo', undefined);
     }
     default:
       return state;

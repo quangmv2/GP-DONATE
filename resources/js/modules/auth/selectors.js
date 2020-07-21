@@ -13,7 +13,6 @@ const selectErrors = () =>
 const selectAccessToken = () =>
   createSelector(getAuthState, state => state.get("accessToken"));
 
-
 const selectRefreshToken = () =>
   createSelector(getAuthState, state => state.get("refreshToken"));
 
