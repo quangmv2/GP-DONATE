@@ -323,7 +323,7 @@ const PostOffer = props => {
                   <p className='post-offer-label'>Due Date</p>
                   <div className='due-date-container'>
                     <DatePicker
-                      defaultValue={moment()}
+                      defaultValue={moment().add('1', 'days')}
                       format={dateFormat}
                       onChange={onDueDate}
                     />
