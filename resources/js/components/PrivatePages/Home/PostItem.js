@@ -123,7 +123,7 @@ const PostItem = (props) => {
 
                             <p className="hours-ago">
                                 {
-                                    moment(props.created_at).add((new Date()).getUTCDate()-12, 'hours').fromNow()
+                                    moment(props.created_at).add(-(new Date().getTimezoneOffset() / 60), 'hours').fromNow()
                                 }
                             </p>
                         </div>
@@ -187,7 +187,7 @@ const PostItem = (props) => {
                                 )
                             }
                         </div>
-                        <div className="raise-a-voice-container">
+                        <div className="raise-a-voice-container" onClick={props.showModal}>
                             <ButtonAnt>
                                 <span>Raise a voice</span>
                                 <i className="icon-social icon-comment-active"></i>

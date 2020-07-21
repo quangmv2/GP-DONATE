@@ -103,6 +103,7 @@
     max-width: 786px;
     padding-right: 20px;
     // align-items: center;;
+    z-index: 10000;
 }
 .input-comment-with-icon {
     // width: 80%;
@@ -115,7 +116,7 @@
         position: absolute;
         // left: 87%;
         right: 2%;
-        top: 48,26086957%;
+        top: 20px;
     }
     >textarea {
         width: 100%;
@@ -126,7 +127,7 @@
         border-width: 0;
         padding-left: 20px;
         padding-right: 40px;
-        padding-top: 10px;
+        padding-top: 8px;
         padding-bottom: 5px;
         resize: none;
     }

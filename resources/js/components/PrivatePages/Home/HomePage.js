@@ -35,12 +35,13 @@ import injectReducer from "core/reducer/inject-reducer";
 import injectSaga from "core/saga/inject-saga";
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
-
+import Comment from "../HomeComment/PostComment";
 
 
 const HomePage = (props) => {
     
     const [index, setIndex] = useState(0);
+    const [openModal, setOpenModal] = useState(false);
 
     useEffect(() => {
         const { fetchMore, page } = props;
@@ -49,6 +50,7 @@ const HomePage = (props) => {
 
     useEffect(() => {
         handleLoadMore();
+        console.log(index);
     }, [index])
 
     const handleLoadMore = () => {
@@ -57,6 +59,14 @@ const HomePage = (props) => {
             const { fetchMore, page } = props;
             fetchMore(page + 1);
         }
+    }
+
+    const showModal = () => {
+        setOpenModal(true);
+    }
+
+    const hideModal = () => {
+        setOpenModal(false);
     }
 
     const { posts } = props;
@@ -69,6 +79,10 @@ const HomePage = (props) => {
                 // backgroundSize: "cover"
             }}
         >
+            {
+                openModal?<Comment hideModal={hideModal} post={posts[index]} />:<></>
+            }
+
             <Swiper
             
                 direction="vertical"
@@ -77,13 +91,14 @@ const HomePage = (props) => {
                 // onSwiper={(swiper) => console.log(swiper)}
                 // onSlideChange={(swiper) => console.log(swiper)}
                 // virtual
+                style={{ height: openModal?0:"100vh" }}
                 onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
             >
 
                 {
                     posts.map(post => 
                         <SwiperSlide key={`post ${post.id} ${post.title}`}>
-                            <PostItem {...post} />    
+                            <PostItem {...post} showModal={showModal} hideModal={hideModal} />    
                         </SwiperSlide>
                     )
                 }

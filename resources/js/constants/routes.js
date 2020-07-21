@@ -33,7 +33,10 @@ export const ROOT_WS = '52.205.200.96:9000';
 
 export const GET_POST = '/api/posts';
 export const GET_COMMENT = id => `${ROOT_API_URL}/api/posts/${id}/comments`;
+export const POST_COMMENT = () => `${ROOT_API_URL}/api/comment`;
+
 export const GET_IMAGE = (dir) => {
     return `${ROOT_API_URL}/api/photo?dir=${dir}`;
 }
 export const POST_POST = () => `${ROOT_API_URL}/api/posts`;
+
