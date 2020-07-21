@@ -91,7 +91,7 @@ const HomePage = (props) => {
                 // onSwiper={(swiper) => console.log(swiper)}
                 // onSlideChange={(swiper) => console.log(swiper)}
                 // virtual
-                style={{ height: openModal?0:"100vh" }}
+                style={{ height: openModal?0:"100vh", display: openModal?"none":"block" }}
                 onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
             >
 
