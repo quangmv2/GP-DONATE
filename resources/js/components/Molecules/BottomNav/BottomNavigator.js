@@ -16,10 +16,6 @@ import { connect } from 'react-redux';
 
 const BottomNavigator = props => {
 
-  useEffect(() => {
-    console.log("navi", props.userInfo);
-  }, [props.userInfo]);
-
   const { userInfo } = props;
 
   return (
