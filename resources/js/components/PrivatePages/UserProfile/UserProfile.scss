@@ -3,8 +3,9 @@
     background-repeat: no-repeat;
     background-size: cover;
     max-width: 768px;
-  height: 100%;
-  min-height: 120vh ;
+    height: 100%;
+    min-height: 100vh ;
+    padding-bottom: 75px;
 }
 .user-account-profile {
     color: white;
@@ -15,7 +16,7 @@
     >.account-profile-info {
         >.account-profile-number {
     font-family: Muli;
-      font-size: 36px;
+      font-size: 2rem;
       font-weight: 800;
       font-stretch: normal;
       font-style: normal;
@@ -24,7 +25,7 @@
         }
         >p {
             font-family: Muli;
-            font-size: 22px;
+            font-size: 1.2em;
             font-weight: 500;
             font-stretch: normal;
             font-style: normal;
@@ -41,13 +42,13 @@
     padding-top: 10px;
     >p {
         font-family: Muli;
-  font-size: 22px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #ffffff;
+        font-size: 1.2em;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #ffffff;
     }
     >img {
         position: relative;
@@ -62,9 +63,7 @@
     height: 60px;
     font-weight: bold;
     font-family: Muli;
-    font-style: normal;
     color: white;
-    font-stretch: normal;
     line-height: 1.44px;
     background-color: transparent;
     border-color: white;
@@ -75,30 +74,31 @@
     border-radius: 18px;
    }
    .propositons-container {
-   display: inline-block;
+    display: inline-block;
     background-image: url(/images/Propositions/_0002_Propositions_03.jpg);
     background-size: 100% 100%;
-    width: 160px;
-    height: 180px;
+    width: 38vw;
+    height: 38vw;
     border-radius: 18px;
     background-repeat: no-repeat;
     margin-left: 15px;
-    >p {
-        padding-left: 12px;
-        position: relative;
-        padding-right: 5px;
-        white-space: nowrap; 
+    position: relative;
+    > p {
+        position: absolute;
         overflow: hidden;
         text-overflow: ellipsis; 
         font-family: Muli;
-        font-size: 16px;
+        font-size: 1em;
         font-weight: 500;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: normal;
-        letter-spacing: normal;
         color: #ffffff;
-        padding-top: 120px;
+        margin-bottom: 0px;
+        bottom: 15px;
+        left: 0px;
+        width: 100%;
+        padding: 0px 15px;
+        max-height: 48px;
+        max-height: 48px;
+        white-space: initial;
     }
    }
    .edit-button-container {

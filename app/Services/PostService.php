@@ -26,15 +26,13 @@ class PostService
             'due_day' => 'required|date|date_format:"Y-m-d"|after:now',
             'offer' => 'required',
             'offer.type' => 'required|in:time,goods',
-            'offer.time' => 'array',
-            // 'offer.value' => 'string',
         ]);
     }
 
     public function getPostPaginate($limit)
     {
         if (empty($limit)) $limit = 1;
-        return Post::simplePaginate($limit);       
+        return Post::orderBy('created_at', 'desc')->simplePaginate($limit);       
     }
 
     public function getPostPaginateByUser($limit, $user_id)
@@ -83,20 +81,18 @@ class PostService
 
     public function saveOfferTime($id, $times)
     {
-        foreach ($times as $key => $time) {
-            PostHasOffer::create([
-                'post_id' => $id,
-                'type_offer' => 'time',
-                'time' => $time
-            ]);
-        }
+        PostHasOffer::create([
+            'post_id' => $id,
+            'type_offer' => 'time',
+            'content' => $times
+        ]);
     }
 
     public function saveOfferGoods($id, $content)
     {
         PostHasOffer::create([
             'post_id' => $id,
-            'type_offer' => 'good',
+            'type_offer' => 'goods',
             'content' => $content
         ]);
     }
@@ -106,7 +102,7 @@ class PostService
         foreach ($hastags as $key => $value) {
             // return $value;
             $hastag = Hastag::updateOrCreate([
-                'name' => $value,
+                'value' => $value,
             ], []);
             // return $hastag;
             $posthas = PostHasHastag::create([

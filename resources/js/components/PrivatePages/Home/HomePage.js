@@ -28,28 +28,45 @@ import {
     selectPost
 } from "modules/post/selectors";
 import { getPosts } from "modules/post/actions";
-import { LIMIT_POST } from "../../../modules/post/constants";
+import { LIMIT_POST, FEATURE_NAME_POST } from "../../../modules/post/constants";
+import saga from "modules/post/sagas";
+import reducer from "modules/post/reducers";
+import injectReducer from "core/reducer/inject-reducer";
+import injectSaga from "core/saga/inject-saga";
+import { compose } from "recompose";
+import { withRouter } from "react-router-dom";
+import Comment from "../HomeComment/PostComment";
 
 
 const HomePage = (props) => {
     
     const [index, setIndex] = useState(0);
+    const [openModal, setOpenModal] = useState(false);
 
     useEffect(() => {
         const { fetchMore, page } = props;
-        fetchMore(page + 1);
+        fetchMore(1);
     }, []);
 
     useEffect(() => {
         handleLoadMore();
+        console.log(index);
     }, [index])
 
     const handleLoadMore = () => {
         const { posts } = props;
-        if (posts.length - index < 3 ) {
+        if (posts.length - index < 2 ) {
             const { fetchMore, page } = props;
             fetchMore(page + 1);
         }
+    }
+
+    const showModal = () => {
+        setOpenModal(true);
+    }
+
+    const hideModal = () => {
+        setOpenModal(false);
     }
 
     const { posts } = props;
@@ -57,36 +74,38 @@ const HomePage = (props) => {
     return (
         <div 
             style={{
-                backgroundImage: "url('https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb')",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover"
+                // backgroundImage: "url('https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb')",
+                // backgroundRepeat: "no-repeat",
+                // backgroundSize: "cover"
             }}
         >
+            {
+                openModal?<Comment hideModal={hideModal} post={posts[index]} />:<></>
+            }
+
             <Swiper
-                // spaceBetween={812}
-                slidesPerView={1}
-                // navigation
-                // loop={true}
+            
                 direction="vertical"
                 // pagination={{ clickable: true }}
                 // scrollbar={{ draggable: true }}
                 // onSwiper={(swiper) => console.log(swiper)}
                 // onSlideChange={(swiper) => console.log(swiper)}
                 // virtual
+                style={{ height: openModal?0:"100vh", display: openModal?"none":"block" }}
                 onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
             >
 
                 {
                     posts.map(post => 
-                        <SwiperSlide key={`post ${post.id} ${Date.now()}`}>
-                            <PostItem {...post} />    
+                        <SwiperSlide key={`post ${post.id} ${post.title}`}>
+                            <PostItem {...post} showModal={showModal} hideModal={hideModal} />    
                         </SwiperSlide>
                     )
                 }
             </Swiper>   
             <BottomNavigator />
         </div>
-    );
+    );  
 }
 
 const mapDispatchToProps = {
@@ -100,4 +119,15 @@ const mapStateToProps = createStructuredSelector({
     posts: selectPost()
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(memo(HomePage));
+const withReducer = injectReducer({ key: FEATURE_NAME_POST, reducer });
+
+const withSaga = injectSaga({
+    key: FEATURE_NAME_POST,
+    saga
+});
+
+export default compose(
+    withReducer,
+    withSaga,
+    withRouter
+)(connect(mapStateToProps, mapDispatchToProps)(memo(HomePage)));

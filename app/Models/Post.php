@@ -51,7 +51,7 @@ class Post extends Model
 
     public function offers()
     {
-        return $this->hasMany(PostHasOffer::class, 'post_id', 'id');
+        return $this->hasOne(PostHasOffer::class, 'post_id', 'id');
     }
 
 	// public function categories() {

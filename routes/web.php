@@ -11,30 +11,16 @@
 |
 */
 // Router for teaser
-Route::get('/', function () {
-    return view('client.app');
-});
 Route::get('/teaser', function () {
     return view('teaser.teaser');
 });
-
 //Router for client reactjs
-Route::get('/{any}', function ($any) {
-    return view('client.app');
-})->where('any', '.*');
-Route::get('/client', function () {
-    return view('client.app');
-});
-
-
 
 //Router for administrator 
 
 Route::group(['prefix' => 'admin'], function () {
     Auth::routes();
-    
     Route::get('logout', 'Auth\LoginController@logout');
-
     Route::group(['middleware' => ['auth', 'auth', 'permission:admin-page']], function() {
         Route::get('/', 'HomeController@index')->name('adminHome');
         Route::get('/home', 'HomeController@index')->name('home');
@@ -43,4 +29,15 @@ Route::group(['prefix' => 'admin'], function () {
         Route::resource('posts','PostController');
         Route::get('users-list','UserController@list');
     });    
+});
+
+Route::get('/', function () {
+    return view('client.app');
+});
+
+Route::get('/{any}', function ($any) {
+    return view('client.app');
+})->where('any', '.*');
+Route::get('/client', function () {
+    return view('client.app');
 });

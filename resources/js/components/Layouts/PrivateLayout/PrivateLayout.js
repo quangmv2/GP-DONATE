@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, memo } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { Layout } from "antd";
@@ -7,23 +7,19 @@ import {
     selectIsLogged,
     selectErrors,
     selectLoading,
-    selectIsLogout
+    selectIsLogout,
+    selectUserInfo
 } from "modules/auth/selectors";
 import { verifyToken } from "modules/auth/actions";
-
 import ReactResizeDetector from "react-resize-detector";
 import { createStructuredSelector } from "reselect";
-
-import { ROUTE } from "constants";
+import { ROUTE, TIME_INTERVAL_SESSION } from "constants";
 import "./private-layout.scss";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../constants/auth";
 import { withRouter } from "react-router-dom";
 import { URL_REDIRECT_LOGIN } from "../../../constants/variables";
 import { FEATURE_NAME_POST } from "../../../modules/post/constants";
-import saga from "modules/post/sagas";
-import reducer from "modules/post/reducers";
-import injectReducer from "core/reducer/inject-reducer";
-import injectSaga from "core/saga/inject-saga";
+
 
 const { Content } = Layout;
 
@@ -44,12 +40,13 @@ class PrivateLayout extends Component {
     componentDidMount() {
         const accesstoken = localStorage.getItem(ACCESS_TOKEN);
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-        const { verifyTokenFnc } = this.props;
+        const { verifyTokenFnc, userInfo} = this.props;
         if (accesstoken && accesstoken != "") {
             fetchService.addTokenHeader({ access_token: accesstoken });
             verifyTokenFnc(accesstoken, refreshToken);    
-        } else {
-            localStorage.setItem(URL_REDIRECT_LOGIN, location.pathname);
+        }
+
+        else {
             this.redirectLogin();
         }
     }
@@ -60,11 +57,14 @@ class PrivateLayout extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        const { isLogged, logout } = this.props;
+        const { isLogged, logout, userInfo } = this.props;
         if (prevProps.isLogged === isLogged) return false;
         if (!isLogged) {
             if (!logout) localStorage.setItem(URL_REDIRECT_LOGIN, location.pathname);
             this.redirectLogin();
+        }
+        if ( userInfo && userInfo.roles && userInfo.roles.length < 1) {
+            this.props.history.push(ROUTE.CHOOSEROLE);
         }
     }
 
@@ -102,27 +102,15 @@ class PrivateLayout extends Component {
     }
 }
 
-
-const withReducer = injectReducer({ key: FEATURE_NAME_POST, reducer });
-
-const withSaga = injectSaga({
-    key: FEATURE_NAME_POST,
-    saga
-});
-
 const mapStateToProps = createStructuredSelector({
     isLogged: selectIsLogged(),
     errors: selectErrors(),
     loading: selectLoading(),
-    logout: selectIsLogout()
+    logout: selectIsLogout(),
+    userInfo: selectUserInfo()
 });
-
 const mapDispatchToProps = {
     verifyTokenFnc: verifyToken,
 };
 
-export default compose(
-    withReducer,
-    withSaga,
-    withRouter
-)(connect(mapStateToProps, mapDispatchToProps)(PrivateLayout));
+export default connect(mapStateToProps, mapDispatchToProps)((PrivateLayout));

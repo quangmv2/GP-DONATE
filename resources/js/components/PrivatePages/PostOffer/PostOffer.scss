@@ -15,16 +15,28 @@
 .post-image-container {
   padding: 30px;
 }
+.imgPrew-container {
+  border-radius: 10px;
+  overflow: hidden;
+
+}
 .prev-image-container {
   background-color: #dddddd;
   min-height: 170px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding-top: 20%;
   padding-bottom: 20%;
   height: 217px;
+  display: flex;
+    flex: 1;
+    align-items: center;
+}
+.imgPreview {
+  min-height: 170px;
+  overflow: hidden;
+  height: 217px;
+  display: flex;
+ 
+ 
 }
 .thumbnail-container {
   padding-left: 5%;
@@ -229,9 +241,8 @@ select {
 }
 .weekdays-container {
   display: flex;
-  flex: 1;
   position: relative;
-  top: -27px;
+  top: -50px;
   justify-content: space-between;
   padding: 0px 20px;
   button {
@@ -254,4 +265,35 @@ select {
   .ant-picker-focused {
     box-shadow: none;
   }
+}
+.ant-select-show-search.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.hiddenInput {
+  visibility: hidden;
+}
+.uncheckedLabel{
+  font-family: Muli;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: '#999999'
+  }
+  .checkedLabel { 
+    width: 36px;
+    height: 37px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #ddae53;
+    color: white
+
+    ;
 }

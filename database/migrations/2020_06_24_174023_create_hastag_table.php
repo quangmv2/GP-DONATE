@@ -15,16 +15,17 @@ class CreateHastagTable extends Migration
     {
         Schema::create('hastags', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('value')->unique();
             $table->timestamps();
         });
 
         Schema::create('post_has_hastags', function (Blueprint $table) {
+
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('hastag_id');
             $table->timestamps();
 
-            $table->primary(['post_id', 'hastag_id']);
             $table->index(['post_id', 'hastag_id'], 'post_id_hastag_id_index');
             
             $table->foreign('post_id')

@@ -22,7 +22,6 @@ export function* fetchPosts({ payload: {page, limit} }) {
     const res = yield call(requestPost, page, limit);
     const {data, status} = res;
     if (status === 200) {
-        console.log('saga',data);
         if (data.data.length < 1) return;
         yield put(getPostsSuccess({
             data : data.data.map(item => ({...item}))

@@ -33,20 +33,20 @@
             padding-right: 22.7%;
         }
         >.user-name {
-            font-size: 18px;
+            font-size: 1.5em;
             font-weight: bold;
             line-height: 1.11; 
             color: #333333;
         }
         >.offer-content {
-            font-size: 16px;
+            font-size: 1.2em;
             font-weight: normal;
             line-height: 1.25;
             color: #666666;
             flex: 1;
         }
         .time-post-offer {
-            font-size: 14px;
+            font-size: 1em;
             font-weight: normal;
             line-height: 1.29;
             color: #999999;
@@ -72,7 +72,7 @@
         top: -18%;
         background-color: Transparent;
         font-family: Muli;
-        font-size: 14px;
+        font-size: 1em;
         font-weight: 600;
 
         font-stretch: normal;
@@ -103,6 +103,7 @@
     max-width: 786px;
     padding-right: 20px;
     // align-items: center;;
+    z-index: 10000;
 }
 .input-comment-with-icon {
     // width: 80%;
@@ -115,7 +116,7 @@
         position: absolute;
         // left: 87%;
         right: 2%;
-        top: 48,26086957%;
+        top: 20px;
     }
     >textarea {
         width: 100%;
@@ -126,7 +127,7 @@
         border-width: 0;
         padding-left: 20px;
         padding-right: 40px;
-        padding-top: 10px;
+        padding-top: 8px;
         padding-bottom: 5px;
         resize: none;
     }
