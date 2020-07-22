@@ -11,7 +11,6 @@ export const getPosts = (page) => {
 };
 
 export const getPostsSuccess = (data) => {
-  console.log('action', data);
   return {
     type: types.FETCH_POST_SUCCESS,
     payload: data,

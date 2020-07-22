@@ -5,7 +5,12 @@
     "password": "Password",
     "logout": "Logout",
     "welcome": "Welcome",
-    "username": "User Name"
+    "username": "User Name",
+    "reply": "Reply",
+    "like": "Like",
+    "likes": "Likes",
+    "time": "Time",
+    "goods": "Goods"
   },
   "error": {
     "organizationRequired": "Organization is Required",
@@ -25,7 +30,9 @@
     "signup": "Sign Up"
   },
   "homepage": {
-    "title": "Home"
+    "title": "Home",
+    "raiseAvoice": "Raise a voice",
+    "dueDateTil": "Due date til"
   },
   "signupPage": {
     "createacc": "Create an account",
@@ -52,17 +59,26 @@
     "cantChange": "You will not be able to switch your role on this account"
   },
   "postOffer": {
+    "title": "Post a Propositions",
     "description": "Add optional description",
     "value": "Offer Value",
     "duedate": "Due date",
     "hashtag": "Add hashtags",
-    "publish": "Publish"
+    "publish": "Publish",
+    "typeOfOffer": "Type of Offer",
+    "constructionMaterials": "Construction Materials",
+    "postDescriptionPlaceHolder": "This is content...",
+    "chooseType": "Choose Type",
+    "availableTimeSlots": "Available Time Slots"
   },
   "userProfile": {
     "sendMess": "Send Message",
     "edit": "Edit your profile"
+  },
+  "comment": {
+    "comments": "Comments",
+    "writeAComment": "Write a comment"
   }
-
 
 
 }
