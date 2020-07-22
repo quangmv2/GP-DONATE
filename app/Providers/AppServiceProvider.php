@@ -11,6 +11,8 @@ use App\Services\LikeService;
 use App\Services\UserService;
 use App\Services\FollowService;
 use App\Services\AuthService;
+use App\Services\NotificationService;
+
 
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         UserService::class => UserService::class,
         FollowService::class => FollowService::class,
         AuthService::class => AuthService::class,
+        NotificationService::class => NotificationService::class,
     ];
     /**
      * Register any application services.

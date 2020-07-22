@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Apis;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\LikeService;
+use App\Services\NotificationService;
 
 class LikeController extends Controller
 {
 
     private $likeService;
 
-    function __construct(LikeService $likeService){
+    function __construct(LikeService $likeService, NotificationService $notificationService){
         $this->likeService = $likeService;
         $this->middleware('auth:api');
     }

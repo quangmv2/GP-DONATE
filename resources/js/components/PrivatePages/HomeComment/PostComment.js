@@ -117,7 +117,7 @@ const PostComment = props => {
     }
 
     return (
-        <div className="private-fullheight" style={{ position: "relative", zIndex: 1000 }}>
+        <div className="private-fullheight" style={{ position: "relative", zIndex: 1000, scrollBehavior: "smooth" }}>
             <div className="container" ref={screen}>
                 <HeaderNavigation headerName={getMessageTranslate('comment', 'comments')} handleBack={() => {props.hideModal();}}>
                     <button className='button-trans' onClick={() => {props.hideModal();}}>
