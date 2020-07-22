@@ -3,7 +3,8 @@ import cn from 'classnames';
 import PropTypes from "prop-types";
 import "./styles.scss";
 
-const SearchInput = ({ content }) => {
+const SearchInput = props => {
+
   const [focus, setFocus] = useState(false);
 
   const onFocusInput = () => {
@@ -14,6 +15,8 @@ const SearchInput = ({ content }) => {
       setFocus(false);
   }
 
+  const { content } = props;
+
   return (
     <div className="search-container">
         <input 
@@ -21,6 +24,7 @@ const SearchInput = ({ content }) => {
           placeholder="Search"
           onFocus={ onFocusInput } 
           onBlur={ onBlueInput } 
+          onChange={props.onChange}
         />
         <button className={cn(focus ?"icon-search-active": "icon-search-normal"," icon-search")}></button>
     </div>

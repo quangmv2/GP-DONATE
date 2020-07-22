@@ -112,4 +112,17 @@ class PostService
         }
     }
 
+    public function searchPost($search)
+    {
+        $result = Post::join('post_has_hastags', 'post_has_hastags.post_id', '=', 'posts.id')
+                    ->join('hastags', 'hastags.id', '=', 'post_has_hastags.hastag_id')
+                    ->where('hastags.value', 'like', '%'.$search.'%')
+                    ->orWhere('posts.title', 'like', '%'.$search.'%')
+                    ->distinct()
+                    ->orderBy('posts.created_at', 'desc')
+                    ->select('posts.*')
+                    ->simplePaginate(10);
+        return $result;
+    }
+
 }

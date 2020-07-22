@@ -39,4 +39,5 @@ export const GET_IMAGE = (dir) => {
     return `${ROOT_API_URL}/api/photo?dir=${dir}`;
 }
 export const POST_POST = () => `${ROOT_API_URL}/api/posts`;
+export const SEARCH_POST = keyWord => `${ROOT_API_URL}/api/posts/search?q=${keyWord}`;
 

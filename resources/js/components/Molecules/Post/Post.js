@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Proptypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import "./Post.scss";
+import { GET_IMAGE } from "../../../constants/routes";
+import UserAvatar from "react-user-avatar";
 
 const Post = ({
     url,
@@ -42,7 +44,10 @@ const Post = ({
                     </div>
                     <div className="author-create">
                         <div className="author-image">
-                            <img src={author.avatar} className="img-user" />
+                            {
+                                author.avatar?<img src={GET_IMAGE(author.avatar)} className="img-user" />:
+                                <UserAvatar size="42" name={`${author.username}`} />
+                            }
                         </div>
                         <div className="post-create">
                             <h3>{author.username}</h3>
