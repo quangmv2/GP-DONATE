@@ -25,6 +25,7 @@ const SearchInput = props => {
           onFocus={ onFocusInput } 
           onBlur={ onBlueInput } 
           onChange={props.onChange}
+          value={props.value}
         />
         <button className={cn(focus ?"icon-search-active": "icon-search-normal"," icon-search")}></button>
     </div>

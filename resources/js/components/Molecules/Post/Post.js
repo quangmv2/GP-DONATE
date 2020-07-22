@@ -15,10 +15,11 @@ const Post = ({
     duedate,
     author,
     createTime,
-    likeNumber
+    likeNumber,
+    key
 }) => {
     return (
-        <Link className={className ?? ""} to={url}>
+        <Link className={className ?? ""} to="" key={key}>
             <div className="post-wrapper">
                 <div className="post-image">
                     <img src={img} className="img-content" />
