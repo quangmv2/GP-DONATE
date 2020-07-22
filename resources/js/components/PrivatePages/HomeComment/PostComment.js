@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect, useRef, useCallback } from "react";
 import { FormattedMessage } from "react-intl";
 import { HeaderNavigation } from 'components/Atoms';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -28,7 +28,8 @@ const PostComment = props => {
 
     const { post } = props;
 
-    const fetchFirstData = async () => {
+    const fetchFirstData = useCallback(async () => {
+        await fetchComments();
         window.scrollTo(0,document.body.scrollHeight);
         socket.emit('watch-post', { id: post.id });
         socket.on(`new-comment`, data => {
@@ -46,7 +47,7 @@ const PostComment = props => {
                 return newCmts.filter(({ id }) => id !== data.id);
             })
         })
-    }
+    }, []);
 
     const fetchComments = async (id) => {
         try {
