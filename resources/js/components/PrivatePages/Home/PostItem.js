@@ -95,7 +95,6 @@ const PostItem = (props) => {
                 {`${time.days[key]}: ${time.start}-${time.end}`}<br />
             </span>)
         })
-        console.log(times);
     }
     return (
         <div className="container">
