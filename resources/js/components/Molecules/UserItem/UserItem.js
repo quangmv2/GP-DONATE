@@ -2,6 +2,8 @@ import React from "react";
 import "./UserItem.scss";
 import { Link } from "react-router-dom";
 import { StarFilled } from "@ant-design/icons";
+import { GET_IMAGE } from "../../../constants/routes";
+import UserAvatar from "react-user-avatar";
 
 const UserItem = ({
     username,
@@ -20,7 +22,10 @@ const UserItem = ({
             <Link className="message-component-container message-preview-container">
                 <div className="message-component-container">
                     <div className="avatar-wrapper">
-                        <img src={avatar} className="mess-avatar" />
+                            {
+                                avatar?<img src={GET_IMAGE(avatar)} className="mess-avatar" />:
+                                <UserAvatar size="42" name={`${username}`} />
+                            }
                         <StarFilled className="icon-star" />
                     </div>
                     <div className="info-user mess-content-container">

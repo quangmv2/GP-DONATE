@@ -1,24 +1,14 @@
-import React, { Component, useEffect, useState, memo } from "react";
+import React, { useEffect, useState, memo } from "react";
 // import Swiper from "swiper";
 import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/swiper.scss';
-import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
-import 'swiper/components/scrollbar/scrollbar.scss';
-
 // install Swiper components
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 // CSS
-//swiper css must come first
-// import "swiper/swiper.scss";
 import "./HomeScreen.scss";
 import PostItem from "./PostItem";
 import {
@@ -37,6 +27,11 @@ import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
 import Comment from "../HomeComment/PostComment";
 
+// Import Swiper styles
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+import 'swiper/components/scrollbar/scrollbar.scss';
 
 const HomePage = (props) => {
     
@@ -72,36 +67,21 @@ const HomePage = (props) => {
     const { posts } = props;
 
     return (
-        <div 
-            style={{
-                // backgroundImage: "url('https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb')",
-                // backgroundRepeat: "no-repeat",
-                // backgroundSize: "cover"
-            }}
-        >
-            {
-                openModal?<Comment hideModal={hideModal} post={posts[index]} />:<></>
-            }
+        <div >
+            {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
 
             <Swiper
-            
                 direction="vertical"
-                // pagination={{ clickable: true }}
-                // scrollbar={{ draggable: true }}
-                // onSwiper={(swiper) => console.log(swiper)}
-                // onSlideChange={(swiper) => console.log(swiper)}
                 // virtual
                 style={{ height: openModal?0:"100vh", display: openModal?"none":"block" }}
                 onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
             >
 
-                {
-                    posts.map(post => 
-                        <SwiperSlide key={`post ${post.id} ${post.title}`}>
-                            <PostItem {...post} showModal={showModal} hideModal={hideModal} />    
-                        </SwiperSlide>
-                    )
-                }
+              {posts.map(post => 
+                <SwiperSlide key={`post ${post.id} ${post.title}`}>
+                  <PostItem {...post} showModal={showModal} hideModal={hideModal} />    
+                </SwiperSlide>
+              )}
             </Swiper>   
             <BottomNavigator />
         </div>

@@ -39,13 +39,12 @@ export class SignUpScreen extends Component {
     async componentDidMount() {};
 
     onSubmit = (values, { setSubmitting }) => {
-
+        console.log('submit')
         if (!this.setSubmitting) {
             this.setSubmitting = setSubmitting;
         }
         const { email, username, password } = values;
         const { signUp } = this.props;
-        console.log('submit')
         signUp(username, email, password);
         
     }

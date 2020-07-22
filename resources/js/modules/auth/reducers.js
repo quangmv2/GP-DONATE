@@ -124,7 +124,6 @@ const reducer = (state = initialState, action) => {
     case types.VERIFY_TOKEN_FAILED: {
       const error = action.payload;
       const { message } = error;
-      console.log(message);
       openNotification(NOTIFICATION_TYPE.ERROR, "Error", message);
       return state
         .set("loading", false)

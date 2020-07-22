@@ -6,10 +6,7 @@
   font-family: Muli;
   font-size: 18px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.2;
-  letter-spacing: normal;
   color: #262626;
 }
 .post-image-container {
@@ -27,8 +24,19 @@
   padding-bottom: 20%;
   height: 217px;
   display: flex;
-    flex: 1;
+  flex: 1;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  > label{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
+  }
 }
 .imgPreview {
   min-height: 170px;
@@ -51,10 +59,7 @@
   font-family: Muli;
   font-size: 20px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.2;
-  letter-spacing: normal;
   color: #262626;
 }
 .publish-button {
@@ -75,11 +80,11 @@
   height: 60px;
   font-weight: bold;
   font-family: Muli;
-  font-style: normal;
   border: none;
   color: #ffffff;
-  font-stretch: normal;
   line-height: 1.44px;
+  border: 1px solid #ddae53;
+
 }
 textarea {
   width: 100%;
@@ -123,10 +128,7 @@ select {
       font-family: Muli;
       font-size: 22px;
       font-weight: bold;
-      font-stretch: normal;
-      font-style: normal;
       line-height: 1.27;
-      letter-spacing: normal;
       text-align: center;
       color: #333333;
     }
@@ -136,10 +138,7 @@ select {
   font-family: Muli;
   font-size: 20px;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.2;
-  letter-spacing: normal;
   color: #262626;
   padding-top: 20px;
 }
@@ -172,20 +171,20 @@ select {
     > input {
       height: 45px;
       font-family: Muli;
-      font-size: 40px;
+      font-size: 2.5rem;
       font-weight: bold;
-      font-stretch: normal;
-      font-style: normal;
       line-height: 1.1;
-      letter-spacing: normal;
       text-align: center;
       color: #333333;
       min-width: 120px;
-      padding-left: 10px;
     }
   }
   .ant-picker-range .ant-picker-active-bar {
     margin-left: 25px;
+  }
+
+  .ant-picker-suffix, .ant-picker-clear{
+    display: none;
   }
 }
 .minus-icon-container {
@@ -213,11 +212,7 @@ select {
     margin-top: -5px;
     font-family: Muli;
     font-size: 18px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 1.33;
-    letter-spacing: normal;
     color: #ddae53;
   }
   .MuiInputLabel-shrink {
@@ -229,11 +224,14 @@ select {
 .ant-picker-input-active {
   border: none;
 }
-.anticon {
-  > svg {
-    visibility: hidden;
+.ant-picker{
+  .anticon {
+    > svg {
+      visibility: hidden;
+    }
   }
 }
+
 .range-picker-icon {
   font-size: 20px;
   position: relative;
@@ -277,11 +275,7 @@ select {
 .uncheckedLabel{
   font-family: Muli;
   font-size: 16px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.5;
-  letter-spacing: normal;
   color: '#999999'
   }
   .checkedLabel { 

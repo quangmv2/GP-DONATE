@@ -13,9 +13,9 @@ import { fetchService } from "../../../services/fetch/fetchService";
 import { Select } from 'antd';
 import { ROOT_API_URL, GET_IMAGE, ACCESS_TOKEN, POST_POST, ROUTE } from "../../../constants";
 import Hastag from './Hastag';
-import { set } from 'js-cookie';
 import { openNotification } from "helpers";
 import { NOTIFICATION_TYPE } from "constants";
+import { getMessageTranslate } from "helpers";
 
 
 const dateFormat = 'DD MMMM YYYY';
@@ -80,7 +80,6 @@ const PostOffer = props => {
     } else {
       openNotification(NOTIFICATION_TYPE.ERROR, 'Error', '')
     }
-    console.log(res, status);
   }
 
   const onChangeWeekdays = (index, id, name) => {
@@ -177,7 +176,7 @@ const PostOffer = props => {
       typeOfOffer = (
         <div>
           <div className='availble-time-container'>
-            <p className='post-offer-label'>Available Time Slots</p>
+            <p className='post-offer-label'><FormattedMessage defaultMessage={'Available Time Slots'} id={'postOffer.availableTimeSlots'}/></p>
             <button className='button-trans' onClick={onClickAddTimeSlot}>
               <img src={'./images/icon/plus.svg'} className='plus-icon' />
             </button>
@@ -245,7 +244,7 @@ const PostOffer = props => {
             <TextField
               onChange={inputMaterials}
               value={materials}
-              label='Construction Materials' name='goods' />
+              label={getMessageTranslate('postOffer', 'constructionMaterials')} name='goods' />
           </Grid>
         </Grid>
       );
@@ -254,13 +253,11 @@ const PostOffer = props => {
     return typeOfOffer;
   };
 
-
   let imgPreview = <div className='imgPrew-container'><img src={GET_IMAGE(image)} alt='' className='imgPreview' /></div>;
-  console.log('image', image);
   return (
     <div className='private-fullheight'>
       <div className='container'>
-        <HeaderNavigation headerName='Post a Propositions' />
+        <HeaderNavigation headerName={getMessageTranslate('postOffer', 'title')} />
         <Grid container className='post-image-container'>
           <Grid item xs={5} style={{ paddingRight: '25px' }}>
             {image ? imgPreview : (<div className='prev-image-container'>
@@ -273,7 +270,7 @@ const PostOffer = props => {
             <textarea
               onChange={inputContent}
               value={content}
-              placeholder='This is content...' />
+              placeholder={getMessageTranslate('postOffer', 'postDescriptionPlaceHolder')} />
           </Grid>
         </Grid>
 
@@ -298,16 +295,22 @@ const PostOffer = props => {
               >
                 <Grid item className='item-flex input-post-offer'>
                   <div className='form-group'>
-                    <p className='post-offer-label'>Type of Offer</p>
+                    <p className='post-offer-label'>
+                      <FormattedMessage
+                        defaultMessage={'Type of Offer'}
+                        id={'postOffer.typeOfOffer'}
+                      />
+                  </p>
                     <Select
+                      className="text-uppercase"
                       name='post-type'
                       id='post_type'
                       form='post_form'
-                      placeholder='- Choose Type -'
+                      placeholder={`- ${getMessageTranslate('postOffer', 'chooseType')} -`}
                       onChange={onChangeValue}
                     >
-                      <Option value='time'>TIME</Option>
-                      <Option value='goods'>GOODS</Option>
+                      <Option className="text-uppercase" value='time'><FormattedMessage defaultMessage={'Time'} id={'common.time'}/></Option>
+                      <Option className="text-uppercase" value='goods'><FormattedMessage defaultMessage={'Goods'} id={'common.goods'}/></Option>
                     </Select>
                   </div>
                 </Grid>
@@ -320,7 +323,12 @@ const PostOffer = props => {
                 className='form-control'
               >
                 <Grid item className='item-flex input-post-offer'>
-                  <p className='post-offer-label'>Due Date</p>
+                  <p className='post-offer-label'>
+                    <FormattedMessage
+                      defaultMessage={'Due date'}
+                      id={'postOffer.dueDate'}
+                    />
+                  </p>
                   <div className='due-date-container'>
                     <DatePicker
                       defaultValue={moment().add('1', 'days')}
@@ -331,18 +339,16 @@ const PostOffer = props => {
                 </Grid>
               </Grid>
 
-              {/* <Link to=''> */}
-                <div className='form-control publish-button' onClick={submit}>
-                  <ButtonAnt className='custom-button-login btn-block btn-round btn-red post-offer-button-container'
-                    disbale={false}
-                  >
-                    <FormattedMessage
-                      defaultMessage={'Publish'}
-                      id={'postOffer.publish'}
-                    />
-                  </ButtonAnt>
-                </div>
-              {/* </Link> */}
+              <div className='form-control publish-button'>
+                <ButtonAnt className='custom-button-login btn-block btn-round btn-red post-offer-button-container'
+                   onClick={submit}
+                >
+                  <FormattedMessage
+                    defaultMessage={'Publish'}
+                    id={'postOffer.publish'}
+                  />
+                </ButtonAnt>
+              </div>
             </>
           </form>
         </div>
