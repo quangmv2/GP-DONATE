@@ -46,10 +46,7 @@
     font-family: Muli;
     font-size: 1.2em;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 1.22;
-    letter-spacing: normal;
     color: #ffffff;
     padding-left: 10px;
     display: flex;
@@ -73,21 +70,14 @@
   font-family: Muli;
   font-size: 1.5em;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.27;
-  letter-spacing: normal;
   color: #ffffff;
 }
 .home-text {
   text-shadow: 0 2px 6px rgba(18, 16, 60, 0.45);
   font-family: Muli;
   font-size: 1em;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.41;
-  letter-spacing: normal;
   color: #ffffff;
   padding-left: 5.8px;
   span {
@@ -108,10 +98,6 @@
   font-family: Muli-Regular;
   font-size: 1em;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: #ffffff;
   padding: 2px 15px 2px 20px;
   line-height: 24px;
@@ -173,30 +159,14 @@
   max-height: 200px;
 }
 
-// .coment-item-container::-webkit-scrollbar {
-//   display: none;
-// }
-
-// /* Hide scrollbar for IE, Edge and Firefox */
-// .coment-item-container {
-// -ms-overflow-style: none;  /* IE and Edge */
-// scrollbar-width: none;  /* Firefox */
-// }
-
 .comment-container {
   display: flex;
   flex-direction: column;
-  // overflow-y: auto;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
   font-family: Muli;
   font-size: 1em;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.2;
-  letter-spacing: normal;
   color: #ffffff;
-  // z-index: 200;
 }
 .comment-text-style {
   display: flex;
@@ -210,10 +180,7 @@
   font-family: Muli;
   font-size: 1.2em;
   font-weight: 600;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 1.11;
-  letter-spacing: normal;
   color: #ffffff;
 }
 .action-container {

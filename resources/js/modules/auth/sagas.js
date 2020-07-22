@@ -163,7 +163,6 @@ function requestLogout() {
 }
 
 function requestVerifyToken() {
-    console.log('pass get profile request');
     return fetchService
         .fetch(`${ROOT_API_URL}/api/profile/me`, { method: "GET" })
         .then(([resp, status]) => {

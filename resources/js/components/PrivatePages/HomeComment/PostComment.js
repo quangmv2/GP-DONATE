@@ -1,19 +1,15 @@
-import React, { Component, useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
+import { FormattedMessage } from "react-intl";
 import { HeaderNavigation } from 'components/Atoms';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import './HomeComment.scss';
-import Data from './Yumny-data';
-import { Link } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
-import Grid from '@material-ui/core/Grid';
 import { SocketContext } from "../../../context/SocketProvider";
 import CloseIcon from '@material-ui/icons/Close';
 import { GET_COMMENT, POST_COMMENT } from "../../../constants/routes";
 import { fetchService } from "services";
 import moment from "moment";
-
+import { getMessageTranslate } from "helpers";
+import './HomeComment.scss';
 
 const PostComment = props => {
     const [data, setData] = useState(null);
@@ -27,14 +23,12 @@ const PostComment = props => {
     }, []);
 
     useEffect(() => {
-        // window.screenTop = 10000;
         screen.current.scrollTop = 5000;
     }, [comments]);
 
     const { post } = props;
 
     const fetchFirstData = async () => {
-        const comments = await fetchComments(post.id);
         window.scrollTo(0,document.body.scrollHeight);
         socket.emit('watch-post', { id: post.id });
         socket.on(`new-comment`, data => {
@@ -107,8 +101,8 @@ const PostComment = props => {
                             <p className='offer-content comment-body-conatiner'>{content}</p>
                             <div className='time-post-container'>
                             <p className='time-post-offer'>{moment(created_at).add(-(new Date().getTimezoneOffset() / 60), 'hours').fromNow()}</p>
-                                <p className='time-post-offer'>2 likes</p>
-                                <button className='reply'>Reply</button>
+                                <p className='time-post-offer'>2 <FormattedMessage defaultMessage="Likes" id="common.likes" /></p>
+                                <button className='reply'><FormattedMessage defaultMessage="Reply" id="common.reply" /></button>
                             </div>
                         </div>
                     </div>
@@ -124,8 +118,8 @@ const PostComment = props => {
     return (
         <div className="private-fullheight" style={{ position: "relative", zIndex: 1000 }}>
             <div className="container" ref={screen}>
-                <HeaderNavigation headerName={'Comments'}>
-                    <button className='button-trans' onClick={() => {props.hideModal(); console.log(11)}}>
+                <HeaderNavigation headerName={getMessageTranslate('comment', 'comments')} handleBack={() => {props.hideModal();}}>
+                    <button className='button-trans' onClick={() => {props.hideModal();}}>
                         <CloseIcon />
                     </button>
                 </HeaderNavigation>
@@ -160,7 +154,7 @@ const PostComment = props => {
                             type='text'
                             cols='3'
                             row='3'
-                            placeholder='Write a comment...'
+                            placeholder={getMessageTranslate('comment', 'writeAComment')}
                             value={comment}
                             onChange={inputChange}
                         />
