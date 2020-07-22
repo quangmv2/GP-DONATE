@@ -193,4 +193,24 @@ class ProfileController extends Controller
         return response()->json(json_decode($unfollow), 200);
     }
 
+    public function searchPeople(Request $request)
+    {
+        $search = $request->get('q');
+        $following = $this->followService->getFollowingOfUser($request->user()->id);
+        $users = $this->userService->searchUser($search);
+        foreach ($users as $key => $user) {
+            foreach ($following as $key => $follow) {
+                if ($user->id == $follow->user_id_from) {
+                    unset($user);
+                    break;
+                }
+                if ($user->id == $follow->user_id_to) {
+                    $user["friend"] = true;
+                    break;
+                }
+            }
+        }
+        return response()->json(json_decode($users), 200);
+    }
+
 }

@@ -622,4 +622,17 @@ class PostController extends Controller
         return $comments;
     }
 
+    public function searchPost(Request $request)
+    {
+        $keyWord = $request->get('q');
+        $posts = $this->postService->searchPost($keyWord);
+        foreach ($posts as $key => $post) {
+            $post->user;
+            $post["totalLike"] = $post->likes()->count();
+            $post->hastags;
+            $post->offers;
+        }
+        return $posts;
+    }
+
 }

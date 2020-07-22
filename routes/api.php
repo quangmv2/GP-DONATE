@@ -32,11 +32,13 @@ Route::get('photo', 'Apis\PostController@showPhoto'); //get photo for driectory
 
 Route::group(['prefix' => 'posts'], function () {
     Route::post('photo', 'Apis\PostController@storePhoto'); //Upload image
+    Route::get('search', 'Apis\PostController@searchPost');
     Route::get('{id}/comments', 'Apis\PostController@getComments'); 
     Route::get('{id}/likes', 'Apis\PostController@getLikes'); 
 });
 
 Route::group(['prefix' => 'profile'], function () {
+    Route::get('search', 'Apis\ProfileController@searchPeople');
     Route::get('{id}/following', "Apis\ProfileController@getFollowingOfUser");
     Route::get('{id}/followed', "Apis\ProfileController@getFollowedOfUser");
     Route::get('{id}/posts', "Apis\ProfileController@getPostOfUser");
