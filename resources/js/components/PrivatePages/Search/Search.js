@@ -9,36 +9,6 @@ import { fetchService } from "services";
 import { SEARCH_POST, GET_IMAGE, SEARCH_PEOPLE } from "../../../constants/routes";
 import moment from "moment";
 
-const patronData = [
-    {
-        username: "Charity",
-        content: "@alina.baikova",
-        avatar: "",
-        isFriend: true
-    },
-    {
-        username: "Social Mobility",
-        content: "@alina.baikova",
-        avatar: "",
-        isFriend: true
-    },
-    {
-        username: "The Nyaka AIDS Orphans",
-        content: "@alina.baikova",
-        avatar: ""
-    },
-    {
-        username: "Emma Watson",
-        content: "@alina.baikova",
-        avatar: ""
-    },
-    {
-        username: "Mapelo Onzcu",
-        content: "@alina.baikova",
-        avatar: ""
-    }
-];
-
 let idTimeOut = 0;
 let delay = Date.now();
 const Search = props => {

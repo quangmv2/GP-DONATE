@@ -32,12 +32,13 @@ class NotificationService
         # code...
     }
 
-    public function saveComment($user_id, $user_to_notify, $post_id, $content)
+    public function saveComment($user_id, $user_to_notify, $post_id, $content, $image)
     {
         if ($user_id == $user_to_notify) return;
         $data = [
             "post_id" => $post_id,
-            "content" => $content
+            "content" => $content,
+            'image' => $image
         ];
         Notification::create([
             "user_id" => $user_id,
