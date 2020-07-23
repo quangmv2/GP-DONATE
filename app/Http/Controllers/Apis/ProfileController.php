@@ -117,9 +117,6 @@ class ProfileController extends Controller
         return response()->json(json_decode($user), 200);
     }
 
-
-
-
     /**
      * Update the specified resource in storage.
      *
@@ -133,10 +130,7 @@ class ProfileController extends Controller
         $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
-            'roles' => 'required'
         ]);
         $input = $request->all();
         if(!empty($input['password'])){ 
@@ -144,13 +138,9 @@ class ProfileController extends Controller
         }else{
             $input = array_except($input,array('password'));    
         }
-
         $user = User::find($id);
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
-        $user->assignRole($request->input('roles'));
-        return redirect()->route('users.index')
-                        ->with('success','User updated successfully');
+        return response()->json(json_decode($user), 200);
     }
 
     /**
