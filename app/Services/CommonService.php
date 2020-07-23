@@ -8,8 +8,6 @@ use Hash;
 use Response;
 use Illuminate\Support\Facades\Storage;
 
-
-
 class CommonService
 {
     
@@ -19,6 +17,17 @@ class CommonService
         $json = json_encode($input_data);
         $json =  preg_replace('/,\s*"[^"]+":null|"[^"]+":null,?/', '', $json);
         return json_decode($json);
+    }
+
+    public function saveImage($image)
+    {
+        $name= time().'_'.$image->getClientOriginalName();
+        
+        $directory = "uploads/images";
+
+        $path = Storage::putFileAs($directory, $image, $name);
+        
+        return $path;
     }
 
     public function showImage($path)

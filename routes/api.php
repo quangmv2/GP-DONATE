@@ -29,9 +29,9 @@ Route::group(['prefix' => 'oauth'], function () {
     
 
 Route::get('photo', 'Apis\PostController@showPhoto'); //get photo for driectory
+Route::post('photo', 'Apis\PostController@storePhoto'); //Upload image
 
 Route::group(['prefix' => 'posts'], function () {
-    Route::post('photo', 'Apis\PostController@storePhoto'); //Upload image
     Route::get('search', 'Apis\PostController@searchPost');
     Route::get('{id}/comments', 'Apis\PostController@getComments'); 
     Route::get('{id}/likes', 'Apis\PostController@getLikes'); 
