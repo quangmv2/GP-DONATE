@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import { ButtonAnt } from "components/Atoms";
 import { fetchService } from "services";
 import { FormattedMessage } from "react-intl";
-
+import { PRIVATE_ROUTE, NOTIFICATION_TYPE, ROUTE } from "constants";
 import "swiper/swiper.scss";
 import "./HomeScreen.scss";
 import { ROOT_API_URL, GET_IMAGE, GET_COMMENT } from "../../../constants/routes";
@@ -22,6 +22,7 @@ const PostItem = (props) => {
     const { socket } = useContext(SocketContext);
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
+    const { post } = props;
 
     useEffect(() => {
         fetchFirstData();
@@ -31,7 +32,6 @@ const PostItem = (props) => {
     useEffect(() => {
         commentsElement.current.scrollTop = 5000
     }, [comments])
-
     const fetchFirstData = useCallback(async () => {
         fetchComments();
         socket.emit('watch-post', { id: props.id });
@@ -66,8 +66,10 @@ const PostItem = (props) => {
             });
             console.log(comments);
             if (status === 200) {
+                console.log(match.params);
                 setComments(comments);
                 return comments;
+                
             }
         } catch (error) {
             console.log(err);
@@ -105,7 +107,7 @@ const PostItem = (props) => {
             <div className="home-image" ref={homeImage}>
                 <div className="top-navbar-giver-home">
                     <div className="navbar-giver-home-container">
-                        <Link to="/user-profile">
+                        <Link to={`user-profile/${props.user_id}`} >
                             {
                                 props.user.personal_photo ? <img
                                     src={GET_IMAGE(props.user.personal_photo)}
@@ -116,7 +118,7 @@ const PostItem = (props) => {
                         </Link>
                         <div className="info-user">
                             <p className="username">
-                                <Link to="/user-profile">
+                            <Link to={`user-profile/${props.user_id}`} >
                                     {`${props.user.first_name} ${props.user.last_name}`}
                                 </Link>
                             </p>
@@ -187,15 +189,9 @@ const PostItem = (props) => {
                                 )
                             }
                         </div>
-<<<<<<< HEAD
-                        <div className="raise-a-voice-container">
-                            <ButtonAnt onClick={props.open}>
-                                <span>Raise a voice</span>
-=======
                         <div className="raise-a-voice-container" onClick={props.showModal}>
                             <ButtonAnt>
                                 <span><FormattedMessage defaultMessage="Raise a voice" id="homepage.raiseAVoice" /></span>
->>>>>>> c427b14bda1ca7777c76c8b913763e380177c00d
                                 <i className="icon-social icon-comment-active"></i>
                             </ButtonAnt>
                         </div>

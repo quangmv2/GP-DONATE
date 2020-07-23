@@ -11,7 +11,7 @@ export const PRIVATE_ROUTE = {
     POST_OFFER: "/post-offer",
     HOME: "/",
     POST_COMMENT: "/post-comment",
-    USER_PROFILE: "/user-profile",
+    USER_PROFILE: "/user-profile/:userId",
     ACTIVITIES: "/activities",
     MESSAGES: '/messages',
     CHOOSEROLE: "/choose-role",

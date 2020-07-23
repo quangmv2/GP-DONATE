@@ -5,16 +5,6 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-<<<<<<< HEAD
-import Modal from './ModalComment';
-// Import Swiper styles
-import 'swiper/swiper.scss';
-import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
-import 'swiper/components/scrollbar/scrollbar.scss';
-
-=======
->>>>>>> c427b14bda1ca7777c76c8b913763e380177c00d
 // install Swiper components
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
@@ -47,7 +37,6 @@ const HomePage = (props) => {
     const [show, setShow] = useState(false); 
     const [index, setIndex] = useState(0);
     const [openModal, setOpenModal] = useState(false);
-
     useEffect(() => {
         const { fetchMore, page } = props;
         fetchMore(1);
@@ -75,33 +64,10 @@ const HomePage = (props) => {
     }
 
     const { posts } = props;
-    const showModal = () => {
-        setShow(true);
-    };
-    const hideModal = () => {
-        setShow(false);
-    }
+    
     return (
-<<<<<<< HEAD
-      <> { show ?   <Modal
-        className="modal"
-        show={show}
-      close={hideModal}
-        >
-    </Modal> : <div 
-            style={{
-                // backgroundImage: "url('https://images.unsplash.com/photo-1553152531-b98a2fc8d3bf?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb')",
-                // backgroundRepeat: "no-repeat",
-                // backgroundSize: "cover"
-            }}
-        >
-            {
-                openModal?<Comment hideModal={hideModal} post={posts[index]} />:<></>
-            }
-=======
-        <div >
+        <div>
             {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
->>>>>>> c427b14bda1ca7777c76c8b913763e380177c00d
 
             <Swiper
                 direction="vertical"
@@ -110,25 +76,15 @@ const HomePage = (props) => {
                 onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
             >
 
-<<<<<<< HEAD
-                {
-                    posts.map(post => 
-                        <SwiperSlide key={`post ${post.id} ${post.title}`}>
-                            <PostItem {...post} open={showModal}/>    
-                        </SwiperSlide>
-                    )
-                }
-=======
               {posts.map(post => 
                 <SwiperSlide key={`post ${post.id} ${post.title}`}>
                   <PostItem {...post} showModal={showModal} hideModal={hideModal} />    
                 </SwiperSlide>
               )}
->>>>>>> c427b14bda1ca7777c76c8b913763e380177c00d
             </Swiper>   
             <BottomNavigator />
-        </div>}
-        </>
+        </div>
+    
     );  
 }
 

@@ -1,17 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./UserProfile.scss";
 import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import { Link } from "react-router-dom";
 import { ButtonAnt } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
+import { useParams } from 'react-router-dom';
 import UserPropositions from "./UserPropositions";
+import { GET_PROFILE } from "../../../constants/routes";
+import { fetchService } from "../../../services/fetch/fetchService";
 
-const UserProfile = () => {
+const UserProfile = ( props ) => {
+    let { userId } = useParams();
+    const [ user, setUser ] = useState([]);
+    useEffect(() => {
+       fetchUser()
+     
+    }, []);
+    const fetchUser = async (id) => {
+        const [users] = await fetchService.fetch(GET_PROFILE( userId ), {
+          method: 'GET'
+        });
+        setUser(users);
+        console.log(users)
+      }
     const renderFields = () => {
+       
         return _.map(UserPropositions, ({ label, name }) => {
             return (
                 <Link className="propositons-container">
-                    <p numberOfLines="2">Between Heaven Earth</p>
+                    <p>Between Heaven Earth</p>
                 </Link>
             );
         });
@@ -23,7 +40,10 @@ const UserProfile = () => {
         />
     );
     return (
-        <div className="user-image-container">
+        <div className="userProfileContainer" >
+            <div className="image-background-div">
+                <img className="image-background" src={user.personal_photo} />
+            </div>
             <div className="top-navbar-giver-home">
                 <div className="navbar-giver-home-container">
                     <img
@@ -31,7 +51,7 @@ const UserProfile = () => {
                         className="giver-avatar"
                     />
                     <div className="info-user">
-                        <p className="username">Alina</p>
+                        <p className="username">{user.first_name} {user.last_name}</p>
                         <p className="user-charity">Charity: Water</p>
                     </div>
                 </div>
@@ -43,15 +63,15 @@ const UserProfile = () => {
                     <p>Projects</p>
                 </div>
                 <div className="account-profile-info">
-                    <span className="account-profile-number">54K</span>
+            <span className="account-profile-number">{user.totalLike}</span>
                     <p>Likes</p>
                 </div>
                 <div className="account-profile-info">
-                    <span className="account-profile-number">102K</span>
+                <span className="account-profile-number">{user.followed}</span>
                     <p>Followers</p>
                 </div>
                 <div className="account-profile-info">
-                    <span className="account-profile-number">25</span>
+                    <span className="account-profile-number">{user.following}</span>
                     <p>Following</p>
                 </div>
             </div>
@@ -59,7 +79,7 @@ const UserProfile = () => {
                 <Link className="link-to-propositions-container">
                     <p>See all Propositions</p>
                     <img
-                        src={"./images/icon/arrow-next.svg"}
+                        src="../../../../../public/images/icon/back.svg"
                         className="Arrow-next"
                     ></img>
                 </Link>
