@@ -9,12 +9,18 @@ use Response;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Like;
+use App\Models\Post;
+use App\Services\NotificationService;
 
 
 
 class LikeService
 {
     
+    function __construct(NotificationService $notificationService){
+        $this->notificationService = $notificationService;
+    }
+
     public function validate($request)
     {
         $request->validate([
@@ -40,6 +46,8 @@ class LikeService
         ], []);
         $like["status"] = 1;
         $like["message"] = 'Like sucess';
+        $post = Post::find($post_id);
+        $this->notificationService->saveLike($user_id, $post->user_id, $post_id);
         return $like;
     }
 
