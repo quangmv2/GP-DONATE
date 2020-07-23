@@ -6,7 +6,7 @@ import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import Grid from "@material-ui/core/Grid";
 import { ButtonAnt } from "components/Atoms";
 import { fetchService } from "services";
-import Modal from './ModalComment';
+
 import "swiper/swiper.scss";
 import "./HomeScreen.scss";
 import { ROOT_API_URL, GET_IMAGE, GET_COMMENT } from "../../../constants/routes";

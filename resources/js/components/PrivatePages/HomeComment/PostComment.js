@@ -1,4 +1,4 @@
-import React, { Component, useState, useContext, useEffect } from "react";
+import React, { Component, useState, useContext, useEffect, useRef } from "react";
 import { HeaderNavigation } from 'components/Atoms';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import './HomeComment.scss';
@@ -26,27 +26,31 @@ const PostComment = (props) => {
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
     const { socket } = useContext(SocketContext);
-    // const [UTC, setUTC] = useState((new Date()).getUTCDate()*60*60*1000);
-
+    const screen = useRef(null);
 
     useEffect(() => {
         fetchFirstData();
     }, []);
 
+    useEffect(() => {
+        // window.screenTop = 10000;
+        screen.current.scrollTop = 5000;
+    }, [comments]);
 
+    const { post } = props;
 
     const fetchFirstData = async () => {
-        const post = await fetchPost(id_post);
-
         const comments = await fetchComments(post.id);
-        socket.emit('watch-post', post);
+        window.scrollTo(0,document.body.scrollHeight);
+        socket.emit('watch-post', { id: post.id });
         socket.on(`new-comment`, data => {
             setComments(cmts => {
                 if (cmts.find(({ id }) => id === data.id)) return cmts;
                 const newCmts = [...cmts];
                 newCmts.push(data);
                 return newCmts;
-            })
+            });
+            window.scrollTo(0,document.body.scrollHeight);
         });
         socket.on('delete-comment', data => {
             setComments(cmts => {
@@ -56,30 +60,15 @@ const PostComment = (props) => {
         })
     }
 
-    const fetchPost = async (id) => {
-        try {
-            const post = await axios.get(`http://donate/api/posts/${id}`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Accept': '*'
-                }
-            });
-            setData(post.data);
-            return post.data;
-        } catch (error) {
-
-        }
-    }
-
     const fetchComments = async (id) => {
         try {
-            const comments = await axios.get(`http://donate/api/posts/${id}/comments`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+            const [comments, status] = await fetchService.fetch(GET_COMMENT(post.id), {
+                method: "GET"
             });
-            setComments(comments.data);
-            return comments.data;
+            if (status === 200) {
+                setComments(comments);
+                return comments;
+            }
         } catch (error) {
             console.log(err);
         }
@@ -90,24 +79,24 @@ const PostComment = (props) => {
     }
 
     const clickComment = async () => {
-        const resComment = await axios({
-            baseURL: 'http://donate/api/comment',
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            data: {
-                post_id: data.id,
-                content: comment
-            }
+        const data = {
+            post_id: post.id,
+            content: comment
+        }
+        const [resComment, status] = await fetchService.fetch(POST_COMMENT(), {
+            method: "POST",
+            body: JSON.stringify(data)
         })
-        setComments(cmts => {
-            const newCmts = [...cmts];
-            newCmts.push(resComment.data);
-            return newCmts;
-        });
-        setComment('');
+        if (status == 200 || status == 201) {
+            console.log(resComment);
+            setComments(cmts => {
+                const newCmts = [...cmts];
+                newCmts.push(resComment);
+                return newCmts;
+            });
+            setComment('');
+            window.scrollTo(0,document.body.scrollHeight);
+        } 
     }
 
     const renderComment = () => {
@@ -123,7 +112,7 @@ const PostComment = (props) => {
                             <p className='user-name'>@{username}</p>
                             <p className='offer-content comment-body-conatiner'>{content}</p>
                             <div className='time-post-container'>
-                            <p className='time-post-offer'>{timeAgo.format((new Date(created_at)).getTime() + UTC)}</p>
+                            <p className='time-post-offer'>{moment(created_at).add(-(new Date().getTimezoneOffset() / 60), 'hours').fromNow()}</p>
                                 <p className='time-post-offer'>2 likes</p>
                                 <button className='reply'>Reply</button>
                             </div>
@@ -152,9 +141,9 @@ const PostComment = (props) => {
                         className="giver-avatar"
                     />
                     <div className='info-post'>
-                        <p className='user-name'>{data?`${data.user.first_name} ${data.user.last_name}`:'Loaing...'}</p>
-                    <p className='offer-content post-offer-content'>{data?data.content:'Loading...'}</p>
-                        <p className='time-post-offer'>{data?timeAgo.format((new Date(data.created_at)).getTime() + UTC):''}</p>
+                        <p className='user-name'>{`${post.user.first_name} ${post.user.last_name}`}</p>
+                    <p className='offer-content post-offer-content'>{post.title}</p>
+                        <p className='time-post-offer'>{moment(post.created_at).add(-(new Date().getTimezoneOffset() / 60), 'hours').fromNow()}</p>
                     </div>
                 </div>
 
@@ -169,18 +158,17 @@ const PostComment = (props) => {
                     />
                     <div
                         className='input-comment-with-icon'>
-                        <button className='button-trans post-comment-button' onClick={clickComment}>
+                        <button className='button-trans post-comment-button' onClick={clickComment} style={{top: "20px"}}>
                             <ArrowForwardOutlinedIcon style={{ backgroundColor: '#ddae53', color: 'white', borderRadius: '50%' }} />
                         </button>
                         <textarea
-                            wrap
+                            style={{ marginTop: 0 }}
                             type='text'
                             cols='3'
                             row='3'
                             placeholder='Write a comment...'
                             value={comment}
                             onChange={inputChange}
-                            onKeyPress={clickComment}
                         />
                     </div>
                 </div>
