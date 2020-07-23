@@ -475,10 +475,10 @@ class PostController extends Controller
 
     /**
      * @SWG\Post(
-     *     path="api/posts/photo",
-     *     tags={"Posts"},
+     *     path="api/photo",
+     *     tags={"Common"},
      *     summary={"Tải lên hình ảnh"},
-     *     description="Tải lên hình ảnh cho bài post",  
+     *     description="Tải lên hình ảnh",  
      *     @SWG\Parameter(
      *         name="photo",
      *         in="path",
@@ -513,7 +513,7 @@ class PostController extends Controller
         $request->validate([
             'photo' =>'required|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ]);
-        $path =  $this->postService->saveImage($request->file('photo'));
+        $path =  $this->commonService->saveImage($request->file('photo'));
         return response()->json([
             'messeger' => 'success',
             'image_directory' => $path,
