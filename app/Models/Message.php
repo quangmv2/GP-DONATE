@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PostHasOffer extends Model
+class Message extends Model
 {
     protected $fillable = [
-        'post_id', 'type_offer', 'content'
+        'user_id', 'user_id_to', 'content', 'read'
     ];
 }

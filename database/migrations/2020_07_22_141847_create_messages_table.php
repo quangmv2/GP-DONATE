@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNotificationsTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id'); // set relationship in user model 
-            $table->unsignedBigInteger('user_to_notify'); //the user who will recive this notification
-            $table->string('type'); //follow ,comments etc
-            $table->string('data'); //follow id ,comment id etc ,you can set relationship in model about this
-            $table->integer('read')->default(0); 
+            $table->unsignedBigInteger('user_id_to'); // set relationship in user model 
+            $table->string('content'); 
+            $table->integer('read')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')
@@ -28,11 +27,12 @@ class CreateNotificationsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->foreign('user_to_notify')
+            $table->foreign('user_id_to')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
         });
     }
 
@@ -43,6 +43,6 @@ class CreateNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('messages');
     }
 }

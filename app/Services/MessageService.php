@@ -8,9 +8,9 @@ use Hash;
 use Response;
 use Illuminate\Support\Facades\Storage;
 
-use App\Models\Notification;
+use App\Models\Message;
 
-class NotificationService
+class MessageService
 {
     
     public function saveLike($user_id, $user_to_notify, $post_id)
