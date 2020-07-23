@@ -6,11 +6,11 @@ import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import Grid from "@material-ui/core/Grid";
 import { ButtonAnt } from "components/Atoms";
 import { fetchService } from "services";
+import { FormattedMessage } from "react-intl";
 
 import "swiper/swiper.scss";
 import "./HomeScreen.scss";
 import { ROOT_API_URL, GET_IMAGE, GET_COMMENT } from "../../../constants/routes";
-import { OmitProps } from "antd/lib/transfer/ListBody";
 import UserAvatar from "react-user-avatar";
 import CommentItem from "./CommentItem";
 import { SocketContext } from "../../../context/SocketProvider";
@@ -96,7 +96,6 @@ const PostItem = (props) => {
                 {`${time.days[key]}: ${time.start}-${time.end}`}<br />
             </span>)
         })
-        console.log(times);
     }
     return (
        <div className="container">
@@ -167,7 +166,7 @@ const PostItem = (props) => {
                             }}
                         />
                         <p className="home-text ">
-                            Due date til {moment(props.due_day).format("DD MMM YYYY")}
+                            <FormattedMessage defaultMessage="Due date til" id="homepage.dueDateTil" /> {moment(props.due_day).format("DD MMM YYYY")}
                         </p>
                     </div>
                 </div>
@@ -188,9 +187,15 @@ const PostItem = (props) => {
                                 )
                             }
                         </div>
+<<<<<<< HEAD
                         <div className="raise-a-voice-container">
                             <ButtonAnt onClick={props.open}>
                                 <span>Raise a voice</span>
+=======
+                        <div className="raise-a-voice-container" onClick={props.showModal}>
+                            <ButtonAnt>
+                                <span><FormattedMessage defaultMessage="Raise a voice" id="homepage.raiseAVoice" /></span>
+>>>>>>> c427b14bda1ca7777c76c8b913763e380177c00d
                                 <i className="icon-social icon-comment-active"></i>
                             </ButtonAnt>
                         </div>

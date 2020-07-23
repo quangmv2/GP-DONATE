@@ -17,6 +17,6 @@ export const openNotification = (type, title, description) => {
             : title,
         description: languageObject[languageCode][description]
             ? languageObject[languageCode][description]
-            : description,
+            : description
     });
 };

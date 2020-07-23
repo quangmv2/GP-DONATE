@@ -1,10 +1,11 @@
-import React, { Component, useEffect, useState, memo } from "react";
+import React, { useEffect, useState, memo } from "react";
 // import Swiper from "swiper";
 import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+<<<<<<< HEAD
 import Modal from './ModalComment';
 // Import Swiper styles
 import 'swiper/swiper.scss';
@@ -12,12 +13,12 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/scrollbar/scrollbar.scss';
 
+=======
+>>>>>>> c427b14bda1ca7777c76c8b913763e380177c00d
 // install Swiper components
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 // CSS
-//swiper css must come first
-// import "swiper/swiper.scss";
 import "./HomeScreen.scss";
 import PostItem from "./PostItem";
 import {
@@ -36,6 +37,11 @@ import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
 import Comment from "../HomeComment/PostComment";
 
+// Import Swiper styles
+import 'swiper/swiper.scss';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+import 'swiper/components/scrollbar/scrollbar.scss';
 
 const HomePage = (props) => {
     const [show, setShow] = useState(false); 
@@ -76,6 +82,7 @@ const HomePage = (props) => {
         setShow(false);
     }
     return (
+<<<<<<< HEAD
       <> { show ?   <Modal
         className="modal"
         show={show}
@@ -91,19 +98,19 @@ const HomePage = (props) => {
             {
                 openModal?<Comment hideModal={hideModal} post={posts[index]} />:<></>
             }
+=======
+        <div >
+            {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
+>>>>>>> c427b14bda1ca7777c76c8b913763e380177c00d
 
             <Swiper
-            
                 direction="vertical"
-                // pagination={{ clickable: true }}
-                // scrollbar={{ draggable: true }}
-                // onSwiper={(swiper) => console.log(swiper)}
-                // onSlideChange={(swiper) => console.log(swiper)}
                 // virtual
                 style={{ height: openModal?0:"100vh", display: openModal?"none":"block" }}
                 onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
             >
 
+<<<<<<< HEAD
                 {
                     posts.map(post => 
                         <SwiperSlide key={`post ${post.id} ${post.title}`}>
@@ -111,6 +118,13 @@ const HomePage = (props) => {
                         </SwiperSlide>
                     )
                 }
+=======
+              {posts.map(post => 
+                <SwiperSlide key={`post ${post.id} ${post.title}`}>
+                  <PostItem {...post} showModal={showModal} hideModal={hideModal} />    
+                </SwiperSlide>
+              )}
+>>>>>>> c427b14bda1ca7777c76c8b913763e380177c00d
             </Swiper>   
             <BottomNavigator />
         </div>}

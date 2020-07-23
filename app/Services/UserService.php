@@ -45,4 +45,13 @@ class UserService
         return $user;
     }
 
+    public function searchUser($search)
+    {
+        $user = User::where('first_name', 'like', '%'.$search.'%')
+                    ->orWhere('last_name', 'like', '%'.$search.'%')
+                    ->orWhere('username', 'like', '%'.$search.'%')
+                    ->get();
+        return $user;
+    }
+
 }

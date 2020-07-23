@@ -1,19 +1,11 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import { openNotification } from "helpers";
 import { compose } from "redux";
-import { createStructuredSelector } from "reselect";
-import injectReducer from "core/reducer/inject-reducer";
-import injectSaga from "core/saga/inject-saga";
-import reducer from "modules/auth/reducers";
-import saga from "modules/auth/sagas";
-import { FEATURE_NAME_AUTH } from "modules/auth/constants";
-import { URL_REDIRECT_LOGIN, ROUTE, NOTIFICATION_TYPE } from "constants";
+import { ROUTE, NOTIFICATION_TYPE } from "constants";
 import { postLogin } from "modules/auth/actions";
-import "./inputCode.scss";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import { createStructuredSelector } from "reselect";
 import {
     selectIsLogged,
     selectErrors,
@@ -28,6 +20,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 import { fetchService } from "../../../services/fetch/fetchService";
 import { ROOT_API_URL } from "../../../constants";
+import "./inputCode.scss";
 
 export class InputCode extends Component {
     constructor(props) {
@@ -74,7 +67,6 @@ export class InputCode extends Component {
                         <p className="ic-t2">Invitation Code</p>
                     </SignInBackground>
                     <div className="formFields">
-                        {/* {this.renderFields()} */}
                         <Formik
                             initialValues={{
                                 code_invitation : ""
@@ -155,22 +147,6 @@ export class InputCode extends Component {
                                         </ButtonAnt>
                                     </div>
                                     <div className="form-control outlineButton">
-                                        {/* <ButtonAnt
-                                            className="btn-block btn-round btn-red ol-bn-container"
-                                            disabled={loading || isSubmitting}
-                                            id="login-btn"
-                                            loading={loading || isSubmitting}
-                                            name="login-btn"
-                                            onClick={handleSubmit}
-                                            type="primary"
-                                        >
-                                            <FormattedMessage
-                                                defaultMessage={
-                                                    "signupPage.createacc"
-                                                }
-                                                id={"signupPage.createacc"}
-                                            />
-                                        </ButtonAnt> */}
                                     </div>
 
                                     <div className="bottomTextContainer">

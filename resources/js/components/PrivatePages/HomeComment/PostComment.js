@@ -1,17 +1,13 @@
-import React, { Component, useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect, useRef, useCallback } from "react";
+import { FormattedMessage } from "react-intl";
 import { HeaderNavigation } from 'components/Atoms';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import './HomeComment.scss';
-import Data from './Yumny-data';
-import { Link } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
-import Grid from '@material-ui/core/Grid';
 import { SocketContext } from "../../../context/SocketProvider";
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en';
 import CloseIcon from '@material-ui/icons/Close';
+<<<<<<< HEAD
 const id_post = 1;
 const tokenGV = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiMTA1NTFhNDM5ZGUwNDBiMDA5OWM2YTU0N2RhMjhkZWUwNmQ0NjY5YzQ2OTMwYzljZDcwMjIyODQwMjAyMzdlODFkOTY2NjlmNGZhZDllZDYiLCJpYXQiOjE1OTQwOTMwMjQsIm5iZiI6MTU5NDA5MzAyNCwiZXhwIjoxNTk0MzUyMjI0LCJzdWIiOiIyIiwic2NvcGVzIjpbIioiXX0.v50S4LF__rJ2aEaFF9izgaHCR4cWIhklTw32hsMSEP8LymbVhRbDjbzjTsOMjgwR2b9utuCoQrH_JWbri-MF5CPq1g9zC1FzCvCcGCAqDVR0-zYN3K5nIYKWpEU50sbf2duZxoZDMftkIu9ijgPCk3i70qXOI5VNY-DARA-lUk7wX2C8BiHGSTuVcMIV3N3IdEjzQR45VYsgEVvdwsGmwkS6bEbejCJwEAaMFrKYEjUNbrq45VtjTDT9q29LxAXcJ5WCXSyD07zvbCfoYUjCCHAaTL17m5w8S1vx_pF4BKeLJsbnORMFM0KHjgKsD1NfEXVolM_RFKK9wVAC-qaFFc2r9aemvleE5a2pYifd9DdeC-8iMaUCh359tZWwBWmDftv578jUapxyCfk9ivAd7UU25FCa4cxUcIeJV5lyNeUI5bJDEoseI6Gk_Ze0eCcmDVOORPZvlZ_VR11b3X-rDeYW1gnNYXYSeE-CKokAobeypQNMlYs4JwYGXytqFmkOTYCqpFt42fEp_HjCr1AU3Wh17DEcJ-mznbOiFp5atBHcUagyRqd4mLvM1SyLUbt1gWZmtxgV-OePIVAL4Rbu0cmNhiihTm5qEb8poCC93PLbXEUxiE8RdkGbZeq0e4XKF5XjV3FUQecMCJ1vh5mAUwOzdt8Y7fzK-okSqYekm3w';
 const tokenAD = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNTc5NDdkMTJiZWViN2FlYWZhYWRiNTEyOTczMDgzMWJlZGUyYjFmZmM5YjJmMGQyODQ2NjIwZWQ0NTU4MDc1Nzg4NDk3MjM0ZDQ1ZDUyZjAiLCJpYXQiOjE1OTQxMTE2NTQsIm5iZiI6MTU5NDExMTY1NCwiZXhwIjoxNTk0MzcwODU0LCJzdWIiOiIxIiwic2NvcGVzIjpbIioiXX0.jtRTsPCSdNTXcL3JphnsILlpNgku1QEjypsvt-m5u_UMbXeTiVllK1j6xWCuqKDhu_L3a4zRAZRv9nI3aZTzTPiTxpLeZiJVPVynU-FpJdFQGulRt81CRFK__W1gBci3Teob4c_zVGeBxztElen9eJyYGZriThZze1RmX-oDAgghGrMjyorKVcdDRY4s9DKiWCO_zmDLb_cuM3fmHi626gZlGfAWN0fSm2wCvd7269DWXWRU53LCSt35qUIfeHCzDH1DHi3nBgjW9D7KrL1IvUwwpX5RLdH0bTmIaFWVFGIBqczuBa4pGaP3VwaPcbiIeExHnDHyBLZWtmOypPMJ1eRgmAfURa8XktYUQYrVtZ7X215kPD3n86DUiZwCldjWFBMqGHLHC4QDEXKhRhki_BA0PQesIyc-oTiSSJOR7iTL93qXVQrAB6WwhCV-bbJZmdHS2ujYSDKqlBQLcBqUWneTdUQQeKdj2tYlHYJDtxbFi861fHE1mQB_ODMXmx6YdF8ImUGG7SrUg2GzM64UXy-sUIvBfhzSAJnPMkaGoFGxJ8FOyVcmsgZS5WE5LptkQ5SRhhH70dUbFfH6QPjpWAuK2brWlSBQVbZ5hz_hKwtWncp13gYGkGGQam5UWjxA5wuXOY8C6MZH03NVmrpN82qeb8Xe4vSrLBmDj9Kw9fc';
@@ -20,6 +16,13 @@ const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiN2Mz
 TimeAgo.addLocale(en)
 const timeAgo = new TimeAgo('en-US')
 const UTC = ((new Date()).getUTCDate() - 2)*60*60*1000;
+=======
+import { GET_COMMENT, POST_COMMENT } from "../../../constants/routes";
+import { fetchService } from "services";
+import moment from "moment";
+import { getMessageTranslate } from "helpers";
+import './HomeComment.scss';
+>>>>>>> c427b14bda1ca7777c76c8b913763e380177c00d
 
 const PostComment = (props) => {
     const [data, setData] = useState(null);
@@ -33,14 +36,13 @@ const PostComment = (props) => {
     }, []);
 
     useEffect(() => {
-        // window.screenTop = 10000;
         screen.current.scrollTop = 5000;
     }, [comments]);
 
     const { post } = props;
 
-    const fetchFirstData = async () => {
-        const comments = await fetchComments(post.id);
+    const fetchFirstData = useCallback(async () => {
+        await fetchComments();
         window.scrollTo(0,document.body.scrollHeight);
         socket.emit('watch-post', { id: post.id });
         socket.on(`new-comment`, data => {
@@ -58,7 +60,7 @@ const PostComment = (props) => {
                 return newCmts.filter(({ id }) => id !== data.id);
             })
         })
-    }
+    }, []);
 
     const fetchComments = async (id) => {
         try {
@@ -113,8 +115,8 @@ const PostComment = (props) => {
                             <p className='offer-content comment-body-conatiner'>{content}</p>
                             <div className='time-post-container'>
                             <p className='time-post-offer'>{moment(created_at).add(-(new Date().getTimezoneOffset() / 60), 'hours').fromNow()}</p>
-                                <p className='time-post-offer'>2 likes</p>
-                                <button className='reply'>Reply</button>
+                                <p className='time-post-offer'>2 <FormattedMessage defaultMessage="Likes" id="common.likes" /></p>
+                                <button className='reply'><FormattedMessage defaultMessage="Reply" id="common.reply" /></button>
                             </div>
                         </div>
                     </div>
@@ -128,10 +130,17 @@ const PostComment = (props) => {
     }
 
     return (
+<<<<<<< HEAD
         <div className="private-fullheight">
             <div className="container">
                 <HeaderNavigation headerName={data?data.title:'Loading...'}>
                     <button className='button-trans' onClick={props.onCloseModal}>
+=======
+        <div className="private-fullheight" style={{ position: "relative", zIndex: 1000 }}>
+            <div className="container" ref={screen}>
+                <HeaderNavigation headerName={getMessageTranslate('comment', 'comments')} handleBack={() => {props.hideModal();}}>
+                    <button className='button-trans' onClick={() => {props.hideModal();}}>
+>>>>>>> c427b14bda1ca7777c76c8b913763e380177c00d
                         <CloseIcon />
                     </button>
                 </HeaderNavigation>
@@ -166,7 +175,7 @@ const PostComment = (props) => {
                             type='text'
                             cols='3'
                             row='3'
-                            placeholder='Write a comment...'
+                            placeholder={getMessageTranslate('comment', 'writeAComment')}
                             value={comment}
                             onChange={inputChange}
                         />

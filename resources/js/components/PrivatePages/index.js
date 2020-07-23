@@ -1,4 +1,3 @@
-import Dashboard from './Dashboard';
 import PostOffer from './PostOffer/PostOffer';
 import HomePage from './Home/HomePage';
 
@@ -16,7 +15,6 @@ import ChooseRoleScreen from "./ChooseRole/ChooseRoleScreen";
 import InputCode from './InputCode/InputCode';
 
 export {
-  Dashboard,
   PostOffer,
   HomePage,
   ProfileSetting,
