@@ -117,9 +117,6 @@ class ProfileController extends Controller
         return response()->json(json_decode($user), 200);
     }
 
-
-
-
     /**
      * Update the specified resource in storage.
      *
@@ -143,8 +140,6 @@ class ProfileController extends Controller
         }
         $user = User::find($id);
         $user->update($input);
-        // DB::table('model_has_roles')->where('model_id',$id)->delete();
-        // $user->assignRole($request->input('roles'));
         return response()->json(json_decode($user), 200);
     }
 
