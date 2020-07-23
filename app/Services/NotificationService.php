@@ -47,7 +47,7 @@ class NotificationService
         ]);
     }
 
-    public function saveFollow($user_id, $user_to_notify, $post_id)
+    public function saveFollow($user_id, $user_to_notify)
     {
         if ($user_id == $user_to_notify) return;
         $data = [

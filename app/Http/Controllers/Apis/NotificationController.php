@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Apis;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Notification;
 
 class NotificationController extends Controller
 {
@@ -12,9 +13,12 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $notis = Notification::where('user_to_notify', $request->user()->id)
+                                ->orderBy('created_at', 'desc')
+                                ->simplePaginate(10);
+        return response()->json(json_decode($notis), 200);
     }
 
     /**
@@ -36,7 +40,7 @@ class NotificationController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

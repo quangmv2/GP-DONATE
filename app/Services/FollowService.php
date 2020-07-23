@@ -16,8 +16,9 @@ class FollowService
     
     protected $userService;
     
-    function __construct(UserService $userService){
+    function __construct(UserService $userService, NotificationService $notificationService){
         $this->userService = $userService;
+        $this->notificationService = $notificationService;
     }
 
     public function validate($request)
@@ -63,6 +64,7 @@ class FollowService
             'user_id_from' => $from,
             'user_id_to' => $to
         ], []);
+        $this->notificationService->saveFollow($from, $to);
         return $follow;
     }
 

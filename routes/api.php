@@ -53,7 +53,8 @@ Route::apiResources([
     'comment' => 'Apis\CommentController',
     'like' => 'Apis\LikeController',
     'profile' => 'Apis\ProfileController',
-    'hastag' => 'Apis\HastagController'
+    'hastag' => 'Apis\HastagController',
+    'noti' => 'Apis\NotificationController'
 ]);
 
 
