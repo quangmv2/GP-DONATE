@@ -68,17 +68,6 @@ class PostService
         return response()->json(["message" => "success"], 200);
     }
 
-    public function saveImage($image)
-    {
-        $name= time().'_'.$image->getClientOriginalName();
-        
-        $directory = "uploads/images/posts";
-
-        $path = Storage::putFileAs($directory, $image, $name);
-        
-        return $path;
-    }
-
     public function saveOfferTime($id, $times)
     {
         PostHasOffer::create([
