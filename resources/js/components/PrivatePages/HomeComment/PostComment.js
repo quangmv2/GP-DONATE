@@ -19,11 +19,9 @@ const PostComment = (props) => {
     const [comment, setComment] = useState('');
     const { socket } = useContext(SocketContext);
     const screen = useRef(null);
-
     useEffect(() => {
         fetchFirstData();
     }, []);
-
     useEffect(() => {
         screen.current.scrollTop = 5000;
     }, [comments]);

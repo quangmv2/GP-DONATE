@@ -8,13 +8,18 @@ use Hash;
 use Response;
 use Illuminate\Support\Facades\Storage;
 
+use App\Services\NotificationService;
 use App\Models\Comment;
-
+use App\Models\Post;
 
 
 class CommentService
 {
     
+    function __construct(NotificationService $notificationService){
+        $this->notificationService = $notificationService;
+    }
+
     public function validate($request)
     {
         $request->validate([
@@ -37,6 +42,8 @@ class CommentService
             'user_id' => $user_id,
             'content' => $content
         ]);
+        $post = Post::find($post_id);
+        $this->notificationService->saveComment($user_id, $post->user_id, $post_id, $content);
         return $comment;
     }
 

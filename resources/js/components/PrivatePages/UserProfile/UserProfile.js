@@ -9,6 +9,7 @@ import UserPropositions from "./UserPropositions";
 import { GET_PROFILE } from "../../../constants/routes";
 import { fetchService } from "../../../services/fetch/fetchService";
 
+
 const UserProfile = ( props ) => {
     let { userId } = useParams();
     const [ user, setUser ] = useState([]);
