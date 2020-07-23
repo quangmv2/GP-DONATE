@@ -8,6 +8,11 @@ use App\Models\Notification;
 
 class NotificationController extends Controller
 {
+
+    function __construct(){
+
+        $this->middleware('auth:api');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +23,11 @@ class NotificationController extends Controller
         $notis = Notification::where('user_to_notify', $request->user()->id)
                                 ->orderBy('created_at', 'desc')
                                 ->simplePaginate(10);
-        return response()->json(json_decode($notis), 200);
+        foreach ($notis as $key => $noti) {
+            $noti->user;
+            $noti->userTo;
+        }
+        return response()->json($notis, 200);
     }
 
     /**
