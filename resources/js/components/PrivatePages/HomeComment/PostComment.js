@@ -88,6 +88,8 @@ const PostComment = (props) => {
         } 
     }
 
+    console.log(post);
+
     const renderComment = () => {
         return _.map(comments, ({ user: {username}, content, created_at }, index) => {
             return (

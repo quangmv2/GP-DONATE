@@ -43,7 +43,7 @@ class CommentService
             'content' => $content
         ]);
         $post = Post::find($post_id);
-        $this->notificationService->saveComment($user_id, $post->user_id, $post_id, $content);
+        $this->notificationService->saveComment($user_id, $post->user_id, $post_id, $content, $post->photo_thumbnail);
         return $comment;
     }
 
