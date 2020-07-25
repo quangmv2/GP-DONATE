@@ -6,7 +6,8 @@ import { postLogin } from "modules/auth/actions";
 import {
     selectIsLogged,
     selectErrors,
-    selectLoading
+    selectLoading,
+    selectUserInfo
 } from "modules/auth/selectors";
 import { HeaderNavigation } from "components/Atoms";
 import "./EditProfile.scss";
@@ -18,6 +19,7 @@ import {
     LoadingOutlined,
     PlusOutlined
 } from "@ant-design/icons";
+import { GET_IMAGE } from "../../../constants/routes";
 
 function beforeUpload(file) {
     const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
@@ -32,6 +34,7 @@ function beforeUpload(file) {
 }
 
 export class EditProfile extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -43,12 +46,13 @@ export class EditProfile extends Component {
         };
         this.setSubmitting = null;
     }
-    async componentDidMount() { }
+    async componentDidMount() { 
+    }
 
     componentDidUpdate(prevProps) { }
 
     render() {
-        const { errors, loading } = this.props;
+        const { errors, loading, userInfo } = this.props;
 
         const uploadButton = (
             <div>
@@ -63,16 +67,23 @@ export class EditProfile extends Component {
 
                     <div className="bgImg">
                         <div className="info-bg">
-                            <div className="image">
-                                <StarFilled className="icon-star" />
 
+                           {userInfo.roles[0].name == 'giver' ? <div className="image">
+                                <StarFilled className="icon-star" />
                                 <img
-                                    src="/images/10.jpg"
+                                 src="/images/10.jpg"
+                                    //  src={GET_IMAGE(userInfo.personal_photo)}
                                     alt="Girl in a jacket"
                                     width="60"
                                     height="60"
                                 ></img>
-                            </div>
+                            </div> : <div className="image"><img
+                                    src="/images/10.jpg"
+                                     //  src={GET_IMAGE(userInfo.personal_photo)}
+                                    alt="Girl in a jacket"
+                                    width="60"
+                                    height="60"
+                                ></img> </div>}
                             <span className="text">Change your avatar</span>
                         </div>
                     </div>
@@ -195,7 +206,8 @@ const mapDispatchToProps = {
 const mapStateToProps = createStructuredSelector({
     isLogged: selectIsLogged(),
     errors: selectErrors(),
-    loading: selectLoading()
+    loading: selectLoading(),
+    userInfo: selectUserInfo()
 });
 
 EditProfile.defaultProps = {

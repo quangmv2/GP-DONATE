@@ -34,10 +34,9 @@ import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/scrollbar/scrollbar.scss';
 
 const HomePage = (props) => {
-    
+    const [show, setShow] = useState(false); 
     const [index, setIndex] = useState(0);
     const [openModal, setOpenModal] = useState(false);
-
     useEffect(() => {
         const { fetchMore } = props;
         fetchMore(1);
@@ -66,7 +65,7 @@ const HomePage = (props) => {
 
     const { posts } = props;
     return (
-        <div >
+        <div>
             {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
 
             <Swiper
@@ -84,6 +83,7 @@ const HomePage = (props) => {
             </Swiper>   
             <BottomNavigator />
         </div>
+    
     );  
 }
 
