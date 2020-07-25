@@ -165,6 +165,12 @@ class ProfileController extends Controller
         //
     }
 
+    public function getLikes(Request $request)
+    {
+        $likes = $this->userService->getMyLikes($request->user()->id);
+        return response()->json(json_decode($likes), 200);
+    }
+
     public function getFollowingOfUser(Request $request, $id)
     {
         $follows = $this->followService->getFollowingOfUser($id);

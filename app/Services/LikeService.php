@@ -74,4 +74,9 @@ class LikeService
         return $likes;
     }
 
+    // public function getMyLike($user_id)
+    // {
+    //     $likes = Like::where('user', $post_id)->get();
+    // }
+
 }
