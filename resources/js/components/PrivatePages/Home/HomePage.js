@@ -32,11 +32,15 @@ import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/scrollbar/scrollbar.scss';
+import MessagesDetail from "../Activities/MessageDetail/MessagesDetail";
 
 const HomePage = (props) => {
     const [show, setShow] = useState(false); 
     const [index, setIndex] = useState(0);
     const [openModal, setOpenModal] = useState(false);
+    const [openMessage, setOpenMessage] = useState(false);
+    const [user, setUser] = useState({});
+
     useEffect(() => {
         const { fetchMore } = props;
         fetchMore(1);
@@ -63,11 +67,16 @@ const HomePage = (props) => {
         setOpenModal(false);
     }
 
+    const setUserMessage = userMessage => {
+        setUser(userMessage);
+        setOpenMessage(true);
+    }
+
     const { posts } = props;
     return (
         <div>
             {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
-
+            {openMessage && <MessagesDetail data={user} closeWindow={() => setOpenMessage(false)} /> }
             <Swiper
                 direction="vertical"
                 // virtual
@@ -77,7 +86,7 @@ const HomePage = (props) => {
 
               {posts.map(post => 
                 <SwiperSlide key={`post ${post.id} ${post.title}`}>
-                  <PostItem {...post} showModal={showModal} hideModal={hideModal} />    
+                  <PostItem {...post} showModal={showModal} hideModal={hideModal} setUserMessage={setUserMessage} />    
                 </SwiperSlide>
               )}
             </Swiper>   

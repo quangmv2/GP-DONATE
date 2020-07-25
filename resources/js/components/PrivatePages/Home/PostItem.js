@@ -23,7 +23,7 @@ const PostItem = (props) => {
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
     const { post } = props;
-    
+
 
     useEffect(() => {
         fetchFirstData();
@@ -58,19 +58,18 @@ const PostItem = (props) => {
         })
     });
 
-    
+
 
     const fetchComments = useCallback(async (id) => {
         try {
             const [comments, status] = await fetchService.fetch(`${ROOT_API_URL}/api/posts/${props.id}/comments`, {
                 method: "GET"
             });
-            console.log(comments);
-         
+
             if (status === 200) {
                 setComments(comments);
                 return comments;
-                
+
             }
         } catch (error) {
             console.log(error);
@@ -81,7 +80,6 @@ const PostItem = (props) => {
     const convertOffer = (offer) => {
         if (!offer || !offer.type_offer) return
         if (offer.type_offer == "goods") {
-            console.log(offer.content);
             return (
                 <span>
                     {offer.content}
@@ -105,7 +103,7 @@ const PostItem = (props) => {
         }
     }
     return (
-       <div className="container">
+        <div className="container">
             <div className="image-background-div">
                 <img className="image-background" src={GET_IMAGE(props.photo_thumbnail)} alt={props.title} />
             </div>
@@ -123,24 +121,28 @@ const PostItem = (props) => {
                         </Link>
                         <div className="info-user">
                             <p className="username">
-                            <Link to={`user-profile/${props.user.username}`} >
+                                <Link to={`user-profile/${props.user.username}`} >
                                     {`${props.user.first_name} ${props.user.last_name}`}
                                 </Link>
                             </p>
 
                             <p className="hours-ago">
                                 {
-                                    moment(props.created_at).add((new Date()).getUTCDate()-12, 'hours').fromNow()
+                                    moment(props.created_at).add((new Date()).getUTCDate() - 12, 'hours').fromNow()
                                 }
                             </p>
                         </div>
                     </div>
-                    <MailOutlineIcon
-                        style={{
-                            color: "white",
-                            fontSize: "27px"
-                        }}
-                    />
+                    <div onClick={() => props.setUserMessage(props.user)}>
+                        <MailOutlineIcon
+                            style={{
+                                color: "white",
+                                fontSize: "27px"
+                            }}
+
+                        />
+                    </div>
+
                 </div>
                 <div className="home-content">
                     <p className="title-post">{props.title}</p>
