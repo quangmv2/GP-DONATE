@@ -34,7 +34,7 @@ class MessageService
     {
         $messages = Message::where('user_id', $user_id)
                             ->orWhere('user_id_to', $user_id)
-                            ->orderBy('created_at', 'desc')
+                            // ->orderBy('created_at', 'desc')
                             ->select('user_id', 'user_id_to')
                             ->distinct()->get();
                             // ->simplePaginate(20);
