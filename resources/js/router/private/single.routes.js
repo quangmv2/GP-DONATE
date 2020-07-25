@@ -74,4 +74,10 @@ export const singleRoutes = [
     component: InputCode,
     exact: true
   },
+  {
+    path: PRIVATE_ROUTE.MYPROFILE,
+    component: UserProfile,
+    exact: true
+  }
+  
 ];
