@@ -26,7 +26,7 @@ const ProfileSetting = (props) => {
                     <div className="list-box">
                         <LinkItem
                             className="text-box link-center"
-                            url={`user-profile/${userInfo.id}`}
+                            url={PRIVATE_ROUTE.MYPROFILE}
                             icon={<i className="icon-left icon-account-normal" />}
                             title="Manage My Account"
                             arrow={<i className="icon-next" />}

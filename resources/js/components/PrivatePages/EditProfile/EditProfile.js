@@ -68,7 +68,7 @@ export class EditProfile extends Component {
                     <div className="bgImg">
                         <div className="info-bg">
 
-                           {userInfo.roles[0].name == 'giver' ? <div className="image">
+                           {userInfo.code_id !== null ? <div className="image">
                                 <StarFilled className="icon-star" />
                                 <img
                                  src="/images/10.jpg"
