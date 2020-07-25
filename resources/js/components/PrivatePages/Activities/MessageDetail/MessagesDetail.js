@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom';
 import './MessageDetail.scss';
 import message from './MessageData';
@@ -13,10 +13,16 @@ const MessagesDetail = props => {
 
     const [data, setData] = useState([]);
     const [input, setInput] = useState('');
+    const bodyMess = useRef();
 
     useEffect(() => {
-        getMessageDetail();
+        getFirst();
     }, []);
+
+    const getFirst = async () => {
+        await getMessageDetail();
+        bodyMess.current.scrollTop = 5000;
+    }
 
     const getMessageDetail = async () => {
         const [messages, status] = await fetchService.fetch(GET_MESSAGE_DETAILS(props.data.id));
@@ -120,7 +126,7 @@ const MessagesDetail = props => {
                     </button>
                 </div>
                 {/* END HEADER NAV */}
-                <div className='mess-body'>
+                <div className='mess-body' ref={bodyMess}>
                     <div>
                         {timeMessages}
 

@@ -114,7 +114,9 @@
   border-radius: 50%;
 }
 .mess-body {
-  padding-bottom: 350px;
+  overflow-y: auto;
+  height: calc(100vh - 200px);
+  overflow-x: hidden;
 }
 
 

@@ -14,6 +14,8 @@ import {
 } from "modules/auth/selectors";
 import { StarFilled, GlobalOutlined } from "@ant-design/icons";
 import MessagesDetail from "../Activities/MessageDetail/MessagesDetail";
+import UserAvatar from "react-user-avatar";
+
 const UserProfile = (props) => {
     const { userInfo } = props;
     let { userId } = useParams();
@@ -68,20 +70,12 @@ const UserProfile = (props) => {
     
     if(user.personal_photo == null && user.code_id == null) {
         avatar = (
-            <img
-            style={{backgroundColor: 'white'}}
-                className='giver-avatar'
-                src="/images/avatar/nullAva.png"
-            ></img>
-
-        )
-    } else if (user.code_id == null && user.personal_photo !== null) {
-        avatar = (
-            <img
-
-                className='giver-avatar'
-                src={GET_IMAGE(user.personal_photo)}
-            ></img>
+            user.personal_photo ?
+                <img
+                    className='giver-avatar'
+                    src={GET_IMAGE(user.personal_photo)}
+                ></img> :
+                <UserAvatar size="42" name={`${user.first_name}`} />
 
         )
     }

@@ -123,7 +123,7 @@ const PostOffer = props => {
   const uploadSingleFile = async (e) => {
     var formData = new FormData();
     formData.append("photo", e.target.files[0]);
-    const res = await fetchService.upload(`${ROOT_API_URL}/api/photo`, false, {
+    const res = await fetchService.upload(`${ROOT_API_URL}/api/photo/up`, false, {
       method: 'POST',
       body: formData,
       headers: {
