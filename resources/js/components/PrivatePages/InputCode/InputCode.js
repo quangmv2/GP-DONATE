@@ -19,7 +19,7 @@ import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 import { fetchService } from "../../../services/fetch/fetchService";
-import { ROOT_API_URL } from "../../../constants";
+import { ROOT_API_URL, PRIVATE_ROUTE } from "../../../constants";
 import "./inputCode.scss";
 
 export class InputCode extends Component {
@@ -152,19 +152,19 @@ export class InputCode extends Component {
                                     <div className="bottomTextContainer">
                                         <FormattedMessage
                                             defaultMessage={
-                                                "signupPage.onboard"
+                                                "codePage.skip"
                                             }
-                                            id={"signupPage.onboard"}
+                                            id={"codePage.skip"}
                                         ></FormattedMessage>
                                         <Link
                                             className="bottomLink"
-                                            to="/signup"
+                                            to={PRIVATE_ROUTE.HOME}
                                         >
                                             <FormattedMessage
                                                 defaultMessage={
-                                                    "signupPage.signed"
+                                                    "codePage.home"
                                                 }
-                                                id={"signupPage.signed"}
+                                                id={"codePage.home"}
                                             ></FormattedMessage>
                                         </Link>
                                     </div>
