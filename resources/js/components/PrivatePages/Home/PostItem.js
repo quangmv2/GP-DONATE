@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import { ButtonAnt } from "components/Atoms";
 import { fetchService } from "services";
 import { FormattedMessage } from "react-intl";
-
+import { PRIVATE_ROUTE, NOTIFICATION_TYPE, ROUTE } from "constants";
 import "swiper/swiper.scss";
 import "./HomeScreen.scss";
 import { ROOT_API_URL, GET_IMAGE, GET_COMMENT } from "../../../constants/routes";
@@ -17,12 +17,12 @@ import { SocketContext } from "../../../context/SocketProvider";
 import moment from "moment";
 
 const PostItem = (props) => {
-
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState(props.likes);
     const { socket } = useContext(SocketContext);
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
+    const { post } = props;
 
     useEffect(() => {
         fetchFirstData();
@@ -32,7 +32,6 @@ const PostItem = (props) => {
     useEffect(() => {
         commentsElement.current.scrollTop = 5000
     }, [comments])
-
     const fetchFirstData = useCallback(async () => {
         fetchComments();
         socket.emit('watch-post', { id: props.id });
@@ -58,6 +57,8 @@ const PostItem = (props) => {
         })
     });
 
+    
+
     const fetchComments = useCallback(async (id) => {
         try {
             const [comments, status] = await fetchService.fetch(`${ROOT_API_URL}/api/posts/${props.id}/comments`, {
@@ -67,9 +68,10 @@ const PostItem = (props) => {
             if (status === 200) {
                 setComments(comments);
                 return comments;
+                
             }
         } catch (error) {
-            console.log(err);
+            console.log(error);
 
         }
     });
@@ -101,14 +103,14 @@ const PostItem = (props) => {
         }
     }
     return (
-        <div className="container">
+       <div className="container">
             <div className="image-background-div">
                 <img className="image-background" src={GET_IMAGE(props.photo_thumbnail)} alt={props.title} />
             </div>
             <div className="home-image" ref={homeImage}>
                 <div className="top-navbar-giver-home">
                     <div className="navbar-giver-home-container">
-                        <Link to="/user-profile">
+                        <Link to={`user-profile/${props.user_id}`} >
                             {
                                 props.user.personal_photo ? <img
                                     src={GET_IMAGE(props.user.personal_photo)}
@@ -119,14 +121,14 @@ const PostItem = (props) => {
                         </Link>
                         <div className="info-user">
                             <p className="username">
-                                <Link to="/user-profile">
+                            <Link to={`user-profile/${props.user_id}`} >
                                     {`${props.user.first_name} ${props.user.last_name}`}
                                 </Link>
                             </p>
 
                             <p className="hours-ago">
                                 {
-                                    moment(props.created_at).add(-(new Date().getTimezoneOffset() / 60), 'hours').fromNow()
+                                    moment(props.created_at).add((new Date()).getUTCDate()-12, 'hours').fromNow()
                                 }
                             </p>
                         </div>

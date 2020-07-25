@@ -5,6 +5,10 @@ import { createStructuredSelector } from "reselect";
 import { postLogout } from "modules/auth/actions";
 import { HeaderNavigation, LinkItem } from "components/Atoms";
 import "./ProfileSetting.scss";
+import { PRIVATE_ROUTE } from "../../../constants";
+import {
+    selectUserInfo
+} from "modules/auth/selectors";
 
 const ProfileSetting = (props) => {
    
@@ -12,7 +16,7 @@ const ProfileSetting = (props) => {
         props.logout();
     }
 
-    const { errors, loading } = props;
+    const { errors, loading, userInfo } = props;
     return (
         <div className="private-fullheight">
             <div className="container">
@@ -22,7 +26,7 @@ const ProfileSetting = (props) => {
                     <div className="list-box">
                         <LinkItem
                             className="text-box link-center"
-                            url={"/user-profile"}
+                            url={`user-profile/${userInfo.id}`}
                             icon={<i className="icon-left icon-account-normal" />}
                             title="Manage My Account"
                             arrow={<i className="icon-next" />}
@@ -104,9 +108,12 @@ const ProfileSetting = (props) => {
 
 const mapDispatchToProps = {
     logout: postLogout,
+    
+
 };
 
 const mapStateToProps = createStructuredSelector({
+    userInfo: selectUserInfo()
 });
 
 ProfileSetting.defaultProps = {

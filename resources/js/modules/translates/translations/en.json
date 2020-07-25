@@ -48,7 +48,9 @@
   },
   "codePage": {
     "submit": "Submit Invitation Code",
-    "code": "CODE NUMBER"
+    "code": "CODE NUMBER",
+    "skip": "Skip this step",
+    "home": "Go to homepage"
   },
   "forgotPass": {
     "send": "Send a code",
