@@ -1,38 +1,63 @@
 import React from "react";
-import messData from './messData';
 import './Mess.scss';
 import { Link } from 'react-router-dom';
+import {
+    selectUserInfo
+} from "modules/auth/selectors";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import moment from "moment";
 
-const MessagesComponent = () => {
+const MessagesComponent = props => {
+
+    const { data, userInfo } = props;
+
     const renderMessage = () => {
-        return _.map(messData, ({ username, content }) => {
+        return _.map(data, ({ id, user, user_to, content, created_at }) => {
             return (
-                <>
-                    <Link className='message-preview-container' >
+                <div key={`message ${id} ${user.id}`}>
+                    <div className='message-preview-container' onClick={() => props.openWindow(user.id === userInfo.id?user_to:user, )}>
                         <div className='message-component-container'>
-                        <img
-                            src={"./images/avatar/_0008_Alina Baikova.jpg"}
-                            className="mess-avatar"
-                        />
-                        <div className="info-user mess-content-container">
-                            <p className='username'>{username}</p>
-                            <p className='mess-content'>{content}</p>
+                            <img
+                                src={"./images/avatar/_0008_Alina Baikova.jpg"}
+                                className="mess-avatar"
+                            />
+                            <div className="info-user mess-content-container">
+                                <p className='username'>
+                                    {
+                                        user.id === userInfo.id ?
+                                            `${user_to.first_name} ${user_to.last_name}` :
+                                            `${user.first_name} ${user.last_name}`
+                                    }
+                                </p>
+                                <p className='mess-content'>{content}</p>
+                            </div>
                         </div>
-                        </div>
-                        <p className='mess-hours-ago'>3 hours ago </p>
-            
-                    </Link>
-                    <hr className='mess-border-bottom'/>
-                </>
+                        <p className='mess-hours-ago'>
+                            {
+                                moment(created_at).add(-(new Date().getTimezoneOffset() / 60), 'hours').fromNow()
+                            }
+                        </p>
+
+                    </div>
+                    <hr className='mess-border-bottom' />
+                </div>
 
             );
         });
     }
     return (
         <div>
-            {renderMessage()}
+            {userInfo ? renderMessage() : () => { }}
         </div>
     )
 
 };
-export default MessagesComponent;
+
+const mapDispatchToProps = {
+};
+
+const mapStateToProps = createStructuredSelector({
+    userInfo: selectUserInfo()
+});
+export default connect(mapStateToProps, mapDispatchToProps)(MessagesComponent);

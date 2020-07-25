@@ -46,3 +46,5 @@ export const SEARCH_POST = keyWord => `${ROOT_API_URL}/api/posts/search?q=${keyW
 export const SEARCH_PEOPLE = keyWord => `${ROOT_API_URL}/api/profile/search?q=${keyWord}`;
 export const SEARCH_NOTI = (page = 0) => `${ROOT_API_URL}/api/noti?page=${page}`;
 export const SEARCH_MESSAGE = () => `${ROOT_API_URL}/api/message`;
+export const GET_MESSAGE_DETAILS =  id => `${ROOT_API_URL}/api/message/${id}`;
+export const SEND_MESSAGE =  () => `${ROOT_API_URL}/api/message`;

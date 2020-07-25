@@ -9,12 +9,16 @@ import {
     MessagesComponent,
     NotificationComponent
 } from "components/PrivatePages";
+
 import { useEffect } from "react";
 import { useState } from "react";
 import { SEARCH_NOTI, SEARCH_MESSAGE } from "../../../../constants";
 import { useCallback } from "react";
 import { fetchService } from "../../../../services/fetch/fetchService";
 import { useRef } from "react";
+import MessageDetail from "../MessageDetail/MessagesDetail";
+import { sortedIndex } from "lodash";
+
 const { TabPane } = Tabs;
 
 let loading = false;
@@ -29,6 +33,8 @@ const ActivitesScreen = () => {
     const [active, setActive] = useState(0);
     const [page, setPage] = useState(1);
     const [scroll, setScroll] = useState(0);
+    const [open, setOpen] = useState(false);
+    const [idMessage, setIdMessage] = useState(0);
     const bottom = useRef();
 
     useEffect(() => {
@@ -83,8 +89,20 @@ const ActivitesScreen = () => {
         setActive(active);
     }
 
+    const openWindow = idMessage => {
+        setIdMessage(idMessage);
+        setOpen(true);
+    }
+
+    const closeWindow = () => {
+        setOpen(false);
+    }
+
     return (
         <div className="private-fullheight">
+            {
+                open?<MessageDetail closeWindow={closeWindow} data={idMessage} />:<></>
+            }
             <div className="container">
                 <HeaderNavigation headerName="Activities">
                     <button className="button-trans">
@@ -95,7 +113,7 @@ const ActivitesScreen = () => {
                 <div className="ant-tabs-container custom-tabs">
                     <Tabs defaultActiveKey="1" onChange={changeTab}>
                         <TabPane tab="Messages" key="1">
-                            <MessagesComponent />
+                            <MessagesComponent data={dataMessage} openWindow={openWindow} closeWindow={closeWindow} />
                         </TabPane>
                         <TabPane tab="Notifications" key="2">
                             <NotificationComponent data={dataNoti} />
@@ -103,10 +121,12 @@ const ActivitesScreen = () => {
                     </Tabs>
                 </div>
                 <div ref={bottom}></div>
-                <BottomNavigator />
+                {
+                    !open?<BottomNavigator />:<></>
+                }
             </div>
         </div>
     );
 };
 
-export default ActivitesScreen;
+export default (ActivitesScreen);

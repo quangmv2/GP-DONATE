@@ -66,8 +66,12 @@ class MessageService
 
     public function getMessageDetail($user_id, $user_id_to)
     {
-        $messages = Message::where('user_id', $user_id)
-                            ->orWhere('user_id_to', $user_id)
+        $messages = Message::where(function ($query) use ($user_id, $user_id_to) {
+                                $query->where('user_id', $user_id)->where('user_id_to', $user_id_to);
+                            })
+                            ->orWhere(function ($query) use ($user_id, $user_id_to) {
+                                $query->where('user_id_to', $user_id)->where('user_id', $user_id_to);
+                            })
                             ->orderBy('created_at', 'desc')
                             ->paginate(15);
         return $messages;
