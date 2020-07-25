@@ -7,8 +7,9 @@
     border-bottom: #cdcdcd solid 1px;
 }
 .info-bg {
-    position: relative;
     padding: 50px 15px 10px 15px;
+    display: flex;
+    flex-direction: column;
     .icon-star {
         border-radius: 50%;
         background-color: #ddae53;
@@ -85,4 +86,21 @@
   color: #999999;
 
 
+}
+.form-upload-fullPhoto {
+    background-color: #d8d8d8;
+    align-items: center;
+    display: flex;
+    /* flex: 1; */
+    justify-content: center;
+    flex-direction: column;
+    >label {
+        padding-top: 60px;
+    }
+}
+.edit-profile-button {
+    margin-top: 50px;
+}
+.full-photo-image {
+    border-radius: 16px;
 }
