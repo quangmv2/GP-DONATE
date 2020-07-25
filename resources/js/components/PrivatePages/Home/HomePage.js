@@ -38,13 +38,13 @@ const HomePage = (props) => {
     const [index, setIndex] = useState(0);
     const [openModal, setOpenModal] = useState(false);
     useEffect(() => {
-        const { fetchMore, page } = props;
+        const { fetchMore } = props;
         fetchMore(1);
     }, []);
 
     useEffect(() => {
+        if (index == 0) return ;
         handleLoadMore();
-        console.log(index);
     }, [index])
 
     const handleLoadMore = () => {
@@ -64,7 +64,6 @@ const HomePage = (props) => {
     }
 
     const { posts } = props;
-    
     return (
         <div>
             {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
