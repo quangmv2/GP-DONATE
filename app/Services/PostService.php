@@ -11,10 +11,15 @@ use App\Models\Hastag;
 use App\Models\PostHasOffer;
 use App\Models\PostHasHastag;
 use Illuminate\Support\Facades\Storage;
+use App\Services\UserService;
 
 
 class PostService
 {
+
+    function __construct(UserService $userService){
+        $this->userService = $userService;
+    }
 
     public function validate($request)
     {
@@ -38,7 +43,8 @@ class PostService
     public function getPostPaginateByUser($limit, $user_id)
     {
         if (empty($limit)) $limit = 1;
-        return Post::where('user_id', $user_id)->simplePaginate($limit);       
+        $user = $this->userService->getUserByIdOrUsername($user_id);
+        return Post::where('user_id', $user->id)->simplePaginate($limit);       
     }
 
     public function save($title, $content, $photo_thumbnail, $full_photo, $due_day, $user_id)

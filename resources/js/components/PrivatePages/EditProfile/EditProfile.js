@@ -200,13 +200,9 @@ export class EditProfile extends Component {
 }
 
 const mapDispatchToProps = {
-    login: postLogin
 };
 
 const mapStateToProps = createStructuredSelector({
-    isLogged: selectIsLogged(),
-    errors: selectErrors(),
-    loading: selectLoading(),
     userInfo: selectUserInfo()
 });
 

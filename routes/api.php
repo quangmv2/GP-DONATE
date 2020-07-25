@@ -54,7 +54,8 @@ Route::apiResources([
     'like' => 'Apis\LikeController',
     'profile' => 'Apis\ProfileController',
     'hastag' => 'Apis\HastagController',
-    'noti' => 'Apis\NotificationController'
+    'noti' => 'Apis\NotificationController',
+    'message' => 'Apis\MessageController'
 ]);
 
 

@@ -102,7 +102,7 @@ class ProfileController extends Controller
     public function show(Request $request, $id)
     {
         if ($id=="me") $id = $request->user()->id;
-        $user = $this->userService->getUserById($id);
+        $user = $this->userService->getUserByIdOrUsername($id);
         $posts  = $user->posts;
         $user->roles;
         $totalLike = 0;
@@ -129,7 +129,6 @@ class ProfileController extends Controller
         if ($request->user()->id != $id) return response()->json(['message' => 'FORBIDDEN'], 403);
         $this->validate($request, [
             'first_name' => 'required',
-            'last_name' => 'required',
             'password' => 'same:confirm-password',
         ]);
         $input = $request->all();

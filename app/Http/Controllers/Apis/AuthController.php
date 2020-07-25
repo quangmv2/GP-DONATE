@@ -123,7 +123,6 @@ class AuthController extends Controller
         $input['password'] = Hash::make($input['password']);
 
         if (empty($input['first_name'])) $input['first_name'] = $input['username'];
-        if (empty($input['last_name'])) $input['last_name'] = $input['username'];
 
         $user = User::create($input);
         if (!empty($input['role']))
