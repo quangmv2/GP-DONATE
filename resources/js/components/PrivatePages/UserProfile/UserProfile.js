@@ -123,9 +123,9 @@ const UserProfile = (props) => {
 
     return (
         <>
-            {
+            {/* {
                 open ? <MessagesDetail data={user} closeWindow={() => setOpen(false)} /> : <></>
-            }
+            } */}
             <div className={user.full_photo == null ? "nonPhotoCnntainer" : "userProfileContainer"} >
                 <div className="image-background-div">
                     <img className="image-background" src={GET_IMAGE(user.full_photo)} />
