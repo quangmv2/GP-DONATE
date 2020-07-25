@@ -123,9 +123,9 @@ const UserProfile = (props) => {
 
     return (
         <>
-            {/* {
+            {
                 open ? <MessagesDetail data={user} closeWindow={() => setOpen(false)} /> : <></>
-            } */}
+            }
             <div className={user.full_photo == null ? "nonPhotoCnntainer" : "userProfileContainer"} >
                 <div className="image-background-div">
                     <img className="image-background" src={GET_IMAGE(user.full_photo)} />
@@ -138,60 +138,49 @@ const UserProfile = (props) => {
                             <p className="user-charity">Charity: Water</p>
                         </div>
                     </div>
-                    <div className="top-navbar-giver-home">
-                        <div className="navbar-giver-home-container">
-                            {avatar}
-                            <div className="info-user">
-                                <p className="username">{user.first_name} {user.last_name}</p>
-                                <p className="user-charity">Charity: Water</p>
-                            </div>
-                        </div>
-                        {button}
+                    {button}
 
-                    </div>
-                    <div className="user-account-profile">
-                        {roles == 'taker' ? null :
-                            <>
-                                <div className="account-profile-info">
-                                    <span className="account-profile-number">{propositions.length}</span>
-                                    <p>Projects</p>
-                                </div>
-                                <div className="account-profile-info">
-                                    <span className="account-profile-number">{user.totalLike}</span>
-                                    <p>Likes</p>
-                                </div>
-                            </>}
-                        <div className="account-profile-info">
-                            <span className="account-profile-number">{user.followed}</span>
-                            <p>Followers</p>
-                        </div>
-                        <div className="account-profile-info">
-                            <span className="account-profile-number">{user.following}</span>
-                            <p>Following</p>
-                        </div>
-                    </div>
-                    <div>
-                        {roles == 'taker' ? <div className="link-to-propositions-container discription"><p >Discription about us</p></div> : <Link className="link-to-propositions-container">
-                            <p >See all Propositions</p>
-                            <img
-                                src="/images/icon/arrow-next.svg"
-                                className="Arrow-next"
-                            ></img>
-                        </Link>}
-                    </div>
-                    {roles == 'taker' ? <><div className='link-to-propositions-container discription-detail'><p>The Mondetta Charity Foundation is a nonprofit organize bringing school & education to people in Uganda wwhen a community gets access to education, it can change everything</p></div>
-                        <div className='link-to-propositions-container link-taker-container'><GlobalOutlined className='link-taker-icon' /><p>www.mondettacharityfoundation.org</p></div>
-                    </> : <div className="prop-container">{renderFields()}</div>}
-                    <div className="form-control outlineButton edit-button-container">
-
-                        {buttonContent}
-
-                    </div>
-                    <div></div>
-                    {
-                        !open ? <BottomNavigator /> : <></>
-                    }
                 </div>
+                <div className="user-account-profile">
+                    {roles == 'taker' ? null :
+                        <>
+                            <div className="account-profile-info">
+                                <span className="account-profile-number">{propositions.length}</span>
+                                <p>Projects</p>
+                            </div>
+                            <div className="account-profile-info">
+                                <span className="account-profile-number">{user.totalLike}</span>
+                                <p>Likes</p>
+                            </div>
+                        </>}
+                    <div className="account-profile-info">
+                        <span className="account-profile-number">{user.followed}</span>
+                        <p>Followers</p>
+                    </div>
+                    <div className="account-profile-info">
+                        <span className="account-profile-number">{user.following}</span>
+                        <p>Following</p>
+                    </div>
+                </div>
+                <div>
+                    {roles == 'taker' ? <div className="link-to-propositions-container discription"><p >Discription about us</p></div> : <Link className="link-to-propositions-container">
+                        <p >See all Propositions</p>
+                        <img
+                            src="/images/icon/arrow-next.svg"
+                            className="Arrow-next"
+                        ></img>
+                    </Link>}
+                </div>
+                {roles == 'taker' ? <><div className='link-to-propositions-container discription-detail'><p>The Mondetta Charity Foundation is a nonprofit organize bringing school & education to people in Uganda wwhen a community gets access to education, it can change everything</p></div>
+                    <div className='link-to-propositions-container link-taker-container'><GlobalOutlined className='link-taker-icon' /><p>www.mondettacharityfoundation.org</p></div>
+                </> : <div className="prop-container">{renderFields()}</div>}
+                <div className="form-control outlineButton edit-button-container">
+
+                    {buttonContent}
+
+                </div>
+                <div></div>
+                <BottomNavigator />
             </div>
         </>
     );
