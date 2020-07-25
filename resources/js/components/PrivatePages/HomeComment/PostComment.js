@@ -118,6 +118,13 @@ const PostComment = (props) => {
         });
     }
 
+    const onEnterPress = (e) => {
+        if(e.keyCode == 13 && e.shiftKey == false) {
+            e.preventDefault();
+            clickComment();
+        }
+    }
+
     return (
         <div className="private-fullheight" style={{ position: "relative", zIndex: 1000 }}>
             <div className="container" ref={screen}>
@@ -160,6 +167,7 @@ const PostComment = (props) => {
                             placeholder={getMessageTranslate('comment', 'writeAComment')}
                             value={comment}
                             onChange={inputChange}
+                            onKeyDown={onEnterPress}
                         />
                     </div>
                 </div>

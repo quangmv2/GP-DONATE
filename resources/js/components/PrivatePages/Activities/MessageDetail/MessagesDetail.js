@@ -93,6 +93,13 @@ const MessagesDetail = props => {
         })
     }
 
+    const onEnterPress = (e) => {
+        if(e.keyCode == 13 && e.shiftKey == false) {
+            e.preventDefault();
+            sendMessage();
+        }
+    }
+
     return (
         <div className='private-fullheight' style={{ position: "absolute", zIndex: 1000, width: "100%" }}>
             <div className='container'>
@@ -161,9 +168,7 @@ const MessagesDetail = props => {
                             className='input-comment-with-icon'>
                             <button className='arrow-next-button post-comment-button' onClick={sendMessage}>
                                 <img
-                                    src={
-                                        "/images/icon/arrow-next.svg"
-                                    }
+                                    src={"/images/icon/arrow-next.svg"}
                                     className="arrow-next-mess"
                                 />
                             </button>
@@ -174,6 +179,7 @@ const MessagesDetail = props => {
                                 placeholder='Write a comment...'
                                 value={input}
                                 onChange={e => setInput(e.target.value)}
+                                onKeyDown={onEnterPress}
                             />
                         </div>
                     </div>
