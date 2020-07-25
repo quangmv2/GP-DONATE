@@ -22,27 +22,33 @@ const UserProfile = ( props ) => {
     const [ propositions, setPropositions ] = useState([]);
     useEffect(() => {
        fetchUser();
-console.log(userInfo.roles[0].name);
-    
+       fetchPropositions();
     }, []);
-    useEffect(() => {
-        fetchPropositions();
-     }, []);
+
+    let isUser = userId
+    if (userId == null) {
+        isUser = userInfo.username;
+        console.log('aaaa')
+    }
+    
     const fetchUser = async (id) => {
-        const [users] = await fetchService.fetch(GET_PROFILE( userId ), {
+        const [users] = await fetchService.fetch(GET_PROFILE( isUser ), {
           method: 'GET'
         });
         setUser(users);
         setRoles(users.roles[0].name);
+        console.log(users.id);
+        console.log('a');
         
       }
       const fetchPropositions = async (id) => {
-        const [propositon] = await fetchService.fetch(GET_PROPOSITIONS( userId ), {
+        const [propositon] = await fetchService.fetch(GET_PROPOSITIONS( isUser ), {
           method: 'GET'
         });
         setPropositions(propositon.data); 
        
       }
+
     let avatar = (
         <div style={{ position: 'relative' }}>
             <StarFilled className="icon-star" style={{ fontSize: '15px' }} />
@@ -57,7 +63,7 @@ console.log(userInfo.roles[0].name);
             <p>Follow</p>
         </button>
     )
-    if (roles == 'taker') {
+    if (user.code_id == null) {
         avatar = (
             <img
                 className='giver-avatar'
@@ -75,7 +81,6 @@ console.log(userInfo.roles[0].name);
         />
         </ButtonAnt>
     </Link>
-        
     );
     if(userInfo.id == user.id) {
         buttonContent = (
@@ -113,7 +118,7 @@ console.log(userInfo.roles[0].name);
     
 
     return (
-        <div className="userProfileContainer" >
+        <div className={user.full_photo == null ? "nonPhotoCnntainer" : "userProfileContainer"} >
             <div className="image-background-div">
                 <img className="image-background"  src={GET_IMAGE(user.full_photo)}/>
             </div>
@@ -121,7 +126,7 @@ console.log(userInfo.roles[0].name);
                 <div className="navbar-giver-home-container">
                   {avatar}
                     <div className="info-user">
-    <p className="username">{user.first_name} {user.last_name}</p>
+            <p className="username">{user.first_name} {user.last_name}</p>
                         <p className="user-charity">Charity: Water</p>
                     </div>
                 </div>
