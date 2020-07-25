@@ -39,7 +39,7 @@ const NotificationComponent = props => {
                                 <p className="mess-content">
                                     {
                                         type=="comment"?
-                                        `commented: ${ data.content.split(' ').length>10?data.content.split(' ').slice(9).join(' '):data.content.split(' ')}...`:
+                                        `commented: ${ data.content.split(' ').length>10?data.content.split(' ').slice(9).join(' '):data.content}...`:
                                         type=="follow"?
                                         `started following you.`:
                                         `liked your project`
