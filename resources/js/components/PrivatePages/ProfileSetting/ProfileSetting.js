@@ -5,6 +5,7 @@ import { createStructuredSelector } from "reselect";
 import { postLogout } from "modules/auth/actions";
 import { HeaderNavigation, LinkItem } from "components/Atoms";
 import "./ProfileSetting.scss";
+import { PRIVATE_ROUTE } from "../../../constants";
 
 const ProfileSetting = (props) => {
    
@@ -22,7 +23,7 @@ const ProfileSetting = (props) => {
                     <div className="list-box">
                         <LinkItem
                             className="text-box link-center"
-                            url={"/user-profile"}
+                            url={PRIVATE_ROUTE.EDITPROFILE}
                             icon={<i className="icon-left icon-account-normal" />}
                             title="Manage My Account"
                             arrow={<i className="icon-next" />}

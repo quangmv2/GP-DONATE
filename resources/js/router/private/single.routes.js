@@ -27,7 +27,7 @@ export const singleRoutes = [
     exact: true,
   },
   {
-    path: '/profile-setting',
+    path: PRIVATE_ROUTE.PROFILESETTING,
     component: ProfileSetting,
     exact: true,
   },
