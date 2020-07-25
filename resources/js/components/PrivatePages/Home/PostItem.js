@@ -75,7 +75,7 @@ const PostItem = (props) => {
     });
 
     const convertOffer = (offer) => {
-        if (!offer) return
+        if (!offer || !offer.type_offer) return
         if (offer.type_offer == "goods") {
             console.log(offer.content);
             return (
@@ -84,17 +84,21 @@ const PostItem = (props) => {
                 </span>
             );
         }
-        const times = JSON.parse(offer.content);
-        times.sort((a, b) => {
-            if (a.start > b.start) return 1
-            return -1;
-        });
-        return times.map(time => {
-            const keys = Object.keys(time.days);
-            return keys.map(key => <span key={`offer post ${props.id} ${time.days[key]}`}>
-                {`${time.days[key]}: ${time.start}-${time.end}`}<br />
-            </span>)
-        })
+        try {
+            const times = JSON.parse(offer.content);
+            times.sort((a, b) => {
+                if (a.start > b.start) return 1
+                return -1;
+            });
+            return times.map(time => {
+                const keys = Object.keys(time.days);
+                return keys.map(key => <span key={`offer post ${props.id} ${time.days[key]}`}>
+                    {`${time.days[key]}: ${time.start}-${time.end}`}<br />
+                </span>)
+            })
+        } catch (error) {
+            return;
+        }
     }
     return (
         <div className="container">

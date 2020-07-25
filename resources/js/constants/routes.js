@@ -28,7 +28,7 @@ export const API_ROUTER = {
     FORGOTPASSWORD: "/api/oauth/pasword/reset"
 };
 
-export const ROOT_API_URL = 'http://52.205.200.96';
+export const ROOT_API_URL = 'http://donate';
 export const ROOT_WS = '52.205.200.96:9000';
 
 export const GET_POST = '/api/posts';
@@ -41,5 +41,5 @@ export const GET_IMAGE = (dir) => {
 export const POST_POST = () => `${ROOT_API_URL}/api/posts`;
 export const SEARCH_POST = keyWord => `${ROOT_API_URL}/api/posts/search?q=${keyWord}`;
 export const SEARCH_PEOPLE = keyWord => `${ROOT_API_URL}/api/profile/search?q=${keyWord}`;
-export const SEARCH_NOTI = (keyWord, page = 0) => `${ROOT_API_URL}/api/noti?q=${keyWord}&page=${page}`;
-
+export const SEARCH_NOTI = (page = 0) => `${ROOT_API_URL}/api/noti?page=${page}`;
+export const SEARCH_MESSAGE = () => `${ROOT_API_URL}/api/message`;
