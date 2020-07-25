@@ -10,7 +10,7 @@ import { FormattedMessage } from "react-intl";
 import { PRIVATE_ROUTE, NOTIFICATION_TYPE, ROUTE } from "constants";
 import "swiper/swiper.scss";
 import "./HomeScreen.scss";
-import { ROOT_API_URL, GET_IMAGE, GET_COMMENT } from "../../../constants/routes";
+import { ROOT_API_URL, GET_IMAGE, GET_COMMENT, POST_LIKE, GET_LIKE } from "../../../constants/routes";
 import UserAvatar from "react-user-avatar";
 import CommentItem from "./CommentItem";
 import { SocketContext } from "../../../context/SocketProvider";
@@ -18,15 +18,16 @@ import moment from "moment";
 
 const PostItem = (props) => {
     const [comments, setComments] = useState([]);
-    const [likes, setLikes] = useState(props.likes);
+    const [likes, setLikes] = useState(0);
     const { socket } = useContext(SocketContext);
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
     const { post } = props;
-    
+
 
     useEffect(() => {
         fetchFirstData();
+        fetchLike();
         commentsElement.current.scrollTop = 5000
     }, []);
 
@@ -58,19 +59,33 @@ const PostItem = (props) => {
         })
     });
 
-    
+    const like = async () => {
+        await fetchService.fetch(POST_LIKE(), {
+            method: "POST",
+            body: JSON.stringify({ post_id: props.id })
+        });
+        fetchLike();
+    }
+
+    const fetchLike = async () => {
+        const [res, status] = await fetchService.fetch(GET_LIKE(props.id), {
+            method: "GET"
+        });
+        if (status == 200) {
+            setLikes(res.length);
+        }
+    }
 
     const fetchComments = useCallback(async (id) => {
         try {
             const [comments, status] = await fetchService.fetch(`${ROOT_API_URL}/api/posts/${props.id}/comments`, {
                 method: "GET"
             });
-            console.log(comments);
-         
+
             if (status === 200) {
                 setComments(comments);
                 return comments;
-                
+
             }
         } catch (error) {
             console.log(error);
@@ -81,7 +96,6 @@ const PostItem = (props) => {
     const convertOffer = (offer) => {
         if (!offer || !offer.type_offer) return
         if (offer.type_offer == "goods") {
-            console.log(offer.content);
             return (
                 <span>
                     {offer.content}
@@ -104,8 +118,11 @@ const PostItem = (props) => {
             return;
         }
     }
+
+    // console.log("like", props.likes);
+
     return (
-       <div className="container">
+        <div className="container">
             <div className="image-background-div">
                 <img className="image-background" src={GET_IMAGE(props.photo_thumbnail)} alt={props.title} />
             </div>
@@ -123,24 +140,28 @@ const PostItem = (props) => {
                         </Link>
                         <div className="info-user">
                             <p className="username">
-                            <Link to={`user-profile/${props.user.username}`} >
+                                <Link to={`user-profile/${props.user.username}`} >
                                     {`${props.user.first_name} ${props.user.last_name}`}
                                 </Link>
                             </p>
 
                             <p className="hours-ago">
                                 {
-                                    moment(props.created_at).add((new Date()).getUTCDate()-12, 'hours').fromNow()
+                                    moment(props.created_at).add((new Date()).getUTCDate() - 12, 'hours').fromNow()
                                 }
                             </p>
                         </div>
                     </div>
-                    <MailOutlineIcon
-                        style={{
-                            color: "white",
-                            fontSize: "27px"
-                        }}
-                    />
+                    <div onClick={() => props.setUserMessage(props.user)}>
+                        <MailOutlineIcon
+                            style={{
+                                color: "white",
+                                fontSize: "27px"
+                            }}
+
+                        />
+                    </div>
+
                 </div>
                 <div className="home-content">
                     <p className="title-post">{props.title}</p>
@@ -218,10 +239,10 @@ const PostItem = (props) => {
                                     <span>{comments.length}</span>
                                 </ButtonAnt>
                             </div>
-                            <div className="action">
+                            <div className="action" onClick={like}>
                                 <ButtonAnt className="button-action">
                                     <i className="icon-social icon-like-active" />
-                                    <span>{props.likes.length}</span>
+                                    <span>{likes}</span>
                                 </ButtonAnt>
                             </div>
                         </div>

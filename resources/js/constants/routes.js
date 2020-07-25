@@ -18,7 +18,8 @@ export const PRIVATE_ROUTE = {
     INPUTCODE: "/input-code",
     EDITPROFILE: '/edit-profile',
     PROFILESETTING: '/profile-setting',
-    MYPROFILE: '/my-profile'
+    MYPROFILE: '/my-profile',
+    MYLIKES: '/post-like'
 };
 
 export const ROUTE = {
@@ -49,3 +50,7 @@ export const SEARCH_NOTI = (page = 0) => `${ROOT_API_URL}/api/noti?page=${page}`
 export const SEARCH_MESSAGE = () => `${ROOT_API_URL}/api/message`;
 export const GET_MESSAGE_DETAILS =  id => `${ROOT_API_URL}/api/message/${id}`;
 export const SEND_MESSAGE =  () => `${ROOT_API_URL}/api/message`;
+export const POST_LIKE = () => `${ROOT_API_URL}/api/like`;
+export const GET_LIKE = id => `${ROOT_API_URL}/api/posts/${id}/likes`;
+export const GET_MY_LIKE = () => `${ROOT_API_URL}/api/profile/likes`;
+export const GET_MY_POST = id => `${ROOT_API_URL}/api/profile/${id}/posts`;

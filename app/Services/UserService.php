@@ -9,8 +9,7 @@ use Response;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\User;
-
-
+use App\Models\Like;
 
 class UserService
 {
@@ -60,6 +59,16 @@ class UserService
                     ->orWhere('username', 'like', '%'.$search.'%')
                     ->get();
         return $user;
+    }
+
+    public function getMyLikes($user_id)
+    {
+        $likes = Like::where('user_id', $user_id)->get();
+        foreach ($likes as $key => $like) {
+            $like->post->offers;
+            $like->post->user;
+        }
+        return $likes;
     }
 
 }

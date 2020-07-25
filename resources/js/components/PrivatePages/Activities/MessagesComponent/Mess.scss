@@ -7,6 +7,15 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    .avatar-wrapper .icon-star{
+      width: 17px;
+      height: 17px;
+      line-height: 7px;
+
+      svg{
+        font-size: 10px;
+      }
+    }
 }
 .mess-hours-ago {
     font-family: Muli;
@@ -43,6 +52,10 @@
       &.mess-content {
         font-size: 0.8em;
         color: #666666;
+        width: 100%;
+        word-break: break-all;
+        max-height: 40px;
+        overflow: hidden;
       }
     }
   }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom';
 import './MessageDetail.scss';
 import message from './MessageData';
@@ -13,10 +13,16 @@ const MessagesDetail = props => {
 
     const [data, setData] = useState([]);
     const [input, setInput] = useState('');
+    const bodyMess = useRef();
 
     useEffect(() => {
-        getMessageDetail();
+        getFirst();
     }, []);
+
+    const getFirst = async () => {
+        await getMessageDetail();
+        bodyMess.current.scrollTop = 5000;
+    }
 
     const getMessageDetail = async () => {
         const [messages, status] = await fetchService.fetch(GET_MESSAGE_DETAILS(props.data.id));
@@ -87,6 +93,13 @@ const MessagesDetail = props => {
         })
     }
 
+    const onEnterPress = (e) => {
+        if(e.keyCode == 13 && e.shiftKey == false) {
+            e.preventDefault();
+            sendMessage();
+        }
+    }
+
     return (
         <div className='private-fullheight' style={{ position: "absolute", zIndex: 1000, width: "100%" }}>
             <div className='container'>
@@ -120,7 +133,7 @@ const MessagesDetail = props => {
                     </button>
                 </div>
                 {/* END HEADER NAV */}
-                <div className='mess-body'>
+                <div className='mess-body' ref={bodyMess}>
                     <div>
                         {timeMessages}
 
@@ -155,9 +168,7 @@ const MessagesDetail = props => {
                             className='input-comment-with-icon'>
                             <button className='arrow-next-button post-comment-button' onClick={sendMessage}>
                                 <img
-                                    src={
-                                        "/images/icon/arrow-next.svg"
-                                    }
+                                    src={"/images/icon/arrow-next.svg"}
                                     className="arrow-next-mess"
                                 />
                             </button>
@@ -168,6 +179,7 @@ const MessagesDetail = props => {
                                 placeholder='Write a comment...'
                                 value={input}
                                 onChange={e => setInput(e.target.value)}
+                                onKeyDown={onEnterPress}
                             />
                         </div>
                     </div>

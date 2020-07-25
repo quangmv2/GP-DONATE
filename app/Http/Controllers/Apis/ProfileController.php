@@ -126,18 +126,30 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if ($request->user()->id != $id) return response()->json(['message' => 'FORBIDDEN'], 403);
-        $this->validate($request, [
-            'first_name' => 'required',
-            'password' => 'same:confirm-password',
-        ]);
+        $user = $this->userService->getUserByIdOrUsername($request->user()->id);
+        // if ($request->user()->id != $user->id) return response()->json(['message' => 'FORBIDDEN'], 403);
+        if (!empty($request->username) && $request->username == $request->user()->username){
+            $this->validate($request, [
+                'first_name' => 'required',
+                'personal_photo' => 'required',
+                'full_photo' => 'required',
+                'foudation' => 'required'
+            ]);
+        } else {
+            $this->validate($request, [
+                'first_name' => 'required',
+                'username' => 'required|unique:users,username',
+                'personal_photo' => 'required',
+                'full_photo' => 'required',
+                'foudation' => 'required'
+            ]);
+        }
         $input = $request->all();
         if(!empty($input['password'])){ 
             $input['password'] = Hash::make($input['password']);
         }else{
             $input = array_except($input,array('password'));    
         }
-        $user = User::find($id);
         $user->update($input);
         return response()->json(json_decode($user), 200);
     }
@@ -151,6 +163,12 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getLikes(Request $request)
+    {
+        $likes = $this->userService->getMyLikes($request->user()->id);
+        return response()->json(json_decode($likes), 200);
     }
 
     public function getFollowingOfUser(Request $request, $id)

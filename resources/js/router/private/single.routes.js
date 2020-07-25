@@ -60,7 +60,7 @@ export const singleRoutes = [
     component: MessagesDetail,
   },
   {
-    path: '/post-like',
+    path: PRIVATE_ROUTE.MYLIKES,
     component: PostLike,
     exact: true,
   },

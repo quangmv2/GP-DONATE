@@ -14,12 +14,16 @@ import {
 } from "modules/auth/selectors";
 import { StarFilled, GlobalOutlined } from "@ant-design/icons";
 import MessagesDetail from "../Activities/MessageDetail/MessagesDetail";
+import UserAvatar from "react-user-avatar";
+import Propositions from "./Propositions";
+
 const UserProfile = (props) => {
     const { userInfo } = props;
     let { userId } = useParams();
     const [user, setUser] = useState({});
     const [roles, setRoles] = useState([]);
     const [propositions, setPropositions] = useState([]);
+    const [modal, setModal] = useState(false);
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
@@ -30,7 +34,7 @@ const UserProfile = (props) => {
     let isUser = userId
     if (userId == null) {
         isUser = userInfo.username;
-        console.log('aaaa')
+        // console.log('aaaa')
     }
 
     const fetchUser = async (id) => {
@@ -68,20 +72,12 @@ const UserProfile = (props) => {
     
     if(user.personal_photo == null && user.code_id == null) {
         avatar = (
-            <img
-            style={{backgroundColor: 'white'}}
-                className='giver-avatar'
-                src="/images/avatar/nullAva.png"
-            ></img>
-
-        )
-    } else if (user.code_id == null && user.personal_photo !== null) {
-        avatar = (
-            <img
-
-                className='giver-avatar'
-                src={GET_IMAGE(user.personal_photo)}
-            ></img>
+            user.personal_photo ?
+                <img
+                    className='giver-avatar'
+                    src={GET_IMAGE(user.personal_photo)}
+                ></img> :
+                <UserAvatar size="42" name={`${user.first_name}`} />
 
         )
     }
@@ -130,12 +126,14 @@ const UserProfile = (props) => {
         });
     };
 
-
     return (
         <>
       
             {
                 open ? <MessagesDetail data={user} closeWindow={() => setOpen(false)} /> : <></>
+            }
+            {
+                modal && <Propositions username={userId} closeWindow={() => setModal(false)} />
             }
             <div className={user.full_photo == null ? "nonPhotoCnntainer" : "userProfileContainer"} style={{ display: open ? "none" : "block" }} >
                 <div className="image-background-div">
@@ -174,13 +172,14 @@ const UserProfile = (props) => {
                     </div>
                 </div>
                 {propositions.length == 0 ? null : <div>
-                    {roles == 'taker' ? <div className="link-to-propositions-container discription"><p >Discription about us</p></div> : <Link className="link-to-propositions-container">
+                    {roles == 'taker' ? <div className="link-to-propositions-container discription"><p >Discription about us</p></div> : 
+                    <div className="link-to-propositions-container" onClick={() => setModal(true)}>
                         <p >See all Propositions</p>
                         <img
                             src="/images/icon/arrow-next.svg"
                             className="Arrow-next"
                         ></img>
-                    </Link>}
+                    </div>}
                 </div>}
                 {roles == 'taker' ? <><div className='link-to-propositions-container discription-detail'><p>The Mondetta Charity Foundation is a nonprofit organize bringing school & education to people in Uganda wwhen a community gets access to education, it can change everything</p></div>
                     <div className='link-to-propositions-container link-taker-container'><GlobalOutlined className='link-taker-icon' /><p>www.mondettacharityfoundation.org</p></div>
