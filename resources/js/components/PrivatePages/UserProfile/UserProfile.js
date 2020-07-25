@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { ButtonAnt } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
 import { useParams } from 'react-router-dom';
-import UserPropositions from "./UserPropositions";
 import { GET_PROFILE, GET_PROPOSITIONS, GET_IMAGE, PRIVATE_ROUTE } from "../../../constants/routes";
 import { fetchService } from "../../../services/fetch/fetchService";
 import {
@@ -59,7 +58,7 @@ const UserProfile = (props) => {
             <StarFilled className="icon-star" style={{ fontSize: '15px' }} />
             <img
                 className='giver-avatar'
-                src="/images/10.jpg"
+                src={GET_IMAGE(user.personal_photo)}
             ></img>
         </div>
     )
@@ -68,7 +67,8 @@ const UserProfile = (props) => {
             <p>Follow</p>
         </button>
     )
-    if (user.code_id == null) {
+    
+    if(user.personal_photo == null && user.code_id == null) {
         avatar = (
             user.personal_photo ?
                 <img
@@ -127,6 +127,7 @@ const UserProfile = (props) => {
 
     return (
         <>
+      
             {
                 open ? <MessagesDetail data={user} closeWindow={() => setOpen(false)} /> : <></>
             }
@@ -138,8 +139,8 @@ const UserProfile = (props) => {
                     <div className="navbar-giver-home-container">
                         {avatar}
                         <div className="info-user">
-                            <p className="username">{user.first_name} {user.last_name}</p>
-                            <p className="user-charity">Charity: Water</p>
+                            <p className="username">{user.first_name == null ? user.username : user.first_name}</p>
+                            <p className="user-charity">{user.foudation == null ? null : user.foudation}</p>
                         </div>
                     </div>
                     {button}
@@ -166,7 +167,7 @@ const UserProfile = (props) => {
                         <p>Following</p>
                     </div>
                 </div>
-                <div>
+                {propositions.length == 0 ? null : <div>
                     {roles == 'taker' ? <div className="link-to-propositions-container discription"><p >Discription about us</p></div> : <Link className="link-to-propositions-container">
                         <p >See all Propositions</p>
                         <img
@@ -174,11 +175,11 @@ const UserProfile = (props) => {
                             className="Arrow-next"
                         ></img>
                     </Link>}
-                </div>
+                </div>}
                 {roles == 'taker' ? <><div className='link-to-propositions-container discription-detail'><p>The Mondetta Charity Foundation is a nonprofit organize bringing school & education to people in Uganda wwhen a community gets access to education, it can change everything</p></div>
                     <div className='link-to-propositions-container link-taker-container'><GlobalOutlined className='link-taker-icon' /><p>www.mondettacharityfoundation.org</p></div>
                 </> : <div className="prop-container">{renderFields()}</div>}
-                <div className="form-control outlineButton edit-button-container">
+                <div className={propositions.length == 0 ? "form-control outlineButton edit-button-container nonProButton" : "form-control outlineButton edit-button-container"}>
 
                     {buttonContent}
 
