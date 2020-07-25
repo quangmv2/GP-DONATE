@@ -108,7 +108,7 @@ const PostItem = (props) => {
             <div className="home-image" ref={homeImage}>
                 <div className="top-navbar-giver-home">
                     <div className="navbar-giver-home-container">
-                        <Link to={`user-profile/${props.user_id}`} >
+                        <Link to={`user-profile/${props.user.username}`}  >
                             {
                                 props.user.personal_photo ? <img
                                     src={GET_IMAGE(props.user.personal_photo)}
@@ -119,7 +119,7 @@ const PostItem = (props) => {
                         </Link>
                         <div className="info-user">
                             <p className="username">
-                            <Link to={`user-profile/${props.user_id}`} >
+                            <Link to={`user-profile/${props.user.username}`} >
                                     {`${props.user.first_name} ${props.user.last_name}`}
                                 </Link>
                             </p>

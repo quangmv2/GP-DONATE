@@ -22,19 +22,16 @@ const UserProfile = ( props ) => {
     const [ propositions, setPropositions ] = useState([]);
     useEffect(() => {
        fetchUser();
-console.log(userInfo.roles[0].name);
-    
+       fetchPropositions();
     }, []);
-    useEffect(() => {
-        fetchPropositions();
-     }, []);
     const fetchUser = async (id) => {
         const [users] = await fetchService.fetch(GET_PROFILE( userId ), {
           method: 'GET'
         });
         setUser(users);
         setRoles(users.roles[0].name);
-        console.log(users);
+        console.log(users.id);
+        console.log(userInfo);
         
       }
       const fetchPropositions = async (id) => {
@@ -77,7 +74,6 @@ console.log(userInfo.roles[0].name);
         />
         </ButtonAnt>
     </Link>
-        
     );
     if(userInfo.id == user.id) {
         buttonContent = (
