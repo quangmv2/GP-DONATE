@@ -25,26 +25,33 @@ const UserProfile = (props) => {
 
     useEffect(() => {
         fetchUser();
-        console.log(userId);
-    }, []);
-    useEffect(() => {
         fetchPropositions();
     }, []);
+
+    let isUser = userId
+    if (userId == null) {
+        isUser = userInfo.username;
+        console.log('aaaa')
+    }
+
     const fetchUser = async (id) => {
-        const [users] = await fetchService.fetch(GET_PROFILE(userId), {
+        const [users] = await fetchService.fetch(GET_PROFILE(isUser), {
             method: 'GET'
         });
         setUser(users);
         setRoles(users.roles[0].name);
+        console.log(users.id);
+        console.log('a');
 
     }
     const fetchPropositions = async (id) => {
-        const [propositon] = await fetchService.fetch(GET_PROPOSITIONS(userId), {
+        const [propositon] = await fetchService.fetch(GET_PROPOSITIONS(isUser), {
             method: 'GET'
         });
         setPropositions(propositon.data);
 
     }
+
     let avatar = (
         <div style={{ position: 'relative' }}>
             <StarFilled className="icon-star" style={{ fontSize: '15px' }} />
@@ -59,7 +66,7 @@ const UserProfile = (props) => {
             <p>Follow</p>
         </button>
     )
-    if (roles == 'taker') {
+    if (user.code_id == null) {
         avatar = (
             <img
                 className='giver-avatar'
@@ -117,9 +124,9 @@ const UserProfile = (props) => {
     return (
         <>
             {
-                open?<MessagesDetail data={user} closeWindow={() => setOpen(false)} />:<></>
+                open ? <MessagesDetail data={user} closeWindow={() => setOpen(false)} /> : <></>
             }
-            <div className="userProfileContainer">
+            <div className={user.full_photo == null ? "nonPhotoCnntainer" : "userProfileContainer"} >
                 <div className="image-background-div">
                     <img className="image-background" src={GET_IMAGE(user.full_photo)} />
                 </div>
@@ -131,51 +138,60 @@ const UserProfile = (props) => {
                             <p className="user-charity">Charity: Water</p>
                         </div>
                     </div>
-                    {button}
-
-                </div>
-                <div className="user-account-profile">
-                    {roles == 'taker' ? null :
-                        <>
-                            <div className="account-profile-info">
-                                <span className="account-profile-number">{propositions.length}</span>
-                                <p>Projects</p>
+                    <div className="top-navbar-giver-home">
+                        <div className="navbar-giver-home-container">
+                            {avatar}
+                            <div className="info-user">
+                                <p className="username">{user.first_name} {user.last_name}</p>
+                                <p className="user-charity">Charity: Water</p>
                             </div>
-                            <div className="account-profile-info">
-                                <span className="account-profile-number">{user.totalLike}</span>
-                                <p>Likes</p>
-                            </div>
-                        </>}
-                    <div className="account-profile-info">
-                        <span className="account-profile-number">{user.followed}</span>
-                        <p>Followers</p>
-                    </div>
-                    <div className="account-profile-info">
-                        <span className="account-profile-number">{user.following}</span>
-                        <p>Following</p>
-                    </div>
-                </div>
-                <div>
-                    {roles == 'taker' ? <div className="link-to-propositions-container discription"><p >Discription about us</p></div> : <Link className="link-to-propositions-container">
-                        <p >See all Propositions</p>
-                        <img
-                            src="/images/icon/arrow-next.svg"
-                            className="Arrow-next"
-                        ></img>
-                    </Link>}
-                </div>
-                {roles == 'taker' ? <><div className='link-to-propositions-container discription-detail'><p>The Mondetta Charity Foundation is a nonprofit organize bringing school & education to people in Uganda wwhen a community gets access to education, it can change everything</p></div>
-                    <div className='link-to-propositions-container link-taker-container'><GlobalOutlined className='link-taker-icon' /><p>www.mondettacharityfoundation.org</p></div>
-                </> : <div className="prop-container">{renderFields()}</div>}
-                <div className="form-control outlineButton edit-button-container">
+                        </div>
+                        {button}
 
-                    {buttonContent}
+                    </div>
+                    <div className="user-account-profile">
+                        {roles == 'taker' ? null :
+                            <>
+                                <div className="account-profile-info">
+                                    <span className="account-profile-number">{propositions.length}</span>
+                                    <p>Projects</p>
+                                </div>
+                                <div className="account-profile-info">
+                                    <span className="account-profile-number">{user.totalLike}</span>
+                                    <p>Likes</p>
+                                </div>
+                            </>}
+                        <div className="account-profile-info">
+                            <span className="account-profile-number">{user.followed}</span>
+                            <p>Followers</p>
+                        </div>
+                        <div className="account-profile-info">
+                            <span className="account-profile-number">{user.following}</span>
+                            <p>Following</p>
+                        </div>
+                    </div>
+                    <div>
+                        {roles == 'taker' ? <div className="link-to-propositions-container discription"><p >Discription about us</p></div> : <Link className="link-to-propositions-container">
+                            <p >See all Propositions</p>
+                            <img
+                                src="/images/icon/arrow-next.svg"
+                                className="Arrow-next"
+                            ></img>
+                        </Link>}
+                    </div>
+                    {roles == 'taker' ? <><div className='link-to-propositions-container discription-detail'><p>The Mondetta Charity Foundation is a nonprofit organize bringing school & education to people in Uganda wwhen a community gets access to education, it can change everything</p></div>
+                        <div className='link-to-propositions-container link-taker-container'><GlobalOutlined className='link-taker-icon' /><p>www.mondettacharityfoundation.org</p></div>
+                    </> : <div className="prop-container">{renderFields()}</div>}
+                    <div className="form-control outlineButton edit-button-container">
 
+                        {buttonContent}
+
+                    </div>
+                    <div></div>
+                    {
+                        !open ? <BottomNavigator /> : <></>
+                    }
                 </div>
-                <div></div>
-                {
-                    !open?<BottomNavigator />:<></>
-                }
             </div>
         </>
     );

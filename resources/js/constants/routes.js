@@ -17,7 +17,8 @@ export const PRIVATE_ROUTE = {
     CHOOSEROLE: "/choose-role",
     INPUTCODE: "/input-code",
     EDITPROFILE: '/edit-profile',
-    PROFILESETTING: '/profile-setting'
+    PROFILESETTING: '/profile-setting',
+    MYPROFILE: '/my-profile'
 };
 
 export const ROUTE = {
