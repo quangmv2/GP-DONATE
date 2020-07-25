@@ -132,34 +132,21 @@ const UserProfile = (props) => {
 
 
     return (
-<<<<<<< HEAD
-        <div className={user.full_photo == null ? "nonPhotoCnntainer" : "userProfileContainer"} >
-            <div className="image-background-div">
-                <img className="image-background"  src={GET_IMAGE(user.full_photo)}/>
-            </div>
-            <div className="top-navbar-giver-home">
-                <div className="navbar-giver-home-container">
-                  {avatar}
-                    <div className="info-user">
-            <p className="username">{user.firstname == null ? user.username : user.first_name}</p>
-    <p className="user-charity">{user.foudation == null ? null : user.foudation}</p>
-                    </div>
-=======
         <>
+      
             {
                 open ? <MessagesDetail data={user} closeWindow={() => setOpen(false)} /> : <></>
             }
-            <div className={user.full_photo == null ? "nonPhotoCnntainer" : "userProfileContainer"} style={{display: open?"none":"block"}} >
+            <div className={user.full_photo == null ? "nonPhotoCnntainer" : "userProfileContainer"} style={{ display: open ? "none" : "block" }} >
                 <div className="image-background-div">
                     <img className="image-background" src={GET_IMAGE(user.full_photo)} />
->>>>>>> 3e47cfd2085761126da774c7965557549552b69f
                 </div>
                 <div className="top-navbar-giver-home">
                     <div className="navbar-giver-home-container">
                         {avatar}
                         <div className="info-user">
-                            <p className="username">{user.first_name} {user.last_name}</p>
-                            <p className="user-charity">Charity: Water</p>
+                            <p className="username">{user.first_name == null ? user.username : user.first_name}</p>
+                            <p className="user-charity">{user.foudation == null ? null : user.foudation}</p>
                         </div>
                     </div>
                     {button}
@@ -186,7 +173,7 @@ const UserProfile = (props) => {
                         <p>Following</p>
                     </div>
                 </div>
-                <div>
+                {propositions.length == 0 ? null : <div>
                     {roles == 'taker' ? <div className="link-to-propositions-container discription"><p >Discription about us</p></div> : <Link className="link-to-propositions-container">
                         <p >See all Propositions</p>
                         <img
@@ -194,11 +181,11 @@ const UserProfile = (props) => {
                             className="Arrow-next"
                         ></img>
                     </Link>}
-                </div>
+                </div>}
                 {roles == 'taker' ? <><div className='link-to-propositions-container discription-detail'><p>The Mondetta Charity Foundation is a nonprofit organize bringing school & education to people in Uganda wwhen a community gets access to education, it can change everything</p></div>
                     <div className='link-to-propositions-container link-taker-container'><GlobalOutlined className='link-taker-icon' /><p>www.mondettacharityfoundation.org</p></div>
                 </> : <div className="prop-container">{renderFields()}</div>}
-                <div className="form-control outlineButton edit-button-container">
+                <div className={propositions.length == 0 ? "form-control outlineButton edit-button-container nonProButton" : "form-control outlineButton edit-button-container"}>
 
                     {buttonContent}
 
@@ -206,31 +193,7 @@ const UserProfile = (props) => {
                 <div></div>
                 <BottomNavigator />
             </div>
-<<<<<<< HEAD
-            {propositions.length == '0' ? null : <div>
-                {roles == 'taker' ? <div className="link-to-propositions-container discription"><p >Discription about us</p></div> :
-                 <Link className="link-to-propositions-container">
-                    <p >See all Propositions</p>
-                    <img
-                        src="/images/icon/arrow-next.svg"
-                        className="Arrow-next"
-                    ></img>
-                </Link> }
-            </div>}
-            {roles == 'taker' ? <><div className='link-to-propositions-container discription-detail'><p>The Mondetta Charity Foundation is a nonprofit organize bringing school & education to people in Uganda wwhen a community gets access to education, it can change everything</p></div>
-            <div className='link-to-propositions-container link-taker-container'><GlobalOutlined className='link-taker-icon' /><p>www.mondettacharityfoundation.org</p></div>
-             </>: <div className="prop-container">{renderFields()}</div>}
-            <div className={propositions.length == '0' ? 'form-control outlineButton edit-button-container nonProButton' : 'form-control outlineButton edit-button-container'}>
-
-                {buttonContent}
-
-            </div>
-            <div></div>
-            <BottomNavigator />
-        </div>
-=======
         </>
->>>>>>> 3e47cfd2085761126da774c7965557549552b69f
     );
 };
 const mapStateToProps = createStructuredSelector({
