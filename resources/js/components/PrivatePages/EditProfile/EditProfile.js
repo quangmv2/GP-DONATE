@@ -138,10 +138,12 @@ export class EditProfile extends Component {
                                             />
                                         </div>
                                         <div className="form-submit">
+                                            <label className='username-label'>User name</label>
                                             <TextField
+                                                disabled
                                                 className="form-text"
                                                 id="standard-password-input"
-                                                label="Username"
+                                                placeholder= {userInfo.username}
                                                 type="text"
                                                 name="username"
                                                 value={values.username}
