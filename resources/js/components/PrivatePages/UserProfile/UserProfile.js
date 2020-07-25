@@ -15,6 +15,8 @@ import {
 } from "modules/auth/selectors";
 import { StarFilled, GlobalOutlined } from "@ant-design/icons";
 import MessagesDetail from "../Activities/MessageDetail/MessagesDetail";
+import UserAvatar from "react-user-avatar";
+
 const UserProfile = (props) => {
     const { userInfo } = props;
     let { userId } = useParams();
@@ -68,10 +70,12 @@ const UserProfile = (props) => {
     )
     if (user.code_id == null) {
         avatar = (
-            <img
-                className='giver-avatar'
-                src="/images/10.jpg"
-            ></img>
+            user.personal_photo ?
+                <img
+                    className='giver-avatar'
+                    src={GET_IMAGE(user.personal_photo)}
+                ></img> :
+                <UserAvatar size="42" name={`${user.first_name}`} />
 
         )
     }
@@ -126,7 +130,7 @@ const UserProfile = (props) => {
             {
                 open ? <MessagesDetail data={user} closeWindow={() => setOpen(false)} /> : <></>
             }
-            <div className={user.full_photo == null ? "nonPhotoCnntainer" : "userProfileContainer"} style={{display: open?"none":"block"}} >
+            <div className={user.full_photo == null ? "nonPhotoCnntainer" : "userProfileContainer"} style={{ display: open ? "none" : "block" }} >
                 <div className="image-background-div">
                     <img className="image-background" src={GET_IMAGE(user.full_photo)} />
                 </div>

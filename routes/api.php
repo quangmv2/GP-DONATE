@@ -29,7 +29,7 @@ Route::group(['prefix' => 'oauth'], function () {
     
 
 Route::get('photo', 'Apis\PostController@showPhoto'); //get photo for driectory
-Route::post('photo', 'Apis\PostController@storePhoto'); //Upload image
+Route::post('photo/up', 'Apis\PostController@storePhoto'); //Upload image
 
 Route::group(['prefix' => 'posts'], function () {
     Route::get('search', 'Apis\PostController@searchPost');
