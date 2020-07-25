@@ -23,6 +23,7 @@ const PostItem = (props) => {
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
     const { post } = props;
+    
 
     useEffect(() => {
         fetchFirstData();
@@ -65,6 +66,7 @@ const PostItem = (props) => {
                 method: "GET"
             });
             console.log(comments);
+         
             if (status === 200) {
                 setComments(comments);
                 return comments;

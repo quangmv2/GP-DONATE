@@ -34,6 +34,7 @@ console.log(userInfo.roles[0].name);
         });
         setUser(users);
         setRoles(users.roles[0].name);
+        console.log(users);
         
       }
       const fetchPropositions = async (id) => {
@@ -43,6 +44,7 @@ console.log(userInfo.roles[0].name);
         setPropositions(propositon.data); 
        
       }
+
     let avatar = (
         <div style={{ position: 'relative' }}>
             <StarFilled className="icon-star" style={{ fontSize: '15px' }} />
@@ -57,7 +59,7 @@ console.log(userInfo.roles[0].name);
             <p>Follow</p>
         </button>
     )
-    if (roles == 'taker') {
+    if (user.code_id == null) {
         avatar = (
             <img
                 className='giver-avatar'
@@ -113,7 +115,7 @@ console.log(userInfo.roles[0].name);
     
 
     return (
-        <div className="userProfileContainer" >
+        <div className={user.full_photo == null ? "nonPhotoCnntainer" : "userProfileContainer"} >
             <div className="image-background-div">
                 <img className="image-background"  src={GET_IMAGE(user.full_photo)}/>
             </div>
