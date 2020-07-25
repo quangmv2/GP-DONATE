@@ -32,7 +32,7 @@ export const singleRoutes = [
     exact: true,
   },
   {
-    path: '/edit-profile',
+    path: PRIVATE_ROUTE.EDITPROFILE,
     component: EditProfile,
   },
   {

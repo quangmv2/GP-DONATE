@@ -4,6 +4,8 @@ import { HeaderNavigation } from 'components/Atoms';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import { SocketContext } from "../../../context/SocketProvider";
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en';
 import CloseIcon from '@material-ui/icons/Close';
 import { GET_COMMENT, POST_COMMENT } from "../../../constants/routes";
 import { fetchService } from "services";
@@ -11,17 +13,15 @@ import moment from "moment";
 import { getMessageTranslate } from "helpers";
 import './HomeComment.scss';
 
-const PostComment = props => {
+const PostComment = (props) => {
     const [data, setData] = useState(null);
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
     const { socket } = useContext(SocketContext);
     const screen = useRef(null);
-
     useEffect(() => {
         fetchFirstData();
     }, []);
-
     useEffect(() => {
         screen.current.scrollTop = 5000;
     }, [comments]);
@@ -119,7 +119,7 @@ const PostComment = props => {
     }
 
     return (
-        <div className="private-fullheight" style={{ position: "relative", zIndex: 1000, scrollBehavior: "smooth" }}>
+        <div className="private-fullheight" style={{ position: "relative", zIndex: 1000 }}>
             <div className="container" ref={screen}>
                 <HeaderNavigation headerName={getMessageTranslate('comment', 'comments')} handleBack={() => {props.hideModal();}}>
                     <button className='button-trans' onClick={() => {props.hideModal();}}>
