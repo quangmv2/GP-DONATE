@@ -66,13 +66,12 @@ const PostItem = (props) => {
             });
             console.log(comments);
             if (status === 200) {
-                console.log(match.params);
                 setComments(comments);
                 return comments;
                 
             }
         } catch (error) {
-            console.log(err);
+            console.log(error);
 
         }
     });
