@@ -75,4 +75,5 @@ class LikeController extends Controller
         $like = $this->likeService->delete($id, $request->user()->id);
         return response()->json(json_decode($like), 200);
     }
+
 }

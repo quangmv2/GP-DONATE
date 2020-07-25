@@ -622,6 +622,12 @@ class PostController extends Controller
         return $comments;
     }
 
+    public function getLikes(Request $request, $id)
+    {
+        $likes = \App\Models\Like::where('post_id', $id)->get();
+        return $likes;
+    }
+
     public function searchPost(Request $request)
     {
         $keyWord = $request->get('q');

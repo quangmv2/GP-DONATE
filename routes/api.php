@@ -38,6 +38,7 @@ Route::group(['prefix' => 'posts'], function () {
 });
 
 Route::group(['prefix' => 'profile'], function () {
+    Route::get('likes', 'Apis\ProfileController@getLikes'); 
     Route::get('search', 'Apis\ProfileController@searchPeople');
     Route::get('{id}/following', "Apis\ProfileController@getFollowingOfUser");
     Route::get('{id}/followed', "Apis\ProfileController@getFollowedOfUser");
