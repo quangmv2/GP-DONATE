@@ -80,10 +80,12 @@
   
   >p {
     font-family: Muli;
-  font-size: 16px;
-  line-height: 1.38;
-  color: #666666;
-  padding: 10px 13px ;
+    font-size: 16px;
+    line-height: 1.38;
+    color: #666666;
+    padding: 10px 13px ;
+    word-break: break-word;
+    white-space: pre-wrap;
   }
 }
 .render-message {

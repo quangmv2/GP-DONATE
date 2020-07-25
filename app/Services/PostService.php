@@ -44,7 +44,12 @@ class PostService
     {
         if (empty($limit)) $limit = 1;
         $user = $this->userService->getUserByIdOrUsername($user_id);
-        return Post::where('user_id', $user->id)->simplePaginate($limit);       
+        $posts = Post::where('user_id', $user->id)->simplePaginate($limit);   
+        foreach ($posts as $key => $post) {
+            $post->offers;
+            $post->user;
+        }    
+        return $posts;     
     }
 
     public function save($title, $content, $photo_thumbnail, $full_photo, $due_day, $user_id)
