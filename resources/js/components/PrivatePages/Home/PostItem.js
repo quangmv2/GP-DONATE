@@ -30,22 +30,18 @@ const PostItem = (props) => {
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
     const { post, userInfo } = props;
-    
+
 
     useEffect(() => {
         fetchFirstData();
         fetchLike();
         commentsElement.current.scrollTop = 5000
     }, []);
-    const found = likes.findIndex(function (element) { 
-        return element.user_id == 3; 
-    }); 
 
-    console.log(found);
 
-     
-        
-  
+
+
+
 
     useEffect(() => {
         commentsElement.current.scrollTop = 5000
@@ -159,7 +155,7 @@ const PostItem = (props) => {
                         <div className="info-user">
                             <p className="username">
                                 <Link to={`user-profile/${props.user.username}`} >
-                                    { props.user.first_name == null ? `${props.user.username}` : `${props.user.first_name}`}
+                                    {props.user.first_name == null ? `${props.user.username}` : `${props.user.first_name}`}
                                 </Link>
                             </p>
 
@@ -258,8 +254,8 @@ const PostItem = (props) => {
                                 </ButtonAnt>
                             </div>
                             <div className="action" onClick={like}>
-                             
-                                <ButtonAnt className={likes !== 0 ? "button-action button-liked" :"button-action"}>
+
+                                <ButtonAnt className={likes !== 0 ? "button-action button-liked" : "button-action"}>
                                     <i className="icon-social icon-like-active" />
                                     <span>{likes}</span>
                                 </ButtonAnt>
