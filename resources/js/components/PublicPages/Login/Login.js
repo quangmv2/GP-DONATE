@@ -106,7 +106,6 @@ export class Login extends Component {
                                 errors,
                                 touched,
                                 handleChange,
-                                //handleBlur,
                                 handleSubmit,
                                 isSubmitting,
                                 /* and other goodies */
@@ -161,7 +160,6 @@ export class Login extends Component {
                                                     item
                                                     className="item-flex input-with-icon"
                                                 >
-                                                    {/* <InputLabel htmlFor="input-with-icon-adornment">With a start adornment</InputLabel> */}
                                                     <AccountCircle />
                                                     <TextField
                                                         error={

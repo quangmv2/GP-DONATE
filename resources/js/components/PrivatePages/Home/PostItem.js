@@ -60,11 +60,9 @@ const PostItem = (props) => {
             }
         });
         socket.on('delete-comment', data => {
-            console.log(data);
             setComments(cmts => {
                 const newCmts = [...cmts];
                 return newCmts.filter(({ id }) => {
-                    console.log(id !== data.id);
                     return id !== data.id;
                 });
             })
@@ -86,8 +84,6 @@ const PostItem = (props) => {
         if (status == 200) {
             setLikes(res.length);
             setLiked(res);
-            console.log(res)
-
         }
     }
     const fetchComments = useCallback(async (id) => {
@@ -102,7 +98,6 @@ const PostItem = (props) => {
 
             }
         } catch (error) {
-            console.log(error);
 
         }
     });
@@ -132,8 +127,6 @@ const PostItem = (props) => {
             return;
         }
     }
-
-    // console.log("like", props.likes);
 
     return (
         <div className="container">

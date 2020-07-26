@@ -77,7 +77,6 @@ const PostComment = (props) => {
             body: JSON.stringify(data)
         })
         if (status == 200 || status == 201) {
-            console.log(resComment);
             setComments(cmts => {
                 const newCmts = [...cmts];
                 newCmts.push(resComment);
@@ -87,8 +86,6 @@ const PostComment = (props) => {
             window.scrollTo(0,document.body.scrollHeight);
         } 
     }
-
-    console.log(post);
 
     const renderComment = () => {
         return _.map(comments, ({ user: {username}, content, created_at }, index) => {
@@ -167,7 +164,7 @@ const PostComment = (props) => {
                             placeholder={getMessageTranslate('comment', 'writeAComment')}
                             value={comment}
                             onChange={inputChange}
-                            onKeyDown={onEnterPress}
+                            // onKeyDown={onEnterPress}
                         />
                     </div>
                 </div>
