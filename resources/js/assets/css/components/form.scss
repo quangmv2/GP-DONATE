@@ -102,3 +102,25 @@ div.form-control {
 textarea {
   padding: 5px;
 }
+
+
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner, 
+.ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner, 
+.ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner{
+  color: #fff;
+  background: #ddae53;
+  border-radius: 50%;
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before{
+  border-radius: 50%;
+  border: 1px solid #ddae53;
+}
+
+.ant-picker-today-btn{
+  color: #ddae53;
+}
+
+.ant-picker-content th{
+  color: #2988e9;
+}
