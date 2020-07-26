@@ -10,7 +10,10 @@
     "like": "Like",
     "likes": "Likes",
     "time": "Time",
-    "goods": "Goods"
+    "goods": "Goods",
+    "complete": "Complete",
+    "foundation": "Foundation",
+    "name": "Name"
   },
   "error": {
     "organizationRequired": "Organization is Required",
@@ -76,6 +79,9 @@
   "userProfile": {
     "sendMess": "Send Message",
     "edit": "Edit your profile"
+  },
+  "editProfile": {
+    "changeYourAvatar": "Change your avatar"
   },
   "comment": {
     "comments": "Comments",

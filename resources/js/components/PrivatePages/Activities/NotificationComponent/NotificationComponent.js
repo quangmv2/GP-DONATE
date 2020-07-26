@@ -1,10 +1,9 @@
 import React from "react";
-import notiData from "./notiData";
-import "./Noti.scss";
 import { Link } from "react-router-dom";
 import { GET_IMAGE } from "../../../../constants";
 import moment from "moment";
 import UserAvatar from "react-user-avatar";
+import "./Noti.scss";
 
 const NotificationComponent = props => {
 

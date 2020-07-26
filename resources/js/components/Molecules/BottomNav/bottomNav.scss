@@ -55,7 +55,7 @@
             position: relative;
         }
 
-        &:hover {
+        &:hover, &.active {
             color: #e8c889;
             &:before {
                 opacity: 1;

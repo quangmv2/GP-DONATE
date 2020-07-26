@@ -179,7 +179,7 @@ const MessagesDetail = props => {
                                 placeholder='Write a comment...'
                                 value={input}
                                 onChange={e => setInput(e.target.value)}
-                                onKeyDown={onEnterPress}
+                                // onKeyDown={onEnterPress}
                             />
                         </div>
                     </div>

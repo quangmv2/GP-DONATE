@@ -5,6 +5,8 @@ import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import Grid from "@material-ui/core/Grid";
 import { ButtonAnt } from "components/Atoms";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { fetchService } from "services";
 import { FormattedMessage } from "react-intl";
 import { PRIVATE_ROUTE, NOTIFICATION_TYPE, ROUTE } from "constants";
@@ -21,10 +23,11 @@ import CloseIcon from '@material-ui/icons/Close';
 const PostItem = (props) => {
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState(0);
+    const [liked, setLiked] = useState([]);
     const { socket } = useContext(SocketContext);
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
-    const { post } = props;
+    const { post, userInfo } = props;
 
 
     useEffect(() => {
@@ -32,6 +35,11 @@ const PostItem = (props) => {
         fetchLike();
         commentsElement.current.scrollTop = 5000
     }, []);
+
+
+
+
+
 
     useEffect(() => {
         commentsElement.current.scrollTop = 5000
@@ -50,11 +58,9 @@ const PostItem = (props) => {
             }
         });
         socket.on('delete-comment', data => {
-            console.log(data);
             setComments(cmts => {
                 const newCmts = [...cmts];
                 return newCmts.filter(({ id }) => {
-                    console.log(id !== data.id);
                     return id !== data.id;
                 });
             })
@@ -75,9 +81,9 @@ const PostItem = (props) => {
         });
         if (status == 200) {
             setLikes(res.length);
+            setLiked(res);
         }
     }
-
     const fetchComments = useCallback(async (id) => {
         try {
             const [comments, status] = await fetchService.fetch(`${ROOT_API_URL}/api/posts/${props.id}/comments`, {
@@ -90,7 +96,6 @@ const PostItem = (props) => {
 
             }
         } catch (error) {
-            console.log(error);
 
         }
     });
@@ -251,10 +256,12 @@ const PostItem = (props) => {
                                 </ButtonAnt>
                             </div>
                             <div className="action" onClick={like}>
-                                <ButtonAnt className="button-action">
+
+                                <ButtonAnt className={likes !== 0 ? "button-action button-liked" : "button-action"}>
                                     <i className="icon-social icon-like-active" />
                                     <span>{likes}</span>
                                 </ButtonAnt>
+
                             </div>
                         </div>
                     </Grid>
@@ -263,5 +270,8 @@ const PostItem = (props) => {
         </div>
     )
 }
+const mapStateToProps = createStructuredSelector({
+    userInfo: selectUserInfo()
+});
 
-export default memo(PostItem);
+export default connect(mapStateToProps)(memo(PostItem));

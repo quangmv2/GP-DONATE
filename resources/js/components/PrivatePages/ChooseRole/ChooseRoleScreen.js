@@ -32,7 +32,6 @@ function ChooseRoleScreen(props) {
     };
 
     const onSubmit = async () => {
-        console.log(userRole);
         const res = await fetchService.fetch(`${ROOT_API_URL}/api/user/me/update-role`, {
             method: "POST",
             body: JSON.stringify({
