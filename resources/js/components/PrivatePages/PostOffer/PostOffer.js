@@ -156,7 +156,9 @@ const PostOffer = props => {
 
   const onClickAddTimeSlot = (e) => {
     e.preventDefault();
-    setTimeSlotArray(timeSlotArray => [...timeSlotArray, { start: startTimeOffer, end: endTimeOffer, days: {}}] );
+    if(!timeSlotArray || (timeSlotArray && timeSlotArray.length < 3)){
+      setTimeSlotArray(timeSlotArray => [...timeSlotArray, { start: startTimeOffer, end: endTimeOffer, days: {}}] );
+    }
   };
 
   const onClickRemoveTimeSlot = (index) => {

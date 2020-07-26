@@ -112,7 +112,6 @@ const reducer = (state = initialState, action) => {
     }
     case types.VERIFY_TOKEN_SUCCESS: {
       const { accessToken, refreshToken, userInfor } = action.payload;
-      // console.log(userInfor);
       return state
         .set("loading", false)
         .set('logout', false)

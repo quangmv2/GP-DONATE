@@ -20,6 +20,11 @@
 }
 .custom-tabs {
     padding: 20px 0px 0px 0px;
+    .ant-tabs-nav-list {
+        width: 100vw;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
     .ant-tabs {
         overflow: auto;
     }
