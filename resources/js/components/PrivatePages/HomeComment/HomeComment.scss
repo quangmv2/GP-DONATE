@@ -3,6 +3,7 @@
     flex-direction: row;
     padding-right: 28px;
     justify-content: space-between;
+    
 }
 .comment-body-conatiner {
     padding-right: 12.5%;
@@ -132,6 +133,9 @@
 }
 .comment-list-container {
     padding-bottom: 15%;
+    overflow-y: auto;
+    height: calc(100vh - 200px);
+    overflow-x: hidden;
 }
 .button-trans {
     background-color: Transparent;

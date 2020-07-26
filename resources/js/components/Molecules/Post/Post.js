@@ -7,19 +7,19 @@ import { GET_IMAGE } from "../../../constants/routes";
 import UserAvatar from "react-user-avatar";
 
 const Post = ({
-    url,
     img,
     title,
     className,
     description,
     duedate,
     author,
-    createTime,
     likeNumber,
-    key
+    keyEle,
+    onClick,
+    index
 }) => {
     return (
-        <Link className={className ?? ""} to="" key={key}>
+        <div className={className ?? ""} key={keyEle} onClick={() => onClick(index)}>
             <div className="post-wrapper">
                 <div className="post-image">
                     <img src={img} className="img-content" />
@@ -57,7 +57,7 @@ const Post = ({
                     </div>
                 </div>
             </div>
-        </Link>
+        </div>
     );
 };
 Post.propTypes = {

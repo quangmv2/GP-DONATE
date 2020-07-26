@@ -48,6 +48,7 @@ class PostService
         foreach ($posts as $key => $post) {
             $post->offers;
             $post->user;
+            $post->hastags;
         }    
         return $posts;     
     }

@@ -18,7 +18,7 @@ const UserItem = ({
 
     return (
         <div>
-            <Link className="message-component-container message-preview-container">
+            <Link className="message-component-container message-preview-container" to="#">
                 <div className="message-component-container">
                     <div className="avatar-wrapper">
                             {

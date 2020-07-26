@@ -27,3 +27,8 @@
         font-size: 18px;
     }
 }
+.ant-tabs-content-holder{
+    overflow-y: auto;
+    height: calc(100vh - 200px);
+    overflow-x: hidden;
+}
