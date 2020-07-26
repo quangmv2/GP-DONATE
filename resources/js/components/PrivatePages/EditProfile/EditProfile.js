@@ -26,8 +26,8 @@ import { NOTIFICATION_TYPE } from "constants";
 
 const EditProfile = (props) => {
     const { userInfo } = props;
-    const [name, setName] = useState('');
-    const [foudation, setFoudation] = useState('');
+    const [name, setName] = useState(userInfo.first_name);
+    const [foudation, setFoudation] = useState(userInfo.foudation);
     const [image, setImage] = useState(userInfo.personal_photo);
     const [fullPhoto, setFullPhoto] = useState(userInfo.full_photo);
     const submit = async () => {
@@ -145,7 +145,7 @@ const EditProfile = (props) => {
                             <TextField
                                 className="form-text"
                                 id="standard-password-input"
-                                placeholder={userInfo.first_name}
+                
                                 type="text"
                                 name="username"
                                 value={name}
@@ -171,7 +171,7 @@ const EditProfile = (props) => {
                            
                                 type="text"
                                 name="name"
-                                placeholder={userInfo.foudation}
+                                
                                 value={foudation}
                                 onChange={changeFoudation}
 
