@@ -17,10 +17,8 @@ import UserAvatar from "react-user-avatar";
 import CommentItem from "./CommentItem";
 import { SocketContext } from "../../../context/SocketProvider";
 import moment from "moment";
-import {
+import CloseIcon from '@material-ui/icons/Close';
 
-    selectUserInfo
-} from "modules/auth/selectors";
 
 const PostItem = (props) => {
     const [comments, setComments] = useState([]);
@@ -148,7 +146,7 @@ const PostItem = (props) => {
                         <div className="info-user">
                             <p className="username">
                                 <Link to={`user-profile/${props.user.username}`} >
-                                    {props.user.first_name == null ? `${props.user.username}` : `${props.user.first_name}`}
+                                    {`${props.user.first_name}`}
                                 </Link>
                             </p>
 
@@ -159,15 +157,26 @@ const PostItem = (props) => {
                             </p>
                         </div>
                     </div>
-                    <div onClick={() => props.setUserMessage(props.user)}>
-                        <MailOutlineIcon
-                            style={{
-                                color: "white",
-                                fontSize: "27px"
-                            }}
-
-                        />
-                    </div>
+                    {
+                        props.onCloseWindow ?
+                            <div onClick={props.onCloseWindow}>
+                                <CloseIcon
+                                    style={{
+                                        color: "white",
+                                        fontSize: "27px"
+                                    }}
+                                />
+                            </div>
+                            :
+                            <div onClick={() => props.setUserMessage(props.user)}>
+                                <MailOutlineIcon
+                                    style={{
+                                        color: "white",
+                                        fontSize: "27px"
+                                    }}
+                                />
+                            </div>
+                    }
 
                 </div>
                 <div className="home-content">
