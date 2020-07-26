@@ -1,7 +1,6 @@
 import * as types from "./constants";
 
 export const postLogin = (username, password) => {
-  console.log('pass action');
   return {
     type: types.LOGIN,
     payload: {

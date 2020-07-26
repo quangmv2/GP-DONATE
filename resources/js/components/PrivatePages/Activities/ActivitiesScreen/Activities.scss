@@ -35,6 +35,8 @@
 .custom-tabs {
     .ant-tabs-nav-list {
         width: 100vw;
+        padding-left: 15px;
+        padding-right: 15px;
         > button {
             flex: 1;
             text-align: center;

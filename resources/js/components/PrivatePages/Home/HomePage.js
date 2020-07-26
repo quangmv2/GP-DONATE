@@ -79,8 +79,7 @@ const HomePage = (props) => {
             {openMessage && <MessagesDetail data={user} closeWindow={() => setOpenMessage(false)} /> }
             <Swiper
                 direction="vertical"
-                // virtual
-                style={{ height: openModal?0:"100vh", display: openModal?"none":"block" }}
+                style={{ height: openModal? 0:"100vh", display: openModal?"none":"block" }}
                 onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
             >
 
@@ -90,7 +89,7 @@ const HomePage = (props) => {
                 </SwiperSlide>
               )}
             </Swiper>   
-            <BottomNavigator />
+            <BottomNavigator style={{display: openModal?"none":"block"}} />
         </div>
     
     );  

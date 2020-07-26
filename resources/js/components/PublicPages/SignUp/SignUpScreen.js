@@ -39,7 +39,6 @@ export class SignUpScreen extends Component {
     async componentDidMount() {};
 
     onSubmit = (values, { setSubmitting }) => {
-        console.log('submit')
         if (!this.setSubmitting) {
             this.setSubmitting = setSubmitting;
         }

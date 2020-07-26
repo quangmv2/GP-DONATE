@@ -18,6 +18,7 @@ import CommentItem from "./CommentItem";
 import { SocketContext } from "../../../context/SocketProvider";
 import moment from "moment";
 import CloseIcon from '@material-ui/icons/Close';
+import { selectUserInfo } from "modules/auth/selectors";
 
 
 const PostItem = (props) => {

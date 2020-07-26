@@ -53,7 +53,6 @@ const Swipper = (props) => {
     }
 
     const { posts } = props;
-    console.log(posts);
     return (
         <div>
             {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
