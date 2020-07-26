@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./UserProfile.scss";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -24,8 +24,8 @@ const UserProfile = (props) => {
     const [roles, setRoles] = useState([]);
     const [propositions, setPropositions] = useState([]);
     const [modal, setModal] = useState(false);
-    const [open, setOpen] = useState(false)
-
+    const [open, setOpen] = useState(false);
+    
     useEffect(() => {
         fetchUser();
         fetchPropositions();
@@ -43,7 +43,7 @@ const UserProfile = (props) => {
         });
         setUser(users);
         setRoles(users.roles[0].name);
-        console.log(users.id);
+        console.log(users);
         console.log('a');
 
     }
@@ -134,11 +134,14 @@ const UserProfile = (props) => {
             }
             {
                 modal && <Propositions username={userId} closeWindow={() => setModal(false)} />
+        
             }
-            <div className={user.full_photo == null ? "nonPhotoCnntainer" : "userProfileContainer"} style={{ display: open ? "none" : "block" }} >
-                <div className="image-background-div">
-                    <img className="image-background" src={GET_IMAGE(user.full_photo)} />
+
+            <div className='container'  >
+                <div className="full-photo-div">
+                    <img className="full-photo-background"  src={GET_IMAGE(user.full_photo)} />
                 </div>
+                <div className='home-container'>
                 <div className="top-navbar-giver-home">
                     <div className="navbar-giver-home-container">
                         {avatar}
@@ -191,7 +194,9 @@ const UserProfile = (props) => {
                 </div>
                 <div></div>
                 <BottomNavigator />
+                </div>
             </div>
+
         </>
     );
 };
