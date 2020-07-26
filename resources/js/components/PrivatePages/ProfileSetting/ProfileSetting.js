@@ -9,6 +9,7 @@ import { PRIVATE_ROUTE } from "../../../constants";
 import {
     selectUserInfo
 } from "modules/auth/selectors";
+import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 
 const ProfileSetting = (props) => {
    
@@ -102,6 +103,7 @@ const ProfileSetting = (props) => {
                     </div>
                 </div>
             </div>
+            <BottomNavigator />
         </div>
     );
 }

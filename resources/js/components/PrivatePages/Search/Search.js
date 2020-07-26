@@ -8,6 +8,7 @@ import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import { fetchService } from "services";
 import { SEARCH_POST, GET_IMAGE, SEARCH_PEOPLE } from "../../../constants/routes";
 import moment from "moment";
+import Swipper from "./Swipper";
 
 let idTimeOut = 0;
 let delay = Date.now();
@@ -17,6 +18,8 @@ const Search = props => {
     const [dataPost, setDataPost] = useState([]);
     const [dataPeople, setDataPeople] = useState([]);
     const [active, setActive] = useState(0);
+    const [openSwipper, setOpenSwipper] = useState(false);
+    const [indexSwiper, setIndexSwiper] = useState(0);
 
     useEffect(() => {
         searchPost(keyWord);
@@ -50,7 +53,7 @@ const Search = props => {
         if (status == 200) {
             data.sort((a, b) => b.friend?1:-1);
             setDataPeople(data.map(user => ({
-                username: `${user.first_name} ${user.last_name}`,
+                username: `${user.first_name}`,
                 content: `@${user.username}`,
                 avatar: user.personal_photo,
                 isFriend: user.friend?true:false
@@ -65,8 +68,16 @@ const Search = props => {
         else searchPeople('');
     }
 
+    const showSwipper = id => {
+        setOpenSwipper(true);
+        setIndexSwiper(id);
+    }
+
     return (
         <div className="private-fullheight">
+            {
+                openSwipper && <Swipper posts={dataPost} index={indexSwiper} closeSwipper={() => setOpenSwipper(false)} />
+            }
             <div className="container">
                 <HeaderNavigation headerName="Search" />
                 <SearchInput onChange={e => setKeyWord(e.target.value)} value={keyWord} />
@@ -84,8 +95,9 @@ const Search = props => {
                         >
                             <div className="info-content">
                                 {
-                                    dataPost.map(post => (
+                                    dataPost.map((post, index) => (
                                         <Posts
+                                            keyEle={`post search ${post.id} ${post.title}`}
                                             key={`post search ${post.id} ${post.title}`}
                                             className="info-list"
                                             url="#"
@@ -97,10 +109,12 @@ const Search = props => {
                                             description="10k packs of medical masks"
                                             duedate={post.due_day}
                                             author={{
-                                                username: `${post.user.first_name} ${post.user.last_name}`,
+                                                username: `${post.user.first_name}`,
                                                 avatar: post.user.personal_photo
                                             }}
                                             createTime={moment(post.created_at).format("YYYY-MM-DD")}
+                                            onClick={showSwipper}
+                                            index={index}
                                         />
                                     ))
                                 }

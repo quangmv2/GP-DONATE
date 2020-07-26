@@ -4,8 +4,6 @@ import { HeaderNavigation } from 'components/Atoms';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import { SocketContext } from "../../../context/SocketProvider";
-import TimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en';
 import CloseIcon from '@material-ui/icons/Close';
 import { GET_COMMENT, POST_COMMENT } from "../../../constants/routes";
 import { fetchService } from "services";
@@ -30,7 +28,7 @@ const PostComment = (props) => {
 
     const fetchFirstData = useCallback(async () => {
         await fetchComments();
-        window.scrollTo(0,document.body.scrollHeight);
+        screen.scrollTo(0,document.body.scrollHeight);
         socket.emit('watch-post', { id: post.id });
         socket.on(`new-comment`, data => {
             setComments(cmts => {
@@ -39,7 +37,7 @@ const PostComment = (props) => {
                 newCmts.push(data);
                 return newCmts;
             });
-            window.scrollTo(0,document.body.scrollHeight);
+            screen.scrollTo(0,document.body.scrollHeight);
         });
         socket.on('delete-comment', data => {
             setComments(cmts => {
@@ -126,8 +124,8 @@ const PostComment = (props) => {
     }
 
     return (
-        <div className="private-fullheight" style={{ position: "relative", zIndex: 1000 }}>
-            <div className="container" ref={screen}>
+        <div className="private-fullheight" style={{ position: "absolute", zIndex: 100000, width: "100%" }}>
+            <div className="container" >
                 <HeaderNavigation headerName={getMessageTranslate('comment', 'comments')} handleBack={() => {props.hideModal();}}>
                     <button className='button-trans' onClick={() => {props.hideModal();}}>
                         <CloseIcon />
@@ -146,7 +144,7 @@ const PostComment = (props) => {
                 </div>
 
                 <hr className='gap' />
-                <div className='comment-list-container'>
+                <div className='comment-list-container' ref={screen}>
                     {renderComment()}
                 </div>
                 <div className='input-comment-container'>
