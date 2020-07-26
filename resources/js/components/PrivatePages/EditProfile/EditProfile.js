@@ -26,8 +26,8 @@ import { NOTIFICATION_TYPE } from "constants";
 
 const EditProfile = (props) => {
     const { userInfo } = props;
-    const [name, setName] = useState('');
-    const [foudation, setFoudation] = useState('');
+    const [name, setName] = useState(userInfo.first_name);
+    const [foudation, setFoudation] = useState(userInfo.foudation);
     const [image, setImage] = useState(userInfo.personal_photo);
     const [fullPhoto, setFullPhoto] = useState(userInfo.full_photo);
     const submit = async () => {
@@ -141,16 +141,15 @@ const EditProfile = (props) => {
                 <div className="body-wrapper wrapper-profile">
                     <form >
                         <div className="form-submit">
+                        <label className='username-label'>Name*</label>
                             <TextField
                                 className="form-text"
                                 id="standard-password-input"
-                                label="Name"
+                
                                 type="text"
-                                required
-                                name="name"
+                                name="username"
                                 value={name}
                                 onChange={inputName}
-
                             />
                         </div>
                         <div className="form-submit">
@@ -162,17 +161,17 @@ const EditProfile = (props) => {
                                 placeholder={userInfo.username}
                                 type="text"
                                 name="username"
-
-
                             />
                         </div>
                         <div className="form-submit">
+                        <label className='username-label'>Foudation</label>
                             <TextField
                                 className="form-text"
                                 id="standard-password-input"
-                                label="Foudation"
+                           
                                 type="text"
                                 name="name"
+                                
                                 value={foudation}
                                 onChange={changeFoudation}
 
