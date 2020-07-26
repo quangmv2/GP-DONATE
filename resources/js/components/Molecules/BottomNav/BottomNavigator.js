@@ -17,9 +17,8 @@ import { connect } from 'react-redux';
 const BottomNavigator = props => {
 
   const { userInfo } = props;
-  console.log(window.location.pathname);
   return (
-    <div className='bottom-nav-container'>
+    <div className='bottom-nav-container' style={props.style ?? null}>
       <div className='bottom-nav'>
         <div className='bottom-nav-icon-container'>
           <Link to={PRIVATE_ROUTE.HOME} className={window.location.pathname === "/" ? 'active' : ''}>
