@@ -139,7 +139,7 @@ const UserProfile = (props) => {
 
             <div className='container'  >
                 <div className="full-photo-div">
-                    <img className="full-photo-background"  src={GET_IMAGE(user.personal_photo)} />
+                    <img className="full-photo-background"  src={GET_IMAGE(user.full_photo)} />
                 </div>
                 <div className='home-container'>
                 <div className="top-navbar-giver-home">
