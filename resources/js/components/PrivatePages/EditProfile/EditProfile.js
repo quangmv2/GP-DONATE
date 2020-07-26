@@ -141,16 +141,15 @@ const EditProfile = (props) => {
                 <div className="body-wrapper wrapper-profile">
                     <form >
                         <div className="form-submit">
+                        <label className='username-label'>Name*</label>
                             <TextField
                                 className="form-text"
                                 id="standard-password-input"
-                                label="Name"
+                                placeholder={userInfo.first_name}
                                 type="text"
-                                required
-                                name="name"
+                                name="username"
                                 value={name}
                                 onChange={inputName}
-
                             />
                         </div>
                         <div className="form-submit">
@@ -162,17 +161,17 @@ const EditProfile = (props) => {
                                 placeholder={userInfo.username}
                                 type="text"
                                 name="username"
-
-
                             />
                         </div>
                         <div className="form-submit">
+                        <label className='username-label'>Foudation</label>
                             <TextField
                                 className="form-text"
                                 id="standard-password-input"
-                                label="Foudation"
+                           
                                 type="text"
                                 name="name"
+                                placeholder={userInfo.foudation}
                                 value={foudation}
                                 onChange={changeFoudation}
 

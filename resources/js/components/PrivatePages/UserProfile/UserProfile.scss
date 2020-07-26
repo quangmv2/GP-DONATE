@@ -165,8 +165,21 @@ padding-top: 3px;
 .nonProButton {
 padding-top: 100px;
 }
-.image-backgrounds {
-    width: 20px;
-    height: 200px;
+.full-photo-div {
+    position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  >.full-photo-background{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+     z-index: 1;
+  }
 }
- 
+.home-container {
+    max-width: 768px;
+  min-height: 100vh;
+  z-index: 3;
+ position: relative;
+}
