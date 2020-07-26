@@ -16,6 +16,7 @@ import { StarFilled } from "@ant-design/icons";
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import { Upload, message } from "antd";
+import UserAvatar from "react-user-avatar";
 import {
     LoadingOutlined,
     PlusOutlined
@@ -107,33 +108,38 @@ const EditProfile = (props) => {
         setFoudation(e.target.value);
         console.log(e.target.value)
     };
-
-
-
+    let avatar = (
+        <>
+        <label htmlFor="upload"> <img
+        src={GET_IMAGE(image)}
+        alt="Girl in a jacket"
+        width="60"
+        height="60"
+    ></img></label>
+    <input id="upload" type="file" name="photo" style={{ visibility: 'hidden' }} onChange={uploadAvatar} />
+        </>
+    )
+    if(userInfo.personal_photo == null) 
+   { avatar = 
+    <>
+        <label htmlFor="upload"><UserAvatar size="100" name={`${userInfo.first_name}`} /></label>
+    <input id="upload" type="file" name="photo" style={{ visibility: 'hidden' }} onChange={uploadAvatar} />
+    </>}
     return (
         <div className="private-fullheight">
             <div className="container">
                 <HeaderNavigation headerName="Edit Profile" />
 
                 <div className="bgImg">
+                   <img className='bg1' src='/images/Left.png' />
+                   <img className='bg2' src='/images/Right.png'/>
                     <div className="info-bg">
-
                         {userInfo.code_id !== null ? <div className="image">
                             <StarFilled className="icon-star" />
-                            <img
-                                src={GET_IMAGE(image)}
-                                alt="Girl in a jacket"
-                                width="60"
-                                height="60"
-                            ></img>
-                        </div> : <div className="image"><img
-                            src={GET_IMAGE(image)}
-                            //  src={GET_IMAGE(userInfo.personal_photo)}
-                            alt="Girl in a jacket"
-                            width="60"
-                            height="60"
-                        ></img> </div>}
-                        <label htmlFor="upload"> <span className="text">Change your avatar</span></label>
+                            {avatar}
+                        </div> : <div className="image">
+                        {avatar} </div>}
+                        <label htmlFor="upload" style={{marginTop: -25}}> <span className="text">Change your avatar</span></label>
                         <input id="upload" type="file" name="photo" style={{ visibility: 'hidden' }} onChange={uploadAvatar} />
 
                     </div>
@@ -166,12 +172,10 @@ const EditProfile = (props) => {
                         <div className="form-submit">
                         <label className='username-label'>Foudation</label>
                             <TextField
-                                className="form-text"
+                                className="form-text foudation-text"
                                 id="standard-password-input"
-                           
                                 type="text"
                                 name="name"
-                                
                                 value={foudation}
                                 onChange={changeFoudation}
 
@@ -203,6 +207,7 @@ const EditProfile = (props) => {
                 </div>
             </div>
         </div>
+ 
     );
 }
 

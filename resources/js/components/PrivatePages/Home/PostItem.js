@@ -5,6 +5,8 @@ import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import Grid from "@material-ui/core/Grid";
 import { ButtonAnt } from "components/Atoms";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { fetchService } from "services";
 import { FormattedMessage } from "react-intl";
 import { PRIVATE_ROUTE, NOTIFICATION_TYPE, ROUTE } from "constants";
@@ -15,14 +17,19 @@ import UserAvatar from "react-user-avatar";
 import CommentItem from "./CommentItem";
 import { SocketContext } from "../../../context/SocketProvider";
 import moment from "moment";
+import {
+
+    selectUserInfo
+} from "modules/auth/selectors";
 
 const PostItem = (props) => {
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState(0);
+    const [liked, setLiked] = useState([]);
     const { socket } = useContext(SocketContext);
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
-    const { post } = props;
+    const { post, userInfo } = props;
 
 
     useEffect(() => {
@@ -30,6 +37,11 @@ const PostItem = (props) => {
         fetchLike();
         commentsElement.current.scrollTop = 5000
     }, []);
+
+
+
+
+
 
     useEffect(() => {
         commentsElement.current.scrollTop = 5000
@@ -73,9 +85,11 @@ const PostItem = (props) => {
         });
         if (status == 200) {
             setLikes(res.length);
+            setLiked(res);
+            console.log(res)
+
         }
     }
-
     const fetchComments = useCallback(async (id) => {
         try {
             const [comments, status] = await fetchService.fetch(`${ROOT_API_URL}/api/posts/${props.id}/comments`, {
@@ -141,7 +155,7 @@ const PostItem = (props) => {
                         <div className="info-user">
                             <p className="username">
                                 <Link to={`user-profile/${props.user.username}`} >
-                                    {`${props.user.first_name} ${props.user.last_name}`}
+                                    {props.user.first_name == null ? `${props.user.username}` : `${props.user.first_name}`}
                                 </Link>
                             </p>
 
@@ -240,10 +254,12 @@ const PostItem = (props) => {
                                 </ButtonAnt>
                             </div>
                             <div className="action" onClick={like}>
-                                <ButtonAnt className="button-action">
+
+                                <ButtonAnt className={likes !== 0 ? "button-action button-liked" : "button-action"}>
                                     <i className="icon-social icon-like-active" />
                                     <span>{likes}</span>
                                 </ButtonAnt>
+
                             </div>
                         </div>
                     </Grid>
@@ -252,5 +268,8 @@ const PostItem = (props) => {
         </div>
     )
 }
+const mapStateToProps = createStructuredSelector({
+    userInfo: selectUserInfo()
+});
 
-export default memo(PostItem);
+export default connect(mapStateToProps)(memo(PostItem));

@@ -147,7 +147,7 @@ const UserProfile = (props) => {
                         {avatar}
                         <div className="info-user">
                             <p className="username">{user.first_name == null ? user.username : user.first_name}</p>
-                            <p className="user-charity">{user.foudation == null ? null : user.foudation}</p>
+        <p className="user-charity">  {user.foudation == null ? null : 'Charity'} {user.foudation == null ? null :  user.foudation}</p>
                         </div>
                     </div>
                     {button}
