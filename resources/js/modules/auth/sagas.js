@@ -49,6 +49,7 @@ export function* signUp({ payload }) {
     const resp = yield call(resquestSignUp, username, email, password );
     const { data, status } = resp;
     if (status === 200 ) {
+        localStorage.setItem("USERNAME", username);
         fetchService.addTokenHeader(data);
         yield put(
             signUpSuccess({
@@ -77,7 +78,7 @@ export function* loginSaga({ payload }) {
     if (status === 200) {
         //add this incase user have multiple organization, need to send request to Server
         fetchService.addTokenHeader(data);
-
+        localStorage.setItem("USERNAME", username);
         yield put(
             loginSuccess({
                 username: username,
@@ -95,6 +96,7 @@ export function* logoutSaga() {
 
     const { data, status } = resp;
     if (status === 200) {
+        localStorage.removeItem("USERNAME");
         fetchService.removeTokenHeader();
         yield put(logoutSuccess());
     } else {

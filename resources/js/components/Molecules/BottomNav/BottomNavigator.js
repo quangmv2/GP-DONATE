@@ -17,18 +17,18 @@ import { connect } from 'react-redux';
 const BottomNavigator = props => {
 
   const { userInfo } = props;
-
+  console.log(window.location.pathname);
   return (
     <div className='bottom-nav-container'>
       <div className='bottom-nav'>
         <div className='bottom-nav-icon-container'>
-          <Link to={PRIVATE_ROUTE.HOME} className='active'>
+          <Link to={PRIVATE_ROUTE.HOME} className={window.location.pathname === "/" ? 'active' : ''}>
             <HomeIcon className='icon-bottom-nav' />
             Home
           </Link>
         </div>
         <div className='bottom-nav-icon-container'>
-          <Link to='/search' className='active'>
+          <Link to='/search' className={window.location.pathname === "/search" ? 'active' : ''}>
             <SearchIcon className='icon-bottom-nav' />
             Search
           </Link>
@@ -36,7 +36,7 @@ const BottomNavigator = props => {
         {
           userInfo && userInfo.roles && userInfo.roles.length > 0 && userInfo.roles[0].name != "taker" ?
             <div className='bottom-nav-icon-container '>
-              <Link to={PRIVATE_ROUTE.POST_OFFER} className='active center-button'>
+              <Link to={PRIVATE_ROUTE.POST_OFFER} className='center-button'>
                 <div className='circle-plus-wrapper'>
                   <div className='cirlce-plus-icon'></div>
                 </div>
@@ -46,13 +46,13 @@ const BottomNavigator = props => {
             <></>
         }
         <div className='bottom-nav-icon-container'>
-          <Link to='/activities' className='active'>
+          <Link to='/activities' className={window.location.pathname === "/activities" ? 'active' : ''}>
             <StarBorderRoundedIcon className='icon-bottom-nav' />
             Activities
           </Link>
         </div>
         <div className='bottom-nav-icon-container'>
-          <Link to='/profile-setting' className='active'>
+          <Link to='/profile-setting' className={window.location.pathname === "/my-profile" ? 'active' : ''}>
             <PersonOutlineRoundedIcon className='icon-bottom-nav' />
             Account
           </Link>

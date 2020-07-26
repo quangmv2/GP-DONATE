@@ -55,7 +55,6 @@ const ActivitesScreen = () => {
     }, [scroll])
 
     useEffect(() => {
-        console.log("dataMessage", dataMessage);
     }, [dataMessage])
 
     const scrollWindows = () => {

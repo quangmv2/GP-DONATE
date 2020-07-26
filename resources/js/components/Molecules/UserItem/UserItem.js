@@ -15,7 +15,6 @@ const UserItem = ({
     time,
     isSearchUser = false
 }) => {
-    console.log(bordered);
 
     return (
         <div>

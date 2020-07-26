@@ -1,5 +1,5 @@
 import React from "react";
-import './Mess.scss';
+
 import { Link } from 'react-router-dom';
 import {
     selectUserInfo
@@ -7,6 +7,7 @@ import {
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import moment from "moment";
+import './Mess.scss';
 
 const MessagesComponent = props => {
 
