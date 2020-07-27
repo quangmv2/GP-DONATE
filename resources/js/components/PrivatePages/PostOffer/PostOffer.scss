@@ -368,3 +368,9 @@ select {
   color: #949494;
   margin-right: 10px;
 }
+
+.wrapper-offer{
+  overflow-y: scroll;
+  height: 100vh;
+  overflow-x: hidden;
+}
