@@ -200,6 +200,15 @@ class ProfileController extends Controller
         return response()->json(json_decode($unfollow), 200);
     }
 
+    public function checkFollowUser(Request $request, $id)
+    {
+        $check = $this->followService->checkFollowUser($request->user()->id, $id);
+        $data = [];
+        if ($check) $data["status"] = true;
+            else $data["status"] = false;
+        return response()->json(($data), 200);
+    }
+
     public function searchPeople(Request $request)
     {
         $search = $request->get('q');

@@ -4,7 +4,8 @@ import UserItem from "../UserItem";
 
 const Patron = ({ data }) => {
     const renderData = () => {
-        return _.map(data, ({ username, content, avatar, isFriend }, index) => {
+        
+        return _.map(data, ({ id, username, content, avatar, isFriend }, index) => {
             return (
                 <UserItem
                     username={username}
@@ -14,6 +15,7 @@ const Patron = ({ data }) => {
                     isSearchUser={true}
                     bordered={false}
                     key={`search parton ${index}`}
+                    id={id}
                 />
             );
         });

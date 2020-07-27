@@ -53,6 +53,7 @@ const Search = props => {
         if (status == 200) {
             data.sort((a, b) => b.friend?1:-1);
             setDataPeople(data.map(user => ({
+                id: user.id,
                 username: `${user.first_name}`,
                 content: `@${user.username}`,
                 avatar: user.personal_photo,
