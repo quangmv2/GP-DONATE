@@ -103,6 +103,7 @@ const ProfileSetting = (props) => {
                     </div>
                 </div>
             </div>
+            <BottomNavigator />
         </div>
     );
 }

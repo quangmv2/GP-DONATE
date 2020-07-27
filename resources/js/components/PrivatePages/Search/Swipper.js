@@ -8,6 +8,7 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 // CSS
 import "./HomeScreen.scss";
+import "../Home/HomeScreen.scss";
 import PostItem from "../Home/PostItem";
 
 import Comment from "../HomeComment/PostComment";

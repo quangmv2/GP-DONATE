@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { GET_IMAGE } from "../../../../constants";
+import { GET_IMAGE, UN_FOLLOW_USER, FOLLOW_USER, CHECK_FOLLOW } from "../../../../constants";
 import moment from "moment";
 import UserAvatar from "react-user-avatar";
 import "./Noti.scss";
+import { fetchService } from "services";
 
 const NotificationComponent = props => {
+
 
     const { data } = props;
 
@@ -18,8 +20,46 @@ const NotificationComponent = props => {
     );
 
     const renderNotification = () => {
+
         return _.map(data, ({ id, user_to, user, type, data: obj, created_at }) => {
 
+            const [isFr, setIsFr] = useState(false);
+
+            // console.log(id);
+
+            useEffect(() => {
+                if (type == "follow") checkIsFrend(user.id);
+            }, []);
+
+            const checkIsFrend = async (id) => {
+                const [data, status] = await fetchService.fetch(CHECK_FOLLOW(user.id), {
+                    method: "GET"
+                });
+
+                if (status == 200) {
+                    console.log(data);
+                    setIsFr(data.status);
+                }
+            }
+
+            const follow = async () => {
+                if (isFr) {
+                    const [_, status] = await fetchService.fetch(UN_FOLLOW_USER(user.id), {
+                        method: "DELETE"
+                    });
+                    if (status == 200) {
+                        setIsFr(false);
+                        return;
+                    }
+                }
+                const [_, status] = await fetchService.fetch(FOLLOW_USER(user.id), {
+                    method: "PUT"
+                });
+                if (status == 200) {
+                    setIsFr(true);
+                    return;
+                }
+            }
             const data = JSON.parse(obj);
 
             return (
@@ -37,11 +77,11 @@ const NotificationComponent = props => {
                                 <p className="username">{`${user.first_name} ${user.last_name}`}</p>
                                 <p className="mess-content">
                                     {
-                                        type=="comment"?
-                                        `commented: ${ data.content.split(' ').length>10?data.content.split(' ').slice(9).join(' '):data.content}...`:
-                                        type=="follow"?
-                                        `started following you.`:
-                                        `liked your project`
+                                        type == "comment" ?
+                                            `commented: ${data.content.split(' ').length > 10 ? data.content.split(' ').slice(9).join(' ') : data.content}...` :
+                                            type == "follow" ?
+                                                `started following you.` :
+                                                `liked your project`
                                     }
                                 </p>
                                 <p className="mess-hours-ago noti-hours-ago">
@@ -51,7 +91,16 @@ const NotificationComponent = props => {
                                 </p>
                             </div>
                         </div>
-                        {type=="follow"?notiImage:<></>}
+                        {type == "follow" && isFr ?
+                            <span className="icon-account-active" onClick={follow}>
+                                <span className="path1"></span>
+                                <span className="path2"></span>
+                            </span>
+                            : <></>}
+
+                        {type == "follow" && !isFr ?
+                            <span className="icon-follow icon-follow-noti" onClick={follow}></span>
+                            : <></>}
                     </Link>
                     <hr className="mess-border-bottom" />
                 </div>

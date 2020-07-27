@@ -18,6 +18,7 @@ const Post = ({
     onClick,
     index
 }) => {
+    console.log(author);
     return (
         <div className={className ?? ""} key={keyEle} onClick={() => onClick(index)}>
             <div className="post-wrapper">
