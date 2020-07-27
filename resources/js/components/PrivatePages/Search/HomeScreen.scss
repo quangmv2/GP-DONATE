@@ -199,29 +199,6 @@
         margin-bottom: 0px;
       }
     }
-
-    .button-action {
-      padding: 0px;
-      border: 0px;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: auto;
-
-      &:hover,
-      &:focus {
-        background: transparent;
-        color: #fff;
-      }
-
-      > span{
-        line-height: 10px;
-      }
-    }
-
-    .icon-social{
-      font-size: 2.5rem;
-    }
   }
 }
+   

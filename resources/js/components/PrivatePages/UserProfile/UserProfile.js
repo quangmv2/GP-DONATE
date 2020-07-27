@@ -26,6 +26,7 @@ const UserProfile = (props) => {
     const [modal, setModal] = useState(false);
     const [open, setOpen] = useState(false);
     const currentUser = localStorage.getItem("USERNAME");
+
     
     useEffect(() => {
         fetchUser();
