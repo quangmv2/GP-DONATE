@@ -21,7 +21,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import { selectUserInfo } from "modules/auth/selectors";
 
 
+
 const PostItem = (props) => {
+   
     const [comments, setComments] = useState([]);
     const [likes, setLikes] = useState(0);
     const [liked, setLiked] = useState([]);
@@ -29,18 +31,16 @@ const PostItem = (props) => {
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
     const { post, userInfo } = props;
-
-
+    const isLiked = element => element.user_id == userInfo.id;
+    const isLikes = liked.findIndex(isLiked);
+    const isComment = element => element.user_id == userInfo.id;
+    const isComments = comments.findIndex(isComment);
+ 
     useEffect(() => {
         fetchFirstData();
         fetchLike();
         commentsElement.current.scrollTop = 5000
     }, []);
-
-
-
-
-
 
     useEffect(() => {
         commentsElement.current.scrollTop = 5000
@@ -246,19 +246,19 @@ const PostItem = (props) => {
                     >
                         <div className="social-action-wrapper">
                             <div>
-                                <ButtonAnt className="button-action">
+                                <ButtonAnt className="button-action button-share">
                                     <i className="icon-social icon-share" />
                                 </ButtonAnt>
                             </div>
                             <div className="action">
-                                <ButtonAnt className="button-action">
+                                <ButtonAnt className={isComments  > -1 ? "button-comments button-action" : "button-action button-uncomments"}>
                                     <i className="icon-social icon-comment-active" />
-                                    <span>{comments.length}</span>
-                                </ButtonAnt>
+                                    <span className='span'>{comments.length}</span>
+                                </ButtonAnt> 
                             </div>
                             <div className="action" onClick={like}>
 
-                                <ButtonAnt className={likes !== 0 ? "button-action button-liked" : "button-action"}>
+                                <ButtonAnt className={isLikes > -1 ? "button-action button-liked" : "button-action button-unliked"}>
                                     <i className="icon-social icon-like-active" />
                                     <span>{likes}</span>
                                 </ButtonAnt>

@@ -253,7 +253,10 @@ const PostOffer = props => {
     return typeOfOffer;
   };
 
-  let imgPreview = <div className='imgPrew-container'><img src={GET_IMAGE(image)} alt='' className='imgPreview' /></div>;
+  let imgPreview = <div className='imgPrew-container'>
+    <label htmlFor="upload">{!loadingUpload ? <img src={GET_IMAGE(image)} alt='' className='imgPreview' /> : <Spin />}</label>
+    <input id="upload" type="file" name="photo" style={{ visibility: 'hidden' }} onChange={uploadSingleFile} />
+    </div>;
   return (
     <div className='private-fullheight'>
       <div className='container'>
