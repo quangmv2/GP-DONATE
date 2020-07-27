@@ -85,9 +85,6 @@ export class ForgotPass extends Component {
             .then(([resp, status]) => {
                 // api tra ve ket qua check thanh cong hay khong o cho nay
 
-                console.log(resp);
-                console.log(status);
-
                 if (status === 200) {
                     this.props.history.push(PUBLIC_ROUTE.CHANGEPASSWORD);
                     // xu ly code thanh cong

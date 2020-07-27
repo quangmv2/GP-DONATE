@@ -162,7 +162,6 @@ const PostComment = (props) => {
                             placeholder={getMessageTranslate('comment', 'writeAComment')}
                             value={comment}
                             onChange={inputChange}
-                            // onKeyDown={onEnterPress}
                         />
                     </div>
                 </div>

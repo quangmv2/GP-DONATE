@@ -24,7 +24,6 @@ const EditProfile = (props) => {
     const [foudation, setFoudation] = useState(userInfo.foudation);
     const [image, setImage] = useState(userInfo.personal_photo);
     const [fullPhoto, setFullPhoto] = useState(userInfo.full_photo);
-    console.log(userInfo);
 
     const submit = async (event) => {
         event.preventDefault();

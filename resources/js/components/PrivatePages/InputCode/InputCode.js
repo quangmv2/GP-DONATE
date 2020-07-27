@@ -33,7 +33,6 @@ export class InputCode extends Component {
     async componentDidMount() {}
 
     onSubmit = async (values) => {
-        console.log('submit');
         const { code_invitation } = values;
         const res = await fetchService.fetch(`${ROOT_API_URL}/api/user/me/code-invitation`, {
             method: "POST",

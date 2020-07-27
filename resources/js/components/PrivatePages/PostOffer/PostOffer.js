@@ -3,13 +3,12 @@ import { ButtonAnt, HeaderNavigation } from 'components/Atoms';
 import { FormattedMessage } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import './PostOffer.scss';
-import { DatePicker, TimePicker } from 'antd';
+import { DatePicker, TimePicker, Spin  } from 'antd';
 import moment from 'moment';
 import ButtonComponent from './Button';
-import { fetchService } from "../../../services/fetch/fetchService";
+import { fetchService } from "services";
 import { Select } from 'antd';
 import { ROOT_API_URL, GET_IMAGE, ACCESS_TOKEN, POST_POST, ROUTE } from "../../../constants";
 import Hastag from './Hastag';
@@ -39,6 +38,7 @@ const PostOffer = props => {
   const [content, setContent] = useState('');
   const [dueDate, setDueDate] = useState(moment().format("YYYY-MM-DD"));
   const [materials, setMaterials] = useState('');
+  const [loadingUpload, setLoadingUpload] = useState(false);
 
   useEffect(() => {
     fetchHastag();
@@ -63,8 +63,6 @@ const PostOffer = props => {
           content: materials
       }
     }
-
-    // console.log(data);
     const [res, status] = await fetchService.fetch(`${POST_POST()}`, {
       method: "POST",
       body: JSON.stringify(data)
@@ -90,7 +88,6 @@ const PostOffer = props => {
       }
     })
     const timeOffer = timeSlotArray[index];
-    // console.log(index);
     if (timeOffer.days[id]) {
       delete timeOffer.days[id];
     } else {
@@ -123,6 +120,7 @@ const PostOffer = props => {
   const uploadSingleFile = async (e) => {
     var formData = new FormData();
     formData.append("photo", e.target.files[0]);
+    setLoadingUpload(true);
     const res = await fetchService.upload(`${ROOT_API_URL}/api/photo/up`, false, {
       method: 'POST',
       body: formData,
@@ -134,6 +132,7 @@ const PostOffer = props => {
       }
     }).then(data => {
       const { image_directory } = JSON.parse(data);
+      setLoadingUpload(false);
       if (image_directory) {
           setImage(image_directory)
       }
@@ -157,7 +156,9 @@ const PostOffer = props => {
 
   const onClickAddTimeSlot = (e) => {
     e.preventDefault();
-    setTimeSlotArray(timeSlotArray => [...timeSlotArray, { start: startTimeOffer, end: endTimeOffer, days: {}}] );
+    if(!timeSlotArray || (timeSlotArray && timeSlotArray.length < 3)){
+      setTimeSlotArray(timeSlotArray => [...timeSlotArray, { start: startTimeOffer, end: endTimeOffer, days: {}}] );
+    }
   };
 
   const onClickRemoveTimeSlot = (index) => {
@@ -238,7 +239,6 @@ const PostOffer = props => {
           spacing={1}
           alignItems='flex-end'
           className='form-control'
-
         >
           <Grid item className='item-flex input-post-offer'>
             <TextField
@@ -261,10 +261,9 @@ const PostOffer = props => {
         <Grid container className='post-image-container'>
           <Grid item xs={5} style={{ paddingRight: '25px' }}>
             {image ? imgPreview : (<div className='prev-image-container'>
-              <label htmlFor="upload"><PhotoCameraIcon style={{ fontSize: '37px' }} /></label>
+              <label htmlFor="upload">{!loadingUpload ? <PhotoCameraIcon style={{ fontSize: '37px' }} /> : <Spin />}</label>
               <input id="upload" type="file" name="photo" style={{ visibility: 'hidden' }} onChange={uploadSingleFile} />
             </div>)}
-
           </Grid>
           <Grid item xs={7}>
             <textarea
@@ -284,7 +283,7 @@ const PostOffer = props => {
                 className='form-control'
               >
                 <Grid item className='item-flex input-post-offer'>
-                  <Hastag hastagsValue={hastagsValue} setHastags={setHastags} />
+                  <Hastag className="hashtag-input" hastagsValue={hastagsValue} setHastags={setHastags} />
                 </Grid>
               </Grid>
               <Grid
@@ -302,15 +301,15 @@ const PostOffer = props => {
                       />
                   </p>
                     <Select
-                      className="text-uppercase"
+                      className="text-uppercase select-type-offer"
                       name='post-type'
                       id='post_type'
                       form='post_form'
                       placeholder={`- ${getMessageTranslate('postOffer', 'chooseType')} -`}
                       onChange={onChangeValue}
                     >
-                      <Option className="text-uppercase" value='time'><FormattedMessage defaultMessage={'Time'} id={'common.time'}/></Option>
-                      <Option className="text-uppercase" value='goods'><FormattedMessage defaultMessage={'Goods'} id={'common.goods'}/></Option>
+                      <Option className="text-uppercase" value='time'><span class="icon-type icon-time"></span> <FormattedMessage defaultMessage={'Time'} id={'common.time'}/></Option>
+                      <Option className="text-uppercase" value='goods'><span class="icon-type icon-goods"></span> <FormattedMessage defaultMessage={'Goods'} id={'common.goods'}/></Option>
                     </Select>
                   </div>
                 </Grid>
@@ -331,6 +330,7 @@ const PostOffer = props => {
                   </p>
                   <div className='due-date-container'>
                     <DatePicker
+                      placeholder="- Add due date -"
                       defaultValue={moment().add('1', 'days')}
                       format={dateFormat}
                       onChange={onDueDate}

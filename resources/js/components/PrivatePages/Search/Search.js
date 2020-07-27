@@ -122,7 +122,7 @@ const Search = props => {
                         </TabPane>
                     </Tabs>
                 </div>
-                <BottomNavigator />
+                <BottomNavigator style={{display: openSwipper ? "none":"block"}} />
             </div>
         </div>
     );

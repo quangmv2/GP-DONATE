@@ -20,10 +20,8 @@ const TestSocket = () => {
         const post = await fetchPost(id_post);
         
         const comments = await fetchComments(post.id);
-        console.log(post, comments);
         socket.emit('watch-post', post);
         socket.on(`new-comment`, data => {
-            console.log(data);
             setComments(cmts => {
                 if (cmts.find(({id}) => id === data.id)) return cmts;
                 const newCmts = [...cmts];
@@ -32,12 +30,10 @@ const TestSocket = () => {
             })
         });
         socket.on('delete-comment', data => {
-            console.log(data);
             
             setComments(cmts => {
                 const newCmts = [...cmts];
                 return newCmts.filter(({id}) => {
-                    console.log(id !== data.id);
                     return id !== data.id;
                 });
             })
@@ -91,7 +87,6 @@ const TestSocket = () => {
                 content: comment
             }
         })
-        console.log(resComment);
         
         setComments(cmts => {
             const newCmts = [...cmts];
