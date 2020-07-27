@@ -4,6 +4,7 @@ import {
     ForgotPass, 
     SignUpScreen,
     ChangePassScreen,
+    CongratScreen
 
 } 
     from 'components/PublicPages';
@@ -33,6 +34,11 @@ export const authRoutes = [
     {
         path: "/test-socket",
         component: TestSocket,
+        exact: true
+    },
+    {
+        path: PUBLIC_ROUTE.CONGRAT,
+        component: CongratScreen,
         exact: true
     }
 ];

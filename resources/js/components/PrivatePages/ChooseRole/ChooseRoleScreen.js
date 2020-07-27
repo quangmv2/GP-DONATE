@@ -49,7 +49,7 @@ function ChooseRoleScreen(props) {
                 props.history.push(ROUTE.INPUTCODE)
             }
             else {
-                props.history.push(ROUTE.HOME)
+                props.history.push(ROUTE.CONGRAT)
             }
         }
         else if (status == 403) {
@@ -101,13 +101,13 @@ function ChooseRoleScreen(props) {
                                 value="taker"
                             />
                             <p className="roleText">
-                                Generous <br /> Implementer
+                                Generous <br /> Builder
                             </p>
                         </Grid>
                     </Grid>
                 </div>
-                <div>
-                    <img src={"/images/role.png"} className="image" />
+                <div className='choose-role-text-container'>
+                    <p>Become a <span>{userRole == 'giver' ? 'Generous Patron' : 'Generous Builder'} </span> {userRole == 'giver' ?  'fullfill your passion to support others' : 'and be empowered to lead your intiative on the field'}</p>
                 </div>
                 <div className=" filledButton ">{content}</div>
                 <div className="bottomTextContainer cant-change-text">

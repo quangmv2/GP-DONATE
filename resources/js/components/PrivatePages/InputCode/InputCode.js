@@ -47,7 +47,7 @@ export class InputCode extends Component {
             });
         const { data, status } = res;
         if ( status == 200) {
-            this.props.history.push(ROUTE.HOME)
+            this.props.history.push(ROUTE.CONGRAT)
         }    
         else {
             openNotification(NOTIFICATION_TYPE.ERROR, "Failed", "Not found code invitation");
