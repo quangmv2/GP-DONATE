@@ -211,9 +211,16 @@
   flex-direction: column;
   align-items: center;
   height: auto;
-  &:focus {
-    background: transparent;
-    }
+  &:hover {
+    color: none;
+  }
+&:hover,
+&:focus {
+background: transparent;
+outline: none !important;
+  border: 0px;
+  box-shadow: none;
+}
   > span{
     line-height: 10px;
   }
@@ -230,6 +237,7 @@ color: #cc1d2f;
   line-height: 10px;
   color: white;
 }
+
 }
 .button-comments {
 color: #081f47;
@@ -240,7 +248,16 @@ color: #081f47;
 }
 .button-unliked {
 color: white;
+&:hover,
 &:focus {
+  outline: none !important;
+  border: 0px;
 background: transparent;
 }
+
+}
+.ant-btn:hover, .ant-btn:focus, .ant-btn:active{
+  color: white;
+  background: #fff;
+  border: 0px;
 }
