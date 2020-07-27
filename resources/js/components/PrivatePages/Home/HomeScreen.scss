@@ -231,12 +231,12 @@ outline: none !important;
 }
 }
 
-.button-liked {
-color: #cc1d2f;
-> span{
-  line-height: 10px;
-  color: white;
-}
+.button-liked, .button-liked:hover, .button-liked:focus, .button-liked:active {
+  color: #cc1d2f;
+  > span{
+    line-height: 10px;
+    color: white;
+  }
 
 }
 .button-comments {
