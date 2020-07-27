@@ -18,6 +18,8 @@
   .imgPreview{
     width: 100%;
     object-fit: cover;
+    border-radius: 10px;
+    
   }
 }
 .prev-image-container {
@@ -365,4 +367,10 @@ select {
   font-size: 20px;
   color: #949494;
   margin-right: 10px;
+}
+
+.wrapper-offer{
+  overflow-y: scroll;
+  height: 100vh;
+  overflow-x: hidden;
 }

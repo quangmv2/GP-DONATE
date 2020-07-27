@@ -6,7 +6,7 @@
   // background-repeat: no-repeat;
   // background-size: cover;
   max-width: 768px;
-  min-height: 100vh;
+  min-height: 100%;
   z-index: 1;
 }
 
@@ -199,29 +199,48 @@
         margin-bottom: 0px;
       }
     }
-
-    .button-action {
-      padding: 0px;
-      border: 0px;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: auto;
-
-      &:hover,
-      &:focus {
-        background: transparent;
-        color: #fff;
-      }
-
-      > span{
-        line-height: 10px;
-      }
-    }
-
     .icon-social{
       font-size: 2.5rem;
     }
   }
+
+.button-action {
+  padding: 0px;
+  border: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  &:focus {
+    background: transparent;
+    }
+  > span{
+    line-height: 10px;
+  }
+}
+
+.icon-social{
+  font-size: 2.5rem;
+}
+}
+
+.button-liked {
+color: #cc1d2f;
+> span{
+  line-height: 10px;
+  color: white;
+}
+}
+.button-comments {
+color: #081f47;
+
+}
+.button-uncomments, .button-share {
+  color: white;
+}
+.button-unliked {
+color: white;
+&:focus {
+background: transparent;
+}
 }
