@@ -18,6 +18,9 @@ import CommentItem from "./CommentItem";
 import { SocketContext } from "../../../context/SocketProvider";
 import moment from "moment";
 import CloseIcon from '@material-ui/icons/Close';
+import {
+    selectUserInfo
+} from "modules/auth/selectors";
 
 
 const PostItem = (props) => {
@@ -35,11 +38,6 @@ const PostItem = (props) => {
         fetchLike();
         commentsElement.current.scrollTop = 5000
     }, []);
-
-
-
-
-
 
     useEffect(() => {
         commentsElement.current.scrollTop = 5000

@@ -67,6 +67,7 @@ class UserService
         foreach ($likes as $key => $like) {
             $like->post->offers;
             $like->post->user;
+            $like->post->hastags;
         }
         return $likes;
     }
