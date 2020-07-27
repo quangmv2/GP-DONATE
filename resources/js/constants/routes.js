@@ -4,6 +4,7 @@ export const PUBLIC_ROUTE = {
     CHANGEPASSWORD: "/reset-password",
     FORGOTPASSWORD: "/forgot-password",
     SIGNUP: "/signup",
+    CONGRAT: '/signup-success'
     
 };
 

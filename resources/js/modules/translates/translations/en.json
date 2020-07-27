@@ -60,7 +60,7 @@
     "back": "Back"
   },
   "chooseRole": {
-    "submit": "Let the journey begin",
+    "submit": "Join our journey",
     "cantChange": "You will not be able to switch your role on this account"
   },
   "postOffer": {
@@ -86,7 +86,12 @@
   "comment": {
     "comments": "Comments",
     "writeAComment": "Write a comment"
+  },
+  "success": {
+    "begin": "Let the journey begin"
+   
   }
+  
 
 
 }
