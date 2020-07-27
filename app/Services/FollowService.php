@@ -77,4 +77,12 @@ class FollowService
         return $follow;
     }
 
+    public function checkFollowUser($from, $to)
+    {
+        $follow = Follow::where('user_id_from', $from)
+                    ->where('user_id_to', $to)->first();
+        if (empty($follow)) return false;
+        return true;
+    }
+
 }

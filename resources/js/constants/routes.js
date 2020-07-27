@@ -55,3 +55,6 @@ export const POST_LIKE = () => `${ROOT_API_URL}/api/like`;
 export const GET_LIKE = id => `${ROOT_API_URL}/api/posts/${id}/likes`;
 export const GET_MY_LIKE = () => `${ROOT_API_URL}/api/profile/likes`;
 export const GET_MY_POST = id => `${ROOT_API_URL}/api/profile/${id}/posts`;
+export const FOLLOW_USER = id => `${ROOT_API_URL}/api/profile/${id}/follow`;
+export const UN_FOLLOW_USER = id => `${ROOT_API_URL}/api/profile/${id}/un-follow`;
+export const CHECK_FOLLOW = id => `${ROOT_API_URL}/api/profile/${id}/follow`;

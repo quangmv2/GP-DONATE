@@ -43,6 +43,7 @@ Route::group(['prefix' => 'profile'], function () {
     Route::get('{id}/following', "Apis\ProfileController@getFollowingOfUser");
     Route::get('{id}/followed', "Apis\ProfileController@getFollowedOfUser");
     Route::get('{id}/posts', "Apis\ProfileController@getPostOfUser");
+    Route::get('{id}/follow', "Apis\ProfileController@checkFollowUser");
     Route::put('{id}/follow', "Apis\ProfileController@followUser");
     Route::delete('{id}/un-follow', "Apis\ProfileController@unfollowUser");
 
