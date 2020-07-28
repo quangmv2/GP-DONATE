@@ -105,10 +105,19 @@ export class ForgotPass extends Component {
                 <div className="container">
                     <div className="backContainer" onClick={this.handleBack}>
                         <ArrowBackIosIcon className="backIcon" />
-                        <p>Back</p>
+                        <p><FormattedMessage
+                            id="common.back"
+                            defaultMessage="common.back"
+                        /></p>
                     </div>
-                    <p className="t1">Forgot password</p>
-                    <p className="t2">Please enter your email address</p>
+                    <p className="t1">   <FormattedMessage
+                            id="forgotPass.forgot"
+                            defaultMessage="forgotPass.forgot"
+                        /></p>
+                    <p className="t2"> <FormattedMessage
+                            id="forgotPass.please"
+                            defaultMessage="forgotPass.please"
+                        /></p>
                     <div className="codeFields">
                         {/* {this.renderFields()} */}
                         <Formik
@@ -206,9 +215,9 @@ export class ForgotPass extends Component {
                                     <div className="bottomTextContainer">
                                         <FormattedMessage
                                             defaultMessage={
-                                                "signupPage.onboard"
+                                                "forgotPass.newbie"
                                             }
-                                            id={"signupPage.onboard"}
+                                            id={"forgotPass.newbie"}
                                         ></FormattedMessage>
                                         <Link
                                             className="bottomLink"
@@ -216,9 +225,9 @@ export class ForgotPass extends Component {
                                         >
                                             <FormattedMessage
                                                 defaultMessage={
-                                                    "signupPage.signed"
+                                                    "loginPage.signup"
                                                 }
-                                                id={"signupPage.signed"}
+                                                id={"loginPage.signup"}
                                             ></FormattedMessage>
                                         </Link>
                                     </div>

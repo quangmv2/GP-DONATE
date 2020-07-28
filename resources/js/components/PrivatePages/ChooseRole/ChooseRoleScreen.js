@@ -76,10 +76,19 @@ function ChooseRoleScreen(props) {
             <div className="container">
                 <Link className="backContainer" to={PUBLIC_ROUTE.SIGNUP}>
                     <ArrowBackIosIcon className="backIcon" />
-                    <p>Back</p>
+                    <p> <FormattedMessage
+                        defaultMessage={"common.back"}
+                        id={"common.back"}
+                    /></p>
                 </Link>
-                <p className="cr-t1">One more step</p>
-                <p className="cr-t2">Who will you be</p>
+                <p className="cr-t1"><FormattedMessage
+                        defaultMessage={"chooseRole.step"}
+                        id={"chooseRole.step"}
+                    /></p>
+                <p className="cr-t2"><FormattedMessage
+                        defaultMessage={"chooseRole.who"}
+                        id={"chooseRole.who"}
+                    /></p>
                 <div onChange={onChangeValue} className="gridContainer">
                     <Grid container>
                         <Grid item xs={6} className="radioContainer">
@@ -90,7 +99,13 @@ function ChooseRoleScreen(props) {
                                 value="giver"
                             />
                             <p className="roleText">
-                                Generous <br /> Patron
+                            <FormattedMessage
+                            defaultMessage={"common.generous"}
+                            id={"common.generous"}
+                    /> <br /> <FormattedMessage
+                    defaultMessage={"chooseRole.patron"}
+                    id={"chooseRole.patron"}
+            />
                             </p>
                         </Grid>
                         <Grid item xs={6} className="radioContainer">
@@ -101,13 +116,34 @@ function ChooseRoleScreen(props) {
                                 value="taker"
                             />
                             <p className="roleText">
-                                Generous <br /> Builder
+                            <FormattedMessage
+                            defaultMessage={"common.generous"}
+                            id={"common.generous"}
+                    /> <br /> <FormattedMessage
+                    defaultMessage={"chooseRole.builder"}
+                    id={"chooseRole.builder"}
+            /> 
                             </p>
                         </Grid>
                     </Grid>
                 </div>
                 <div className='choose-role-text-container'>
-                    <p>Become a <span>{userRole == 'giver' ? 'Generous Patron' : 'Generous Builder'} </span> {userRole == 'giver' ?  'fullfill your passion to support others' : 'and be empowered to lead your intiative on the field'}</p>
+                    <p><FormattedMessage
+                        defaultMessage={"chooseRole.become"}
+                        id={"chooseRole.become"}
+                    /> <span>{userRole == 'giver' ? <FormattedMessage
+                        defaultMessage={"chooseRole.giver"}
+                        id={"chooseRole.giver"}
+                    /> : <FormattedMessage
+                            defaultMessage={"chooseRole.taker"}
+                            id={"chooseRole.taker"}
+                        />} </span> {userRole == 'giver' ? <FormattedMessage
+                            defaultMessage={"chooseRole.fullfill"}
+                            id={"chooseRole.fullfill"}
+                        /> : <FormattedMessage
+                                defaultMessage={"chooseRole.lead"}
+                                id={"chooseRole.lead"}
+                            />}</p>
                 </div>
                 <div className=" filledButton ">{content}</div>
                 <div className="bottomTextContainer cant-change-text">

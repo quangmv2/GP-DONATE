@@ -35,6 +35,7 @@ const ActivitesScreen = () => {
     const [scroll, setScroll] = useState(0);
     const [open, setOpen] = useState(false);
     const [idMessage, setIdMessage] = useState(0);
+    const [ activeTab, setActiveTab ] = useState('1');
     const bottom = useRef();
 
     useEffect(() => {
@@ -55,7 +56,7 @@ const ActivitesScreen = () => {
     }, [scroll])
 
     useEffect(() => {
-    }, [dataMessage])
+    }, [dataMessage]);
 
     const scrollWindows = () => {
         setScroll(window.scrollY);
@@ -84,8 +85,9 @@ const ActivitesScreen = () => {
         loading = false;
     }, [])
 
-    const changeTab = active => {
-        setActive(active);
+    const changeTab = activeKey => {
+        setActiveTab(activeKey);
+        console.log(activeKey)
     }
 
     const openWindow = idMessage => {
@@ -110,7 +112,7 @@ const ActivitesScreen = () => {
                 </HeaderNavigation>
                 <SearchInput />
                 <div className="ant-tabs-container custom-tabs">
-                    <Tabs defaultActiveKey="1" onChange={changeTab}>
+                    <Tabs activeKey={activeTab} onChange={changeTab}>
                         <TabPane tab="Messages" key="1">
                             <MessagesComponent data={dataMessage} openWindow={openWindow} closeWindow={closeWindow} />
                         </TabPane>
@@ -120,10 +122,8 @@ const ActivitesScreen = () => {
                     </Tabs>
                 </div>
                 <div ref={bottom}></div>
-                {
-                    !open?<BottomNavigator />:<></>
-                }
-            </div>
+                {    !open ? <BottomNavigator /> : <></> }
+                </div>
         </div>
     );
 };

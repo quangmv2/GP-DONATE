@@ -5,18 +5,24 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import { SocketContext } from "../../../context/SocketProvider";
 import CloseIcon from '@material-ui/icons/Close';
-import { GET_COMMENT, POST_COMMENT } from "../../../constants/routes";
+import { GET_COMMENT, POST_COMMENT, GET_IMAGE } from "../../../constants/routes";
 import { fetchService } from "services";
 import moment from "moment";
 import { getMessageTranslate } from "helpers";
 import './HomeComment.scss';
+import { selectUserInfo } from "modules/auth/selectors";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import UserAvatar from "react-user-avatar";
 
 const PostComment = (props) => {
+    const { userInfo } = props;
     const [data, setData] = useState(null);
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
     const { socket } = useContext(SocketContext);
     const screen = useRef(null);
+    
     useEffect(() => {
         fetchFirstData();
     }, []);
@@ -53,8 +59,10 @@ const PostComment = (props) => {
                 method: "GET"
             });
             if (status === 200) {
+                console.log(comments);
                 setComments(comments);
                 return comments;
+             
             }
         } catch (error) {
             console.log(err);
@@ -86,14 +94,14 @@ const PostComment = (props) => {
     }
 
     const renderComment = () => {
-        return _.map(comments, ({ user: {username}, content, created_at }, index) => {
+        return _.map(comments, ({ user: {username, personal_photo}, content, created_at }, index) => {
             return (
                 <div className='home-comment-container' key={`comment${index}`}>
                     <div className='content-container'>
-                        <img
-                            src={"./images/avatar/_0008_Alina Baikova.jpg"}
+                        {personal_photo == null ? <UserAvatar size="42" name={username} />: <img
+                            src={GET_IMAGE(personal_photo)}
                             className="giver-avatar"
-                        />
+                        />}
                         <div className='info-post'>
                             <p className='user-name'>@{username}</p>
                             <p className='offer-content comment-body-conatiner'>{content}</p>
@@ -129,12 +137,13 @@ const PostComment = (props) => {
                     </button>
                 </HeaderNavigation>
                 <div className='content-container post-info-container'>
-                    <img
-                        src={"./images/avatar/_0008_Alina Baikova.jpg"}
+                {post.user.personal_photo == null ? <UserAvatar size="42" name={post.user.username} />: <img
+                        src={GET_IMAGE(post.user.personal_photo)}
                         className="giver-avatar"
-                    />
+                    />}
+                    
                     <div className='info-post'>
-                        <p className='user-name'>{`${post.user.first_name} ${post.user.last_name}`}</p>
+                        <p className='user-name'>{`${post.user.first_name}`}</p>
                     <p className='offer-content post-offer-content'>{post.title}</p>
                         <p className='time-post-offer'>{moment(post.created_at).add(-(new Date().getTimezoneOffset() / 60), 'hours').fromNow()}</p>
                     </div>
@@ -145,14 +154,14 @@ const PostComment = (props) => {
                     {renderComment()}
                 </div>
                 <div className='input-comment-container'>
-                    <img
-                        src={"./images/avatar/_0010_user.jpg"}
+                   {userInfo.personal_photo !== null ?<UserAvatar size="45" name={userInfo.username} className='non-photo-comment'/> :  <img
+                         src={GET_IMAGE(userInfo.personal_photo)}
                         className="comment-avatar"
-                    />
+                    />}
                     <div
                         className='input-comment-with-icon'>
-                        <button className='button-trans post-comment-button' onClick={clickComment} style={{top: "20px"}}>
-                            <ArrowForwardOutlinedIcon style={{ backgroundColor: '#ddae53', color: 'white', borderRadius: '50%' }} />
+                        <button className='button-trans post-comment-button' onClick={clickComment} style={{top: 16, right: -4}}>
+                            <ArrowForwardOutlinedIcon style={{ backgroundColor: '#ddae53', color: 'white', borderRadius: '50%', width: 33, height: 33 }} />
                         </button>
                         <textarea
                             style={{ marginTop: 0 }}
@@ -169,5 +178,9 @@ const PostComment = (props) => {
         </div>
     );
 }
+const mapStateToProps = createStructuredSelector({
+    userInfo: selectUserInfo()
+});
 
-export default PostComment;
+
+export default connect(mapStateToProps)(PostComment);

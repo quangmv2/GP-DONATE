@@ -72,9 +72,18 @@ export class ChangePassScreen extends Component {
                 <div className="container ">
                     <SignInBackground>
                         <p className="text1">
-                            Change <br /> your password
+                            <FormattedMessage
+                                id="resetPass.change"
+                                defaultMessage="resetPass.change"
+                            /><br /> <FormattedMessage
+                                id="resetPass.password"
+                                defaultMessage="resetPass.password"
+                            />
                         </p>
-                        <p className="text2">Please enter your new password</p>
+                        <p className="text2"><FormattedMessage
+                                id="resetPass.please"
+                                defaultMessage="resetPass.please"
+                            /></p>
                     </SignInBackground>
                     <div className="formFields">
                         {/* {this.renderFields()} */}

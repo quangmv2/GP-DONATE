@@ -13,7 +13,9 @@
     "goods": "Goods",
     "complete": "Complete",
     "foundation": "Foundation",
-    "name": "Name"
+    "name": "Name",
+    "back": "Back",
+    "generous": "Generous"
   },
   "error": {
     "organizationRequired": "Organization is Required",
@@ -29,8 +31,10 @@
     "login": "Login",
     "changePassRequired": "Password Change Required",
     "changePass": "Change Password",
-    "newbie": "I'm a newbie",
-    "signup": "Sign Up"
+    "newbie": "I don't have account yet!",
+    "signup": "Sign Up",
+    "signin": "Sign In",
+    "keepConnect": "To keep us connected "
   },
   "homepage": {
     "title": "Home",
@@ -41,27 +45,46 @@
     "createacc": "Create an account",
     "gotCode": "Got an invitation code",
     "onboard": "Already onboard",
-    "signed": "Sign In"
+    "signed": "Sign In",
+    "making": "Making generousity easy"
   },
   "resetPass": {
     "code": "RESET PASSWORD CODE",
     "save": "Save new password",
     "onboard": "Already onboard",
-    "signed": "Sign In"
+    "signed": "Sign In",
+    "change": "Change",
+    "password": "your password",
+    "please": "Please enter your new password"
+
+
   },
   "codePage": {
     "submit": "Submit Invitation Code",
     "code": "CODE NUMBER",
-    "skip": "Skip this step",
-    "home": "Go to homepage"
+    "skip": "Skip",
+    "home": "Go to homepage",
+    "have": "Have an",
+    "intivation": "Invitation Code"
   },
   "forgotPass": {
     "send": "Send a code",
-    "back": "Back"
+    "forgot": "Forgot password",
+    "please": "Please enter your email address",
+    "newbie": "I'm a newbie"
   },
   "chooseRole": {
     "submit": "Join our journey",
-    "cantChange": "You will not be able to switch your role on this account"
+    "cantChange": "You will not be able to switch your role on this account",
+    "step": "One more Step",
+    "who": "Who will you be",
+    "patron": "Patron",
+    "builder": "Builder",
+    "become": "Become a",
+    "giver" : "Generous Patron",
+    "taker": "Generous Builder",
+    "fullfill": "fullfill your passion to support others",
+    "lead": "and be empowered to lead your intiative on the field"
   },
   "postOffer": {
     "title": "Post a Propositions",
@@ -88,7 +111,9 @@
     "writeAComment": "Write a comment"
   },
   "success": {
-    "begin": "Let the journey begin"
+    "begin": "Let the journey begin",
+    "congrat": "Congratulations",
+    "success": "Your account has been succesfully created"
    
   }
   

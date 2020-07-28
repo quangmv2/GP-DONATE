@@ -60,15 +60,17 @@
     .icon-button {
         border: none;
         margin-right: 20px;
-        border-radius: 20px;
+        border-radius: 18px;
         padding: 5px;
         display: flex;
         align-items: center;
         .icon-comment-active {
             font-size: 30px;
+            color: #081f47;
         }
         .icon-like-active {
             font-size: 30px;
+            color: #ddae53;
         }
         span {
             font-size: 18px;

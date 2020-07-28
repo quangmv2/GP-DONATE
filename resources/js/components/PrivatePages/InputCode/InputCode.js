@@ -62,8 +62,14 @@ export class InputCode extends Component {
             <div className="fullheight-wrapper flex-center">
                 <div className="container ">
                     <SignInBackground>
-                        <p className="ic-t1">Sign up by</p>
-                        <p className="ic-t2">Invitation Code</p>
+                        <p className="ic-t1"> <FormattedMessage
+                            id="codePage.have"
+                            defaultMessage="codePage.have"
+                        /></p>
+                        <p className="ic-t2"> <FormattedMessage
+                            id="codePage.intivation"
+                            defaultMessage="codePage.intivation"
+                        /></p>
                     </SignInBackground>
                     <div className="formFields">
                         <Formik
@@ -144,16 +150,32 @@ export class InputCode extends Component {
                                                 id={"codePage.submit"}
                                             />
                                         </ButtonAnt>
+                                        
                                     </div>
-                                    <div className="form-control outlineButton">
+                                    <div className="form-control ">
+                                       <Link>
+                                        <ButtonAnt
+                                            className="custom-button-login btn-block btn-round btn-red ol-bn-container "               
+                                            id="login-btn"
+                                            name="login-btn"
+                                            type="primary"
+                                        >
+                                            <FormattedMessage
+                                                defaultMessage={
+                                                    "codePage.skip"
+                                                }
+                                                id={"codePage.skip"}
+                                            />
+                                        </ButtonAnt>
+                                        </Link>
                                     </div>
-
+                                
                                     <div className="bottomTextContainer">
                                         <FormattedMessage
                                             defaultMessage={
-                                                "codePage.skip"
+                                                "signupPage.onboard"
                                             }
-                                            id={"codePage.skip"}
+                                            id={"signupPage.onboard"}
                                         ></FormattedMessage>
                                         <Link
                                             className="bottomLink"
@@ -161,9 +183,9 @@ export class InputCode extends Component {
                                         >
                                             <FormattedMessage
                                                 defaultMessage={
-                                                    "codePage.home"
+                                                    "loginPage.signin"
                                                 }
-                                                id={"codePage.home"}
+                                                id={"loginPage.signin"}
                                             ></FormattedMessage>
                                         </Link>
                                     </div>
