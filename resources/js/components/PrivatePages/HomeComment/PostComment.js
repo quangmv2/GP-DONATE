@@ -137,10 +137,11 @@ const PostComment = (props) => {
                     </button>
                 </HeaderNavigation>
                 <div className='content-container post-info-container'>
-                    <img
-                        src={"./images/avatar/_0008_Alina Baikova.jpg"}
+                {post.user.personal_photo == null ? <UserAvatar size="42" name={post.user.username} />: <img
+                        src={GET_IMAGE(post.user.personal_photo)}
                         className="giver-avatar"
-                    />
+                    />}
+                    
                     <div className='info-post'>
                         <p className='user-name'>{`${post.user.first_name}`}</p>
                     <p className='offer-content post-offer-content'>{post.title}</p>
