@@ -75,8 +75,14 @@ export class Login extends Component {
             <div className="fullheight-wrapper flex-center">
                 <div className="container">
                     <SignInBackground>
-                        <p className="text1">Sign In</p>
-                        <p className="text2">To keep connected with us</p>
+                        <p className="text1"><FormattedMessage
+                            id="loginPage.signin"
+                            defaultMessage="loginPage.signin"
+                        /></p>
+                        <p className="text2"><FormattedMessage
+                            id="loginPage.keepConnect"
+                            defaultMessage="loginPage.keepConnect"
+                        /></p>
                     </SignInBackground>
                     <div className="formFields">
                         {/* {this.renderFields()} */}

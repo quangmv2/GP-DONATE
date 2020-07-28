@@ -65,8 +65,14 @@ export class SignUpScreen extends Component {
             <div className="fullheight-wrapper flex-center">
                 <div className="container ">
                     <SignInBackground>
-                        <p className="text1">Sign Up</p>
-                        <p className="text2">Making generousity easy</p>
+                        <p className="text1"><FormattedMessage
+                            id="loginPage.signup"
+                            defaultMessage="loginPage.signup"
+                        /></p>
+                        <p className="text2"><FormattedMessage
+                            id="signupPage.making"
+                            defaultMessage="signupPage.making"
+                        /></p>
                     </SignInBackground>
                     <div className="formFields">
                         {/* {this.renderFields()} */}

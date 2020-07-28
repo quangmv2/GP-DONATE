@@ -11,14 +11,23 @@ const CongratScreen = () => {
             <div className="fullheight-wrapper flex-center">
                 <div className="container">
                     <SignInBackground>
-                        <p className="text1">Congratulations</p>
-                        <p className="text2">Making generosity easy</p>
+                        <p className="text1"> <FormattedMessage
+                defaultMessage={"success.congrat"}
+                id={"success.congrat"}
+            /></p>
+                        <p className="text2"><FormattedMessage
+                defaultMessage={"signupPage.making"}
+                id={"signupPage.making"}
+            /></p>
                     </SignInBackground>
-                    
+                
                 
                 <div className='center-container'>
                     <img src='/images/icon/done.svg'/>
-                    <p className='congrat-text'>Your account has been succesfully created</p>
+                    <p className='congrat-text'><FormattedMessage
+                defaultMessage={"success.success"}
+                id={"success.success"}
+            /></p>
                 </div>
                 <div className=" filledButton ">
                     <Link to={ROUTE.LOGIN}><ButtonAnt

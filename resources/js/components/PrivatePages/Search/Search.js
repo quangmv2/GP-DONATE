@@ -64,6 +64,7 @@ const Search = props => {
 
     const changeTab = active => {
         setKeyWord('');
+        console.log(active)
         setActive(active);
         if (active == 2) searchPost('');
         else searchPeople('');
@@ -84,10 +85,10 @@ const Search = props => {
                 <SearchInput onChange={e => setKeyWord(e.target.value)} value={keyWord} />
                 <div className="ant-tabs-container custom-tabs">
                     <Tabs 
-                        defaultActiveKey="0"
+                        defaultActiveKey="1"
                         onChange={changeTab}
                         >
-                        <TabPane tab={<span>Patrons</span>} key="0">
+                        <TabPane tab={<span>Patrons</span>} key="1">
                             <Patron data={dataPeople} />
                         </TabPane>
                         <TabPane
@@ -123,7 +124,7 @@ const Search = props => {
                         </TabPane>
                     </Tabs>
                 </div>
-                <BottomNavigator style={{display: openSwipper ? "none":"block"}} />
+                {active == '1' ? <BottomNavigator style={{display: openSwipper ? "none":"block"}} /> : null}
             </div>
         </div>
     );

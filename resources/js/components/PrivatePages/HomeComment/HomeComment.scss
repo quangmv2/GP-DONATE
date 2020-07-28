@@ -123,6 +123,10 @@
     }
 
 }
+.non-photo-comment {
+    position: relative;
+    bottom: -10px;
+}
 .comment-avatar {
     flex-grow: 0;
     width: 45px;
