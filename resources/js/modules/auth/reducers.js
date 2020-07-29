@@ -125,10 +125,10 @@ const reducer = (state = initialState, action) => {
       const { message } = error;
       openNotification(NOTIFICATION_TYPE.ERROR, "Error", message);
       return state
-        .set("loading", false)
         .set("logged", false)
         .set("errors", { serverLogin: message })
-        .set('userInfo', undefined);
+        .set('userInfo', undefined)
+        .set("loading", false);
     }
     default:
       return state;

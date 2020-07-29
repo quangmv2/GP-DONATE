@@ -19,6 +19,7 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../constants/auth";
 import { withRouter } from "react-router-dom";
 import { URL_REDIRECT_LOGIN } from "../../../constants/variables";
 import { FEATURE_NAME_POST } from "../../../modules/post/constants";
+import Loading from "../../Atoms/Loading/Loading";
 
 
 const { Content } = Layout;
@@ -40,10 +41,10 @@ class PrivateLayout extends Component {
     componentDidMount() {
         const accesstoken = localStorage.getItem(ACCESS_TOKEN);
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-        const { verifyTokenFnc, userInfo} = this.props;
+        const { verifyTokenFnc, userInfo } = this.props;
         if (accesstoken && accesstoken != "") {
             fetchService.addTokenHeader({ access_token: accesstoken });
-            verifyTokenFnc(accesstoken, refreshToken);    
+            verifyTokenFnc(accesstoken, refreshToken);
         }
 
         else {
@@ -63,12 +64,12 @@ class PrivateLayout extends Component {
             if (!logout) localStorage.setItem(URL_REDIRECT_LOGIN, location.pathname);
             this.redirectLogin();
         }
-        if ( userInfo && userInfo.roles && userInfo.roles.length < 1) {
+        if (userInfo && userInfo.roles && userInfo.roles.length < 1) {
             this.props.history.push(ROUTE.CHOOSEROLE);
         }
     }
 
-    componentWillUnmount() {}
+    componentWillUnmount() { }
 
     handleResize = () => {
         const windowSize = window.innerWidth;
@@ -77,7 +78,31 @@ class PrivateLayout extends Component {
     onResize = () => { };
 
     render() {
-        const { children } = this.props;
+        const { children, loading } = this.props;
+        console.log(loading);
+        if (loading) {
+            return (
+                <Layout id="tripto-private-layout" theme="dark" className="dark">
+                    <Layout>
+                        <div
+                            className="content-layout wide-container"
+                            id="main-layout"
+                        >
+                            <div className="header-control"></div>
+                            <ReactResizeDetector
+                                handleHeight
+                                handleWidth
+                                onResize={this.onResize}
+                            >
+                                <Content className="body-wrapper">
+                                    <Loading />
+                                </Content>
+                            </ReactResizeDetector>
+                        </div>
+                    </Layout>
+                </Layout>
+            )
+        }
         return (
             <Layout id="tripto-private-layout" theme="dark" className="dark">
                 <Layout>
