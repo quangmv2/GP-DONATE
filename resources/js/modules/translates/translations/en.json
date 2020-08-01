@@ -114,7 +114,25 @@
     "begin": "Let the journey begin",
     "congrat": "Congratulations",
     "success": "Your account has been succesfully created"
-   
+  },
+  "bottomNav": {
+    "home": "Home",
+    "search": "Search",
+    "activities": "Activities",
+    "account": "Account",
+    "post": "Post Offer"
+  },
+  "profileSetting" : {
+    "account": "ACCOUNT",
+    "manage": "Manage My Account",
+    "project": "Project you have liked",
+    "privacy": "Privacy & Safety",
+    "share": "Share profile",
+    "push": "Push notifications",
+    "support": "SUPPORT",
+    "report": "Report a problem",
+    "help": "Help Center",
+    "logout": "Log out"
   }
   
 

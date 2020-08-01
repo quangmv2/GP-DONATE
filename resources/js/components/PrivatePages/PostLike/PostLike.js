@@ -25,6 +25,7 @@ const PostLike = props => {
         });
         if (status == 200) {
             setDataPost(data.map(tmp => tmp.post));
+            console.log(data)
         }
     }, []);
 

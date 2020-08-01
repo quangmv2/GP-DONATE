@@ -13,6 +13,7 @@ import UserProfile from './UserProfile/UserProfile';
 import MessagesDetail from './Activities/MessageDetail/MessagesDetail';
 import ChooseRoleScreen from "./ChooseRole/ChooseRoleScreen";
 import InputCode from './InputCode/InputCode';
+import SuccessScreen from "./SuccessScreen/SuccessScreen";
 
 export {
   PostOffer,
@@ -28,5 +29,6 @@ export {
   PostLike,
   MessagesDetail,
   ChooseRoleScreen,
-  InputCode
+  InputCode,
+  SuccessScreen
 };

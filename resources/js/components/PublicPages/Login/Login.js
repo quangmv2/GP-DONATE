@@ -206,7 +206,7 @@ export class Login extends Component {
                                                 id={"loginPage.forgotPassword"}
                                             ></FormattedMessage>
                                         </Link>
-                                        <Link to="/signup">
+                                       
                                             <div className="form-control filledButton">
                                                 <ButtonAnt
                                                     className="custom-button-login btn-block btn-round btn-red buttonContainer"
@@ -229,7 +229,7 @@ export class Login extends Component {
                                                     />
                                                 </ButtonAnt>
                                             </div>
-                                        </Link>
+        
 
                                         <div className="bottomTextContainer">
                                             <FormattedMessage

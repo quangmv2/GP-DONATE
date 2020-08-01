@@ -29,13 +29,13 @@ function withSplashScreen(WrappedComponent) {
             setTimeout(() => {
                 const wrapperSplash = document.getElementById("splash_wrapper");
                 wrapperSplash && wrapperSplash.classList.add("fadeOut");
-            }, 0); //2500
+            }, 2500); //2500
 
             setTimeout(() => {
                 this.setState({
                     loading: false
                 });
-            }, 0); //3200
+            }, 3200); //3200
         }
 
         render() {
