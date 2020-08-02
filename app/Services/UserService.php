@@ -65,9 +65,11 @@ class UserService
     {
         $likes = Like::where('user_id', $user_id)->get();
         foreach ($likes as $key => $like) {
+            if ($like->post->status != 1) unset($likes[$key]);
             $like->post->offers;
             $like->post->user;
             $like->post->hastags;
+            $like->post["commented"] = $like->post->commented($user_id);
         }
         return $likes;
     }
