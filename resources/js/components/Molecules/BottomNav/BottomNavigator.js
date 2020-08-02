@@ -13,6 +13,7 @@ import {
 import './bottomNav.scss';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import { FormattedMessage } from "react-intl";
 
 const BottomNavigator = props => {
 
@@ -23,13 +24,19 @@ const BottomNavigator = props => {
         <div className='bottom-nav-icon-container'>
           <Link to={PRIVATE_ROUTE.HOME} className={window.location.pathname === "/" ? 'active' : ''}>
             <HomeIcon className='icon-bottom-nav' />
-            Home
+            <FormattedMessage
+              id="bottomNav.home"
+              defaultMessage="bottomNav.home"
+            />
           </Link>
         </div>
         <div className='bottom-nav-icon-container'>
           <Link to='/search' className={window.location.pathname === "/search" ? 'active' : ''}>
             <SearchIcon className='icon-bottom-nav' />
-            Search
+            <FormattedMessage
+              id="bottomNav.search"
+              defaultMessage="bottomNav.search"
+            />
           </Link>
         </div>
         {
@@ -39,7 +46,10 @@ const BottomNavigator = props => {
                 <div className='circle-plus-wrapper'>
                   <div className='cirlce-plus-icon'></div>
                 </div>
-                Post Offer
+                <FormattedMessage
+              id="bottomNav.post"
+              defaultMessage="bottomNav.post"
+            />
               </Link>
             </div>:
             <></>
@@ -47,13 +57,19 @@ const BottomNavigator = props => {
         <div className='bottom-nav-icon-container'>
           <Link to='/activities' className={window.location.pathname === "/activities" ? 'active' : ''}>
             <StarBorderRoundedIcon className='icon-bottom-nav' />
-            Activities
+            <FormattedMessage
+              id="bottomNav.activities"
+              defaultMessage="bottomNav.activities"
+            />
           </Link>
         </div>
         <div className='bottom-nav-icon-container'>
           <Link to='/profile-setting' className={window.location.pathname === "/my-profile" ? 'active' : ''}>
             <PersonOutlineRoundedIcon className='icon-bottom-nav' />
-            Account
+            <FormattedMessage
+              id="bottomNav.account"
+              defaultMessage="bottomNav.account"
+            />
           </Link>
         </div>
       </div>

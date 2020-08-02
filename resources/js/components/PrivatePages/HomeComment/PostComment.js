@@ -154,7 +154,7 @@ const PostComment = (props) => {
                     {renderComment()}
                 </div>
                 <div className='input-comment-container'>
-                   {userInfo.personal_photo !== null ?<UserAvatar size="45" name={userInfo.username} className='non-photo-comment'/> :  <img
+                   {userInfo.personal_photo == null ?<UserAvatar size="45" name={userInfo.username} className='non-photo-comment'/> :  <img
                          src={GET_IMAGE(userInfo.personal_photo)}
                         className="comment-avatar"
                     />}

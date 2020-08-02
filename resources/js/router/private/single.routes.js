@@ -10,7 +10,8 @@ import {
   PostLike,
   MessagesDetail,
   ChooseRoleScreen, 
-  InputCode
+  InputCode,
+  SuccessScreen
 
 } from 'components/PrivatePages';
 import { PRIVATE_ROUTE } from 'constants';
@@ -77,6 +78,11 @@ export const singleRoutes = [
   {
     path: PRIVATE_ROUTE.MYPROFILE,
     component: UserProfile,
+    exact: true
+  },
+  {
+    path: PRIVATE_ROUTE.SUCCESS,
+    component: SuccessScreen,
     exact: true
   }
   
