@@ -35,6 +35,7 @@ Route::group(['prefix' => 'posts'], function () {
     Route::get('search', 'Apis\PostController@searchPost');
     Route::get('{id}/comments', 'Apis\PostController@getComments'); 
     Route::get('{id}/likes', 'Apis\PostController@getLikes'); 
+    Route::get('{id}/commented', 'Apis\PostController@checkCommented');
 });
 
 Route::group(['prefix' => 'profile'], function () {

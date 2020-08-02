@@ -6,6 +6,7 @@ namespace App\Services;
 use DB;
 use Hash;
 use Response;
+use Imagick;
 use Illuminate\Support\Facades\Storage;
 
 class CommonService
@@ -21,13 +22,27 @@ class CommonService
 
     public function saveImage($image)
     {
+
+        // dd($image);
+        // return Storage::disk('local')->getAdapter()->getPathPrefix();
+        $storage = Storage::disk('local')->getAdapter()->getPathPrefix();
+        $size = $image->getSize();  
         $name= time().'_'.$image->getClientOriginalName();
         
         $directory = "uploads/images";
 
         $path = Storage::putFileAs($directory, $image, $name);
         
-        return $path;
+        $im = new Imagick($storage.$path);
+        $im->setImageFormat('jpg');
+
+        if ($size > 500000) {
+            $im->setImageCompressionQuality((500000/$size)*100);
+        }
+        $newImg = $directory.'/'.time().'.jpg';
+        $im->writeImage($storage.$newImg);
+        Storage::delete($path);
+        return $newImg;
     }
 
     public function showImage($path)
