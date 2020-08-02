@@ -54,6 +54,13 @@ class Post extends Model
         return $this->hasOne(PostHasOffer::class, 'post_id', 'id');
     }
 
+    public function commented($user_id) 
+    {
+        $commented = Comment::where('user_id', $user_id)->where('post_id', $this->id)->count();
+        if ($commented>0) return true;
+        return false;
+    }
+
 	// public function categories() {
     //     return $this->belongsToMany(Category::class, 'category_post', 'post_id', 'category_id');
     // }

@@ -35,7 +35,7 @@ const ActivitesScreen = () => {
     const [scroll, setScroll] = useState(0);
     const [open, setOpen] = useState(false);
     const [idMessage, setIdMessage] = useState(0);
-    const [ activeTab, setActiveTab ] = useState('1');
+    const [activeTab, setActiveTab ] = useState('1');
     const bottom = useRef();
 
     useEffect(() => {
