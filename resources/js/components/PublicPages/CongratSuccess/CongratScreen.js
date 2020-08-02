@@ -30,7 +30,7 @@ const CongratScreen = () => {
             /></p>
                 </div>
                 <div className=" filledButton ">
-                    <Link to={ROUTE.LOGIN}><ButtonAnt
+                    <Link to={ROUTE.SUCCESS}><ButtonAnt
                     className="custom-button-login btn-block btn-round btn-red buttonContainer">
             <FormattedMessage
                 defaultMessage={"success.begin"}

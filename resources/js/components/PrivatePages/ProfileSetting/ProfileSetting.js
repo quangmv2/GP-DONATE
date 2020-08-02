@@ -10,6 +10,7 @@ import {
     selectUserInfo
 } from "modules/auth/selectors";
 import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
+import { FormattedMessage } from "react-intl";
 
 const ProfileSetting = (props) => {
    
@@ -23,13 +24,23 @@ const ProfileSetting = (props) => {
             <div className="container">
                 <HeaderNavigation headerName="Profile Settings" />
                 <div className="body-wrapper">
-                    <p className="info-box">ACCOUNT</p>
+                    <p className="info-box">{
+                                <FormattedMessage
+                                    id="profileSetting.account"
+                                    defaultMessage="profileSetting.account"
+                                />
+                            }</p>
                     <div className="list-box">
                         <LinkItem
                             className="text-box link-center"
                             url={PRIVATE_ROUTE.MYPROFILE}
                             icon={<i className="icon-left icon-account-normal" />}
-                            title="Manage My Account"
+                            title={
+                                <FormattedMessage
+                                    id="profileSetting.manage"
+                                    defaultMessage="profileSetting.manage"
+                                />
+                            }
                             arrow={<i className="icon-next" />}
                         />
                     </div>
@@ -38,7 +49,12 @@ const ProfileSetting = (props) => {
                             className="text-box link-center"
                             url={"/post-like"}
                             icon={<i className="icon-left icon-like-normal" />}
-                            title="Project you have liked"
+                            title={
+                            <FormattedMessage
+                                id="profileSetting.project"
+                                defaultMessage="profileSetting.project"
+                            />
+                        }
                             arrow={<i className="icon-next" />}
                         />
                     </div>
@@ -47,7 +63,12 @@ const ProfileSetting = (props) => {
                             className="text-box link-center"
                             url={"#"}
                             icon={<i className="icon-left icon-password" />}
-                            title="Privacy & Safety"
+                            title={
+                                <FormattedMessage
+                                    id="profileSetting.privacy"
+                                    defaultMessage="profileSetting.privacy"
+                                />
+                            }
                             arrow={<i className="icon-next" />}
                         />
                     </div>
@@ -56,7 +77,12 @@ const ProfileSetting = (props) => {
                             className="text-box link-center"
                             url={"#"}
                             icon={<i className="icon-left icon-share-profile" />}
-                            title="Share profile"
+                            title={
+                                <FormattedMessage
+                                    id="profileSetting.share"
+                                    defaultMessage="profileSetting.share"
+                                />
+                            }
                             arrow={<i className="icon-next" />}
                         />
                     </div>
@@ -65,7 +91,12 @@ const ProfileSetting = (props) => {
                             className="text-box link-center"
                             url={"#"}
                             icon={<i className="icon-left icon-noti" />}
-                            title="Push notifications"
+                            title={
+                                <FormattedMessage
+                                    id="profileSetting.push"
+                                    defaultMessage="profileSetting.push"
+                                />
+                            }
                             arrow={<i className="icon-next" />}
                         />
                     </div>
@@ -76,7 +107,12 @@ const ProfileSetting = (props) => {
                             className="text-box link-center"
                             url={"#"}
                             icon={<i className="icon-left icon-mail-dark" />}
-                            title="Report a problem"
+                            title={
+                                <FormattedMessage
+                                    id="profileSetting.report"
+                                    defaultMessage="profileSetting.report"
+                                />
+                            }
                             arrow={<i className="icon-next" />}
                         />
                     </div>
@@ -87,7 +123,12 @@ const ProfileSetting = (props) => {
                             icon={
                                 <i className="icon-left icon-help" />
                             }
-                            title="Help Center"
+                            title={
+                                <FormattedMessage
+                                    id="profileSetting.help"
+                                    defaultMessage="profileSetting.help"
+                                />
+                            }
                             arrow={<i className="icon-next" />}
                         />
                     </div>
@@ -98,7 +139,12 @@ const ProfileSetting = (props) => {
                             className="text-logout"
                             url={"#"}
                             icon={<i className="icon-left icon-log_out" />}
-                            title="Log out"
+                            title={
+                                <FormattedMessage
+                                    id="profileSetting.logout"
+                                    defaultMessage="profileSetting.logout"
+                                />
+                            }
                         />
                     </div>
                 </div>

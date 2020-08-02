@@ -20,7 +20,8 @@ export const PRIVATE_ROUTE = {
     EDITPROFILE: '/edit-profile',
     PROFILESETTING: '/profile-setting',
     MYPROFILE: '/my-profile',
-    MYLIKES: '/post-like'
+    MYLIKES: '/post-like',
+    SUCCESS: '/success'
 };
 
 export const ROUTE = {
