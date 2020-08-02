@@ -11,6 +11,7 @@ use App\Models\Hastag;
 use App\Models\PostHasOffer;
 use App\Models\PostHasHastag;
 use Illuminate\Support\Facades\Storage;
+
 use App\Services\UserService;
 
 
@@ -37,14 +38,14 @@ class PostService
     public function getPostPaginate($limit)
     {
         if (empty($limit)) $limit = 1;
-        return Post::orderBy('created_at', 'desc')->simplePaginate($limit);       
+        return Post::where('status', 1)->orderBy('created_at', 'desc')->simplePaginate($limit);       
     }
 
     public function getPostPaginateByUser($limit, $user_id)
     {
         if (empty($limit)) $limit = 1;
         $user = $this->userService->getUserByIdOrUsername($user_id);
-        $posts = Post::where('user_id', $user->id)->simplePaginate($limit);   
+        $posts = Post::where('status', 1)->where('user_id', $user->id)->simplePaginate($limit);   
         foreach ($posts as $key => $post) {
             $post->offers;
             $post->user;
@@ -76,7 +77,9 @@ class PostService
     public function delete($id)
     {
         $post = Post::findOrFail($id);
-        $post->delete();
+        $post->update([
+            'status' => 0,
+        ]);
         return response()->json(["message" => "success"], 200);
     }
 

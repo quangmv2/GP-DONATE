@@ -26,6 +26,9 @@ import injectSaga from "core/saga/inject-saga";
 import { compose } from "recompose";
 import { withRouter } from "react-router-dom";
 import Comment from "../HomeComment/PostComment";
+import {
+    selectUserInfo
+} from "modules/auth/selectors";
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
@@ -42,9 +45,10 @@ const HomePage = (props) => {
     const [user, setUser] = useState({});
 
     useEffect(() => {
-        const { fetchMore } = props;
+        const { fetchMore, userInfo } = props;
+        if (!userInfo || !userInfo.id) return;
         fetchMore(1);
-    }, []);
+    }, [props.userInfo]);
 
     useEffect(() => {
         if (index == 0) return ;
@@ -81,6 +85,9 @@ const HomePage = (props) => {
                 direction="vertical"
                 style={{ height: openModal? 0 : window.innerHeight, display: openModal?"none":"block" }}
                 onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
+                // onSlidePrevTransitionStart={sw => console.log(sw)}
+                onSliderMove={sw => console.log(sw)}
+                // onSlideChangeTransitionStart
             >
 
               {posts.map(post => 
@@ -103,7 +110,8 @@ const mapStateToProps = createStructuredSelector({
     errors: selectErrors(),
     loading: selectLoading(),
     page: selectPage(),
-    posts: selectPost()
+    posts: selectPost(),
+    userInfo: selectUserInfo()
 });
 
 const withReducer = injectReducer({ key: FEATURE_NAME_POST, reducer });

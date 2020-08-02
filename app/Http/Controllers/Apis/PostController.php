@@ -12,6 +12,7 @@ use DB;
 use Response;
 use App\Services\CommonService;
 use App\Services\PostService;
+use App\Services\CommentService;
 
 
 
@@ -22,11 +23,12 @@ class PostController extends Controller
     private $commonService;
 
 
-    function __construct(PostService $postService, CommonService $commonService, Request $request){
+    function __construct(PostService $postService, CommonService $commonService, Request $request, CommentService $commentService){
 
         $this->request = $request;
         $this->postService = $postService;
         $this->commonService = $commonService;
+        $this->commentService = $commentService;
 
         // $this->middleware('cors', ['except' => ['showPhoto']]);
         $this->middleware('auth:api', ['except' => ['showPhoto', 'storePhoto']]);
@@ -639,6 +641,15 @@ class PostController extends Controller
             $post->offers;
         }
         return $posts;
+    }
+
+    public function checkCommented(Request $request, $id)
+    {
+        $user_id = $request->user()->id;
+        $commented = $this->commentService->checkCommented($user_id, $id);
+        return response()->json([
+            'status' => $commented
+        ], 200);
     }
 
 }
