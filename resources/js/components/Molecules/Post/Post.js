@@ -16,7 +16,8 @@ const Post = ({
     likeNumber,
     keyEle,
     onClick,
-    index
+    index,
+    commented
 }) => {
     console.log(author);
     return (
@@ -26,7 +27,7 @@ const Post = ({
                     <img src={img} className="img-content" />
                     <div className="wrapper-icon">
                         <button className="icon-button">
-                            <i className="icon-comment-active" />
+                        {commented ?   <i className="icon-comment-normal" /> :  <i className="icon-comment-active" />}
                         </button>
                         <button className="icon-button">
                             <i className="icon-like-active" />

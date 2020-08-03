@@ -65,6 +65,7 @@ const PostLike = props => {
                                     createTime={moment(post.created_at).format("YYYY-MM-DD")}
                                     onClick={showSwipper}
                                     index={index}
+                                    commented = {post.commented}
                                 />
                             ))
                         }
