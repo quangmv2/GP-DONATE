@@ -1,15 +1,15 @@
 
 @extends('layouts.private')
 @section('title')
-FORBIDDEN
+404 - FOR NOT FOUND
 @endsection
 @section('screen_name')
-FORBIDDEN
+404 - FOR NOT FOUND
 @endsection
 @section('content')
 <div class="card">
     <div class="card-body">
-        403 - FORBIDDEN
+        404 - FOR NOT FOUND
     </div>
 </div>
 

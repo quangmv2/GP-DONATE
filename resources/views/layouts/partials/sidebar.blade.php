@@ -43,6 +43,9 @@
 
 
 		<!-- Main navigation -->
+		@can('admin-page')
+			
+		
 		<div class="card card-sidebar-mobile">
 			<ul class="nav nav-sidebar" data-nav-type="accordion">
 
@@ -61,8 +64,8 @@
 				<li class="nav-item nav-item-submenu @if (\Request::is('admin/posts') || \Request::is('admin/posts/*') || \Request::is('admin/categories') || \Request::is('admin/categories/*')) nav-item-open @endif">
 					<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Posts</span></a>
 					<ul class="nav nav-group-sub" data-submenu-title="Layouts" style="@if (\Request::is('admin/posts') || \Request::is('admin/posts/*') || \Request::is('admin/categories') || \Request::is('admin/categories/*')) display:block @endif">
-						<li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link @if(\Request::is('posts')) active @endif">List Posts</a></li>
-						<li class="nav-item"><a href="{{ route('posts.create') }}" class="nav-link @if(\Request::is('posts/create')) active @endif">Create Post</a></li>
+						<li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link @if(\Request::is('admin/posts')) active @endif">List Posts</a></li>
+						<li class="nav-item"><a href="{{ route('posts.create') }}" class="nav-link @if(\Request::is('admin/posts/create')) active @endif">Create Post</a></li>
 					</ul>
 
 				</li>
@@ -92,7 +95,7 @@
 			</ul>
 		</div>
 		<!-- /main navigation -->
-
+		@endcan
 	</div>
 	<!-- /sidebar content -->
 	

@@ -45,6 +45,9 @@ class PostService
     {
         if (empty($limit)) $limit = 1;
         $user = $this->userService->getUserByIdOrUsername($user_id);
+        if (empty($user)) return [
+            'data' => []
+        ];
         $posts = Post::where('status', 1)->where('user_id', $user->id)->simplePaginate($limit);   
         foreach ($posts as $key => $post) {
             $post->offers;

@@ -24,11 +24,20 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => ['auth', 'auth', 'permission:admin-page']], function() {
         Route::get('/', 'HomeController@index')->name('adminHome');
         Route::get('/home', 'HomeController@index')->name('home');
+
+        Route::get('posts/{id}/hidden','PostController@hiddenPost');
+        Route::get('posts/{id}/show','PostController@showPost');
+
+
         Route::resource('roles','RoleController');
         Route::resource('users','UserController');
         Route::resource('posts','PostController');
         Route::get('users-list','UserController@list');
-    });    
+        Route::get('/posts-list', 'PostController@list');
+    });  
+    Route::get('/{any}', function () {
+        return 404;
+    });
 });
 
 Route::get('/', function () {
