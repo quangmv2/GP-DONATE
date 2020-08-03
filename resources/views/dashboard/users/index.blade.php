@@ -56,7 +56,7 @@ Users Management
 	        "order": [[ 0, "desc" ]],
 	        "columns": [
 	        	{ "bSearchable": false, "data": "id" },
-			    { "bSearchable": true, "data": "full_name" },
+			    { "bSearchable": true, "data": "name" },
 			    { "bSearchable": true, "data": "username" },
 			    { "bSearchable": true, "data": "email" },
 			    { "bSearchable": true, "data": "roles",

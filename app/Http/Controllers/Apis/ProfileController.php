@@ -185,6 +185,7 @@ class ProfileController extends Controller
 
     public function getPostOfUser(Request $request, $id)
     {
+        if (empty($id) || $id == "me" || $id == 'undefined') $id = $request->user()->id;
         $posts = $this->postService->getPostPaginateByUser(10, $id);
         return response()->json($posts, 200);
     }

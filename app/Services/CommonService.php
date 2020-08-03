@@ -36,8 +36,8 @@ class CommonService
         $im = new Imagick($storage.$path);
         $im->setImageFormat('jpg');
 
-        if ($size > 500000) {
-            $im->setImageCompressionQuality((500000/$size)*100);
+        if ($size > 1000000) {
+            $im->setImageCompressionQuality((1000000/$size)*100);
         }
         $newImg = $directory.'/'.time().'.jpg';
         $im->writeImage($storage.$newImg);

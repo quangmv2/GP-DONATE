@@ -132,11 +132,12 @@ const UserProfile = (props) => {
                 open ? <MessagesDetail data={user} closeWindow={() => setOpen(false)} /> : <></>
             }
             {
-                modal && <Propositions username={userId} closeWindow={() => setModal(false)} />
-        
+                modal && <Propositions username={userId?userId:'me'} closeWindow={() => setModal(false)} />
             }
 
-            <div className='container'  >
+            <div className='container' style={{
+                display: modal||open?'none':'block'
+            }} >
                 <div className="full-photo-div">
                     <img className="full-photo-background"  src={GET_IMAGE(user.full_photo)} />
                 </div>

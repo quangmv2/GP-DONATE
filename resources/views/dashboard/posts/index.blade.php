@@ -39,17 +39,17 @@ Posts Management
                                 <select name="status" id="status" class="browser-default custom-select custom-select-lg mb-2">
                                   <option value="all" selected>All</option>
                                   <option value="1">Publish</option>
-                                  <option value="0">Draft</option>
+                                  <option value="0">Hidden</option>
                                   <option value="-1">Trash</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <label class="mt-2">Categories:</label>
+                                <label class="mt-2">Hastags:</label>
                                 <select name="category" id="category" class="browser-default custom-select custom-select-lg mb-2">
                                   <option value="all" selected>All</option>
-                                  {{-- @foreach($categories as $category)
-                                   <option value="{{$category->id}}">{{$category->name}}</option>
-                                  @endforeach --}}
+                                  @foreach($hastags as $hastag)
+                                   <option value="{{$hastag->id}}">{{$hastag->value}}</option>
+                                  @endforeach
                                 </select>
                             </div>
                         </div>
@@ -58,12 +58,12 @@ Posts Management
                 <table id="table_posts" class="table">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th style="min-width: 250px;">Title</th>
-                            <th>Description</th>
-                            <th>Categories</th>
-                            <th>Status</th>
-                            <th style="min-width: 200px;">Action</th>
+                            <th style="max-width: 100px;">No</th>
+                            <th style="min-width: 300px;">Title</th>
+                            <th style="min-width: 300px;">Hastags</th>
+                            <th style="max-width: 200px;">Due Day</th>
+                            <th style="max-width: 50px;">Status</th>
+                            <th style="min-width: 250px;">Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -96,46 +96,35 @@ Posts Management
             "columns": [
                 { "bSearchable": false, "data": "id" },
                 { "bSearchable": true, "data": "title" },
-                { "bSearchable": true, "data": "description",
-
-                    "render": function(data, type, row, meta)
-                    {
-                        if(data && data.length>=100)
-                        { 
-                            return data.substring(0,100)+"...";
-                        }
-                        else
-                        {
-                            return data;
-                        }
-                    }
-                },
-                { "bSearchable": true, "data": "categories",
-
+                { "bSearchable": true, "data": "hastags",
+                    "orderable": false,
                     "render": function(data, type, row, meta)
                     {
                         var htmlStatus="";
                         if(data && data.length > 0){
-                            for (var i = 0; i < data.length; i++) {
-                                htmlStatus += "<label class='badge badge-primary mr-1'>"+data[i].name+"</label>";
+                            const length = data.length>5?5:data.length;
+                            for (var i = 0; i < length; i++) {
+                                htmlStatus += "<label class='badge badge-primary mr-1'>"+data[i].value+"</label>";
                             }
+                            if (data.length>5) htmlStatus += "<label class='badge badge-primary mr-1'>...</label>";
                         }
 
                         return htmlStatus;
                     }
                 },
+                { "bSearchable": true, "data": "due_day"},
                 { "bSearchable": true, "data": "status",
                     "orderable": false,
                     "render": function(data, type, row, meta){
                         var htmlStatus="";
-                        if(data == 0){
-                            htmlStatus += "<label class='badge badge-secondary'>Draft</label>";
-                        }
+                        // if(data == 0){
+                        //     htmlStatus += "<label class='badge badge-secondary'>Draft</label>";
+                        // }
                         if(data == 1){
                             htmlStatus += "<label class='badge badge-success'>Published</label>";
                         }
-                        if(data == -1){
-                            htmlStatus += "<label class='badge badge-light'>Trash</label>";
+                        if(data == 0){
+                            htmlStatus += "<label class='badge badge-light'>Hidden</label>";
                         }
 
                         return htmlStatus;
@@ -147,8 +136,11 @@ Posts Management
                     "render": function(data, type, row, meta){
 
                         var htmlAction = "<a class='btn btn-primary mr-2' href='posts/"+data+"/edit'>Edit</a>";
-                        if(row.status != -1){
-                            htmlAction += "<form method='POST' action='posts/"+data+"' accept-charset='UTF-8' style='display:inline' class='form_delete'><input name='_method' type='hidden' value='DELETE'><input name='_token' type='hidden' value='"+_csrfToken+"'><input class='btn btn-danger btn_delete_post' type='button' value='Delete'></form>";
+                        if(row.status != 0){
+                            htmlAction +=  "<a class='btn btn-secondary mr-2' href='posts/"+data+"/hidden'>Hidden</a>";
+                            htmlAction += "<form method='POST'' action='posts/"+data+"' accept-charset='UTF-8' style='display:inline;' class='form_delete'><input name='_method' type='hidden' value='DELETE'><input name='_token' type='hidden' value='"+_csrfToken+"'><input class='btn btn-danger btn_delete_post' style='margin-top: 5px' type='button' value='Delete'></form>";
+                        } else {
+                            htmlAction +=  "<a class='btn btn-success mr-2' href='posts/"+data+"/show'>Show</a>";
                         }
                         
                         return htmlAction;

@@ -4,11 +4,12 @@
 namespace App\Http\Controllers;
 
 
-use App\Models\Post;
 use Illuminate\Http\Request;
 use DB;
 use Response;
 
+use App\Models\Hastag;
+use App\Models\Post;
 
 class PostController extends Controller
 { 
@@ -32,7 +33,8 @@ class PostController extends Controller
     public function index()
     {
         // $categories = Category::whereNull('type')->orWhereIn('type', ['all', 'post'])->get();
-        return view('dashboard.posts.index');
+        $hastags = Hastag::all();
+        return view('dashboard.posts.index', ['hastags' => $hastags]);
     }
 
     /**
@@ -42,6 +44,64 @@ class PostController extends Controller
      */
     public function list(Request $request)
     {
+        $order = $request->input('order');
+        $columns = $request->input('columns');
+        $length = $request->input('length');
+        $start = $request->input('start');
+        $search = $request->input('search');
+        $searchStatus = $request->input('searchByStatus');
+        $searchCategory = $request->input('searchByCategory');
+
+        $orderColumn = isset($order) ? $columns[$order[0]['column']]['data'] : 'id';
+        $orderDesc = isset($order) ? $order[0]['dir'] : 'desc';
+        $length = isset($length) && $length > 0 ? $length : 10;
+        $page = isset($start) ? ($start/$length + 1) : 1;
+        $search = isset($search) ? $search['value'] : '';
+
+        //condtion to search by status
+        $valueSearchStatus = [0, 1];
+        switch ($searchStatus) {
+            case '1':
+                $valueSearchStatus = [1];
+                break;
+            case '0':
+                $valueSearchStatus = [0];
+                break;
+            case '-1':
+                $valueSearchStatus = [-1];
+                break;
+            default:
+                $valueSearchStatus = [0, 1];
+                break;
+        }
+       
+        $query = Post::whereIn('status', $valueSearchStatus)
+            ->where(function($q) use ($search){
+                $q->where('title', 'like', '%'.$search.'%');
+                    // ->orWhere('description', 'like', '%'.$search.'%');
+            });
+
+        //fiter by category
+        // //case 1 search by all
+         $query = $query->with('hastags');
+
+        //  //filter by condition
+        if(!(!$searchCategory || $searchCategory == "" || $searchCategory == "all")){
+           // filter by category id
+            $query = $query
+                ->whereHas('hastags', function($q) use ($searchCategory) {
+                    $q->where('hastags.id', '=', $searchCategory);
+                });
+        }
+
+        $totalSearch = $query->count();
+        $data = $query->orderBy($orderColumn, $orderDesc)->paginate($length, ['*'], 'page', $page);
+
+        return Response::json([
+            'recordsFiltered' => $totalSearch,
+            'recordsTotal' => $totalSearch,
+            'data' => $data->toArray()['data'],
+        ]);
     }
 
 
@@ -109,7 +169,28 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
+        $post = Post::find($id)->delete();  
+        return redirect()->route('posts.index')
+                        ->with('success','Post deleted successfully');
+    }
+
+    public function hiddenPost($id)
+    {
+        Post::find($id)->update([
+            'status' => 0
+        ]);
+        return redirect()->route('posts.index')
+                        ->with('success','Post hidden successfully');
+    }
+
+    public function showPost($id)
+    {
+        Post::find($id)->update([
+            'status' => 1
+        ]);
+        return redirect()->route('posts.index')
+                        ->with('success','Post showed successfully');
     }
 }
