@@ -1,7 +1,14 @@
 @extends('layouts.private')
+@section('header_goback')
+    <a href="{{ route('posts.index') }}"><i class="icon-arrow-left52 mr-2"></i></a>
+@endsection
+
+@section('middle_breadcrumb')
+    <a href="{{ route('posts.index') }}" class="breadcrumb-item"> Posts</a>
+@endsection
 
 @section('screen_name')
-Posts Management
+Comment Management
 @endsection
 
 @section('custom_javascript')
@@ -17,12 +24,7 @@ Posts Management
     <div class="col-lg-12 margin-tb">
         <div class="card">
             <div class="card-header header-elements-sm-inline">
-                <h6 class="card-title">Posts</h6>
-                <div>
-                    @can('post-create')
-                    <a class="btn btn-success" href="{{ route('posts.create') }}"> Create New Post</a>
-                    @endcan
-                </div>
+                <h6 class="card-title">Comments</h6>
             </div>
 
             @if ($message = Session::get('success'))
@@ -43,15 +45,6 @@ Posts Management
                                   <option value="-1">Trash</option>
                                 </select>
                             </div>
-                            <div class="col-md-3">
-                                <label class="mt-2">Hastags:</label>
-                                <select name="category" id="category" class="browser-default custom-select custom-select-lg mb-2">
-                                  <option value="all" selected>All</option>
-                                  @foreach($hastags as $hastag)
-                                   <option value="{{$hastag->id}}">{{$hastag->value}}</option>
-                                  @endforeach
-                                </select>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -59,8 +52,8 @@ Posts Management
                     <thead>
                         <tr>
                             <th style="max-width: 100px;">No</th>
-                            <th style="min-width: 300px;">Title</th>
-                            <th style="min-width: 300px;">Hastags</th>
+                            <th style="min-width: 300px;">Author</th>
+                            <th style="min-width: 300px;">Description</th>
                             <th style="max-width: 200px;">Due Day</th>
                             <th style="max-width: 50px;">Status</th>
                             <th style="min-width: 300px;">Action</th>
@@ -88,10 +81,10 @@ Posts Management
             "processing": true,
             "serverSide": true,
             "ajax": {
-                'url' : "posts-list",
+                'url' : "comments?q=1",
                 "data" : function(data){
                     var status = $('#status').val();
-                    var category = $('#hastags').val();
+                    var category = $('#category').val();
 
                     data.searchByStatus = status;
                     data.searchByCategory = category;
@@ -140,7 +133,7 @@ Posts Management
                     "orderable": false,
                     "render": function(data, type, row, meta){
 
-                        var htmlAction = "<a class='btn btn-warning mr-2' href='comment/"+data+"'>Comment</a>";
+                        var htmlAction = "<a class='btn btn-warning mr-2' href='posts/"+data+"/comment'>Comment</a>";
                         htmlAction +=  "<a class='btn btn-primary mr-2' href='posts/"+data+"/edit'>Edit</a>";
 
                         if(row.status != 0){

@@ -634,11 +634,13 @@ class PostController extends Controller
     {
         $keyWord = $request->get('q');
         $posts = $this->postService->searchPost($keyWord);
+        $user_id = $request->user()->id;
         foreach ($posts as $key => $post) {
             $post->user;
-            $post["totalLike"] = $post->likes()->count();
             $post->hastags;
             $post->offers;
+            $post["totalLike"] = $post->likes()->count();
+            $post["commented"] = $post->commented($user_id);
         }
         return $posts;
     }

@@ -70,6 +70,7 @@ class UserService
             $like->post->user;
             $like->post->hastags;
             $like->post["commented"] = $like->post->commented($user_id);
+            $like->post["totalLike"] = $like->post->totalLikes();
         }
         return $likes;
     }
