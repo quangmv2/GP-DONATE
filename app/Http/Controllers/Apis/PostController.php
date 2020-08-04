@@ -617,7 +617,7 @@ class PostController extends Controller
      */
     public function getComments(Request $request, $id)
     {
-        $comments = \App\Models\Comment::where('post_id', $id)->get();
+        $comments = \App\Models\Comment::where('post_id', $id)->where('status', 1)->get();
         foreach ($comments as $key => $comment) {
             $comment->user;
         }

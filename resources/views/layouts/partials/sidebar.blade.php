@@ -23,13 +23,13 @@
 			<div class="card-body">
 				<div class="media">
 					<div class="mr-3">
-						<a href="#"><img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="38" height="38" class="rounded-circle" alt=""></a>
+						<a href="#"><img src="{{ Auth::user()->personal_photo?'/api/photo?dir='.Auth::user()->personal_photo: asset('global_assets/images/img_avatar.png') }}" width="38" height="38" class="rounded-circle" alt=""></a>
 					</div>
 
 					<div class="media-body">
-						<div class="media-title font-weight-semibold">Victoria Baker</div>
+						<div class="media-title font-weight-semibold">{{ Auth::user()->first_name }}</div>
 						<div class="font-size-xs opacity-50">
-							<i class="icon-pin font-size-sm"></i> &nbsp;Santa Ana, CA
+							<i class="icon-pin font-size-sm"></i> &nbsp;
 						</div>
 					</div>
 
@@ -56,7 +56,7 @@
 						<i class="icon-home4"></i>
 						<span>
 							Dashboard
-							<span class="d-block font-weight-normal opacity-50">No active orders</span>
+							<span class="d-block font-weight-normal opacity-50"></span>
 						</span>
 					</a>
 				</li>
@@ -65,7 +65,7 @@
 					<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Posts</span></a>
 					<ul class="nav nav-group-sub" data-submenu-title="Layouts" style="@if (\Request::is('admin/posts') || \Request::is('admin/posts/*') || \Request::is('admin/categories') || \Request::is('admin/categories/*')) display:block @endif">
 						<li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link @if(\Request::is('admin/posts')) active @endif">List Posts</a></li>
-						<li class="nav-item"><a href="{{ route('posts.create') }}" class="nav-link @if(\Request::is('admin/posts/create')) active @endif">Create Post</a></li>
+						{{-- <li class="nav-item"><a href="{{ route('posts.create') }}" class="nav-link @if(\Request::is('admin/posts/create')) active @endif">Create Post</a></li> --}}
 					</ul>
 
 				</li>
