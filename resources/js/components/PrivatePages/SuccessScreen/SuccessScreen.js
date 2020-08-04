@@ -4,6 +4,9 @@ import { autoPlay } from 'react-swipeable-views-utils';
 import './Success.scss';
 import { Link } from 'react-router-dom';
 import { ROUTE } from '../../../constants';
+import { selectUserInfo } from "modules/auth/selectors";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
@@ -21,10 +24,28 @@ const tutorialSteps = [
       'images/FullScreen/step3.jpg',
   }
   ]
+  const patronSteps = [
+    {
+      imgPath:
+        'images/FullScreen/patron1.jpg',
+    },
+    {
+    
+      imgPath:
+        'images/FullScreen/patron2.jpg',
+    },
+    {
+      imgPath:
+        'images/FullScreen/patron3.jpg',
+    }
+    ]
+  
 
 
 
 const SuccessScreen = props => {
+  const { userInfo } = props;
+  
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = tutorialSteps.length;
 
@@ -35,6 +56,12 @@ const SuccessScreen = props => {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
+let steps = tutorialSteps;
+if(userInfo && userInfo.roles ) {
+  if(userInfo.roles[0].name == 'giver') {
+    steps = patronSteps;
+  }
+}
 
   return (
     <div className='container'>
@@ -43,7 +70,7 @@ const SuccessScreen = props => {
         onChangeIndex={handleStepChange}
         enableMouseEvents
       >
-        {tutorialSteps.map((step, index) => (
+        {steps.map((step, index) => (
           <div key={step.label}>
             {Math.abs(activeStep - index) <= 2 ? (
               <img  className ='image' src={step.imgPath} alt={step.label} />
@@ -62,4 +89,9 @@ const SuccessScreen = props => {
   );
 }
 
-export default SuccessScreen;
+const mapStateToProps = createStructuredSelector({
+  userInfo: selectUserInfo()
+});
+
+
+export default connect(mapStateToProps)(SuccessScreen);
