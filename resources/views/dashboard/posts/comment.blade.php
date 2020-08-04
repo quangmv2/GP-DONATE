@@ -7,6 +7,10 @@
     <a href="{{ route('posts.index') }}" class="breadcrumb-item"> Posts</a>
 @endsection
 
+@section('title')
+Comment Management
+@endsection
+
 @section('screen_name')
 Comment Management
 @endsection
@@ -24,7 +28,7 @@ Comment Management
     <div class="col-lg-12 margin-tb">
         <div class="card">
             <div class="card-header header-elements-sm-inline">
-                <h6 class="card-title">Comments</h6>
+                <h6 class="card-title">Comments of "{{ $post->title }}"</h6>
             </div>
 
             @if ($message = Session::get('success'))
@@ -52,11 +56,11 @@ Comment Management
                     <thead>
                         <tr>
                             <th style="max-width: 100px;">No</th>
-                            <th style="min-width: 300px;">Author</th>
-                            <th style="min-width: 300px;">Description</th>
-                            <th style="max-width: 200px;">Due Day</th>
+                            <th style="min-width: 100px;">Author</th>
+                            <th style="min-width: 300px;">Content</th>
+                            <th style="max-width: 150px;">Commented At</th>
                             <th style="max-width: 50px;">Status</th>
-                            <th style="min-width: 300px;">Action</th>
+                            <th style="min-width: 200px;">Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -81,7 +85,7 @@ Comment Management
             "processing": true,
             "serverSide": true,
             "ajax": {
-                'url' : "comments?q=1",
+                'url' : "./?q={{ $post->id }}",
                 "data" : function(data){
                     var status = $('#status').val();
                     var category = $('#category').val();
@@ -93,24 +97,31 @@ Comment Management
             "order": [[ 0, "desc" ]],
             "columns": [
                 { "bSearchable": false, "data": "id" },
-                { "bSearchable": true, "data": "title" },
-                { "bSearchable": true, "data": "hastags",
+                { "bSearchable": true, "data": "user",
                     "orderable": false,
                     "render": function(data, type, row, meta)
                     {
-                        var htmlStatus="";
-                        if(data && data.length > 0){
-                            const length = data.length>5?5:data.length;
-                            for (var i = 0; i < length; i++) {
-                                htmlStatus += "<label class='badge badge-primary mr-1'>"+data[i].value+"</label>";
-                            }
-                            if (data.length>5) htmlStatus += "<label class='badge badge-primary mr-1'>...</label>";
-                        }
-
-                        return htmlStatus;
+                        return data.first_name;
                     }
                 },
-                { "bSearchable": true, "data": "due_day"},
+                { "bSearchable": true, "data": "content",
+                    "render": function(data, type, row, meta)
+                        {
+                            if(data && data.length>=100)
+                            { 
+                                return data.substring(0,100)+"...";
+                            }
+                            else
+                            {
+                                return data;
+                            }
+                        }
+                },
+                { "bSearchable": true, "data": "created_at",
+                    "render" : (data) => {
+                        return moment(data).add(-(new Date().getTimezoneOffset() / 60), 'hours').format('DD-MM-YYYY, HH:mm:ss');
+                    }
+                },
                 { "bSearchable": true, "data": "status",
                     "orderable": false,
                     "render": function(data, type, row, meta){
@@ -133,14 +144,14 @@ Comment Management
                     "orderable": false,
                     "render": function(data, type, row, meta){
 
-                        var htmlAction = "<a class='btn btn-warning mr-2' href='posts/"+data+"/comment'>Comment</a>";
-                        htmlAction +=  "<a class='btn btn-primary mr-2' href='posts/"+data+"/edit'>Edit</a>";
+                        // var htmlAction =  "<a class='btn btn-primary mr-2' href='posts/"+data+"/edit'>Edit</a>";
+                        var htmlAction = "";
 
                         if(row.status != 0){
-                            htmlAction +=  "<a class='btn btn-secondary mr-2' href='posts/"+data+"/hidden'>Hidden</a>";
-                            htmlAction += "<form method='POST'' action='posts/"+data+"' accept-charset='UTF-8' style='display:inline;' class='form_delete'><input name='_method' type='hidden' value='DELETE'><input name='_token' type='hidden' value='"+_csrfToken+"'><input class='btn btn-danger btn_delete_post' style='margin-top: 5px' type='button' value='Delete'></form>";
+                            htmlAction +=  "<a class='btn btn-secondary mr-2' href='./"+data+"/hidden'>Hidden</a>";
+                            htmlAction += "<form method='POST'' action='./"+data+"' accept-charset='UTF-8' style='display:inline;' class='form_delete'><input name='_method' type='hidden' value='DELETE'><input name='_token' type='hidden' value='"+_csrfToken+"'><input class='btn btn-danger btn_delete_post' style='margin-top: 5px' type='button' value='Delete'></form>";
                         } else {
-                            htmlAction +=  "<a class='btn btn-success mr-2' href='posts/"+data+"/show'>Show</a>";
+                            htmlAction +=  "<a class='btn btn-success mr-2' href='./"+data+"/show'>Show</a>";
                         }
                         return htmlAction;
                     }

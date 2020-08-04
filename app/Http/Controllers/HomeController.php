@@ -24,6 +24,8 @@ class HomeController extends Controller
     public function index(Request $req)
     {
         // return $req->user();
+        return redirect()->route('posts.index')
+            ->with('success','Welcome to admin page');
         return view('dashboard.main', ['enable_breadcrumb' => false]);
     }
 }

@@ -11,6 +11,8 @@ use Response;
 use App\Models\Hastag;
 use App\Models\Post;
 
+use App\Services\PostService;
+
 class PostController extends Controller
 { 
     /**
@@ -18,8 +20,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
+    function __construct(PostService $postService)
     {
+        $this->postService = $postService;
     //      $this->middleware('permission:post-list|post-create|post-edit|post-delete', ['only' => ['index','show']]);
     //      $this->middleware('permission:post-create', ['only' => ['create','store']]);
     //      $this->middleware('permission:post-edit', ['only' => ['edit','update']]);
@@ -145,8 +148,13 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Request $request, Post $post)
     {
+        $tmp = [];
+        foreach ($post->hastags as $key => $value) {
+            $tmp[] = $value->value;
+        }
+        return view('dashboard.posts.edit', [ 'post' => $post, 'hastags' => $tmp]);
     }
 
 
@@ -159,7 +167,23 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-
+        $request->validate([
+            'title' =>'required',
+            // 'content' =>'required',  
+            'photo_thumbnail' => 'required',
+            'due_day' => 'required|date|date_format:"Y-m-d"|after:now',
+        ]);
+        $hastags = explode(',', $request->input('hastags'));
+        $photo_thumbnail = empty($request->input('photo_thumbnail'))?$post->photo_thumbnail:$request->input('photo_thumbnail');
+        $post->update([
+            'title' => $request->title,
+            'photo_thumbnail' => $photo_thumbnail,
+            'due_day' => $request->due_day." 00:00:00"
+        ]);
+        \App\Models\PostHasHastag::where('post_id', $post->id)->delete();
+        $this->postService->createAndAddHastag($post->id, $hastags);
+        return redirect()->route('posts.index')
+                        ->with('success','Post update successfully');
     }
 
 
@@ -172,7 +196,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id)->delete();  
-        return redirect()->route('posts.index')
+        return redirect()->back()
                         ->with('success','Post deleted successfully');
     }
 
@@ -181,7 +205,7 @@ class PostController extends Controller
         Post::find($id)->update([
             'status' => 0
         ]);
-        return redirect()->route('posts.index')
+        return redirect()->back()
                         ->with('success','Post hidden successfully');
     }
 
@@ -190,7 +214,7 @@ class PostController extends Controller
         Post::find($id)->update([
             'status' => 1
         ]);
-        return redirect()->route('posts.index')
+        return redirect()->back()
                         ->with('success','Post showed successfully');
     }
 }

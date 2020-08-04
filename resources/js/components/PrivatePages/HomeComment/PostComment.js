@@ -34,10 +34,12 @@ const PostComment = (props) => {
 
     const fetchFirstData = useCallback(async () => {
         await fetchComments();
-        screen.scrollTo(0,document.body.scrollHeight);
+        screen.current.scrollTo(0,document.body.scrollHeight);
         socket.emit('watch-post', { id: post.id });
+        console.log('comttme');
         socket.on(`new-comment`, data => {
             setComments(cmts => {
+                console.log(cmts);
                 if (cmts.find(({ id }) => id === data.id)) return cmts;
                 const newCmts = [...cmts];
                 newCmts.push(data);
