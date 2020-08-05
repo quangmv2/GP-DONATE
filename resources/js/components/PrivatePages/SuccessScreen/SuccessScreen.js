@@ -15,7 +15,6 @@ const tutorialSteps = [
       'images/FullScreen/step1.jpg',
   },
   {
-  
     imgPath:
       'images/FullScreen/step2.jpg',
   },
@@ -38,11 +37,8 @@ const tutorialSteps = [
       imgPath:
         'images/FullScreen/patron3.jpg',
     }
-    ]
+]
   
-
-
-
 const SuccessScreen = props => {
   const { userInfo } = props;
   
@@ -80,8 +76,7 @@ if(userInfo && userInfo.roles ) {
         ))}
       </AutoPlaySwipeableViews>
  
-     {/* { activeStep !== maxSteps - 1 ?  <button className='next-button' onClick={handleNext}>Hello</button> :  <Link to={ROUTE.HOME}>To Home</Link>} */}
-{  activeStep !== maxSteps - 1 ?  <button className='next-button' onClick={handleNext}>Hello</button> : <Link to={ROUTE.HOME} className='next-button'>To Home</Link>}
+      {  activeStep !== maxSteps - 1 ?  <button className='next-button' onClick={handleNext}>Hello</button> : <Link to={ROUTE.HOME} className='next-button'>To Home</Link>}
       <Link className ='skip-link' to={ROUTE.HOME}>To Home</Link>
  
     </div>

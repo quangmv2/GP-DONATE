@@ -85,9 +85,7 @@ const HomePage = (props) => {
                 direction="vertical"
                 style={{ height: openModal? 0 : window.innerHeight, display: openModal?"none":"block" }}
                 onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
-                // onSlidePrevTransitionStart={sw => console.log(sw)}
-                onSliderMove={sw => console.log(sw)}
-                // onSlideChangeTransitionStart
+                onSliderMove={sw => null}
             >
 
               {posts.map(post => 

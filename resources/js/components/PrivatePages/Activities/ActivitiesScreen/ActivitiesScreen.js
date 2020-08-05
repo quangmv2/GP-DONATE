@@ -87,7 +87,6 @@ const ActivitesScreen = () => {
 
     const changeTab = activeKey => {
         setActiveTab(activeKey);
-        console.log(activeKey)
     }
 
     const openWindow = idMessage => {

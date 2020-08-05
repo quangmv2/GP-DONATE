@@ -166,7 +166,6 @@
           parallaxInstance.disable();
           
         }else if(!isMobile()){
-          console.log(parallaxInstance);
           if(!parallaxInstance){
             parallaxInstance = new Parallax(scene);
           }else{

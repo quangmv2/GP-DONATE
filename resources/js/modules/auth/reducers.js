@@ -14,7 +14,6 @@ export const initialState = fromJS({
   refreshToken: "",
   identity: null,
   challenge: "",
-  userChangePass: null,
   userInfo: undefined
 });
 
@@ -97,6 +96,7 @@ const reducer = (state = initialState, action) => {
         .set("logged", false)
         .set("accessToken", "")
         .set("refreshToken", "")
+        .set("userInfo", null);
     }
     case types.LOGOUT_FAILED: {
       const error = action.payload;

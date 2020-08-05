@@ -167,7 +167,6 @@ const PostOffer = props => {
     setTimeSlotArray(arr);
   };
   const onOk = (value) => {
-    console.log('onOk: ', value);
   }
 
   const renderInputDate = () => {

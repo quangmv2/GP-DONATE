@@ -21,7 +21,6 @@ import { URL_REDIRECT_LOGIN } from "../../../constants/variables";
 import { FEATURE_NAME_POST } from "../../../modules/post/constants";
 import Loading from "../../Atoms/Loading/Loading";
 
-
 const { Content } = Layout;
 
 class PrivateLayout extends Component {
@@ -79,10 +78,9 @@ class PrivateLayout extends Component {
 
     render() {
         const { children, loading } = this.props;
-        console.log(loading);
         if (loading) {
             return (
-                <Layout id="tripto-private-layout" theme="dark" className="dark">
+                <Layout id="gp-private-layout" theme="dark" className="dark">
                     <Layout>
                         <div
                             className="content-layout wide-container"
@@ -104,7 +102,7 @@ class PrivateLayout extends Component {
             )
         }
         return (
-            <Layout id="tripto-private-layout" theme="dark" className="dark">
+            <Layout id="gp-private-layout" theme="dark" className="dark">
                 <Layout>
                     <div
                         className="content-layout wide-container"

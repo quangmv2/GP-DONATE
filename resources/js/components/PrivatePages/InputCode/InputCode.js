@@ -47,14 +47,22 @@ export class InputCode extends Component {
             });
         const { data, status } = res;
         if ( status == 200) {
-            this.props.history.push(ROUTE.CONGRAT)
+            this.handleSkip();
         }    
         else {
             openNotification(NOTIFICATION_TYPE.ERROR, "Failed", "Not found code invitation");
         }
     }
 
-
+    handleSkip = () => {
+        const signup = localStorage.getItem("SIGNUP");
+        if(signup){
+            localStorage.removeItem("SIGNUP");
+            this.props.history.push(ROUTE.CONGRAT);
+        }else{
+            this.props.history.push(ROUTE.HOME)
+        }
+    }
    
     render() {
         const { loading, error } = this.props;
@@ -92,9 +100,7 @@ export class InputCode extends Component {
                                 errors,
                                 touched,
                                 handleChange,
-                                //handleBlur,
                                 handleSubmit
-                                /* and other goodies */
                             }) => (
                                 <form onSubmit={handleSubmit} layout="vertical">
                                     <>
@@ -159,6 +165,7 @@ export class InputCode extends Component {
                                             id="login-btn"
                                             name="login-btn"
                                             type="primary"
+                                            onClick={this.handleSkip}
                                         >
                                             <FormattedMessage
                                                 defaultMessage={
@@ -170,25 +177,6 @@ export class InputCode extends Component {
                                         </Link>
                                     </div>
                                 
-                                    <div className="bottomTextContainer">
-                                        <FormattedMessage
-                                            defaultMessage={
-                                                "signupPage.onboard"
-                                            }
-                                            id={"signupPage.onboard"}
-                                        ></FormattedMessage>
-                                        <Link
-                                            className="bottomLink"
-                                            to={PRIVATE_ROUTE.HOME}
-                                        >
-                                            <FormattedMessage
-                                                defaultMessage={
-                                                    "loginPage.signin"
-                                                }
-                                                id={"loginPage.signin"}
-                                            ></FormattedMessage>
-                                        </Link>
-                                    </div>
                                 </form>
                             )}
                         </Formik>

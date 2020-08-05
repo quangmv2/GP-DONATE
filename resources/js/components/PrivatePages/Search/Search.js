@@ -64,7 +64,6 @@ const Search = props => {
 
     const changeTab = active => {
         setKeyWord('');
-        console.log(active)
         setActive(active);
         if (active == 2) searchPost('');
         else searchPeople('');

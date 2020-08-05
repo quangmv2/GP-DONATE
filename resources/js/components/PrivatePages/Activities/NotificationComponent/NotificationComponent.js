@@ -25,8 +25,6 @@ const NotificationComponent = props => {
 
             const [isFr, setIsFr] = useState(false);
 
-            // console.log(id);
-
             useEffect(() => {
                 if (type == "follow") checkIsFrend(user.id);
             }, []);
@@ -37,7 +35,6 @@ const NotificationComponent = props => {
                 });
 
                 if (status == 200) {
-                    console.log(data);
                     setIsFr(data.status);
                 }
             }

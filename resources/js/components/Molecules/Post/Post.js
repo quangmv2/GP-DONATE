@@ -20,7 +20,7 @@ const Post = ({
     index,
     commented
 }) => {
-    console.log(author);
+
     return (
         <div className={className ?? ""} key={keyEle} >
             <div className="post-wrapper">
@@ -42,9 +42,7 @@ const Post = ({
                 <div className="post-info-wrapper">
                     <h2 onClick={() => onClick(index)}>{title}</h2>
                     <div className="icon-line">
-                        <i className="icon-goods icon" onClick={() => {
-                            console.log('hello')
-                        }}/>
+                        <i className="icon-goods icon" onClick={() => null}/>
                         <label>{description}</label>
                     </div>
                     <div className="icon-line">
