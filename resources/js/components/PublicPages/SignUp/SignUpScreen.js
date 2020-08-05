@@ -50,6 +50,7 @@ export class SignUpScreen extends Component {
     componentDidUpdate() {
         const { isLogged } = this.props;
         if ( isLogged ) {
+            localStorage.setItem("SIGNUP", true);
             this.redirectPrivatePage();
         }
     }
