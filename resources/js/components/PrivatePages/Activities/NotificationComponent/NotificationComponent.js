@@ -71,7 +71,7 @@ const NotificationComponent = props => {
                                     <UserAvatar size="42" name={`${user.first_name}`} />
                             }
                             <div className="info-user mess-content-container">
-                                <p className="username">{`${user.first_name} ${user.last_name}`}</p>
+                                <p className="username">{`${user.first_name}`}</p>
                                 <p className="mess-content">
                                     {
                                         type == "comment" ?
