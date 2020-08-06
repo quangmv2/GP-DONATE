@@ -43,6 +43,7 @@ const UserProfile = (props) => {
         const [users] = await fetchService.fetch(GET_PROFILE(isUser), {
             method: 'GET'
         });
+        console.log(users);
         setUser(users);
         setRoles(users.roles[0].name);
 
@@ -126,6 +127,8 @@ const UserProfile = (props) => {
         });
     };
 
+    console.log(Object.keys(user).length);
+
     return (
         <>
       
@@ -140,8 +143,8 @@ const UserProfile = (props) => {
                 display: modal||open?'none':'block'
             }} >
                 <div className="full-photo-div">
-                    {userInfo? userInfo.full_photo?<img className="full-photo-background" src={GET_IMAGE(userInfo.full_photo)}/>:
-                        <img className="full-photo-background" src='/image-profile.png'/>
+                    {Object.keys(user).length > 1 ? (user.full_photo?<img className="full-photo-background" src={GET_IMAGE(user.full_photo)}/>:
+                        <img className="full-photo-background" src='/image-profile.png'/>)
                     :<Loading />
                     }
                 </div>
