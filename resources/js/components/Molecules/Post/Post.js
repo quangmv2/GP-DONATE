@@ -5,6 +5,7 @@ import { FormattedMessage } from "react-intl";
 import "./Post.scss";
 import { GET_IMAGE } from "../../../constants/routes";
 import UserAvatar from "react-user-avatar";
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 const Post = ({
     img,
@@ -19,12 +20,15 @@ const Post = ({
     index,
     commented
 }) => {
-    console.log(author);
+
     return (
-        <div className={className ?? ""} key={keyEle} onClick={() => onClick(index)}>
+        <div className={className ?? ""} key={keyEle} >
             <div className="post-wrapper">
                 <div className="post-image">
                     <img src={img} className="img-content" />
+                    <button class='button-trans'>
+                    <MoreHorizIcon className='more-icon'/>
+                    </button>
                     <div className="wrapper-icon">
                         <button className="icon-button">
                         {commented ?   <i className="icon-comment-normal" /> :  <i className="icon-comment-active" />}
@@ -36,9 +40,9 @@ const Post = ({
                     </div>
                 </div>
                 <div className="post-info-wrapper">
-                    <h2>{title}</h2>
+                    <h2 onClick={() => onClick(index)}>{title}</h2>
                     <div className="icon-line">
-                        <i className="icon-goods icon" />
+                        <i className="icon-goods icon" onClick={() => null}/>
                         <label>{description}</label>
                     </div>
                     <div className="icon-line">

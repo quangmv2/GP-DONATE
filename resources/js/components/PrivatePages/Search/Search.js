@@ -64,7 +64,6 @@ const Search = props => {
 
     const changeTab = active => {
         setKeyWord('');
-        console.log(active)
         setActive(active);
         if (active == 2) searchPost('');
         else searchPeople('');
@@ -88,7 +87,7 @@ const Search = props => {
                         defaultActiveKey="1"
                         onChange={changeTab}
                         >
-                        <TabPane tab={<span>Patrons</span>} key="1">
+                        <TabPane tab={<span>Generous Patrons</span>} key="1">
                             <Patron data={dataPeople} />
                         </TabPane>
                         <TabPane

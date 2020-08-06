@@ -129,7 +129,6 @@ Edit Posts
                 processData: false,
                 success: function(response){
                     if(response != 0){
-                        console.log(response);
                         $('#photo').val(response.image_directory);
                         $('#image_preview').empty();
                         $('#image_preview').html('<img src="'+'/api/photo?dir='+response.image_directory+'" /><span class="remove_image icon-cross3 "></span>');

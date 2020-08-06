@@ -25,7 +25,6 @@ const PostLike = props => {
         });
         if (status == 200) {
             setDataPost(data.map(tmp => tmp.post));
-            console.log(data)
         }
     }, []);
 
@@ -33,8 +32,6 @@ const PostLike = props => {
         setOpenSwipper(true);
         setIndexSwiper(id);
     }
-
-    console.log(dataPost);
 
     return (
         <div className="private-fullheight">

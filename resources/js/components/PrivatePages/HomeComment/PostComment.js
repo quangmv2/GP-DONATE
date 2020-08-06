@@ -36,10 +36,8 @@ const PostComment = (props) => {
         await fetchComments();
         screen.current.scrollTo(0,document.body.scrollHeight);
         socket.emit('watch-post', { id: post.id });
-        console.log('comttme');
         socket.on(`new-comment`, data => {
             setComments(cmts => {
-                console.log(cmts);
                 if (cmts.find(({ id }) => id === data.id)) return cmts;
                 const newCmts = [...cmts];
                 newCmts.push(data);
@@ -61,7 +59,6 @@ const PostComment = (props) => {
                 method: "GET"
             });
             if (status === 200) {
-                console.log(comments);
                 setComments(comments);
                 return comments;
              

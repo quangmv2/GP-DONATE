@@ -15,6 +15,10 @@ label.MuiFormLabel-root,
 p.MuiFormHelperText-root {
   font-family: "Muli", sans-serif;
 }
+#root{
+  min-height: 100%;
+  display: flex;
+}
 .ant-layout {
   background: var(--layout-body-background);
   min-height: 100%;
@@ -77,4 +81,8 @@ p.MuiFormHelperText-root {
     color: #333;
     font-weight: bold;
   }
+}
+
+.main-container{
+  padding: 0 22px;
 }
