@@ -140,18 +140,18 @@ Posts Management
                     } 
                 },
                 { 
-                    "bSearchable": false, "data": "id",  "targets": -1,  
+                    "bSearchable": false,  "data": { "id": "id", "comments": "comments" }, "targets": -1,  
                     "orderable": false,
                     "render": function(data, type, row, meta){
-
-                        var htmlAction = "<a class='btn btn-warning mr-2' href='comment/"+data+"'>Comment</a>";
-                        htmlAction +=  "<a class='btn btn-primary mr-2' href='posts/"+data+"/edit'>Edit</a>";
+                        var htmlAction = '';
+                        if (data.comments.length > 0) htmlAction += `<a class='btn btn-warning mr-2' href='comment/${data.id}'>Comment (${data.comments.length})</a>`;
+                        htmlAction +=  "<a class='btn btn-primary mr-2' href='posts/"+data.id+"/edit'>Edit</a>";
 
                         if(row.status != 0){
-                            htmlAction +=  "<a class='btn btn-secondary mr-2' href='posts/"+data+"/hidden'>Hidden</a>";
-                            htmlAction += "<form method='POST'' action='posts/"+data+"' accept-charset='UTF-8' style='display:inline;' class='form_delete'><input name='_method' type='hidden' value='DELETE'><input name='_token' type='hidden' value='"+_csrfToken+"'><input class='btn btn-danger btn_delete_post' style='margin-top: 5px' type='button' value='Delete'></form>";
+                            htmlAction +=  "<a class='btn btn-secondary mr-2' href='posts/"+data.id+"/hidden'>Hidden</a>";
+                            htmlAction += "<form method='POST'' action='posts/"+data.id+"' accept-charset='UTF-8' style='display:inline;' class='form_delete'><input name='_method' type='hidden' value='DELETE'><input name='_token' type='hidden' value='"+_csrfToken+"'><input class='btn btn-danger btn_delete_post' style='margin-top: 5px' type='button' value='Delete'></form>";
                         } else {
-                            htmlAction +=  "<a class='btn btn-success mr-2' href='posts/"+data+"/show'>Show</a>";
+                            htmlAction +=  "<a class='btn btn-success mr-2' href='posts/"+data.id+"/show'>Show</a>";
                         }
                         return htmlAction;
                     }

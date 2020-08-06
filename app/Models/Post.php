@@ -66,6 +66,11 @@ class Post extends Model
         return $this->likes()->count();
     }
 
+    // public function totalComments()
+    // {
+    //     return $this->comments()->count();
+    // }
+
 	// public function categories() {
     //     return $this->belongsToMany(Category::class, 'category_post', 'post_id', 'category_id');
     // }
