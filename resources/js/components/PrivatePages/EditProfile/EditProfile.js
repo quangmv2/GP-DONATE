@@ -5,7 +5,6 @@ import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import { fetchService } from "../../../services/fetch/fetchService";
 import { ROOT_API_URL, GET_IMAGE, ACCESS_TOKEN, POST_POST, ROUTE } from "../../../constants";
 import {
-
     selectUserInfo
 } from "modules/auth/selectors";
 import { HeaderNavigation } from "components/Atoms";
@@ -42,19 +41,19 @@ const EditProfile = (props) => {
             openNotification(NOTIFICATION_TYPE.SUCCESS, 'Success');
             const { history } = props;
             history.push(ROUTE.MYPROFILE)
-           
+
         } else if (status == 422) {
             const keys = Object.keys(res.errors);
             keys.forEach(key => openNotification(NOTIFICATION_TYPE.ERROR, res.errors[key]));
 
         } else {
-            openNotification(NOTIFICATION_TYPE.ERROR, 'Error', '') 
+            openNotification(NOTIFICATION_TYPE.ERROR, 'Error', '')
         }
     }
 
     useEffect(() => {
-      setImage(userInfo.personal_photo);
-      setFullPhoto(userInfo.full_photo);
+        setImage(userInfo.personal_photo);
+        setFullPhoto(userInfo.full_photo);
     }, [userInfo])
 
     const uploadFullphoto = async (e) => {
@@ -102,25 +101,34 @@ const EditProfile = (props) => {
         setFoudation(e.target.value);
     };
     let avatar = (
-      <>
-        <label htmlFor="upload"> 
-          <img
-            src={GET_IMAGE(image)}
-            alt="Girl in a jacket"
-            width="60"
-            height="60"
-            className="avatar-image"
-          />
-        </label>
-        <input id="upload" type="file" name="photo" style={{ visibility: 'hidden' }} onChange={uploadAvatar} />
-      </>
+        <>
+            <label htmlFor="upload">
+                <img
+                    src={GET_IMAGE(image)}
+                    alt="Girl in a jacket"
+                    width="60"
+                    height="60"
+                    className="avatar-image"
+                />
+            </label>
+            <input id="upload" type="file" name="photo" style={{ visibility: 'hidden' }} onChange={uploadAvatar} />
+        </>
     )
-    if(!(userInfo.personal_photo && image)) 
-    { avatar = 
-      <>
-        <label htmlFor="upload"><UserAvatar size="100" name={`${userInfo.first_name}`} /></label>
-        <input id="upload" type="file" name="photo" style={{ visibility: 'hidden' }} onChange={uploadAvatar} />
-      </>
+    console.log(image, "im");
+    if (!(userInfo.personal_photo && image)) {
+        avatar =
+            <>
+                <label htmlFor="upload">
+                    {
+                        image==null?<UserAvatar size="100" name={`${userInfo.first_name}`} />:
+                        <img className="UserAvatar--inner"
+                            style={{ height: "100px", width: "100px", borderRadius: "100%" }}
+                            src={GET_IMAGE(image)}
+                        />
+                    }
+                </label>
+                <input id="upload" type="file" name="photo" style={{ visibility: 'hidden' }} onChange={uploadAvatar} />
+            </>
     }
     return (
         <div className="private-fullheight">
@@ -128,32 +136,32 @@ const EditProfile = (props) => {
                 <HeaderNavigation headerName="Edit Profile" />
 
                 <div className="bgImg">
-                   <img className='bg-avatar-left' src='/images/Left.png' />
-                   <img className='bg-avatar-right' src='/images/Right.png'/>
+                    <img className='bg-avatar-left' src='/images/Left.png' />
+                    <img className='bg-avatar-right' src='/images/Right.png' />
                     <div className="info-bg">
-                        {userInfo.code_id || image ? 
-                          <div className="image">
-                              <StarFilled className="icon-star" />
-                              {avatar}
-                          </div> : 
-                          <div className="image">{avatar} </div>
+                        {userInfo.code_id || image ?
+                            <div className="image">
+                                <StarFilled className="icon-star" />
+                                {avatar}
+                            </div> :
+                            <div className="image">{avatar} </div>
                         }
-                        <label htmlFor="upload" style={{marginTop: -25}}> 
-                          <span className="text">
-                            <FormattedMessage defaultMessage="Change Your Avatar" id="editProfile.changeYourAvatar" />
-                          </span>
+                        <label htmlFor="upload" style={{ marginTop: -25 }}>
+                            <span className="text">
+                                <FormattedMessage defaultMessage="Change Your Avatar" id="editProfile.changeYourAvatar" />
+                            </span>
                         </label>
                         <input id="upload" type="file" name="photo" style={{ visibility: 'hidden' }} onChange={uploadAvatar} />
-                      </div>
+                    </div>
                 </div>
                 <div className="body-wrapper wrapper-profile">
                     <form >
                         <div className="form-submit">
-                        <label className='username-label'><FormattedMessage defaultMessage="Name" id="common.name" />*</label>
+                            <label className='username-label'><FormattedMessage defaultMessage="Name" id="common.name" />*</label>
                             <TextField
                                 className="form-text"
                                 id="standard-password-input"
-                
+
                                 type="text"
                                 name="username"
                                 value={name}
@@ -172,36 +180,36 @@ const EditProfile = (props) => {
                             />
                         </div>
                         <div className="form-submit">
-                          <label className='username-label'><FormattedMessage defaultMessage="Foundation" id="common.foundation" /></label>
-                          <TextField
-                              className="form-text foudation-text"
-                              id="standard-password-input"
-                              type="text"
-                              name="name"
-                              value={foudation}
-                              onChange={changeFoudation}
+                            <label className='username-label'><FormattedMessage defaultMessage="Foundation" id="common.foundation" /></label>
+                            <TextField
+                                className="form-text foudation-text"
+                                id="standard-password-input"
+                                type="text"
+                                name="name"
+                                value={foudation}
+                                onChange={changeFoudation}
 
-                          />
+                            />
                         </div>
 
-                        { userInfo.full_photo || fullPhoto ? 
-                          <>
-                              <label htmlFor="fullPhoto"> 
-                                  <img
-                                      src={GET_IMAGE(fullPhoto)}
-                                      className='full-photo-image'
-                                      alt="Girl in a jacket"
-                                      width="100%"
-                                      height="100%"
-                                  />
-                              </label>
-                              <input id="fullPhoto" type="file" name="fullPhoto" style={{ visibility: 'hidden' }} onChange={uploadFullphoto} /> 
-                          </>
-                              : 
-                          <div className="form-submit form-upload form-upload-fullPhoto">
-                              <label htmlFor="fullPhoto"><PhotoCameraIcon style={{ fontSize: '37px' }} /></label>
-                              <input id="fullPhoto" type="file" name="fullPhoto" style={{ visibility: 'hidden' }} onChange={uploadFullphoto} />
-                          </div>
+                        {userInfo.full_photo || fullPhoto ?
+                            <>
+                                <label htmlFor="fullPhoto">
+                                    <img
+                                        src={GET_IMAGE(fullPhoto)}
+                                        className='full-photo-image'
+                                        alt="Girl in a jacket"
+                                        width="100%"
+                                        height="100%"
+                                    />
+                                </label>
+                                <input id="fullPhoto" type="file" name="fullPhoto" style={{ visibility: 'hidden' }} onChange={uploadFullphoto} />
+                            </>
+                            :
+                            <div className="form-submit form-upload form-upload-fullPhoto">
+                                <label htmlFor="fullPhoto"><PhotoCameraIcon style={{ fontSize: '37px' }} /></label>
+                                <input id="fullPhoto" type="file" name="fullPhoto" style={{ visibility: 'hidden' }} onChange={uploadFullphoto} />
+                            </div>
                         }
 
                         <button
@@ -209,13 +217,13 @@ const EditProfile = (props) => {
                             className="button edit-profile-button"
                             onClick={submit}
                         >
-                             <FormattedMessage defaultMessage="Complete" id="common.complete" />
-                    </button>
+                            <FormattedMessage defaultMessage="Complete" id="common.complete" />
+                        </button>
                     </form>
                 </div>
             </div>
         </div>
- 
+
     );
 }
 
