@@ -74,6 +74,10 @@
   font-weight: bold;
   line-height: 1.27;
   color: #ffffff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 80vw;
 }
 .home-text {
   text-shadow: 0 2px 6px rgba(18, 16, 60, 0.45);
@@ -232,7 +236,7 @@ outline: none !important;
 }
 
 .button-liked, .button-liked:hover, .button-liked:focus, .button-liked:active {
-  color: #cc1d2f;
+  color: #cc1d2f!important;
   > span{
     line-height: 10px;
     color: white;

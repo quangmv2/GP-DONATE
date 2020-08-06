@@ -87,7 +87,7 @@ const Search = props => {
                         defaultActiveKey="1"
                         onChange={changeTab}
                         >
-                        <TabPane tab={<span>Patrons</span>} key="1">
+                        <TabPane tab={<span>Generous Patrons</span>} key="1">
                             <Patron data={dataPeople} />
                         </TabPane>
                         <TabPane

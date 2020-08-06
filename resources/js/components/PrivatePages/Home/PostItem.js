@@ -19,8 +19,7 @@ import { SocketContext } from "../../../context/SocketProvider";
 import moment from "moment";
 import CloseIcon from '@material-ui/icons/Close';
 import { selectUserInfo } from "modules/auth/selectors";
-
-
+import { Tooltip } from 'antd';
 
 const PostItem = (props) => {
    
@@ -181,7 +180,9 @@ const PostItem = (props) => {
 
                 </div>
                 <div className="home-content">
-                    <p className="title-post">{props.title}</p>
+                    <Tooltip title={props.title}>
+                        <p className="title-post">{props.title}</p>
+                    </Tooltip>
                     <p className="home-text hastags">
                         {`#${props.hastags.map(hastag => hastag.value).join(' #')}`}
                     </p>
