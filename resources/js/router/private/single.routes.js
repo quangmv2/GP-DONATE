@@ -1,7 +1,6 @@
 import EditProfile from 'components/PrivatePages/EditProfile/EditProfile';
 import ProfileSetting from 'components/PrivatePages/ProfileSetting/ProfileSetting';
 import {
-  PostOffer,
   HomePage,
   PostComment,
   UserProfile,
@@ -12,9 +11,11 @@ import {
   ChooseRoleScreen, 
   InputCode,
   SuccessScreen
-
 } from 'components/PrivatePages';
 import { PRIVATE_ROUTE } from 'constants';
+import loadable from "@loadable/component";
+
+const PostOffer = loadable(() => import("components/PrivatePages/PostOffer/PostOffer"));
 
 export const singleRoutes = [
   {
