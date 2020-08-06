@@ -23,3 +23,10 @@ export const getPostsFailed = (error) => {
     payload: error,
   };
 };
+
+export const getPostNull = () => {
+  return {
+    type: types.FETCH_POST_SUCCESS_NULL,
+    payload: {}
+  }
+}

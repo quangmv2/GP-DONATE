@@ -140,7 +140,7 @@ const UserProfile = (props) => {
                 display: modal||open?'none':'block'
             }} >
                 <div className="full-photo-div">
-                    {user.full_photo?<img className="full-photo-background"  src={GET_IMAGE(user.full_photo)} />
+                    {user?<img className="full-photo-background"  src={GET_IMAGE(user.full_photo)} />
                     :<Loading />
                     }
                 </div>

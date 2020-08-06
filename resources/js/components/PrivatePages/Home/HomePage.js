@@ -36,6 +36,7 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/scrollbar/scrollbar.scss';
 import MessagesDetail from "../Activities/MessageDetail/MessagesDetail";
+import Loading from "../../Atoms/Loading/Loading";
 
 const HomePage = (props) => {
     const [show, setShow] = useState(false); 
@@ -43,6 +44,7 @@ const HomePage = (props) => {
     const [openModal, setOpenModal] = useState(false);
     const [openMessage, setOpenMessage] = useState(false);
     const [user, setUser] = useState({});
+    const [loadingFirst, setLoadingFrist] = useState(true);
 
     useEffect(() => {
         const { fetchMore, userInfo } = props;
@@ -53,7 +55,11 @@ const HomePage = (props) => {
     useEffect(() => {
         if (index == 0) return ;
         handleLoadMore();
-    }, [index])
+    }, [index]);
+
+    useEffect(() => {
+        if (props.posts.length > 0) setLoadingFrist(false);
+    }, [props.posts])
 
     const handleLoadMore = () => {
         const { posts } = props;
@@ -76,25 +82,31 @@ const HomePage = (props) => {
         setOpenMessage(true);
     }
 
-    const { posts } = props;
+    const { posts, loading } = props;
+    console.log(loading, loadingFirst);
     return (
         <div>
-            {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
-            {openMessage && <MessagesDetail data={user} closeWindow={() => setOpenMessage(false)} /> }
-            <Swiper
-                direction="vertical"
-                style={{ height: openModal? 0 : window.innerHeight, display: openModal?"none":"block" }}
-                onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
-                onSliderMove={sw => null}
-            >
+            {
+                loading && loadingFirst?<Loading />:
+                <>
+                    {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
+                    {openMessage && <MessagesDetail data={user} closeWindow={() => setOpenMessage(false)} /> }
+                    <Swiper
+                        direction="vertical"
+                        style={{ height: openModal? 0 : window.innerHeight, display: openModal?"none":"block" }}
+                        onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
+                        onSliderMove={sw => null}
+                    >
 
-              {posts.map(post => 
-                <SwiperSlide key={`post ${post.id} ${post.title}`}>
-                  <PostItem {...post} showModal={showModal} hideModal={hideModal} setUserMessage={setUserMessage} />    
-                </SwiperSlide>
-              )}
-            </Swiper>   
-            <BottomNavigator style={{display: openModal?"none":"block"}} />
+                    {posts.map(post => 
+                        <SwiperSlide key={`post ${post.id} ${post.title}`}>
+                        <PostItem {...post} showModal={showModal} hideModal={hideModal} setUserMessage={setUserMessage} />    
+                        </SwiperSlide>
+                    )}
+                    </Swiper>   
+                </>
+            }
+           <BottomNavigator style={{display: openModal?"none":"block"}} />
         </div>
     
     );  
