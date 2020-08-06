@@ -2,7 +2,7 @@ import { fetchService } from "services";
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import * as types from "./constants";
 
-import { getPostsSuccess, getPostsFailed } from "./actions";
+import { getPostsSuccess, getPostsFailed, getPostNull } from "./actions";
 import { ROOT_API_URL } from "constants";
 import { GET_POST } from "../../constants/routes";
 
@@ -22,7 +22,10 @@ export function* fetchPosts({ payload: {page, limit} }) {
     const res = yield call(requestPost, page, limit);
     const {data, status} = res;
     if (status === 200) {
-        if (data.data.length < 1) return;
+        if (data.data.length < 1) {
+            yield(put(getPostNull()))
+            return;
+        }
         yield put(getPostsSuccess({
             data : data.data.map(item => ({...item}))
         }))

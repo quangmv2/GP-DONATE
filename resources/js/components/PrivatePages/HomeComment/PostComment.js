@@ -41,14 +41,22 @@ const PostComment = (props) => {
                 if (cmts.find(({ id }) => id === data.id)) return cmts;
                 const newCmts = [...cmts];
                 newCmts.push(data);
+                newCmts.sort((a, b) => {
+                    const dateA =  new Date(a.created_at).getTime;
+                    const dateB =  new Date(b.created_at).getTime;
+                    return  dateA - dateB;
+                })
                 return newCmts;
             });
             screen.scrollTo(0,document.body.scrollHeight);
         });
+        console.log('delete-comment');
         socket.on('delete-comment', data => {
+            console.log(data);
             setComments(cmts => {
                 const newCmts = [...cmts];
-                return newCmts.filter(({ id }) => id !== data.id);
+                console.log(newCmts);
+                return newCmts.filter(({ id }) => id != data.id);
             })
         })
     }, []);

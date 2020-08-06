@@ -83,6 +83,7 @@ const HomePage = (props) => {
     }
 
     const { posts, loading } = props;
+    console.log(loading, loadingFirst);
     return (
         <div>
             {

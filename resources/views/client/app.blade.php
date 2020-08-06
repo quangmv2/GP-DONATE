@@ -56,7 +56,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="loading1">
+        <div class="loading1" id="loading">
             <div class="loader" style="width: 40px; height: 40px">
             </div>
           </div>
