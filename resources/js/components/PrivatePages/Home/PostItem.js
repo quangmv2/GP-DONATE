@@ -225,12 +225,11 @@ const PostItem = (props) => {
                         className="comment-container"
                     >
                         <div className="coment-item-container" ref={commentsElement}>
-                            {
-                                comments.map(comment =>
-                                    <CommentItem key={`cooment${comment.id} post${props.id}`}
-                                        author={comment.user.first_name} content={comment.content} />
-                                )
-                            }
+                            {comments.map((comment, index) =>{
+                                if(index > (comments.length - 3) ){
+                                    return (<CommentItem key={`cooment${comment.id} post${props.id}`} author={comment.user.first_name} content={comment.content} />);
+                                }       
+                            })}
                         </div>
                         <div className="raise-a-voice-container" onClick={props.showModal}>
                             <ButtonAnt>
