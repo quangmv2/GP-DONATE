@@ -31,7 +31,7 @@
 			<ul class="navbar-nav">
 				<li class="nav-item dropdown dropdown-user">
 					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
-						<img src="{{ Auth::user()->personal_photo?'/api/photo?dir='.Auth::user()->personal_photo: asset('global_assets/images/img_avatar.png') }}" class="rounded-circle mr-2" height="34" alt="">
+						<img src="{{ Auth::user()->personal_photo?'/api/photo?dir='.Auth::user()->personal_photo: asset('global_assets/images/img_avatar.png') }}" class="rounded-circle mr-2" height="34" width="34" alt="">
 						<span>{{ Auth::user()->first_name }} </span>
 					</a>
 

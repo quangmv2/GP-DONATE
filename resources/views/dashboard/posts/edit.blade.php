@@ -32,7 +32,7 @@ Edit Posts
         @endif
 
 
-        <form action="{{ route('posts.update',$post->id) }}" method="POST">
+        <form action="{{ route('posts.update',$post->id) }}" method="POST" id="form-input">
         	@csrf
             @method('PUT')
             <div class="row">
@@ -52,7 +52,7 @@ Edit Posts
             		        <div class="form-group">
             		            <strong>Hastags:</strong>
                                 {{ Form::text('hastags', join(',', $hastags), array('class' => 'form-control', 
-                                                    'placeholder' => 'Name', 
+                                                    'placeholder' => 'Hastags', 
                                                     "data-role" => "tagsinput",
                                                     "id" => 'hastags')) }}
                             </div>
@@ -98,8 +98,8 @@ Edit Posts
 
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <button type="submit" class="btn btn-success mr-2" name="status" value="1">Submit</button>
-                    <button type="submit" class="btn btn-primary" name="status" value="0">Save As Draft</button>
+                    <button type="submit" class="btn btn-success mr-2" name="status" id="submit" value="1">Submit</button>
+                    <button type="button" class="btn btn-primary" name="status" onclick="goBack()" value="0">Cancel</button>
                 </div>
             </div>
         </form>
@@ -109,7 +109,9 @@ Edit Posts
 
 @section('custom_code_javascript')
 <script>
-
+    function goBack() {
+        window.history.back();
+    }
 
     $(document).on('change','#photo_thumbnail', function(){
        
@@ -143,6 +145,21 @@ Edit Posts
         $('#image_preview').empty();
         $('photo_thumbnail').val('');
     });
+
+    $(document).on('keyup keypress', 'form input[id="hastags"]', function(e) {
+        if(e.which == 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    document.getElementById('form-input').addEventListener('submit', function (e) {
+        // e.preventDefault();
+    });
+
+    document.getElementById('submit').addEventListener('click', () => {
+        $('#form-input').submit();
+    })
 
 </script>
 @endsection
