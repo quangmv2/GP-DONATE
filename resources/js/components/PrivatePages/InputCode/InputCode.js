@@ -58,7 +58,7 @@ export class InputCode extends Component {
         const signup = localStorage.getItem("SIGNUP");
         if(signup){
             localStorage.removeItem("SIGNUP");
-            this.props.history.push(ROUTE.CONGRAT);
+            window.location.href=ROUTE.CONGRAT;
         }else{
             this.props.history.push(ROUTE.HOME)
         }
