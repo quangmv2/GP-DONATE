@@ -166,6 +166,9 @@ export class InputCode extends Component {
                                             name="login-btn"
                                             type="primary"
                                             onClick={this.handleSkip}
+                                            style={{
+                                                margin: " 0 auto"
+                                            }}
                                         >
                                             <FormattedMessage
                                                 defaultMessage={
