@@ -161,7 +161,7 @@ export class InputCode extends Component {
                                     <div className="form-control ">
                                        <Link>
                                         <ButtonAnt
-                                            className="custom-button-login btn-block btn-round btn-red ol-bn-container "               
+                                            className="custom-button-login btn-block btn-round btn-red ol-bn-container center-button"               
                                             id="login-btn"
                                             name="login-btn"
                                             type="primary"
