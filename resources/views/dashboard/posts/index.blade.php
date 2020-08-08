@@ -1,5 +1,9 @@
 @extends('layouts.private')
 
+@section('title')
+Posts Management
+@endsection
+
 @section('screen_name')
 Posts Management
 @endsection
@@ -19,9 +23,9 @@ Posts Management
             <div class="card-header header-elements-sm-inline">
                 <h6 class="card-title">Posts</h6>
                 <div>
-                    @can('post-create')
+                    {{-- @can('post-create')
                     <a class="btn btn-success" href="{{ route('posts.create') }}"> Create New Post</a>
-                    @endcan
+                    @endcan --}}
                 </div>
             </div>
 
@@ -60,7 +64,7 @@ Posts Management
                         <tr>
                             <th style="max-width: 100px;">No</th>
                             <th style="min-width: 300px;">Title</th>
-                            <th style="min-width: 300px;">Hastags</th>
+                            <th style="min-width: 200px;">Hastags</th>
                             <th style="max-width: 200px;">Due Day</th>
                             <th style="max-width: 50px;">Status</th>
                             <th style="min-width: 300px;">Action</th>

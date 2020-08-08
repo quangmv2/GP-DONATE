@@ -9,11 +9,14 @@ import { fetchService } from "services";
 import { SEARCH_POST, GET_IMAGE, SEARCH_PEOPLE } from "../../../constants/routes";
 import moment from "moment";
 import Swipper from "./Swipper";
+import { selectUserInfo } from "modules/auth/selectors";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 let idTimeOut = 0;
 let delay = Date.now();
 const Search = props => {
-
+    const { userInfo } = props;
     const [keyWord, setKeyWord] = useState('');
     const [dataPost, setDataPost] = useState([]);
     const [dataPeople, setDataPeople] = useState([]);
@@ -23,7 +26,7 @@ const Search = props => {
 
     useEffect(() => {
         searchPost(keyWord);
-    }, []);
+    }, [dataPost]);
 
     useEffect(() => {
         const now = Date.now();
@@ -99,6 +102,7 @@ const Search = props => {
                                 {
                                     dataPost.map((post, index) => (
                                         <Posts
+                                            userInfo = {userInfo}
                                             keyEle={`post search ${post.id} ${post.title}`}
                                             key={`post search ${post.id} ${post.title}`}
                                             className="info-list"
@@ -112,7 +116,8 @@ const Search = props => {
                                             duedate={post.due_day}
                                             author={{
                                                 username: `${post.user.first_name}`,
-                                                avatar: post.user.personal_photo
+                                                avatar: post.user.personal_photo,
+                                                id: post.user.id
                                             }}
                                             createTime={moment(post.created_at).format("YYYY-MM-DD")}
                                             onClick={showSwipper}
@@ -133,5 +138,8 @@ const Search = props => {
 }
 
 const { TabPane } = Tabs;
+const mapStateToProps = createStructuredSelector({
+    userInfo: selectUserInfo()
+});
 
-export default memo(Search);
+export default connect(mapStateToProps)(memo(Search));

@@ -28,6 +28,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('posts/{id}/hidden','PostController@hiddenPost');
         Route::get('posts/{id}/show','PostController@showPost');
 
+        Route::get('comment/{id}/hidden','CommentController@hiddenComment');
+        Route::get('comment/{id}/show','CommentController@showComment');
+
 
         Route::resource('roles','RoleController');
         Route::resource('users','UserController');

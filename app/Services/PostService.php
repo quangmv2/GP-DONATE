@@ -21,6 +21,11 @@ class PostService
     function __construct(UserService $userService){
         $this->userService = $userService;
     }
+    
+    public function find($id)
+    {
+        return Post::find($id);
+    }
 
     public function validate($request)
     {
@@ -112,7 +117,7 @@ class PostService
                 'value' => $value,
             ], []);
             // return $hastag;
-            $posthas = PostHasHastag::create([
+            $posthas = PostHasHastag::updateOrCreate([
                 'post_id' => $id,
                 'hastag_id' => $hastag->id
             ]);

@@ -1,12 +1,12 @@
-import React, { PureComponent } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Proptypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import "./Post.scss";
-import { GET_IMAGE } from "../../../constants/routes";
+import { GET_IMAGE, DELETE_POST } from "../../../constants/routes";
 import UserAvatar from "react-user-avatar";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-
+import { fetchService } from "services";
 const Post = ({
     img,
     title,
@@ -18,17 +18,32 @@ const Post = ({
     keyEle,
     onClick,
     index,
-    commented
+    commented,
+    userInfo,
+    postId
 }) => {
-    console.log(author);
+    const [open, setOpen] = useState(false);
+    console.log('hi', title)
+    
+    const handleClickOpen = () => {
+        setOpen(!open);
+    }
+ 
+    const handleDelete = async () => {
+        const [ status ] = await fetchService.fetch(DELETE_POST(postId), {
+            method: "DELETE"
+        });
+        console.log(status);
+    }
     return (
         <div className={className ?? ""} key={keyEle} >
             <div className="post-wrapper">
                 <div className="post-image">
                     <img src={img} className="img-content" />
-                    <button class='button-trans'>
-                    <MoreHorizIcon className='more-icon'/>
+                    <button class='button-trans' onClick = {handleClickOpen}>
+                   {userInfo.id == author.id ? <MoreHorizIcon  className='more-icon'/> : null}
                     </button>
+                   {open ? <button  className='del-button' onClick={handleDelete}>DELETE</button> : null }
                     <div className="wrapper-icon">
                         <button className="icon-button">
                         {commented ?   <i className="icon-comment-normal" /> :  <i className="icon-comment-active" />}
@@ -79,5 +94,6 @@ Post.defaultProps = {
     showBadgeCount: false,
     badeValue: 0
 };
+
 
 export default Post;
