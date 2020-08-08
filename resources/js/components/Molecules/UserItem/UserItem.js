@@ -34,7 +34,6 @@ const UserItem = ({
             method: "PUT"
         });
         if (status == 200) {
-            console.log(_);
             setIsFr(true);
             return;
         }

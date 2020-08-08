@@ -72,7 +72,6 @@ const Search = props => {
         if (active == 2) searchPost('');
         else searchPeople('');
     }
-
     const showSwipper = id => {
         setOpenSwipper(true);
         setIndexSwiper(id);

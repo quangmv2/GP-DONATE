@@ -25,8 +25,6 @@ const NotificationComponent = props => {
 
             const [isFr, setIsFr] = useState(false);
 
-            // console.log(id);
-
             useEffect(() => {
                 if (type == "follow") checkIsFrend(user.id);
             }, []);
@@ -37,7 +35,6 @@ const NotificationComponent = props => {
                 });
 
                 if (status == 200) {
-                    console.log(data);
                     setIsFr(data.status);
                 }
             }
@@ -74,7 +71,7 @@ const NotificationComponent = props => {
                                     <UserAvatar size="42" name={`${user.first_name}`} />
                             }
                             <div className="info-user mess-content-container">
-                                <p className="username">{`${user.first_name} ${user.last_name}`}</p>
+                                <p className="username">{`${user.first_name}`}</p>
                                 <p className="mess-content">
                                     {
                                         type == "comment" ?

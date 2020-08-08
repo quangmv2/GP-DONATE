@@ -107,7 +107,6 @@ export function* logoutSaga() {
 export function* verifyToken(accessToken, refreshToken) {
     const resp = yield call(requestVerifyToken);
     const { data, status } = resp;
-    console.log(status);
     if (status === 200) {
         yield put(verifyTokenSuccess({userInfor: {...data}, accessToken, refreshToken}));
     } else {

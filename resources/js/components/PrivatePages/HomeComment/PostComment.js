@@ -36,21 +36,27 @@ const PostComment = (props) => {
         await fetchComments();
         screen.current.scrollTo(0,document.body.scrollHeight);
         socket.emit('watch-post', { id: post.id });
-        console.log('comttme');
         socket.on(`new-comment`, data => {
             setComments(cmts => {
-                console.log(cmts);
                 if (cmts.find(({ id }) => id === data.id)) return cmts;
                 const newCmts = [...cmts];
                 newCmts.push(data);
+                newCmts.sort((a, b) => {
+                    const dateA =  new Date(a.created_at).getTime;
+                    const dateB =  new Date(b.created_at).getTime;
+                    return  dateA - dateB;
+                })
                 return newCmts;
             });
             screen.scrollTo(0,document.body.scrollHeight);
         });
+        console.log('delete-comment');
         socket.on('delete-comment', data => {
+            console.log(data);
             setComments(cmts => {
                 const newCmts = [...cmts];
-                return newCmts.filter(({ id }) => id !== data.id);
+                console.log(newCmts);
+                return newCmts.filter(({ id }) => id != data.id);
             })
         })
     }, []);
@@ -61,7 +67,6 @@ const PostComment = (props) => {
                 method: "GET"
             });
             if (status === 200) {
-                console.log(comments);
                 setComments(comments);
                 return comments;
              

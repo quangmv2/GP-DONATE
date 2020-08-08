@@ -169,9 +169,13 @@ class CommentController extends Controller
 
     public function showComment($id)
     {
-        Comment::find($id)->update([
+        $comment = Comment::find($id);
+        $comment->update([
             'status' => 1
         ]);
+        event(
+            new CommentEvent('new-comment', $comment)
+        );
         return redirect()->back()
                         ->with('success','Comment showed successfully');
     }

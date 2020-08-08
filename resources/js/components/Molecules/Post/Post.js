@@ -7,6 +7,7 @@ import { GET_IMAGE, DELETE_POST } from "../../../constants/routes";
 import UserAvatar from "react-user-avatar";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { fetchService } from "services";
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 const Post = ({
     img,
     title,
@@ -43,7 +44,7 @@ const Post = ({
                     <button class='button-trans' onClick = {handleClickOpen}>
                    {userInfo.id == author.id ? <MoreHorizIcon  className='more-icon'/> : null}
                     </button>
-                   {open ? <button  className='del-button' onClick={handleDelete}>DELETE</button> : null }
+                   {open ? <button  className='del-button' onClick={handleDelete}><DeleteOutlineOutlinedIcon/> <p>DELETE</p> </button> : null }
                     <div className="wrapper-icon">
                         <button className="icon-button">
                         {commented ?   <i className="icon-comment-normal" /> :  <i className="icon-comment-active" />}
@@ -57,9 +58,7 @@ const Post = ({
                 <div className="post-info-wrapper">
                     <h2 onClick={() => onClick(index)}>{title}</h2>
                     <div className="icon-line">
-                        <i className="icon-goods icon" onClick={() => {
-                            console.log('hello')
-                        }}/>
+                        <i className="icon-goods icon" onClick={() => null}/>
                         <label>{description}</label>
                     </div>
                     <div className="icon-line">

@@ -8,7 +8,7 @@ import { createStructuredSelector } from "reselect";
 import { renderRoutes } from "react-router-config";
 import { Route, Switch, matchPath } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import { openNotification } from "helpers";
+
 
 import saga from "modules/auth/sagas";
 import reducer from "modules/auth/reducers";
@@ -19,8 +19,10 @@ import { FEATURE_NAME_AUTH } from "modules/auth/constants";
 // AWS cognito
 
 // import { PublicLayout, PrivateLayout } from "components/Layouts";
-import PublicLayout from "components/Layouts/PublicLayout/PublicLayout";
-import PrivateLayout from "components/Layouts/PrivateLayout/PrivateLayout";
+// import  from "";
+// import  from "components/Layouts/PrivateLayout/PrivateLayout";
+const PublicLayout = loadable(() => import("components/Layouts/PublicLayout/PublicLayout"));
+const PrivateLayout = loadable(() => import("components/Layouts/PrivateLayout/PrivateLayout"));
 import { NotFoundPage } from "components/ErrorPages";
 
 import { changeLanguage } from "modules/translates/actions";
@@ -42,6 +44,7 @@ import "antd/dist/antd.css";
 import "assets/icons/style.css";
 import "assets/css/global.scss";
 import { LIGHT } from "constants";
+import loadable from "@loadable/component";
 
 export const flattenMessages = (nestedMessages, prefix = "") => {
     if (!nestedMessages || nestedMessages === null) {

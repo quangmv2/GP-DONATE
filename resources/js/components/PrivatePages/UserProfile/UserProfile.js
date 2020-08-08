@@ -16,6 +16,7 @@ import { StarFilled, GlobalOutlined } from "@ant-design/icons";
 import MessagesDetail from "../Activities/MessageDetail/MessagesDetail";
 import UserAvatar from "react-user-avatar";
 import Propositions from "./Propositions";
+import Loading from "../../Atoms/Loading/Loading";
 
 const UserProfile = (props) => {
     const { userInfo } = props;
@@ -42,6 +43,7 @@ const UserProfile = (props) => {
         const [users] = await fetchService.fetch(GET_PROFILE(isUser), {
             method: 'GET'
         });
+        console.log(users);
         setUser(users);
         setRoles(users.roles[0].name);
 
@@ -125,6 +127,8 @@ const UserProfile = (props) => {
         });
     };
 
+    console.log(Object.keys(user).length);
+
     return (
         <>
       
@@ -139,7 +143,10 @@ const UserProfile = (props) => {
                 display: modal||open?'none':'block'
             }} >
                 <div className="full-photo-div">
-                    <img className="full-photo-background"  src={GET_IMAGE(user.full_photo)} />
+                    {Object.keys(user).length > 1 ? (user.full_photo?<img className="full-photo-background" src={GET_IMAGE(user.full_photo)}/>:
+                        <img className="full-photo-background" src='/image-profile.png'/>)
+                    :<Loading />
+                    }
                 </div>
                 <div className='home-container user-profile'>
                   <div className="top-navbar-giver-home">

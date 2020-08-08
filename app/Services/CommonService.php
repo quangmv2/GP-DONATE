@@ -34,12 +34,12 @@ class CommonService
         $path = Storage::putFileAs($directory, $image, $name);
         
         $im = new Imagick($storage.$path);
-        $im->setImageFormat('jpg');
+        // $im->setImageFormat('jpg');
 
         if ($size > 1000000) {
             $im->setImageCompressionQuality((1000000/$size)*100);
         }
-        $newImg = $directory.'/'.time().'.jpg';
+        $newImg = $directory.time().'_'.$image->getClientOriginalName();
         $im->writeImage($storage.$newImg);
         Storage::delete($path);
         return $newImg;

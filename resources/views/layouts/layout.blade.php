@@ -36,18 +36,18 @@
 	<script src="{{asset('global_assets/js/main/app.js')}}"></script> 
 	<script src="{{asset('js/moment.js')}}"></script> 
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> --}}
+	{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script> --}}
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.min.js"></script>
 	<script src="{{ asset('js/bootstrap-tagsinput-angular.min.js') }}"></script>
 	<script src="{{asset('js/bootstrap-tagsinput.min.js')}}"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/rainbow.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/language/generic.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/language/html.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/language/javascript.js"></script>
-	<script src="{{ asset('assets/app.js') }}"></script>
-    <script src="{{ asset('assets/app_bs3.js') }}"></script>
+	{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/rainbow.min.js"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/language/generic.js"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/language/html.js"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/language/javascript.js"></script> --}}
+	{{-- <script src="{{ asset('assets/app.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets/app_bs3.js') }}"></script> --}}
 
 	@include('ckfinder::setup')
 	<!-- /core JS files -->
@@ -60,7 +60,11 @@
 	 {{-- <script src="{{asset('js/app.js')}}"></script> --}}
 	<script src="{{asset('js/custom.js')}}"></script>
 	<!-- /theme JS files -->
-
+	<style>
+		.btn {
+			padding: 7px;
+		}
+	</style>
 
 </head>
 

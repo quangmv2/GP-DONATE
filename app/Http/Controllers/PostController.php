@@ -86,7 +86,9 @@ class PostController extends Controller
 
         //fiter by category
         // //case 1 search by all
-         $query = $query->with('hastags');
+        $query = $query->with('hastags');
+        $query = $query->with('comments');
+
 
         //  //filter by condition
         if(!(!$searchCategory || $searchCategory == "" || $searchCategory == "all")){

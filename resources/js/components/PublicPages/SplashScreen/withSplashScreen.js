@@ -6,6 +6,7 @@ function SplashScreen() {
         <div
             className="fullheight-wrapper splash-screen fadeIn"
             id="splash_wrapper"
+            style={{background: 'white'}}
         >
             <div className="container ">
                 <img src={"/images/Bitmap1.png"} className="top-splash" />

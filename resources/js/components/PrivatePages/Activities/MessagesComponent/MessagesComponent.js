@@ -27,8 +27,8 @@ const MessagesComponent = props => {
                                 <p className='username'>
                                     {
                                         user.id === userInfo.id ?
-                                            `${user_to.first_name} ${user_to.last_name}` :
-                                            `${user.first_name} ${user.last_name}`
+                                            `${user_to.first_name}` :
+                                            `${user.first_name}`
                                     }
                                 </p>
                                 <p className='mess-content'>{content}</p>

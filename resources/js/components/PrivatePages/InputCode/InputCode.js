@@ -47,14 +47,22 @@ export class InputCode extends Component {
             });
         const { data, status } = res;
         if ( status == 200) {
-            this.props.history.push(ROUTE.CONGRAT)
+            this.handleSkip();
         }    
         else {
             openNotification(NOTIFICATION_TYPE.ERROR, "Failed", "Not found code invitation");
         }
     }
 
-
+    handleSkip = () => {
+        const signup = localStorage.getItem("SIGNUP");
+        if(signup){
+            localStorage.removeItem("SIGNUP");
+            window.location.href=ROUTE.CONGRAT;
+        }else{
+            this.props.history.push(ROUTE.HOME)
+        }
+    }
    
     render() {
         const { loading, error } = this.props;
@@ -92,9 +100,7 @@ export class InputCode extends Component {
                                 errors,
                                 touched,
                                 handleChange,
-                                //handleBlur,
                                 handleSubmit
-                                /* and other goodies */
                             }) => (
                                 <form onSubmit={handleSubmit} layout="vertical">
                                     <>
@@ -155,10 +161,14 @@ export class InputCode extends Component {
                                     <div className="form-control ">
                                        <Link>
                                         <ButtonAnt
-                                            className="custom-button-login btn-block btn-round btn-red ol-bn-container "               
+                                            className="custom-button-login btn-block btn-round btn-red ol-bn-container center-button"               
                                             id="login-btn"
                                             name="login-btn"
                                             type="primary"
+                                            onClick={this.handleSkip}
+                                            style={{
+                                                margin: " 0 auto"
+                                            }}
                                         >
                                             <FormattedMessage
                                                 defaultMessage={
@@ -170,25 +180,6 @@ export class InputCode extends Component {
                                         </Link>
                                     </div>
                                 
-                                    <div className="bottomTextContainer">
-                                        <FormattedMessage
-                                            defaultMessage={
-                                                "signupPage.onboard"
-                                            }
-                                            id={"signupPage.onboard"}
-                                        ></FormattedMessage>
-                                        <Link
-                                            className="bottomLink"
-                                            to={PRIVATE_ROUTE.HOME}
-                                        >
-                                            <FormattedMessage
-                                                defaultMessage={
-                                                    "loginPage.signin"
-                                                }
-                                                id={"loginPage.signin"}
-                                            ></FormattedMessage>
-                                        </Link>
-                                    </div>
                                 </form>
                             )}
                         </Formik>
