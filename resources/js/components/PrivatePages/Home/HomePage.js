@@ -80,6 +80,7 @@ const HomePage = (props) => {
     const setUserMessage = userMessage => {
         setUser(userMessage);
         setOpenMessage(true);
+        setOpenModal(false);
     }
 
     const { posts, loading } = props;
