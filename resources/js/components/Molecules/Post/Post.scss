@@ -98,6 +98,17 @@
     top: 10px;
     font-size: 28px;
     color: white;
-
-
+}
+.del-button {
+    position: absolute;
+    right: 25px;
+    top: 40px;
+    background-color: #fff;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 10px;
 }
