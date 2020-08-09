@@ -141,6 +141,18 @@ input[type="url"],
 input[type="week"],
 select:focus,
 textarea,
-.ant-select-multiple .ant-select-selector .ant-select-selection-search-input {
+.ant-select-multiple .ant-select-selector .ant-select-selection-search-input,
+input[type='text']:focus,
+input[type='number']:focus,
+textarea:focus {
   font-size: 18px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+	select:focus,
+	textarea:focus,
+	input:focus {
+		font-size: 16px;
+	}
 }
