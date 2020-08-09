@@ -107,7 +107,7 @@ const HomePage = (props) => {
                     </Swiper>   
                 </>
             }
-           <BottomNavigator style={{display: openModal?"none":"block"}} />
+           <BottomNavigator style={{display: openModal || openMessage?"none":"block"}} />
         </div>
     
     );  
