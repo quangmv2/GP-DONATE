@@ -26,7 +26,7 @@ const Search = props => {
 
     useEffect(() => {
         searchPost(keyWord);
-    }, [dataPost]);
+    }, []);
 
     useEffect(() => {
         const now = Date.now();
