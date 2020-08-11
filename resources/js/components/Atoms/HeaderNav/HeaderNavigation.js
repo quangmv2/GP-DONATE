@@ -13,13 +13,13 @@ const HeaderNavigation = withRouter(props => {
                 <Toolbar className="app-bar-container">
                     <IconButton
                         color="inherit"
-                        className="i"
+                        className="back-button"
                         onClick={props.handleBack ? props.handleBack : () => props.history.goBack()}
                     >
                         <ArrowBackIosIcon className="top-nav-icon" />
                     </IconButton>
                     <p>{props.headerName}</p>
-                    <div>{props.children}</div>
+                    {props.children}
                 </Toolbar>
             </AppBar>
         </div>

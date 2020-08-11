@@ -286,19 +286,25 @@ select {
   font-family: Muli;
   font-size: 16px;
   line-height: 1.5;
-  color: '#999999'
-  }
-  .checkedLabel { 
-    width: 36px;
-    height: 37px;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: #ddae53;
-    color: white;
-    
+  color: '#999999';
+  width: 36px;
+  height: 37px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+.checkedLabel { 
+  width: 36px;
+  height: 37px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #ddae53;
+  color: white;
 }
 
 .hashtag-input.ant-select-multiple{

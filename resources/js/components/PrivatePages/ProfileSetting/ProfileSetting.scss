@@ -17,12 +17,12 @@
     position: relative;
     &:before {
         content: "";
-        width: calc(100% - 85px);
+        width: calc(100% - 80px);
         position: absolute;
         bottom: 0px;
         height: 1px;
         background: #cdcdcd;
-        left: 60px;
+        left: 55px;
     }
 
     .link-center{
@@ -67,4 +67,5 @@
 .body-wrapper {
     overflow-y: auto;
     overflow-x: hidden;
+    width: 100vw;
 }

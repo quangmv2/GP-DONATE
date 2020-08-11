@@ -9,7 +9,6 @@ import { PRIVATE_ROUTE } from "../../../constants";
 import {
     selectUserInfo
 } from "modules/auth/selectors";
-import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import { FormattedMessage } from "react-intl";
 
 const ProfileSetting = (props) => {
@@ -24,12 +23,12 @@ const ProfileSetting = (props) => {
             <div className="container">
                 <HeaderNavigation headerName="Profile Settings" />
                 <div className="body-wrapper">
-                    <p className="info-box">{
-                                <FormattedMessage
-                                    id="profileSetting.account"
-                                    defaultMessage="profileSetting.account"
-                                />
-                            }</p>
+                    <p className="info-box">
+                        <FormattedMessage
+                            id="profileSetting.account"
+                            defaultMessage="profileSetting.account"
+                        />
+                    </p>
                     <div className="list-box">
                         <LinkItem
                             className="text-box link-center"

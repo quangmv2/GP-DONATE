@@ -81,18 +81,36 @@ const PostOffer = props => {
   }
 
   const onChangeWeekdays = (index, id, name) => {
-    const timeSlotArrayTmp = timeSlotArray.slice();
-    timeSlotArrayTmp.forEach(tmp => {
-      if (tmp.days[id]) {
-        delete tmp.days[id];
+    let totalDays = 0;
+    let existKey = false;
+    const cloneTimeSlot = timeSlotArray.slice();
+    cloneTimeSlot.forEach((tmp) => {
+      if (tmp.days) {
+        totalDays += Object.keys(tmp.days).length;
+        if(Object.keys(tmp.days).includes(id)){
+          existKey = true;
+        }
       }
     })
+    
     const timeOffer = timeSlotArray[index];
-    if (timeOffer.days[id]) {
-      delete timeOffer.days[id];
+    if (timeOffer['days'][id]) {
+      delete timeOffer['days'][id];
     } else {
-      timeOffer.days[id] = name;
+      if(totalDays < 3 || (totalDays === 3 && existKey)){
+        timeOffer['days'][id] = name;
+
+        // remove other time index
+        const timeSlotArrayTmp = timeSlotArray.slice();
+        timeSlotArrayTmp.forEach((tmp, currentIndex) => {
+          if (tmp.days[id] && currentIndex!== index) {
+            delete tmp.days[id];
+          }
+        })
+      }
+      
     }
+
     setTimeSlotArray(arr => {
       const temp = arr.slice();
       temp[index] = timeOffer;
@@ -166,8 +184,6 @@ const PostOffer = props => {
     arr.splice(index, 1);
     setTimeSlotArray(arr);
   };
-  const onOk = (value) => {
-  }
 
   const renderInputDate = () => {
     let typeOfOffer = <div></div>;
@@ -193,7 +209,6 @@ const PostOffer = props => {
                     format='HH:mm'
                     showTime={{ format: 'HH:mm' }}
                     onChange={(value, time) => onRangeTime(index, time)}
-                    onOk={onOk}
                   />
                   <span className='icon-arrow-next range-picker-icon'></span>
                 </div>
@@ -311,8 +326,8 @@ const PostOffer = props => {
                         placeholder={`- ${getMessageTranslate('postOffer', 'chooseType')} -`}
                         onChange={onChangeValue}
                       >
-                        <Option className="text-uppercase" value='time'><span class="icon-type icon-time"></span> <FormattedMessage defaultMessage={'Time'} id={'common.time'} /></Option>
-                        <Option className="text-uppercase" value='goods'><span class="icon-type icon-goods"></span> <FormattedMessage defaultMessage={'Goods'} id={'common.goods'} /></Option>
+                        <Option className="text-uppercase" value='time'><span className="icon-type icon-time"></span> <FormattedMessage defaultMessage={'Time'} id={'common.time'} /></Option>
+                        <Option className="text-uppercase" value='goods'><span className="icon-type icon-goods"></span> <FormattedMessage defaultMessage={'Goods'} id={'common.goods'} /></Option>
                       </Select>
                     </div>
                   </Grid>
