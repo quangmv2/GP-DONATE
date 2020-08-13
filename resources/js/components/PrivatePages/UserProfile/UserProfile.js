@@ -58,7 +58,7 @@ const UserProfile = (props) => {
 
     let avatar = (
         <div style={{ position: 'relative' }}>
-            <StarFilled className="icon-star" style={{ fontSize: '15px' }} />
+            <StarFilled className="icon-star" style={{ fontSize: '14px' }} />
             <img
                 className='giver-avatar'
                 src={GET_IMAGE(user.personal_photo)}
@@ -131,7 +131,6 @@ const UserProfile = (props) => {
 
     return (
         <>
-      
             {
                 open ? <MessagesDetail data={user} closeWindow={() => setOpen(false)} /> : <></>
             }
@@ -143,14 +142,16 @@ const UserProfile = (props) => {
                 display: modal||open?'none':'block'
             }} >
                 <div className="full-photo-div">
-                    {Object.keys(user).length > 1 ? (user.full_photo?<img className="full-photo-background" src={GET_IMAGE(user.full_photo)}/>:
+                    {Object.keys(user).length > 1 ? 
+                    (user.full_photo?
+                        <img className="full-photo-background" src={GET_IMAGE(user.full_photo)}/>:
                         <img className="full-photo-background" src='/image-profile.png'/>)
-                    :<Loading />
+                    : <Loading />
                     }
                 </div>
                 <div className='home-container user-profile'>
                   <div className="top-navbar-giver-home">
-                      <div className="navbar-giver-home-container">
+                      <div className="navbar-giver-home-container profile-wrapper">
                           {avatar}
                           {user && (
                               <div className="info-user">

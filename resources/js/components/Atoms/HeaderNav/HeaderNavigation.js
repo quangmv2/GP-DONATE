@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 
 const HeaderNavigation = withRouter(props => {
     return (
-        <div>
+        <div className="header-wrapper">
             <AppBar position="static">
                 <Toolbar className="app-bar-container">
                     <IconButton

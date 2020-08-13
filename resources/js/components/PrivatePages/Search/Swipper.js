@@ -60,7 +60,7 @@ const Swipper = (props) => {
             <Swiper
                 direction="vertical"
                 // virtual
-                style={{ height: openModal?0:"100vh", display: openModal?"none":"block", position: "absolute",  zIndex: 100000, width: "100%" }}
+                style={{ height: openModal? 0:"100vh", display: openModal?"none":"block", position: "absolute",  zIndex: 100000, width: "100%", top: "0px" }}
                 // onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
                 initialSlide={props.index?props.index:0}
             >

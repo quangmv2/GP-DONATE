@@ -166,7 +166,7 @@ const PostComment = (props) => {
                     <div
                         className='input-comment-with-icon'>
                         <button className='button-trans post-comment-button' onClick={clickComment} style={{top: 16, padding:0}}>
-                            <span class="icon-arrow-next" style={{ backgroundColor: '#ddae53', color: 'white', borderRadius: '50%', width: 33, height: 33 }}></span>
+                            <span className="icon-arrow-next" style={{ backgroundColor: '#ddae53', color: 'white', borderRadius: '50%', width: 33, height: 33 }}></span>
                         </button>
                         <textarea
                             style={{ marginTop: 0 }}

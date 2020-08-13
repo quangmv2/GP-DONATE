@@ -77,7 +77,7 @@ class PrivateLayout extends Component {
     onResize = () => { };
 
     render() {
-        const { children, loading } = this.props;
+        const { children,  loading} = this.props;
         if (loading) {
             return (
                 <Layout id="gp-private-layout" theme="dark" className="dark">

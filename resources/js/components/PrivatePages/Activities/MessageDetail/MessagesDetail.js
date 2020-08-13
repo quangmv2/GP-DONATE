@@ -103,34 +103,36 @@ const MessagesDetail = props => {
     return (
         <div className='private-fullheight' style={{ position: "absolute", zIndex: 1000, width: "100%" }}>
             <div className='container'>
-                <div className="top-navbar-giver-home message-top-nav">
-                    <div className="navbar-giver-home-container navbar-message-container">
-                        <button className='button-trans' onClick={props.closeWindow}>
-                            <span className="icon-back back-messages"></span>
-                        </button>
-                        <Link to="/user-profile">
-                            <img
-                                src={
-                                    "/images/avatar/_0008_Alina Baikova.jpg"
-                                }
-                                className="giver-avatar"
-                            />
-                        </Link>
-                        <div className="info-user">
-                            <p className="username">
-                                <Link to="/user-profile">
-                                   {`${props.data.first_name} ${props.data.last_name}`}
-                                </Link>
-                            </p>
+                <div className="header-wrapper header-comment-profile">
+                    <div className="top-navbar-giver-home message-top-nav">
+                        <div className="navbar-giver-home-container navbar-message-container">
+                            <button className='button-trans' onClick={props.closeWindow}>
+                                <span className="icon-back back-messages"></span>
+                            </button>
+                            <Link to="/user-profile">
+                                <img
+                                    src={
+                                        "/images/avatar/_0008_Alina Baikova.jpg"
+                                    }
+                                    className="giver-avatar"
+                                />
+                            </Link>
+                            <div className="info-user">
+                                <p className="username">
+                                    <Link to="/user-profile">
+                                    {`${props.data.first_name} ${props.data.last_name}`}
+                                    </Link>
+                                </p>
 
-                            <p className="hours-ago">
-                                {/* 4 hours a go */}
-                        </p>
+                                <p className="hours-ago">
+                                    {/* 4 hours a go */}
+                            </p>
+                            </div>
                         </div>
+                        <button className='button-trans'>
+                            <span className="icon-sort sort-messages"></span>
+                        </button>
                     </div>
-                    <button className='button-trans'>
-                        <span className="icon-sort sort-messages"></span>
-                    </button>
                 </div>
                 {/* END HEADER NAV */}
                 <div className='mess-body' ref={bodyMess}>

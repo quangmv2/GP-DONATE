@@ -40,7 +40,7 @@ const Post = ({
             <div className="post-wrapper">
                 <div className="post-image">
                     <img src={img} className="img-content" />
-                    <button class='button-trans button-remove' onClick = {handleClickOpen} style={{ display: userInfo.id !== author.id ? 'none': ''}}>
+                    <button className='button-trans button-remove' onClick = {handleClickOpen} style={{ display: userInfo.id !== author.id ? 'none': ''}}>
                         {userInfo.id == author.id ? <MoreHorizIcon  className='more-icon'/> : null}
                     </button>
                     {open ? <button  className='del-button' onClick={handleDelete}><DeleteOutlineOutlinedIcon/> <p>DELETE</p> </button> : null }

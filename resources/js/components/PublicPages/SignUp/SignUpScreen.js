@@ -19,8 +19,9 @@ import Grid from "@material-ui/core/Grid";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 import "./signUp.scss";
-import { PUBLIC_ROUTE } from "constants";
+import { PUBLIC_ROUTE, NOTIFICATION_TYPE } from "constants";
 import { ROUTE } from "../../../constants/routes";
+import { openNotification } from "helpers";
 
 
 export class SignUpScreen extends Component {
@@ -44,7 +45,12 @@ export class SignUpScreen extends Component {
         }
         const { email, username, password } = values;
         const { signUp } = this.props;
-        signUp(username, email, password);
+        if(['gmail', 'hotmail', 'yahoo'].some(v => email.includes(v))){
+            openNotification(NOTIFICATION_TYPE.ERROR, "Email Error", "We are just allow email's company");
+        }else{
+            signUp(username, email, password);
+        }
+        
         
     }
     componentDidUpdate() {
