@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom';
 import './MessageDetail.scss';
-import message from './MessageData';
 import { fetchService } from "services";
-import { GET_MESSAGE_DETAILS, SEND_MESSAGE } from "../../../../constants";
+import { GET_MESSAGE_DETAILS, SEND_MESSAGE, GET_IMAGE } from "../../../../constants";
 import {
     selectUserInfo
 } from "modules/auth/selectors";
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
+import UserAvatar from "react-user-avatar";
 const MessagesDetail = props => {
 
     const [data, setData] = useState([]);
@@ -51,25 +51,6 @@ const MessagesDetail = props => {
 
     let timeMessages = (<p className='mess-time'>Monday 14:25</p>)
 
-    const RenderRecievemessage = () => {
-        return _.map(message, ({ content }) => {
-            return (
-                <div className='message-content-container recieve-message-content-container '>
-                    <p>{content}</p>
-                </div>
-            )
-        })
-    }
-    const RenderSendmessage = () => {
-        return _.map(message, ({ content }) => {
-            return (
-                <div className='message-content-container'>
-                    <p>{content}</p>
-                </div>
-            )
-        })
-    }
-
     const renderMessages = () => {
         const message = [...data];
         return _.map(message.reverse(), ({ id, content, user_id, user_id_to }) => {
@@ -94,14 +75,14 @@ const MessagesDetail = props => {
     }
 
     const onEnterPress = (e) => {
-        if(e.keyCode == 13 && e.shiftKey == false) {
+        if (e.keyCode == 13 && e.shiftKey == false) {
             e.preventDefault();
             sendMessage();
         }
     }
 
     return (
-        <div className='private-fullheight' style={{ position: "absolute", zIndex: 1000, width: "100%" }}>
+        <div className='private-fullheight' style={{ position: "absolute", zIndex: 10000, width: "100%" }}>
             <div className='container'>
                 <div className="header-wrapper header-comment-profile">
                     <div className="top-navbar-giver-home message-top-nav">
@@ -110,23 +91,28 @@ const MessagesDetail = props => {
                                 <span className="icon-back back-messages"></span>
                             </button>
                             <Link to="/user-profile">
-                                <img
-                                    src={
-                                        "/images/avatar/_0008_Alina Baikova.jpg"
-                                    }
-                                    className="giver-avatar"
-                                />
+
+                                {
+                                    props.data && props.data.personal_photo ?
+                                        <img
+                                            src={GET_IMAGE(props.data.personal_photo)}
+                                            className="giver-avatar"
+                                        />:
+                                    <UserAvatar size="42" name={props.data.first_name} />
+                                }
+
+
                             </Link>
                             <div className="info-user">
                                 <p className="username">
                                     <Link to="/user-profile">
-                                    {`${props.data.first_name} ${props.data.last_name}`}
+                                        {`${props.data.first_name}`}
                                     </Link>
                                 </p>
 
                                 <p className="hours-ago">
                                     {/* 4 hours a go */}
-                            </p>
+                                </p>
                             </div>
                         </div>
                         <button className='button-trans'>
@@ -142,19 +128,10 @@ const MessagesDetail = props => {
                     </div>
 
                     <div className='render-recieve-message'>
-                        {/* <img
-                            src={
-                                "./images/avatar/_0008_Alina Baikova.jpg"
-                            }
-                            className="recieve-avatar"
-                        /> */}
                         <div>
-                            {/* {RenderRecievemessage()} */}
                         </div>
-
                     </div>
                     <div className='render-message'>
-                        {/* {RenderSendmessage()} */}
                     </div>
                     {
                         userInfo.id ? renderMessages() : (() => { })()
@@ -162,10 +139,14 @@ const MessagesDetail = props => {
                 </div>
                 <div className='input-messages-container'>
                     <div className='input-message'>
-                        <img
-                            src={"/images/avatar/_0010_user.jpg"}
-                            className="comment-avatar"
-                        />
+                        {
+                            userInfo && userInfo.personal_photo ?
+                                <img
+                                    src={GET_IMAGE(userInfo.personal_photo)}
+                                    className="giver-avatar"
+                                />:
+                            <UserAvatar size="42" name={userInfo.first_name} />
+                        }
                         <div
                             className='input-comment-with-icon'>
                             <button className='arrow-next-button post-comment-button' onClick={sendMessage}>
@@ -181,7 +162,6 @@ const MessagesDetail = props => {
                                 placeholder='Write a comment...'
                                 value={input}
                                 onChange={e => setInput(e.target.value)}
-                                // onKeyDown={onEnterPress}
                             />
                         </div>
                     </div>

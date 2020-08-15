@@ -1,6 +1,5 @@
-import React, { Component, memo } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { compose } from "redux";
 import { Layout } from "antd";
 import { fetchService } from "services";
 import {
@@ -13,13 +12,13 @@ import {
 import { verifyToken } from "modules/auth/actions";
 import ReactResizeDetector from "react-resize-detector";
 import { createStructuredSelector } from "reselect";
-import { ROUTE, TIME_INTERVAL_SESSION } from "constants";
+import { ROUTE } from "constants";
 import "./private-layout.scss";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../../constants/auth";
-import { withRouter } from "react-router-dom";
 import { URL_REDIRECT_LOGIN } from "../../../constants/variables";
-import { FEATURE_NAME_POST } from "../../../modules/post/constants";
 import Loading from "../../Atoms/Loading/Loading";
+import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
+import { NavigatorProvider } from "../../../context/BottomNavigatorContextAPI";
 
 const { Content } = Layout;
 
@@ -77,7 +76,7 @@ class PrivateLayout extends Component {
     onResize = () => { };
 
     render() {
-        const { children,  loading} = this.props;
+        const { children, loading } = this.props;
         if (loading) {
             return (
                 <Layout id="gp-private-layout" theme="dark" className="dark">
@@ -97,6 +96,7 @@ class PrivateLayout extends Component {
                                 </Content>
                             </ReactResizeDetector>
                         </div>
+
                     </Layout>
                 </Layout>
             )
@@ -115,7 +115,9 @@ class PrivateLayout extends Component {
                             onResize={this.onResize}
                         >
                             <Content className="body-wrapper">
-                                {children}
+                                <NavigatorProvider>
+                                    {children}
+                                </NavigatorProvider>
                             </Content>
                         </ReactResizeDetector>
                     </div>

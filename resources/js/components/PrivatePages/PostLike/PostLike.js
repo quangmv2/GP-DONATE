@@ -74,7 +74,6 @@ const PostLike = props => {
                     </div>
                 </div>
             </div>
-            <BottomNavigator />
         </div>
     );
 }

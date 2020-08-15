@@ -1,6 +1,5 @@
 import React, { memo, useState, useEffect, useCallback } from "react";
 import { HeaderNavigation, SearchInput } from "components/Atoms";
-import "./Search.scss";
 import Posts from "../../Molecules/Post";
 import { Tabs } from "antd";
 import { Patron } from "components/Molecules";
@@ -12,6 +11,12 @@ import Swipper from "./Swipper";
 import { selectUserInfo } from "modules/auth/selectors";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import "./Search.scss";
+import "antd/dist/antd.css";
+import "../Activities/MessagesComponent/Mess.scss";
+
+const { TabPane } = Tabs;
+
 
 let idTimeOut = 0;
 let delay = Date.now();
@@ -129,14 +134,11 @@ const Search = props => {
                         </TabPane>
                     </Tabs>
                 </div>
-                {/* {active == '1' ? <BottomNavigator style={{display: openSwipper ? "none":"block"}} /> : null} */}
-                <BottomNavigator style={{display: openSwipper ? "none":"block"}} /> 
             </div>
         </div>
     );
 }
 
-const { TabPane } = Tabs;
 const mapStateToProps = createStructuredSelector({
     userInfo: selectUserInfo()
 });

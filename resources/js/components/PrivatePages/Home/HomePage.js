@@ -1,6 +1,5 @@
 import React, { useEffect, useState, memo } from "react";
 // import Swiper from "swiper";
-import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
@@ -18,7 +17,7 @@ import {
     selectPost
 } from "modules/post/selectors";
 import { getPosts } from "modules/post/actions";
-import { LIMIT_POST, FEATURE_NAME_POST } from "../../../modules/post/constants";
+import { FEATURE_NAME_POST } from "../../../modules/post/constants";
 import saga from "modules/post/sagas";
 import reducer from "modules/post/reducers";
 import injectReducer from "core/reducer/inject-reducer";
@@ -58,8 +57,8 @@ const HomePage = (props) => {
     }, [index]);
 
     useEffect(() => {
-        if (props.posts.length > 0) setLoadingFrist(false);
-    }, [props.posts])
+        if (props.posts.length > 0 && props.loading) setLoadingFrist(false);
+    }, [props.posts, props.loading])
 
     const handleLoadMore = () => {
         const { posts } = props;
@@ -84,11 +83,11 @@ const HomePage = (props) => {
     }
 
     const { posts, loading } = props;
-    console.log(loading, loadingFirst);
+
     return (
         <div>
             {
-                loading && loadingFirst?<Loading />:
+                loading && loadingFirst ?<Loading />:
                 <>
                     {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
                     {openMessage && <MessagesDetail data={user} closeWindow={() => setOpenMessage(false)} /> }
@@ -107,7 +106,6 @@ const HomePage = (props) => {
                     </Swiper>   
                 </>
             }
-           <BottomNavigator style={{display: openModal || openMessage?"none":"block"}} />
         </div>
     
     );  

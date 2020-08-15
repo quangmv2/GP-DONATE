@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import "./UserProfile.scss";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import { Link } from "react-router-dom";
 import { ButtonAnt } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
@@ -17,6 +15,8 @@ import MessagesDetail from "../Activities/MessageDetail/MessagesDetail";
 import UserAvatar from "react-user-avatar";
 import Propositions from "./Propositions";
 import Loading from "../../Atoms/Loading/Loading";
+import "./UserProfile.scss";
+import "../ProfileSetting/ProfileSetting.scss";
 
 const UserProfile = (props) => {
     const { userInfo } = props;
@@ -28,7 +28,7 @@ const UserProfile = (props) => {
     const [open, setOpen] = useState(false);
     const currentUser = localStorage.getItem("USERNAME");
 
-    
+
     useEffect(() => {
         fetchUser();
         fetchPropositions();
@@ -70,8 +70,8 @@ const UserProfile = (props) => {
             <p>Follow</p>
         </button>
     )
-    
-    if(user.personal_photo == null && user.code_id == null) {
+
+    if (user.personal_photo == null && user.code_id == null) {
         avatar = (
             user.personal_photo ?
                 <img
@@ -135,85 +135,81 @@ const UserProfile = (props) => {
                 open ? <MessagesDetail data={user} closeWindow={() => setOpen(false)} /> : <></>
             }
             {
-                modal && <Propositions username={userId?userId:'me'} closeWindow={() => setModal(false)} />
+                modal && <Propositions username={userId ? userId : 'me'} closeWindow={() => setModal(false)} />
             }
 
             <div className='container' style={{
-                display: modal||open?'none':'block'
+                display: modal || open ? 'none' : 'block'
             }} >
                 <div className="full-photo-div">
-                    {Object.keys(user).length > 1 ? 
-                    (user.full_photo?
-                        <img className="full-photo-background" src={GET_IMAGE(user.full_photo)}/>:
-                        <img className="full-photo-background" src='/image-profile.png'/>)
-                    : <Loading />
+                    {Object.keys(user).length > 1 ?
+                        (user.full_photo ?
+                            <img className="full-photo-background" src={GET_IMAGE(user.full_photo)} /> :
+                            <img className="full-photo-background" src='/image-profile.png' />)
+                        : <Loading />
                     }
                 </div>
                 <div className='home-container user-profile'>
-                  <div className="top-navbar-giver-home">
-                      <div className="navbar-giver-home-container profile-wrapper">
-                          {avatar}
-                          {user && (
-                              <div className="info-user">
-                                  <p className="username">{user.first_name == null ? user.username : user.first_name}</p>
-                                  <p className="user-charity">  {user.foudation ? `Charity: ${user.foudation}` : null}</p>
-                              </div>
-                          )}
-                          
-                      </div>
-                      {button}
-                  </div>
-                  <div className="user-account-profile">
-                      {roles == 'taker' ? null :
-                          <>
-                              <div className="account-profile-info">
-                                  <span className="account-profile-number">{propositions && propositions.length}</span>
-                                  <p>Projects</p>
-                              </div>
-                              <div className="account-profile-info">
-                                  <span className="account-profile-number">{user.totalLike}</span>
-                                  <p>Likes</p>
-                              </div>
-                          </>}
-                      <div className="account-profile-info">
-                          <span className="account-profile-number">{user.followed}</span>
-                          <p>Followers</p>
-                      </div>
-                      <div className="account-profile-info">
-                          <span className="account-profile-number">{user.following}</span>
-                          <p>Following</p>
-                      </div>
-                  </div>
-                  {propositions && propositions.length == 0 ? null : <div>
-                      {roles == 'taker' ? <div className="link-to-propositions-container discription"><p >Discription about us</p></div> : 
-                      <div className="link-to-propositions-container" onClick={() => setModal(true)}>
-                          <p >See all Propositions</p>
-                          <img
-                              src="/images/icon/arrow-next.svg"
-                              className="Arrow-next"
-                          ></img>
-                      </div>}
-                  </div>}
-                  {roles == 'taker' ? 
-                    <>
-                      <div className='link-to-propositions-container discription-detail'>
-                        <p>The Mondetta Charity Foundation is a nonprofit organize bringing school & education to people in Uganda wwhen a community gets access to education, it can change everything</p>
-                      </div>
-                      <div className='link-to-propositions-container link-taker-container'>
-                        <GlobalOutlined className='link-taker-icon' />
-                        <p>www.mondettacharityfoundation.org</p>
-                      </div>
-                    </> 
-                    : 
-                    <div className="prop-container">{renderFields()}</div>
-                  }
-                  <div className={`form-control outlineButton ${propositions && propositions.length == 0 ? "edit-button-container nonProButton" : "edit-button-container"}`}>
-                      {buttonContent}
-                  </div>
-                <div>
+                    <div className="top-navbar-giver-home">
+                        <div className="navbar-giver-home-container profile-wrapper">
+                            {avatar}
+                            {user && (
+                                <div className="info-user">
+                                    <p className="username">{user.first_name == null ? user.username : user.first_name}</p>
+                                    <p className="user-charity">  {user.foudation ? `Charity: ${user.foudation}` : null}</p>
+                                </div>
+                            )}
 
-                </div>
-                <BottomNavigator />
+                        </div>
+                        {button}
+                    </div>
+                    <div className="user-account-profile">
+                        {roles == 'taker' ? null :
+                            <>
+                                <div className="account-profile-info">
+                                    <span className="account-profile-number">{propositions && propositions.length}</span>
+                                    <p>Projects</p>
+                                </div>
+                                <div className="account-profile-info">
+                                    <span className="account-profile-number">{user.totalLike}</span>
+                                    <p>Likes</p>
+                                </div>
+                            </>}
+                        <div className="account-profile-info">
+                            <span className="account-profile-number">{user.followed}</span>
+                            <p>Followers</p>
+                        </div>
+                        <div className="account-profile-info">
+                            <span className="account-profile-number">{user.following}</span>
+                            <p>Following</p>
+                        </div>
+                    </div>
+                    {propositions && propositions.length == 0 ? null : <div>
+                        {roles == 'taker' ? <div className="link-to-propositions-container discription"><p >Discription about us</p></div> :
+                            <div className="link-to-propositions-container" onClick={() => setModal(true)}>
+                                <p >See all Propositions</p>
+                                <img
+                                    src="/images/icon/arrow-next.svg"
+                                    className="Arrow-next"
+                                ></img>
+                            </div>}
+                    </div>}
+                    {roles == 'taker' ?
+                        <>
+                            <div className='link-to-propositions-container discription-detail'>
+                                <p>The Mondetta Charity Foundation is a nonprofit organize bringing school & education to people in Uganda wwhen a community gets access to education, it can change everything</p>
+                            </div>
+                            <div className='link-to-propositions-container link-taker-container'>
+                                <GlobalOutlined className='link-taker-icon' />
+                                <p>www.mondettacharityfoundation.org</p>
+                            </div>
+                        </>
+                        :
+                        <div className="prop-container">{renderFields()}</div>
+                    }
+                    <div className={`form-control outlineButton ${propositions && propositions.length == 0 ? "edit-button-container nonProButton" : "edit-button-container"}`}>
+                        {buttonContent}
+                    </div>
                 </div>
             </div>
 

@@ -31,3 +31,5 @@ mix.webpackConfig({
         }
     }
 });
+
+mix.extract();

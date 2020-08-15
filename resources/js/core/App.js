@@ -9,11 +9,8 @@ import configureStore from "../redux/configureStore";
 import privateRoutes from "../router/private";
 import publicRoutes from "../router/public";
 import {withSplashScreen} from '../components/PublicPages';
-// import * as serviceWorker from "./serviceWorker";
 import { SocketProvider } from "../context/SocketProvider";
 import { ConnectedRouter } from "connected-react-router";
-import { Suspense } from "react";
-import Loading from "../components/Atoms/Loading/Loading";
 const App = props => {
     const initialState = {};
     const history = createBrowserHistory({
@@ -25,13 +22,11 @@ const App = props => {
         <Provider store={store}>
             <SocketProvider>
                 <ConnectedRouter history={history}>
-                    <Suspense fallback={<Loading />}>
                         <RouterContainer
                             history={history}
                             publicRoutes={flatten(publicRoutes)}
                             privateRoutes={flatten(privateRoutes)}
                         />
-                    </Suspense>
                 </ConnectedRouter>
             </SocketProvider>
         </Provider>

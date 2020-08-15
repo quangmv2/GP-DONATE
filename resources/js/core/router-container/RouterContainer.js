@@ -9,22 +9,17 @@ import { renderRoutes } from "react-router-config";
 import { Route, Switch, matchPath } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
-
 import saga from "modules/auth/sagas";
 import reducer from "modules/auth/reducers";
 import injectReducer from "core/reducer/inject-reducer";
 import injectSaga from "core/saga/inject-saga";
 import { FEATURE_NAME_AUTH } from "modules/auth/constants";
 
-// AWS cognito
-
-// import { PublicLayout, PrivateLayout } from "components/Layouts";
-// import  from "";
-// import  from "components/Layouts/PrivateLayout/PrivateLayout";
+// import PrivateLayout from "components/Layouts/PrivateLayout/PrivateLayout";
+// import PublicLayout from "components/Layouts/PublicLayout/PublicLayout";
 const PublicLayout = loadable(() => import("components/Layouts/PublicLayout/PublicLayout"));
 const PrivateLayout = loadable(() => import("components/Layouts/PrivateLayout/PrivateLayout"));
 import { NotFoundPage } from "components/ErrorPages";
-
 import { changeLanguage } from "modules/translates/actions";
 import { getLanguageCode } from "modules/translates/selectors";
 import languageObject from "modules/translates";
@@ -35,8 +30,6 @@ import { authCognitoService } from "services";
 
 import {
     LANGUAGE_CODE_DEFAULT,
-    AUTH_COGNITO_CONFIG,
-    NOTIFICATION_TYPE,
     THEME
 } from "constants";
 
