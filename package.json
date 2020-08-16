@@ -12,7 +12,6 @@
     "devDependencies": {
         "@babel/plugin-proposal-class-properties": "^7.10.1",
         "@babel/preset-react": "^7.0.0",
-        "axios": "^0.19",
         "babel-plugin-transform-class-properties": "^6.24.1",
         "babel-preset-env": "^1.7.0",
         "babel-preset-es2016": "^6.24.1",
@@ -28,7 +27,9 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.20.1",
         "sass-loader": "7.*",
-        "webpack-cli": "^3.3.12"
+        "vue-template-compiler": "^2.6.11",
+        "webpack-cli": "^3.3.12",
+        "webpack-laravel-mix-manifest": "^2.1.5"
     },
     "dependencies": {
         "@ant-design/icons": "^4.2.1",
@@ -41,6 +42,7 @@
         "@testing-library/user-event": "^7.1.2",
         "@tweenjs/tween.js": "^18",
         "antd": "^4.4.2",
+        "axios": "^0.19.2",
         "classnames": "^2.2.6",
         "connected-react-router": "^6.5.2",
         "customize-cra": "^1.0.0",
@@ -55,6 +57,7 @@
         "isomorphic-fetch": "^2.2.1",
         "javascript-time-ago": "^2.0.8",
         "js-cookie": "^2.2.1",
+        "laravel-mix-merge-manifest": "^0.1.2",
         "moment": "^2.27.0",
         "node-sass": "^4.14.1",
         "nprogress": "^0.2.0",
@@ -76,7 +79,7 @@
         "react-router-config": "^5.1.0",
         "react-router-dom": "^5.1.0",
         "react-router-redux": "^5.0.0-alpha.9",
-        "react-scripts": "3.4.1",
+        "react-scripts": "^3.4.3",
         "react-swipeable-views": "^0.13.9",
         "react-swipeable-views-utils": "^0.13.9",
         "react-user-avatar": "^1.10.0",

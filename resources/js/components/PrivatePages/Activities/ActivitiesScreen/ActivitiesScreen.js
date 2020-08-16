@@ -1,14 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { HeaderNavigation, SearchInput } from "components/Atoms";
-import "./Activities.scss";
-import BottomNavigator from "../../../Molecules/BottomNav/BottomNavigator";
 import { Tabs } from "antd";
-import "antd/dist/antd.css";
 import {
     MessagesComponent,
     NotificationComponent
-} from "components/PrivatePages";
+} from "components/PrivatePages/Activities";
 
 import { useEffect } from "react";
 import { useState } from "react";
@@ -17,16 +14,16 @@ import { useCallback } from "react";
 import { fetchService } from "../../../../services/fetch/fetchService";
 import { useRef } from "react";
 import MessageDetail from "../MessageDetail/MessagesDetail";
-import { sortedIndex } from "lodash";
+import "./Activities.scss";
+import "antd/dist/antd.css";
+import { NavigatorContext } from "../../../../context/BottomNavigatorContextAPI";
+
 
 const { TabPane } = Tabs;
 
 let loading = false;
-let delay = Date.now();
-let idTimeOut = 0;
 
 const ActivitesScreen = () => {
-
 
     const [dataNoti, setDataNoti] = useState([]);
     const [dataMessage, setDataMessage] = useState([]);
@@ -37,11 +34,13 @@ const ActivitesScreen = () => {
     const [idMessage, setIdMessage] = useState(0);
     const [activeTab, setActiveTab ] = useState('1');
     const bottom = useRef();
+    const { setShowNavigator } = useContext(NavigatorContext);
 
     useEffect(() => {
+        setShowNavigator(true);
         searchMessage();
         searchNoti(1, 'load');
-        window.addEventListener("scroll", scrollWindows)
+        window.addEventListener("scroll", scrollWindows);
         return () => window.removeEventListener("scroll", scrollWindows);
     }, []);
 
@@ -96,19 +95,15 @@ const ActivitesScreen = () => {
 
     const closeWindow = () => {
         setOpen(false);
-    }
+    } 
 
     return (
         <div className="private-fullheight">
             {
-                open?<MessageDetail closeWindow={closeWindow} data={idMessage} />:<></>
+                open?<MessageDetail closeWindow={closeWindow} data={idMessage}/>:<></>
             }
             <div className="container">
-                <HeaderNavigation headerName="Activities">
-                    <button className="button-trans">
-                        <i className="icon-more icon-top" />
-                    </button>
-                </HeaderNavigation>
+                <HeaderNavigation headerName="Activities" />
                 <SearchInput />
                 <div className="ant-tabs-container custom-tabs">
                     <Tabs activeKey={activeTab} onChange={changeTab}>
@@ -121,8 +116,7 @@ const ActivitesScreen = () => {
                     </Tabs>
                 </div>
                 <div ref={bottom}></div>
-                {    !open ? <BottomNavigator /> : <></> }
-                </div>
+            </div>
         </div>
     );
 };

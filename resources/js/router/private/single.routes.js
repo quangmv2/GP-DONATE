@@ -1,21 +1,35 @@
-import EditProfile from 'components/PrivatePages/EditProfile/EditProfile';
-import ProfileSetting from 'components/PrivatePages/ProfileSetting/ProfileSetting';
-import {
-  HomePage,
-  PostComment,
-  UserProfile,
-  ActivitiesScreen,
-  Search,
-  PostLike,
-  MessagesDetail,
-  ChooseRoleScreen, 
-  InputCode,
-  SuccessScreen
-} from 'components/PrivatePages';
+// import EditProfile from 'components/PrivatePages/EditProfile/EditProfile';
+// import ProfileSetting from 'components/PrivatePages/ProfileSetting/ProfileSetting';
+// import {
+//   HomePage,
+//   PostComment,
+//   UserProfile,
+//   ActivitiesScreen,
+//   Search,
+//   PostLike,
+//   ChooseRoleScreen, 
+//   InputCode,
+//   SuccessScreen,
+//   PostOffer
+// } from 'components/PrivatePages';
+import React from "react"
 import { PRIVATE_ROUTE } from 'constants';
 import loadable from "@loadable/component";
+import Loading from '../../components/Atoms/Loading/Loading';
 
-const PostOffer = loadable(() => import("components/PrivatePages/PostOffer/PostOffer"));
+const HomePage = loadable(() => import("components/PrivatePages/Home/HomePage"), { fallback: <Loading /> });
+const PostComment = loadable(() => import("components/PrivatePages/HomeComment/PostComment"), { fallback: <Loading /> });
+const UserProfile = loadable(() => import("components/PrivatePages/UserProfile/UserProfile"), { fallback: <Loading /> });
+const ActivitiesScreen = loadable(() => import("components/PrivatePages/Activities/ActivitiesScreen/ActivitiesScreen"), { fallback: <Loading /> });
+const Search = loadable(() => import("components/PrivatePages/Search/Search"), { fallback: <Loading /> });
+const PostLike = loadable(() => import("components/PrivatePages/PostLike/PostLike"), { fallback: <Loading /> });
+const ChooseRoleScreen = loadable(() => import("components/PrivatePages/ChooseRole/ChooseRoleScreen"), { fallback: <Loading /> });
+const InputCode = loadable(() => import("components/PrivatePages/InputCode/InputCode"), { fallback: <Loading /> });
+const SuccessScreen = loadable(() => import("components/PrivatePages/SuccessScreen/SuccessScreen"), { fallback: <Loading /> });
+const PostOffer = loadable(() => import("components/PrivatePages/PostOffer/PostOffer"), { fallback: <Loading /> });
+const ProfileSetting = loadable(() => import("components/PrivatePages/ProfileSetting/ProfileSetting"), { fallback: <Loading /> });
+const EditProfile = loadable(() => import("components/PrivatePages/EditProfile/EditProfile"), { fallback: <Loading /> });
+
 
 export const singleRoutes = [
   {
@@ -58,10 +72,6 @@ export const singleRoutes = [
     exact: true,
   },
   {
-    path: PRIVATE_ROUTE.MESSAGES,
-    component: MessagesDetail,
-  },
-  {
     path: PRIVATE_ROUTE.MYLIKES,
     component: PostLike,
     exact: true,
@@ -86,5 +96,4 @@ export const singleRoutes = [
     component: SuccessScreen,
     exact: true
   }
-  
 ];

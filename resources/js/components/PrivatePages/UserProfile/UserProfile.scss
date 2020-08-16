@@ -201,8 +201,14 @@ padding-top: 20px;
   z-index: 3;
  position: relative;
 }
+
 .profile-wrapper{
     .icon-star{
         border: 3px solid rgba(0,0,0,0.2);
     }
+}
+
+.outlineButton {
+    display: flex;
+    justify-content: center;
 }

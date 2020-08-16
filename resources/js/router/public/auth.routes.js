@@ -1,18 +1,4 @@
-
-// import { 
-//     , 
-//     ForgotPass, 
-//     ,
-//     ,
-//     CongratScreen
-// } 
-// from 'components/PublicPages';
-// import  from "";
-// import  from "";
-// import  from "";
-// import  from "";
 import { PUBLIC_ROUTE } from "constants";
-// import TestSocket from "components/PublicPages/TestSocket";
 import loadable from '@loadable/component';
 
 const Login = loadable(() => import('components/PublicPages/Login/Login'))
@@ -42,11 +28,6 @@ export const authRoutes = [
         component: ForgotPass,
         exact: true
     },
-    // {
-    //     path: "/test-socket",
-    //     component: TestSocket,
-    //     exact: true
-    // },
     {
         path: PUBLIC_ROUTE.CONGRAT,
         component: CongratScreen,

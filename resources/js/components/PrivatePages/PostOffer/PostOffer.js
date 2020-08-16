@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useState, useContext } from 'react';
 import { ButtonAnt, HeaderNavigation } from 'components/Atoms';
 import { FormattedMessage } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
@@ -15,6 +15,7 @@ import Hastag from './Hastag';
 import { openNotification } from "helpers";
 import { NOTIFICATION_TYPE } from "constants";
 import { getMessageTranslate } from "helpers";
+import { NavigatorContext } from '../../../context/BottomNavigatorContextAPI';
 
 
 const dateFormat = 'DD MMMM YYYY';
@@ -39,9 +40,12 @@ const PostOffer = props => {
   const [dueDate, setDueDate] = useState(moment().format("YYYY-MM-DD"));
   const [materials, setMaterials] = useState('');
   const [loadingUpload, setLoadingUpload] = useState(false);
+  const { setShowNavigator } = useContext(NavigatorContext);
 
   useEffect(() => {
     fetchHastag();
+    setShowNavigator(false);
+    return () => setShowNavigator(true);
   }, []);
 
   const submit = async () => {

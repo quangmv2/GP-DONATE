@@ -25,8 +25,6 @@ import {
 } from "modules/auth/selectors";
 import { ButtonAnt } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
-import { isEmptyString } from "helpers";
-import { isEmpty } from "lodash";
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
