@@ -163,7 +163,7 @@ export class ForgotPass extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <AccountCircle />
+                                              <i className='icon-mail-dark form-icon'></i>
                                                 <TextField
                                                     error={
                                                         errors.email &&

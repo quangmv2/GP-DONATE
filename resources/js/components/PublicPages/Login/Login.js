@@ -128,7 +128,7 @@ export class Login extends Component {
                                                     item
                                                     className="item-flex input-with-icon"
                                                 >
-                                                    <AccountCircle />
+                                                   <i className="icon-account-dark form-icon"></i>
                                                     <TextField
                                                         error={
                                                             errors.username &&
@@ -166,7 +166,7 @@ export class Login extends Component {
                                                     item
                                                     className="item-flex input-with-icon"
                                                 >
-                                                    <AccountCircle />
+                                                    <i className='icon-password form-icon'></i>
                                                     <TextField
                                                         error={
                                                             errors.password &&

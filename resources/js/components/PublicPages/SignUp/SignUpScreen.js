@@ -129,8 +129,7 @@ export class SignUpScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <AccountCircle />
-                                                <AccountCircle />
+                                               <i className="icon-account-dark form-icon"></i>
                                                 <TextField
                                                     error={
                                                         errors.username &&
@@ -167,7 +166,7 @@ export class SignUpScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <AccountCircle />
+                                               <i className='icon-mail-dark form-icon'></i>
                                                 <TextField
                                                     error={
                                                         errors.email &&
@@ -206,7 +205,7 @@ export class SignUpScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <AccountCircle />
+                                               <i className='icon-password form-icon'></i>
                                                 <TextField
                                                     error={
                                                         errors.password &&
