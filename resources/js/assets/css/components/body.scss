@@ -90,11 +90,11 @@ p.MuiFormHelperText-root {
   max-width: 768px;
 }
 
-.filledButton{
-  max-width: 200px;
-  margin: 0 auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
+.filledButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10%;
 }
 
 @media(min-width:1020px){
