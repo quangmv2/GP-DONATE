@@ -15,10 +15,12 @@ import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
-import "./signUp.scss";
+
 import { NOTIFICATION_TYPE } from "constants";
 import { ROUTE } from "../../../constants/routes";
 import { openNotification } from "helpers";
+import "../Login/login.scss";
+import "./signUp.scss";
 
 
 export class SignUpScreen extends Component {
