@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import { fetchService } from "services";
 import { PropTypes } from "prop-types";
 
-import {
-    PUBLIC_ROUTE,
-    ROOT_API_URL
-} from "constants";
+import { PUBLIC_ROUTE, ROOT_API_URL } from "constants";
 import { ButtonAnt, SignInBackground } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
 import { Formik } from "formik";
@@ -75,15 +72,19 @@ export class ChangePassScreen extends Component {
                             <FormattedMessage
                                 id="resetPass.change"
                                 defaultMessage="resetPass.change"
-                            /><br /> <FormattedMessage
+                            />
+                            <br />{" "}
+                            <FormattedMessage
                                 id="resetPass.password"
                                 defaultMessage="resetPass.password"
                             />
                         </p>
-                        <p className="text2"><FormattedMessage
+                        <p className="text2">
+                            <FormattedMessage
                                 id="resetPass.please"
                                 defaultMessage="resetPass.please"
-                            /></p>
+                            />
+                        </p>
                     </SignInBackground>
                     <div className="formFields">
                         {/* {this.renderFields()} */}
@@ -138,7 +139,7 @@ export class ChangePassScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                               <i className='icon-code form-icon'></i>
+                                                <i className="icon-code form-icon"></i>
                                                 <TextField
                                                     error={
                                                         errors.resetpasscode &&
@@ -176,7 +177,7 @@ export class ChangePassScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <i className = 'icon-password form-icon'></i>
+                                                <i className="icon-password form-icon"></i>
                                                 <TextField
                                                     error={
                                                         errors.password &&
@@ -214,7 +215,7 @@ export class ChangePassScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <i className = 'icon-password form-icon'></i>
+                                                <i className="icon-password form-icon"></i>
                                                 <TextField
                                                     error={
                                                         errors.passchange &&
@@ -271,8 +272,6 @@ export class ChangePassScreen extends Component {
         );
     }
 }
-
-
 
 ChangePassScreen.defaultProps = {
     login: () => null,

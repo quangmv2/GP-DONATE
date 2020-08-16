@@ -9,7 +9,7 @@ import {
     selectErrors,
     selectLoading
 } from "modules/auth/selectors";
-import { ButtonAnt} from "components/Atoms";
+import { ButtonAnt } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
@@ -19,7 +19,6 @@ import "./signUp.scss";
 import { NOTIFICATION_TYPE } from "constants";
 import { ROUTE } from "../../../constants/routes";
 import { openNotification } from "helpers";
-
 
 export class SignUpScreen extends Component {
     constructor(props) {
@@ -34,7 +33,7 @@ export class SignUpScreen extends Component {
         this.redirectPrivatePage = this.redirectPrivatePage.bind(this);
     }
 
-    async componentDidMount() { };
+    async componentDidMount() {}
 
     onSubmit = (values, { setSubmitting }) => {
         if (!this.setSubmitting) {
@@ -42,14 +41,16 @@ export class SignUpScreen extends Component {
         }
         const { email, username, password } = values;
         const { signUp } = this.props;
-        if (['gmail', 'hotmail', 'yahoo'].some(v => email.includes(v))) {
-            openNotification(NOTIFICATION_TYPE.ERROR, "Email Error", "We are just allow email's company");
+        if (["gmail", "hotmail", "yahoo"].some(v => email.includes(v))) {
+            openNotification(
+                NOTIFICATION_TYPE.ERROR,
+                "Email Error",
+                "We are just allow email's company"
+            );
         } else {
             signUp(username, email, password);
         }
-
-
-    }
+    };
     componentDidUpdate() {
         const { isLogged } = this.props;
         if (isLogged) {
@@ -69,14 +70,18 @@ export class SignUpScreen extends Component {
             <div className="fullheight-wrapper flex-center">
                 <div className="container ">
                     <SignInBackground>
-                        <p className="text1"><FormattedMessage
-                            id="loginPage.signup"
-                            defaultMessage="loginPage.signup"
-                        /></p>
-                        <p className="text2"><FormattedMessage
-                            id="signupPage.making"
-                            defaultMessage="signupPage.making"
-                        /></p>
+                        <p className="text1">
+                            <FormattedMessage
+                                id="loginPage.signup"
+                                defaultMessage="loginPage.signup"
+                            />
+                        </p>
+                        <p className="text2">
+                            <FormattedMessage
+                                id="signupPage.making"
+                                defaultMessage="signupPage.making"
+                            />
+                        </p>
                     </SignInBackground>
                     <div className="formFields">
                         {/* {this.renderFields()} */}
@@ -116,23 +121,23 @@ export class SignUpScreen extends Component {
                                 touched,
                                 handleChange,
                                 //handleBlur,
-                                handleSubmit,
+                                handleSubmit
 
                                 /* and other goodies */
                             }) => (
-                                    <form onSubmit={handleSubmit} layout="vertical">
-                                        <>
+                                <form onSubmit={handleSubmit} layout="vertical">
+                                    <>
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
                                             <Grid
-                                                container
-                                                spacing={1}
-                                                alignItems="flex-end"
-                                                className="form-control"
-                                            >
-                                                <Grid
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                               <i className="icon-account-dark form-icon"></i>
+                                                <i className="icon-account-dark form-icon"></i>
                                                 <TextField
                                                     error={
                                                         errors.username &&
@@ -147,9 +152,7 @@ export class SignUpScreen extends Component {
                                                     }
                                                     value={values.username}
                                                     onChange={handleChange}
-                                                    disabled={
-                                                        loading
-                                                    }
+                                                    disabled={loading}
                                                     helperText={
                                                         touched.username
                                                             ? errors.username
@@ -158,18 +161,18 @@ export class SignUpScreen extends Component {
                                                     name="username"
                                                 />
                                             </Grid>
-                                            </Grid>
+                                        </Grid>
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
                                             <Grid
-                                                container
-                                                spacing={1}
-                                                alignItems="flex-end"
-                                                className="form-control"
-                                            >
-                                                <Grid
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                               <i className='icon-mail-dark form-icon'></i>
+                                                <i className="icon-mail-dark form-icon"></i>
                                                 <TextField
                                                     error={
                                                         errors.email &&
@@ -184,9 +187,7 @@ export class SignUpScreen extends Component {
                                                     }
                                                     value={values.email}
                                                     onChange={handleChange}
-                                                    disabled={
-                                                        loading
-                                                    }
+                                                    disabled={loading}
                                                     helperText={
                                                         touched.email
                                                             ? errors.email
@@ -196,19 +197,19 @@ export class SignUpScreen extends Component {
                                                     name="email"
                                                 />
                                             </Grid>
-                                            </Grid>
+                                        </Grid>
 
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
                                             <Grid
-                                                container
-                                                spacing={1}
-                                                alignItems="flex-end"
-                                                className="form-control"
-                                            >
-                                                 <Grid
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                               <i className='icon-password form-icon'></i>
+                                                <i className="icon-password form-icon"></i>
                                                 <TextField
                                                     error={
                                                         errors.password &&
@@ -223,9 +224,7 @@ export class SignUpScreen extends Component {
                                                     }
                                                     value={values.password}
                                                     onChange={handleChange}
-                                                    disabled={
-                                                        loading
-                                                    }
+                                                    disabled={loading}
                                                     helperText={
                                                         touched.password
                                                             ? errors.password
@@ -235,54 +234,52 @@ export class SignUpScreen extends Component {
                                                     name="password"
                                                 />
                                             </Grid>
-                                            </Grid>
-                                        </>
+                                        </Grid>
+                                    </>
 
-                                        <div className="form-control filledButton">
-                                            <Link to="/choose-role">
-                                                <ButtonAnt
-                                                    className="custom-button-login btn-block btn-round btn-red buttonContainer"
-                                                    disabled={
-                                                        loading
-                                                    }
-                                                    id="login-btn"
-                                                    loading={
-                                                        loading
-                                                    }
-                                                    name="login-btn"
-                                                    onClick={handleSubmit}
-                                                    type="primary"
-                                                >
-                                                    <FormattedMessage
-                                                        defaultMessage={
-                                                            "signupPage.createacc"
-                                                        }
-                                                        id={"signupPage.createacc"}
-                                                    />
-                                                </ButtonAnt>
-                                            </Link>
-                                        </div>
-                                        <div className="form-control outlineButton">
-                                        </div>
-
-                                        <div className="bottomTextContainer">
-                                            <FormattedMessage
-                                                defaultMessage={
-                                                    "signupPage.onboard"
-                                                }
-                                                id={"signupPage.onboard"}
-                                            ></FormattedMessage>
-                                            <Link className="bottomLink" to={ROUTE.LOGIN}>
+                                    <div className="form-control filledButton">
+                                        <Link to="/choose-role">
+                                            <ButtonAnt
+                                                className="custom-button-login btn-block btn-round btn-red buttonContainer"
+                                                disabled={loading}
+                                                id="login-btn"
+                                                loading={loading}
+                                                name="login-btn"
+                                                onClick={handleSubmit}
+                                                type="primary"
+                                            >
                                                 <FormattedMessage
                                                     defaultMessage={
-                                                        "signupPage.signed"
+                                                        "signupPage.createacc"
                                                     }
-                                                    id={"signupPage.signed"}
-                                                ></FormattedMessage>
-                                            </Link>
-                                        </div>
-                                    </form>
-                                )}
+                                                    id={"signupPage.createacc"}
+                                                />
+                                            </ButtonAnt>
+                                        </Link>
+                                    </div>
+                                    <div className="form-control outlineButton"></div>
+
+                                    <div className="bottomTextContainer">
+                                        <FormattedMessage
+                                            defaultMessage={
+                                                "signupPage.onboard"
+                                            }
+                                            id={"signupPage.onboard"}
+                                        ></FormattedMessage>
+                                        <Link
+                                            className="bottomLink"
+                                            to={ROUTE.LOGIN}
+                                        >
+                                            <FormattedMessage
+                                                defaultMessage={
+                                                    "signupPage.signed"
+                                                }
+                                                id={"signupPage.signed"}
+                                            ></FormattedMessage>
+                                        </Link>
+                                    </div>
+                                </form>
+                            )}
                         </Formik>
                     </div>
                 </div>
