@@ -103,19 +103,27 @@ export class ForgotPass extends Component {
                 <div className="container">
                     <div className="backContainer" onClick={this.handleBack}>
                         <ArrowBackIosIcon className="backIcon" />
-                        <p><FormattedMessage
-                            id="common.back"
-                            defaultMessage="common.back"
-                        /></p>
+                        <p>
+                            <FormattedMessage
+                                id="common.back"
+                                defaultMessage="common.back"
+                            />
+                        </p>
                     </div>
-                    <p className="t1">   <FormattedMessage
+                    <p className="t1">
+                        {" "}
+                        <FormattedMessage
                             id="forgotPass.forgot"
                             defaultMessage="forgotPass.forgot"
-                        /></p>
-                    <p className="t2"> <FormattedMessage
+                        />
+                    </p>
+                    <p className="t2">
+                        {" "}
+                        <FormattedMessage
                             id="forgotPass.please"
                             defaultMessage="forgotPass.please"
-                        /></p>
+                        />
+                    </p>
                     <div className="codeFields">
                         {/* {this.renderFields()} */}
                         <Formik
@@ -161,7 +169,7 @@ export class ForgotPass extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                              <i className='icon-mail-dark form-icon'></i>
+                                                <i className="icon-mail-dark form-icon"></i>
                                                 <TextField
                                                     error={
                                                         errors.email &&
@@ -212,9 +220,7 @@ export class ForgotPass extends Component {
 
                                     <div className="bottomTextContainer">
                                         <FormattedMessage
-                                            defaultMessage={
-                                                "forgotPass.newbie"
-                                            }
+                                            defaultMessage={"forgotPass.newbie"}
                                             id={"forgotPass.newbie"}
                                         ></FormattedMessage>
                                         <Link
