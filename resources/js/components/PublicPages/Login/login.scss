@@ -78,6 +78,12 @@ input:active {
   border: none;
   color: #ffffff;
   line-height: 1.44px;
+
+  &:hover{
+    background-color: #fff;
+    border: 1px solid #ddae53;
+    color: #ddae53;
+  }
 }
 .bottomText {
   text-align: center;

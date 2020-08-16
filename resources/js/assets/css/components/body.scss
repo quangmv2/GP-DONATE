@@ -90,6 +90,13 @@ p.MuiFormHelperText-root {
   max-width: 768px;
 }
 
+.filledButton{
+  max-width: 200px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
 @media(min-width:1020px){
   body{
     background: #009cff;
