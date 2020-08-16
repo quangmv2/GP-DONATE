@@ -4,23 +4,29 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { postLogout } from "modules/auth/actions";
 import { HeaderNavigation, LinkItem } from "components/Atoms";
-import "./ProfileSetting.scss";
 import { PRIVATE_ROUTE } from "../../../constants";
-
+import {
+    selectUserInfo
+} from "modules/auth/selectors";
 import { FormattedMessage } from "react-intl";
 import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
 
+import "./ProfileSetting.scss";
+
+
 const ProfileSetting = (props) => {
 
-  const { setShowNavigator } = useContext(NavigatorContext);
+    const { setShowNavigator } = useContext(NavigatorContext);
 
     useEffect(() => {
         setShowNavigator(false);
     }, []);
-   
+
     const logoutFunc = (e) => {
         props.logout();
     }
+
+    const { userInfor } = props;
 
     return (
         <div className="private-fullheight">
@@ -33,6 +39,18 @@ const ProfileSetting = (props) => {
                             id={"profileSetting.account"}
                         />
                     </p>
+                    {
+                        userInfor && userInfor.roles && userInfor.roles[0].name != "taker" && !userInfor.code_id &&
+                        <div className="list-box">
+                            <LinkItem
+                                className="text-box link-center"
+                                url={PRIVATE_ROUTE.INPUTCODE}
+                                icon={<i className="icon-left icon-celeb" />}
+                                title={"profileSetting.code"}
+                                arrow={<i className="icon-next" />}
+                            />
+                        </div>
+                    }
                     <div className="list-box">
                         <LinkItem
                             className="text-box link-center"
@@ -121,11 +139,12 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = createStructuredSelector({
+    userInfor: selectUserInfo(),
 });
 
 ProfileSetting.defaultProps = {
     login: () => null,
-    errors: {}
+    errors: {},
 };
 
 ProfileSetting.propTypes = {

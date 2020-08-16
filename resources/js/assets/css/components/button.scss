@@ -17,6 +17,13 @@ button,
   }
 }
 
+.button-trans {
+  background-color: Transparent;
+  border: none;
+  background-repeat:no-repeat;
+  cursor:pointer;
+}
+
 .btn-block {
   display: block;
   width: 100%;
