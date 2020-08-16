@@ -55,7 +55,6 @@ const PostComment = (props) => {
                 })
                 return newCmts;
             });
-            screen.scrollTo(0, document.body.scrollHeight);
         });
 
         socket.on('delete-comment', data => {

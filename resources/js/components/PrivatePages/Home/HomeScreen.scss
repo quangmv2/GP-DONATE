@@ -281,3 +281,13 @@ background: transparent;
   background: #fff;
   border: 0px;
 }
+
+@media(min-width: 1020px) {
+  .custom-swipper-web{
+    height: 90vh;
+  }
+}
+
+.hidden-swipper {
+  display: none;
+}

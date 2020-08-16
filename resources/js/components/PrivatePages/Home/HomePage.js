@@ -97,11 +97,11 @@ const HomePage = (props) => {
                 {openMessage && <MessagesDetail data={user} closeWindow={() => setOpenMessage(false)} />}
                 <Swiper
                     direction="vertical"
-                    style={{ height: openModal ? 0 : window.innerHeight, display: openModal ? "none" : "block" }}
+                    // style={{ height: openModal ? 0 : window.innerHeight, display: openModal ? "none" : "block" }}
+                    className={openModal?"hidden-swipper custom-swipper-web":"custom-swipper-web"}
                     onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
                     onSliderMove={sw => null}
                 >
-
                     {posts.map(post =>
                         <SwiperSlide key={`post ${post.id} ${post.title}`}>
                             <PostItem {...post} showModal={showModal} hideModal={hideModal} setUserMessage={setUserMessage} />
