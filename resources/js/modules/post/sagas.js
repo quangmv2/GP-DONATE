@@ -18,6 +18,7 @@ export function* watchFetchPost() {
 
 ///////////////////////////////////////////////////// FUNCTIONS //////////////////
 
+
 export function* fetchPosts({ payload: {page, limit} }) {
     const res = yield call(requestPost, page, limit);
     const {data, status} = res;

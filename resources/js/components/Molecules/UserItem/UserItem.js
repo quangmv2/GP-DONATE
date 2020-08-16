@@ -39,16 +39,20 @@ const UserItem = ({
         }
     }
 
+    console.log(isCeleb);
+
     return (
         <div style={{ display: "flex" }}>
             <Link className="message-component-container message-preview-container" to="#">
                 <div className="message-component-container">
                     <div className="avatar-wrapper">
-                            {
-                                avatar?<img src={GET_IMAGE(avatar)} className="mess-avatar" />:
+                        {
+                            isCeleb?<StarFilled className="icon-star" />:<></>
+                        }
+                        {
+                            avatar ? <img src={GET_IMAGE(avatar)} className="mess-avatar" /> :
                                 <UserAvatar size="42" name={`${username}`} />
-                            }
-                        <StarFilled className="icon-star" />
+                        }
                     </div>
                     <div className="info-user mess-content-container">
                         <p className="username">{username}</p>

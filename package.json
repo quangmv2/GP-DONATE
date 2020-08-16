@@ -29,7 +29,8 @@
         "sass-loader": "7.*",
         "vue-template-compiler": "^2.6.11",
         "webpack-cli": "^3.3.12",
-        "webpack-laravel-mix-manifest": "^2.1.5"
+        "webpack-laravel-mix-manifest": "^2.1.5",
+        "webpack-livereload-plugin": "^1.2.0"
     },
     "dependencies": {
         "@ant-design/icons": "^4.2.1",

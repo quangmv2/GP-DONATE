@@ -5,6 +5,7 @@ import moment from "moment";
 import UserAvatar from "react-user-avatar";
 import "./Noti.scss";
 import { fetchService } from "services";
+import { StarFilled } from "@ant-design/icons";
 
 const NotificationComponent = props => {
 
@@ -62,13 +63,18 @@ const NotificationComponent = props => {
                 <div key={`noti ${id} ${user.id}`}>
                     <Link className="message-preview-container noti-preview-container">
                         <div className="message-component-container">
-                            {
-                                user.personal_photo ? <img
-                                    src={GET_IMAGE(user.personal_photo)}
-                                    className="mess-avatar"
-                                /> :
-                                    <UserAvatar size="42" name={`${user.first_name}`} />
-                            }
+                            <div style={{ position: "relative" }}>
+                                {
+                                    user.code_id?<StarFilled className="icon-star" style={{ fontSize: "15px" }} />:<></>
+                                }
+                                {
+                                    user.personal_photo ? <img
+                                        src={GET_IMAGE(user.personal_photo)}
+                                        className="mess-avatar"
+                                    /> :
+                                        <UserAvatar size="42" name={`${user.first_name}`} />
+                                }
+                            </div>
                             <div className="info-user mess-content-container">
                                 <p className="username">{`${user.first_name}`}</p>
                                 <p className="mess-content">

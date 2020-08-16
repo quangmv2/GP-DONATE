@@ -63,11 +63,18 @@ const UserProfile = (props) => {
 
     let avatar = (
         <div style={{ position: 'relative' }}>
-            <StarFilled className="icon-star" style={{ fontSize: '14px' }} />
-            <img
-                className='giver-avatar'
-                src={GET_IMAGE(user.personal_photo)}
-            ></img>
+            {
+                user && user.code_id ? <StarFilled className="icon-star" style={{ fontSize: '14px' }} /> : <></>
+            }
+            {
+                user && user.personal_photo ?
+                    <img
+                        className='giver-avatar'
+                        src={GET_IMAGE(user.personal_photo)}
+                    />:
+                <UserAvatar size={42} name={user && user.first_name ? user.first_name: "GP"} />
+            }
+
         </div>
     )
     let button = (

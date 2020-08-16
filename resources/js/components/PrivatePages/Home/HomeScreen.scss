@@ -32,6 +32,20 @@
   z-index: 1;
   object-fit: cover;
 }
+
+.icon-star {
+  border-radius: 50%;
+  background-color: #ddae53;
+  color: #ffffff;
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  border: 3px solid #ffffff;
+  padding: -100px;
+  font-size: 23px;
+  line-height: 10px;
+}
+
 .top-navbar-giver-home {
   background-color: rgba(34, 34, 34, 0.4);
   display: flex;
@@ -266,4 +280,14 @@ background: transparent;
   color: white;
   background: #fff;
   border: 0px;
+}
+
+@media(min-width: 1020px) {
+  .custom-swipper-web{
+    height: 90vh;
+  }
+}
+
+.hidden-swipper {
+  display: none;
 }

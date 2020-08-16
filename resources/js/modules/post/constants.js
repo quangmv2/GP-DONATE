@@ -6,3 +6,4 @@ export const FETCH_POST = "FETCH_POST";
 export const FETCH_POST_SUCCESS = "FETCH_POST_SUCCESS";
 export const FETCH_POST_SUCCESS_NULL = "FETCH_POST_SUCCESS_NULL";
 export const FETCH_POST_FAILED = "FETCH_POST_FAILED";
+export const INIT = "INIT";

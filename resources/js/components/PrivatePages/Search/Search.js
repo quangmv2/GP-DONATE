@@ -28,6 +28,7 @@ const Search = props => {
     const [active, setActive] = useState(0);
     const [openSwipper, setOpenSwipper] = useState(false);
     const [indexSwiper, setIndexSwiper] = useState(0);
+    const [show, setShow] = useState(true);
     const { setShowNavigator } = useContext(NavigatorContext);
 
 
@@ -68,14 +69,14 @@ const Search = props => {
                 username: `${user.first_name}`,
                 content: `@${user.username}`,
                 avatar: user.personal_photo,
-                isFriend: user.friend?true:false
+                isFriend: user.friend?true:false,
+                isCeleb: user.isCeleb
             })));
         }
     }, [])
 
     const changeTab = active => {
         setKeyWord('');
-        console.log(active)
         setActive(active);
         if (active == 2) searchPost('');
         else searchPeople('');
@@ -83,14 +84,15 @@ const Search = props => {
     const showSwipper = id => {
         setOpenSwipper(true);
         setIndexSwiper(id);
+        setShow(false);
     }
 
     return (
         <div className="private-fullheight">
             {
-                openSwipper && <Swipper posts={dataPost} index={indexSwiper} closeSwipper={() => setOpenSwipper(false)} />
+                openSwipper && <Swipper posts={dataPost} index={indexSwiper} closeSwipper={() => { setOpenSwipper(false); setShow(true)}} />
             }
-            <div className="container">
+            <div className="container" style={{ display: show?"block":"none" }}>
                 <HeaderNavigation headerName="Search" />
                 <SearchInput onChange={e => setKeyWord(e.target.value)} value={keyWord} />
                 <div className="ant-tabs-container custom-tabs">
@@ -124,7 +126,8 @@ const Search = props => {
                                             author={{
                                                 username: `${post.user.first_name}`,
                                                 avatar: post.user.personal_photo,
-                                                id: post.user.id
+                                                id: post.user.id,
+                                                isCeleb: post.user.code_id?true:false
                                             }}
                                             createTime={moment(post.created_at).format("YYYY-MM-DD")}
                                             onClick={showSwipper}

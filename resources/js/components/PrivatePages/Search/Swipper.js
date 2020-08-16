@@ -31,10 +31,15 @@ const Swipper = (props) => {
     const { posts } = props;
     return (
         <div>
-            {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
+            {
+              openModal && 
+              <div style={{ height: "100vh" }}>
+                <Comment hideModal={hideModal} post={posts[index]} />
+              </div> 
+            }
             <Swiper
                 direction="vertical"
-                style={{ height: openModal? 0:"100vh", display: openModal?"none":"block", position: "absolute",  zIndex: 100000, width: "100%", top: "0px" }}
+                style={{ height: openModal? 0:"100vh", display: openModal?"none":"block", position: "absolute",  zIndex: 11000, width: "100%", top: "0px" }}
                 initialSlide={props.index?props.index:0}
             >
 

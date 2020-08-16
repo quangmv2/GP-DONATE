@@ -20,6 +20,8 @@ import moment from "moment";
 import CloseIcon from '@material-ui/icons/Close';
 import { selectUserInfo } from "modules/auth/selectors";
 import { Tooltip } from 'antd';
+import { StarFilled } from "@ant-design/icons";
+import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
 
 const PostItem = (props) => {
    
@@ -29,6 +31,8 @@ const PostItem = (props) => {
     const { socket } = useContext(SocketContext);
     const homeImage = useRef(null);
     const commentsElement = useRef(null);
+    const { setShowNavigator } = useContext(NavigatorContext);
+    
     const { post, userInfo } = props;
     const isLiked = element => element.user_id == userInfo.id;
     const isLikes = liked.findIndex(isLiked);
@@ -134,15 +138,20 @@ const PostItem = (props) => {
             <div className="home-image" ref={homeImage}>
                 <div className="top-navbar-giver-home">
                     <div className="navbar-giver-home-container">
-                        <Link to={`user-profile/${props.user.username}`}  >
+                        <div style={{ position: "relative" }}>
                             {
-                                props.user.personal_photo ? <img
-                                    src={GET_IMAGE(props.user.personal_photo)}
-                                    className="giver-avatar"
-                                /> :
-                                    <UserAvatar size="42" name={`${props.user.first_name}`} />
+                                props.user.code_id?<StarFilled className="icon-star" style={{ fontSize: "15px" }} />:<></>
                             }
-                        </Link>
+                            <Link to={`user-profile/${props.user.username}`}  >
+                                {
+                                    props.user.personal_photo ? <img
+                                        src={GET_IMAGE(props.user.personal_photo)}
+                                        className="giver-avatar"
+                                    /> :
+                                        <UserAvatar size="42" name={`${props.user.first_name}`} />
+                                }
+                            </Link>
+                        </div>
                         <div className="info-user">
                             <p className="username">
                                 <Link to={`user-profile/${props.user.username}`} >
@@ -232,7 +241,7 @@ const PostItem = (props) => {
                                 }       
                             })}
                         </div>
-                        <div className="raise-a-voice-container" onClick={props.showModal}>
+                        <div className="raise-a-voice-container" onClick={() => {props.showModal(); setShowNavigator(false)}}>
                             <ButtonAnt>
                                 <span><FormattedMessage defaultMessage="Raise Your voice" id="homepage.raiseYourVoice" /></span>
                                 <i className="icon-social icon-comment-active"></i>

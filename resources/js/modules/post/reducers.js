@@ -16,6 +16,10 @@ export const initialState = fromJS({
 const reducer = (state = initialState, action) => {
   switch (action.type) {
 
+    case types.INIT: {
+      return state.set('posts', []);
+    }
+
     case types.FETCH_POST: {
       const { payload } = action;
       if (payload.page === 1) {

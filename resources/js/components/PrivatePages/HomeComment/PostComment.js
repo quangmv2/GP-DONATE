@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef, useCallback } from "react";
+import React, { useState, useContext, useEffect, useRef, useCallback, memo } from "react";
 import { FormattedMessage } from "react-intl";
 import { HeaderNavigation } from 'components/Atoms';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import UserAvatar from "react-user-avatar";
 import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
+import { StarFilled } from "@ant-design/icons";
 
 const PostComment = (props) => {
     const { userInfo } = props;
@@ -24,12 +25,14 @@ const PostComment = (props) => {
     const { socket } = useContext(SocketContext);
     const { setShowNavigator } = useContext(NavigatorContext);
     const screen = useRef(null);
-    
+
     useEffect(() => {
         fetchFirstData();
+        console.log("set false");
         setShowNavigator(false);
         return () => setShowNavigator(true);
     }, []);
+
     useEffect(() => {
         screen.current.scrollTop = 5000;
     }, [comments]);
@@ -38,7 +41,7 @@ const PostComment = (props) => {
 
     const fetchFirstData = useCallback(async () => {
         await fetchComments();
-        screen.current.scrollTo(0,document.body.scrollHeight);
+        screen.current.scrollTo(0, document.body.scrollHeight);
         socket.emit('watch-post', { id: post.id });
         socket.on(`new-comment`, data => {
             setComments(cmts => {
@@ -46,13 +49,12 @@ const PostComment = (props) => {
                 const newCmts = [...cmts];
                 newCmts.push(data);
                 newCmts.sort((a, b) => {
-                    const dateA =  new Date(a.created_at).getTime;
-                    const dateB =  new Date(b.created_at).getTime;
-                    return  dateA - dateB;
+                    const dateA = new Date(a.created_at).getTime;
+                    const dateB = new Date(b.created_at).getTime;
+                    return dateA - dateB;
                 })
                 return newCmts;
             });
-            screen.scrollTo(0,document.body.scrollHeight);
         });
 
         socket.on('delete-comment', data => {
@@ -71,7 +73,7 @@ const PostComment = (props) => {
             if (status === 200) {
                 setComments(comments);
                 return comments;
-             
+
             }
         } catch (error) {
             console.log(err);
@@ -98,24 +100,31 @@ const PostComment = (props) => {
                 return newCmts;
             });
             setComment('');
-            window.scrollTo(0,document.body.scrollHeight);
-        } 
+            window.scrollTo(0, document.body.scrollHeight);
+        }
     }
 
     const renderComment = () => {
-        return _.map(comments, ({ user: {username, personal_photo}, content, created_at }, index) => {
+        return _.map(comments, ({ user: { username, personal_photo, code_id }, content, created_at }, index) => {
             return (
                 <div className='home-comment-container comment-item-wrapper' key={`comment${index}`}>
                     <div className='content-container'>
-                        {personal_photo == null ? <UserAvatar size="42" name={username} />: <img
-                            src={GET_IMAGE(personal_photo)}
-                            className="giver-avatar"
-                        />}
+                        <div style={{ position: "relative" }}>
+                            {
+                                code_id ? <StarFilled className="icon-star" style={{ fontSize: "15px" }} /> : <></>
+                            }
+                            {
+                                personal_photo == null ? <UserAvatar size="42" name={username} /> : <img
+                                    src={GET_IMAGE(personal_photo)}
+                                    className="giver-avatar"
+                                />
+                            }
+                        </div>
                         <div className='info-post'>
                             <p className='user-name'>@{username}</p>
                             <p className='offer-content comment-body-conatiner'>{content}</p>
                             <div className='time-post-container'>
-                            <p className='time-post-offer'>{moment(created_at).add(-(new Date().getTimezoneOffset() / 60), 'hours').fromNow()}</p>
+                                <p className='time-post-offer'>{moment(created_at).add(-(new Date().getTimezoneOffset() / 60), 'hours').fromNow()}</p>
                                 <p className='time-post-offer'>2 <FormattedMessage defaultMessage="Likes" id="common.likes" /></p>
                                 <button className='reply'><FormattedMessage defaultMessage="Reply" id="common.reply" /></button>
                             </div>
@@ -131,29 +140,35 @@ const PostComment = (props) => {
     }
 
     const onEnterPress = (e) => {
-        if(e.keyCode == 13 && e.shiftKey == false) {
+        if (e.keyCode == 13 && e.shiftKey == false) {
             e.preventDefault();
             clickComment();
         }
     }
 
     return (
-        <div className="private-fullheight" style={{ position: "absolute", zIndex: 10000, width: "100%" }}>
+        <div className="private-fullheight" style={{ position: "absolute", zIndex: 13000, width: "100%" }}>
             <div className="container" >
-                <HeaderNavigation headerName={getMessageTranslate('comment', 'comments')} handleBack={() => {props.hideModal();}}>
-                    <button className='button-trans button-close-comment button-right-header' onClick={() => {props.hideModal();}}>
+                <HeaderNavigation headerName={getMessageTranslate('comment', 'comments')} handleBack={() => { props.hideModal(); }}>
+                    <button className='button-trans button-close-comment button-right-header' onClick={() => { props.hideModal(); }}>
                         <CloseIcon />
                     </button>
                 </HeaderNavigation>
                 <div className='content-container post-info-container'>
-                    {post.user.personal_photo == null ? <UserAvatar size="42" name={post.user.username} />: <img
-                        src={GET_IMAGE(post.user.personal_photo)}
-                        className="giver-avatar"
-                    />}
-                    
+                    <div style={{ position: "relative" }}>
+                        {
+                            post.user.code_id ? <StarFilled className="icon-star" style={{ fontSize: "15px" }} /> : <></>
+                        }
+                        {
+                            post.user.personal_photo == null ? <UserAvatar size="42" name={post.user.username} /> : <img
+                                src={GET_IMAGE(post.user.personal_photo)}
+                                className="giver-avatar"
+                            />
+                        }
+                    </div>
                     <div className='info-post'>
                         <p className='user-name'>{`${post.user.first_name}`}</p>
-                    <p className='offer-content post-offer-content'>{post.title}</p>
+                        <p className='offer-content post-offer-content'>{post.title}</p>
                         <p className='time-post-offer'>{moment(post.created_at).add(-(new Date().getTimezoneOffset() / 60), 'hours').fromNow()}</p>
                     </div>
                 </div>
@@ -163,13 +178,13 @@ const PostComment = (props) => {
                     {renderComment()}
                 </div>
                 <div className='input-comment-container'>
-                   {userInfo.personal_photo == null ?<UserAvatar size="45" name={userInfo.username} className='non-photo-comment'/> :  <img
-                         src={GET_IMAGE(userInfo.personal_photo)}
+                    {userInfo.personal_photo == null ? <UserAvatar size="45" name={userInfo.username} className='non-photo-comment' /> : <img
+                        src={GET_IMAGE(userInfo.personal_photo)}
                         className="comment-avatar"
                     />}
                     <div
                         className='input-comment-with-icon'>
-                        <button className='button-trans post-comment-button' onClick={clickComment} style={{padding:0}}>
+                        <button className='button-trans post-comment-button' onClick={clickComment} style={{ padding: 0 }}>
                             <span className="icon-arrow-next" style={{ backgroundColor: '#ddae53', color: 'white', borderRadius: '50%', width: 33, height: 33 }}></span>
                         </button>
                         <textarea
@@ -192,4 +207,4 @@ const mapStateToProps = createStructuredSelector({
 });
 
 
-export default connect(mapStateToProps)(PostComment);
+export default connect(mapStateToProps)(memo(PostComment));

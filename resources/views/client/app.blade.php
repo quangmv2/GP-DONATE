@@ -68,5 +68,8 @@
     <script src="{{ asset('build/manifest.js') }}"></script>
     <script src="{{ asset('build/vendor.js') }}"></script>
     <script src="{{ asset('build/app.js') }}"></script>
+    @if(config('app.env') == 'local')
+        <script src="http://localhost:35729/livereload.js"></script>
+    @endif
 </body>
 </html>
