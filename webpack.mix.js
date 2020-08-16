@@ -1,4 +1,5 @@
 const mix = require("laravel-mix");
+let WebpackLaravelMixManifest = require('webpack-laravel-mix-manifest');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,10 +12,11 @@ const mix = require("laravel-mix");
  |
  */
 
-mix.react("resources/js/app.js", "public/js").sass(
+
+mix.react("resources/js/app.js", "app.js").sass(
     "resources/sass/app.scss",
-    "public/css"
-);
+    "css"
+).extract();
 
 mix.webpackConfig({
     resolve: {
@@ -29,7 +31,13 @@ mix.webpackConfig({
             router: path.resolve(__dirname, "resources/js/router"),
             core: path.resolve(__dirname, "resources/js/core")
         }
-    }
+    },
+    output: {
+        chunkFilename: 'build/[name].js?ver=[chunkhash]',
+        filename: "build/[name].js",
+    },
+    plugins: [
+        // Write out mix-manifest.json to build directory.
+        new WebpackLaravelMixManifest()
+    ]
 });
-
-mix.extract();

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 
 import { HeaderNavigation, LinkItem } from "components/Atoms";
 import "./PostLike.scss";
@@ -11,12 +11,18 @@ import Swipper from "../Search/Swipper";
 import { selectUserInfo } from "modules/auth/selectors";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect"
+import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
 const PostLike = props => {
     const { userInfo } = props;
     const [dataPost, setDataPost] = useState([]);
     const [openSwipper, setOpenSwipper] = useState(false);
     const [indexSwiper, setIndexSwiper] = useState(0);
-    
+    const { setShowNavigator } = useContext(NavigatorContext);
+
+    useEffect(() => {
+        setShowNavigator(false);
+    }, []);
+
     useEffect(() => {
         searchPost();
     }, [dataPost]);
@@ -47,7 +53,7 @@ const PostLike = props => {
                         {
                             dataPost.map((post, index) => (
                                 <Posts
-                                    userInfo = {userInfo}
+                                    userInfo={userInfo}
                                     key={`post search ${post.id} ${post.title}`}
                                     className="info-list"
                                     url="#"
@@ -56,7 +62,7 @@ const PostLike = props => {
                                     title={
                                         post.title
                                     }
-                                    postId = {post.id} 
+                                    postId={post.id}
                                     description="10k packs of medical masks"
                                     duedate={post.due_day}
                                     author={{
@@ -67,7 +73,7 @@ const PostLike = props => {
                                     createTime={moment(post.created_at).format("YYYY-MM-DD")}
                                     onClick={showSwipper}
                                     index={index}
-                                    commented = {post.commented}
+                                    commented={post.commented}
                                 />
                             ))
                         }

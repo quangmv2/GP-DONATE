@@ -1,6 +1,6 @@
 {
-    "/js/vendor.js": "/js/vendor.js",
-    "/js/app.js": "/js/app.js",
+    "/build//vendor.js?ver=4572411ec76d3d044230": "/build//vendor.js?ver=4572411ec76d3d044230",
+    "/build//app.js?ver=76fff6f3b85a6eeb15d8": "/build//app.js?ver=76fff6f3b85a6eeb15d8",
     "/css/app.css": "/css/app.css",
-    "/js/manifest.js": "/js/manifest.js"
+    "/build//manifest.js": "/build//manifest.js"
 }

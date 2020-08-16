@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { Link } from "react-router-dom";
@@ -17,6 +17,7 @@ import Propositions from "./Propositions";
 import Loading from "../../Atoms/Loading/Loading";
 import "./UserProfile.scss";
 import "../ProfileSetting/ProfileSetting.scss";
+import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
 
 const UserProfile = (props) => {
     const { userInfo } = props;
@@ -28,10 +29,14 @@ const UserProfile = (props) => {
     const [open, setOpen] = useState(false);
     const currentUser = localStorage.getItem("USERNAME");
 
+    const { setShowNavigator } = useContext(NavigatorContext);
+
+
 
     useEffect(() => {
         fetchUser();
         fetchPropositions();
+        setShowNavigator(true);
     }, []);
 
     let isUser = userId ?? currentUser;

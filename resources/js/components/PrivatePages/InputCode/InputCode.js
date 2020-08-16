@@ -21,8 +21,12 @@ import { Link } from "react-router-dom";
 import { fetchService } from "../../../services/fetch/fetchService";
 import { ROOT_API_URL, PRIVATE_ROUTE } from "../../../constants";
 import "./inputCode.scss";
+import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
 
 export class InputCode extends Component {
+
+    static contextType = NavigatorContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -30,7 +34,12 @@ export class InputCode extends Component {
         };
     }
 
-    async componentDidMount() {}
+    async componentDidMount() {
+        this.context.setShowNavigator(false);
+    }
+
+    componentWillUnmount() {
+    }
 
     onSubmit = async (values) => {
         const { code_invitation } = values;

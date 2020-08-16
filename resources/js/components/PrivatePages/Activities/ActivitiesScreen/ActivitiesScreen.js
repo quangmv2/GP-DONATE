@@ -1,10 +1,7 @@
 import React, { useContext } from "react";
 
 import { HeaderNavigation, SearchInput } from "components/Atoms";
-import "./Activities.scss";
-import BottomNavigator from "../../../Molecules/BottomNav/BottomNavigator";
 import { Tabs } from "antd";
-import "antd/dist/antd.css";
 import {
     MessagesComponent,
     NotificationComponent
@@ -17,6 +14,10 @@ import { useCallback } from "react";
 import { fetchService } from "../../../../services/fetch/fetchService";
 import { useRef } from "react";
 import MessageDetail from "../MessageDetail/MessagesDetail";
+import "./Activities.scss";
+import "antd/dist/antd.css";
+import { NavigatorContext } from "../../../../context/BottomNavigatorContextAPI";
+
 
 const { TabPane } = Tabs;
 
@@ -33,8 +34,10 @@ const ActivitesScreen = () => {
     const [idMessage, setIdMessage] = useState(0);
     const [activeTab, setActiveTab ] = useState('1');
     const bottom = useRef();
+    const { setShowNavigator } = useContext(NavigatorContext);
 
     useEffect(() => {
+        setShowNavigator(true);
         searchMessage();
         searchNoti(1, 'load');
         window.addEventListener("scroll", scrollWindows);

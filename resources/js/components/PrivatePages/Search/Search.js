@@ -1,9 +1,8 @@
-import React, { memo, useState, useEffect, useCallback } from "react";
+import React, { memo, useState, useEffect, useCallback, useContext } from "react";
 import { HeaderNavigation, SearchInput } from "components/Atoms";
 import Posts from "../../Molecules/Post";
 import { Tabs } from "antd";
 import { Patron } from "components/Molecules";
-import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import { fetchService } from "services";
 import { SEARCH_POST, GET_IMAGE, SEARCH_PEOPLE } from "../../../constants/routes";
 import moment from "moment";
@@ -14,6 +13,7 @@ import { createStructuredSelector } from "reselect";
 import "./Search.scss";
 import "antd/dist/antd.css";
 import "../Activities/MessagesComponent/Mess.scss";
+import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
 
 const { TabPane } = Tabs;
 
@@ -28,9 +28,12 @@ const Search = props => {
     const [active, setActive] = useState(0);
     const [openSwipper, setOpenSwipper] = useState(false);
     const [indexSwiper, setIndexSwiper] = useState(0);
+    const { setShowNavigator } = useContext(NavigatorContext);
+
 
     useEffect(() => {
         searchPost(keyWord);
+        setShowNavigator(true);
     }, []);
 
     useEffect(() => {

@@ -14,6 +14,7 @@ import { selectUserInfo } from "modules/auth/selectors";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import UserAvatar from "react-user-avatar";
+import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
 
 const PostComment = (props) => {
     const { userInfo } = props;
@@ -21,10 +22,13 @@ const PostComment = (props) => {
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
     const { socket } = useContext(SocketContext);
+    const { setShowNavigator } = useContext(NavigatorContext);
     const screen = useRef(null);
     
     useEffect(() => {
         fetchFirstData();
+        setShowNavigator(false);
+        return () => setShowNavigator(true);
     }, []);
     useEffect(() => {
         screen.current.scrollTop = 5000;
@@ -134,7 +138,7 @@ const PostComment = (props) => {
     }
 
     return (
-        <div className="private-fullheight" style={{ position: "absolute", zIndex: 100000, width: "100%" }}>
+        <div className="private-fullheight" style={{ position: "absolute", zIndex: 10000, width: "100%" }}>
             <div className="container" >
                 <HeaderNavigation headerName={getMessageTranslate('comment', 'comments')} handleBack={() => {props.hideModal();}}>
                     <button className='button-trans button-close-comment button-right-header' onClick={() => {props.hideModal();}}>
@@ -165,7 +169,7 @@ const PostComment = (props) => {
                     />}
                     <div
                         className='input-comment-with-icon'>
-                        <button className='button-trans post-comment-button' onClick={clickComment} style={{top: 16, padding:0}}>
+                        <button className='button-trans post-comment-button' onClick={clickComment} style={{padding:0}}>
                             <span className="icon-arrow-next" style={{ backgroundColor: '#ddae53', color: 'white', borderRadius: '50%', width: 33, height: 33 }}></span>
                         </button>
                         <textarea

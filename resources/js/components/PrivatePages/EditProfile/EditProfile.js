@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
@@ -15,6 +15,7 @@ import UserAvatar from "react-user-avatar";
 import { openNotification } from "helpers";
 import { NOTIFICATION_TYPE } from "constants";
 import { FormattedMessage } from "react-intl";
+import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
 
 
 const EditProfile = (props) => {
@@ -23,6 +24,18 @@ const EditProfile = (props) => {
     const [foudation, setFoudation] = useState(userInfo.foudation);
     const [image, setImage] = useState(userInfo.personal_photo);
     const [fullPhoto, setFullPhoto] = useState(userInfo.full_photo);
+    const  { setShowNavigator } = useContext(NavigatorContext);
+
+
+    useEffect(() => {
+        setShowNavigator(false);
+        return () => setShowNavigator(true);
+    }, []);
+
+    useEffect(() => {
+        setImage(userInfo.personal_photo);
+        setFullPhoto(userInfo.full_photo);
+    }, [userInfo])
 
     const submit = async (event) => {
         event.preventDefault();
@@ -50,11 +63,6 @@ const EditProfile = (props) => {
             openNotification(NOTIFICATION_TYPE.ERROR, 'Error', '')
         }
     }
-
-    useEffect(() => {
-        setImage(userInfo.personal_photo);
-        setFullPhoto(userInfo.full_photo);
-    }, [userInfo])
 
     const uploadFullphoto = async (e) => {
         var formData = new FormData();
@@ -114,7 +122,7 @@ const EditProfile = (props) => {
             <input id="upload" type="file" name="photo" style={{ visibility: 'hidden' }} onChange={uploadAvatar} />
         </>
     )
-    console.log(image, "im");
+
     if (!(userInfo.personal_photo && image)) {
         avatar =
             <>

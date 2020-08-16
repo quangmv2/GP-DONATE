@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -8,8 +8,15 @@ import "./ProfileSetting.scss";
 import { PRIVATE_ROUTE } from "../../../constants";
 
 import { FormattedMessage } from "react-intl";
+import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
 
 const ProfileSetting = (props) => {
+
+  const { setShowNavigator } = useContext(NavigatorContext);
+
+    useEffect(() => {
+        setShowNavigator(false);
+    }, []);
    
     const logoutFunc = (e) => {
         props.logout();

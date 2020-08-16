@@ -62,8 +62,8 @@
           </div>
         <div id="root"></div>
     </div>
-    <script src="{{ asset('/js/manifest.js') }}"></script>
-    <script src="{{ asset('/js/vendor.js') }}"></script>
-    <script src="{{asset('js/app.js')}}"></script>
+    <script src="{{ asset('build/manifest.js') }}"></script>
+    <script src="{{ asset('build/vendor.js') }}"></script>
+    <script src="{{ asset('build/app.js') }}"></script>
 </body>
 </html>

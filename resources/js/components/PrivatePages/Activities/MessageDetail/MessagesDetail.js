@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link } from 'react-router-dom';
-import './MessageDetail.scss';
 import { fetchService } from "services";
 import { GET_MESSAGE_DETAILS, SEND_MESSAGE, GET_IMAGE } from "../../../../constants";
 import {
@@ -9,14 +8,23 @@ import {
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
 import UserAvatar from "react-user-avatar";
+import { NavigatorContext } from "../../../../context/BottomNavigatorContextAPI";
+
+import './MessageDetail.scss';
+import "../../Home/HomeScreen.scss";
+
+
 const MessagesDetail = props => {
 
     const [data, setData] = useState([]);
     const [input, setInput] = useState('');
+    const { setShowNavigator } = useContext(NavigatorContext);
     const bodyMess = useRef();
 
     useEffect(() => {
         getFirst();
+        setShowNavigator(false);
+        return () => setShowNavigator(true);
     }, []);
 
     const getFirst = async () => {
@@ -85,7 +93,7 @@ const MessagesDetail = props => {
         <div className='private-fullheight' style={{ position: "absolute", zIndex: 10000, width: "100%" }}>
             <div className='container'>
                 <div className="header-wrapper header-comment-profile">
-                    <div className="top-navbar-giver-home message-top-nav">
+                    <div className="top-navbar-giver-home message-top-nav" style={{backgroundColor: "#081f47"}}>
                         <div className="navbar-giver-home-container navbar-message-container">
                             <button className='button-trans' onClick={props.closeWindow}>
                                 <span className="icon-back back-messages"></span>
@@ -122,11 +130,6 @@ const MessagesDetail = props => {
                 </div>
                 {/* END HEADER NAV */}
                 <div className='mess-body' ref={bodyMess}>
-                    <div>
-                        {timeMessages}
-
-                    </div>
-
                     <div className='render-recieve-message'>
                         <div>
                         </div>
@@ -159,13 +162,12 @@ const MessagesDetail = props => {
                                 type='text'
                                 cols='3'
                                 row='3'
-                                placeholder='Write a comment...'
+                                placeholder='Write a message...'
                                 value={input}
                                 onChange={e => setInput(e.target.value)}
                             />
                         </div>
                     </div>
-                    <hr className='bottom-border-message-detail' align='center' />
                 </div>
             </div>
         </div>
