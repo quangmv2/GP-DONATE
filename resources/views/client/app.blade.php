@@ -61,6 +61,9 @@
             </div>
           </div>
         <div id="root"></div>
+        <div id="text-desktop">
+            <h2>Please use your smartphone device to have the best experience</h2>
+        </div>
     </div>
     <script src="{{ asset('build/manifest.js') }}"></script>
     <script src="{{ asset('build/vendor.js') }}"></script>

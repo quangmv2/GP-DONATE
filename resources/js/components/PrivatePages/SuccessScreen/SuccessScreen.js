@@ -12,30 +12,30 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
     {
-        imgPath: "images/FullScreen/step1.jpg"
+        imgPath: "images/FullScreen/builder-1.jpg"
     },
     {
-        imgPath: "images/FullScreen/step2.jpg"
+        imgPath: "images/FullScreen/builder-2.jpg"
     },
     {
-        imgPath: "images/FullScreen/step3.jpg"
+        imgPath: "images/FullScreen/builder-3.jpg"
     },
     {
-        imgPath: "images/FullScreen/Generous_Implementer-Step-4.jpg"
+        imgPath: "images/FullScreen/builder-4.jpg"
     }
 ];
 const patronSteps = [
     {
-        imgPath: "images/FullScreen/patron1.jpg"
+        imgPath: "images/FullScreen/Patron-1.jpg"
     },
     {
-        imgPath: "images/FullScreen/patron2.jpg"
+        imgPath: "images/FullScreen/Patron-2.jpg"
     },
     {
-        imgPath: "images/FullScreen/patron3.jpg"
+        imgPath: "images/FullScreen/Patron-3.jpg"
     },
     {
-        imgPath: "images/FullScreen/Patron-Step-4.jpg"
+        imgPath: "images/FullScreen/Patron-4.jpg"
     }
 ];
 
@@ -75,7 +75,7 @@ const SuccessScreen = props => {
             >
                 {steps.map((step, index) => (
                     <div key={step.label}>
-                        {Math.abs(activeStep - index) <= 2 ? (
+                        {Math.abs(activeStep - index) <= 3 ? (
                             <img
                                 className="image"
                                 src={step.imgPath}

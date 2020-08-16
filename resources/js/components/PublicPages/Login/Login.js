@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import {
-    URL_REDIRECT_LOGIN,
-    ROUTE,
-} from "constants";
+import { URL_REDIRECT_LOGIN, ROUTE } from "constants";
 import { postLogin, verifyToken } from "modules/auth/actions";
 import {
     selectIsLogged,
@@ -30,7 +27,7 @@ export class Login extends Component {
         this.state = {
             username: "",
             password: "",
-            errorValidLogin: {},
+            errorValidLogin: {}
         };
         this.setSubmitting = null;
     }
@@ -75,14 +72,18 @@ export class Login extends Component {
             <div className="fullheight-wrapper flex-center">
                 <div className="container">
                     <SignInBackground>
-                        <p className="text1"><FormattedMessage
-                            id="loginPage.signin"
-                            defaultMessage="loginPage.signin"
-                        /></p>
-                        <p className="text2"><FormattedMessage
-                            id="loginPage.keepConnect"
-                            defaultMessage="loginPage.keepConnect"
-                        /></p>
+                        <p className="text1">
+                            <FormattedMessage
+                                id="loginPage.signin"
+                                defaultMessage="loginPage.signin"
+                            />
+                        </p>
+                        <p className="text2">
+                            <FormattedMessage
+                                id="loginPage.keepConnect"
+                                defaultMessage="loginPage.keepConnect"
+                            />
+                        </p>
                     </SignInBackground>
                     <div className="formFields">
                         {/* {this.renderFields()} */}
@@ -90,10 +91,10 @@ export class Login extends Component {
                             initialValues={{
                                 username: "",
                                 password: "",
-                                passchange: "",
+                                passchange: ""
                             }}
                             layout="vertical"
-                            validate={(values) => {
+                            validate={values => {
                                 const errors = {};
                                 if (!values.username) {
                                     errors.username = "Required";
@@ -113,143 +114,138 @@ export class Login extends Component {
                                 touched,
                                 handleChange,
                                 handleSubmit,
-                                isSubmitting,
+                                isSubmitting
                                 /* and other goodies */
                             }) => (
-                                    <form onSubmit={handleSubmit} layout="vertical">
-                                        <>
-                                            <Grid
-                                                container
-                                                spacing={1}
-                                                alignItems="flex-end"
-                                                className="form-control"
-                                            >
-                                                <Grid
-                                                    item
-                                                    className="item-flex input-with-icon"
-                                                >
-                                                   <i className="icon-account-dark form-icon"></i>
-                                                    <TextField
-                                                        error={
-                                                            errors.username &&
-                                                            touched.username
-                                                        }
-                                                        id="input-with-icon-grid"
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="common.username"
-                                                                defaultMessage="common.username"
-                                                            />
-                                                        }
-                                                        value={values.username}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        helperText={
-                                                            touched.username
-                                                                ? errors.username
-                                                                : ""
-                                                        }
-                                                        name="username"
-                                                    />
-                                                </Grid>
-                                            </Grid>
-
-                                            <Grid
-                                                container
-                                                spacing={1}
-                                                alignItems="flex-end"
-                                                className="form-control"
-                                            >
-                                                <Grid
-                                                    item
-                                                    className="item-flex input-with-icon"
-                                                >
-                                                    <i className='icon-password form-icon'></i>
-                                                    <TextField
-                                                        error={
-                                                            errors.password &&
-                                                            touched.password
-                                                        }
-                                                        id="input-with-icon-grid"
-                                                        label={
-                                                            <FormattedMessage
-                                                                id="common.password"
-                                                                defaultMessage="common.password"
-                                                            />
-                                                        }
-                                                        value={values.password}
-                                                        onChange={handleChange}
-                                                        disabled={
-                                                            loading || isSubmitting
-                                                        }
-                                                        helperText={
-                                                            touched.password
-                                                                ? errors.password
-                                                                : ""
-                                                        }
-                                                        type="password"
-                                                        name="password"
-                                                    />
-                                                </Grid>
-                                            </Grid>
-                                        </>
-                                        <Link
-                                            className="fg-pw-text"
-                                            to="/forgot-password"
+                                <form onSubmit={handleSubmit} layout="vertical">
+                                    <>
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
                                         >
-                                            <FormattedMessage
-                                                defaultMessage={
-                                                    "loginPage.forgotPassword"
-                                                }
-                                                id={"loginPage.forgotPassword"}
-                                            ></FormattedMessage>
-                                        </Link>
-                                       
-                                            <div className="form-control filledButton">
-                                                <ButtonAnt
-                                                    className="custom-button-login btn-block btn-round btn-red buttonContainer"
+                                            <Grid
+                                                item
+                                                className="item-flex input-with-icon"
+                                            >
+                                                <i className="icon-account-dark form-icon"></i>
+                                                <TextField
+                                                    error={
+                                                        errors.username &&
+                                                        touched.username
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="common.username"
+                                                            defaultMessage="common.username"
+                                                        />
+                                                    }
+                                                    value={values.username}
+                                                    onChange={handleChange}
                                                     disabled={
                                                         loading || isSubmitting
                                                     }
-                                                    id="login-btn"
-                                                    loading={
+                                                    helperText={
+                                                        touched.username
+                                                            ? errors.username
+                                                            : ""
+                                                    }
+                                                    name="username"
+                                                />
+                                            </Grid>
+                                        </Grid>
+
+                                        <Grid
+                                            container
+                                            spacing={1}
+                                            alignItems="flex-end"
+                                            className="form-control"
+                                        >
+                                            <Grid
+                                                item
+                                                className="item-flex input-with-icon"
+                                            >
+                                                <i className="icon-password form-icon"></i>
+                                                <TextField
+                                                    error={
+                                                        errors.password &&
+                                                        touched.password
+                                                    }
+                                                    id="input-with-icon-grid"
+                                                    label={
+                                                        <FormattedMessage
+                                                            id="common.password"
+                                                            defaultMessage="common.password"
+                                                        />
+                                                    }
+                                                    value={values.password}
+                                                    onChange={handleChange}
+                                                    disabled={
                                                         loading || isSubmitting
                                                     }
-                                                    name="login-btn"
-                                                    onClick={handleSubmit}
-                                                    type="primary"
-                                                >
-                                                    <FormattedMessage
-                                                        defaultMessage={
-                                                            "loginPage.login"
-                                                        }
-                                                        id={"loginPage.login"}
-                                                    />
-                                                </ButtonAnt>
-                                            </div>
-        
-
-                                        <div className="bottomTextContainer">
-                                            <FormattedMessage
-                                                defaultMessage={"loginPage.newbie"}
-                                                id={"loginPage.newbie"}
-                                            ></FormattedMessage>
-                                            <Link
-                                                className="bottomLink"
-                                                to="/signup"
-                                            >
-                                                <FormattedMessage
-                                                    defaultMessage={
-                                                        "loginPage.signup"
+                                                    helperText={
+                                                        touched.password
+                                                            ? errors.password
+                                                            : ""
                                                     }
-                                                    id={"loginPage.signup"}
-                                                ></FormattedMessage>
-                                            </Link>
-                                        </div>
-                                    </form>
-                                )}
+                                                    type="password"
+                                                    name="password"
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </>
+                                    <Link
+                                        className="fg-pw-text"
+                                        to="/forgot-password"
+                                    >
+                                        <FormattedMessage
+                                            defaultMessage={
+                                                "loginPage.forgotPassword"
+                                            }
+                                            id={"loginPage.forgotPassword"}
+                                        ></FormattedMessage>
+                                    </Link>
+
+                                    <div className="form-control filledButton">
+                                        <ButtonAnt
+                                            className="custom-button-login btn-block btn-round btn-red buttonContainer"
+                                            disabled={loading || isSubmitting}
+                                            id="login-btn"
+                                            loading={loading || isSubmitting}
+                                            name="login-btn"
+                                            onClick={handleSubmit}
+                                            type="primary"
+                                        >
+                                            <FormattedMessage
+                                                defaultMessage={
+                                                    "loginPage.login"
+                                                }
+                                                id={"loginPage.login"}
+                                            />
+                                        </ButtonAnt>
+                                    </div>
+
+                                    <div className="bottomTextContainer">
+                                        <FormattedMessage
+                                            defaultMessage={"loginPage.newbie"}
+                                            id={"loginPage.newbie"}
+                                        ></FormattedMessage>
+                                        <Link
+                                            className="bottomLink"
+                                            to="/signup"
+                                        >
+                                            <FormattedMessage
+                                                defaultMessage={
+                                                    "loginPage.signup"
+                                                }
+                                                id={"loginPage.signup"}
+                                            ></FormattedMessage>
+                                        </Link>
+                                    </div>
+                                </form>
+                            )}
                         </Formik>
                     </div>
                 </div>
@@ -260,7 +256,7 @@ export class Login extends Component {
 
 const mapDispatchToProps = {
     login: postLogin,
-    verifyTokenFnc: verifyToken,
+    verifyTokenFnc: verifyToken
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -272,12 +268,12 @@ const mapStateToProps = createStructuredSelector({
 
 Login.defaultProps = {
     login: () => null,
-    errors: {},
+    errors: {}
 };
 
 Login.propTypes = {
     login: PropTypes.func,
-    isLogged: PropTypes.bool,
+    isLogged: PropTypes.bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
