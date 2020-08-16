@@ -14,7 +14,6 @@ import { FormattedMessage } from "react-intl";
 import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 import "./signUp.scss";
 import { NOTIFICATION_TYPE } from "constants";
@@ -129,6 +128,10 @@ export class SignUpScreen extends Component {
                                                 alignItems="flex-end"
                                                 className="form-control"
                                             >
+                                                <Grid
+                                                item
+                                                className="item-flex input-with-icon"
+                                            >
                                                <i className="icon-account-dark form-icon"></i>
                                                 <TextField
                                                     error={
@@ -155,11 +158,16 @@ export class SignUpScreen extends Component {
                                                     name="username"
                                                 />
                                             </Grid>
+                                            </Grid>
                                             <Grid
                                                 container
                                                 spacing={1}
                                                 alignItems="flex-end"
                                                 className="form-control"
+                                            >
+                                                <Grid
+                                                item
+                                                className="item-flex input-with-icon"
                                             >
                                                <i className='icon-mail-dark form-icon'></i>
                                                 <TextField
@@ -188,12 +196,17 @@ export class SignUpScreen extends Component {
                                                     name="email"
                                                 />
                                             </Grid>
+                                            </Grid>
 
                                             <Grid
                                                 container
                                                 spacing={1}
                                                 alignItems="flex-end"
                                                 className="form-control"
+                                            >
+                                                 <Grid
+                                                item
+                                                className="item-flex input-with-icon"
                                             >
                                                <i className='icon-password form-icon'></i>
                                                 <TextField
@@ -221,6 +234,7 @@ export class SignUpScreen extends Component {
                                                     type="password"
                                                     name="password"
                                                 />
+                                            </Grid>
                                             </Grid>
                                         </>
 

@@ -119,7 +119,7 @@ function ChooseRoleScreen(props) {
                             className="radio radioGiver"
                             name="role"
                             value="giver"
-                            checked={userRole === 'giver'}
+                            checked
                         />
                         <p className="roleText">
                           <FormattedMessage
@@ -139,7 +139,7 @@ function ChooseRoleScreen(props) {
                             className="radio radioTaker"
                             name="role"
                             value="giver"
-                            checked={userRole === 'giver'}
+                            
                         />
                         <p className="roleText">
                         <FormattedMessage
