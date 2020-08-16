@@ -39,8 +39,6 @@ const UserItem = ({
         }
     }
 
-    console.log(isCeleb);
-
     return (
         <div style={{ display: "flex" }}>
             <Link className="message-component-container message-preview-container" to="#">

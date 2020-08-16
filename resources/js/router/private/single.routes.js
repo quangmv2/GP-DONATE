@@ -1,17 +1,3 @@
-// import EditProfile from 'components/PrivatePages/EditProfile/EditProfile';
-// import ProfileSetting from 'components/PrivatePages/ProfileSetting/ProfileSetting';
-// import {
-//   HomePage,
-//   PostComment,
-//   UserProfile,
-//   ActivitiesScreen,
-//   Search,
-//   PostLike,
-//   ChooseRoleScreen, 
-//   InputCode,
-//   SuccessScreen,
-//   PostOffer
-// } from 'components/PrivatePages';
 import React from "react"
 import { PRIVATE_ROUTE } from 'constants';
 import loadable from "@loadable/component";

@@ -8,6 +8,7 @@ import { selectUserInfo } from "modules/auth/selectors";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
@@ -74,7 +75,7 @@ const SuccessScreen = props => {
                 enableMouseEvents
             >
                 {steps.map((step, index) => (
-                    <div key={step.label}>
+                    <div key={`${step.label} ${index}`}>
                         {Math.abs(activeStep - index) <= 3 ? (
                             <img
                                 className="image"
@@ -91,10 +92,10 @@ const SuccessScreen = props => {
                     Hello
                 </button>
             ) : (
-                <Link to={ROUTE.HOME} className="next-button">
-                    To Home
-                </Link>
-            )}
+                    <Link to={ROUTE.HOME} className="next-button">
+                        To Home
+                    </Link>
+                )}
             <Link className="skip-link" to={ROUTE.HOME}>
                 To Home
             </Link>

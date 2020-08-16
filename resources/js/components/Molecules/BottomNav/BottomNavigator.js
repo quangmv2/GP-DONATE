@@ -16,11 +16,9 @@ import { useLocation } from "react-router-dom";
 
 const BottomNavigator = props => {
 
-  const location = useLocation(); 
-
-  console.log(location.pathname);
-
+  const location = useLocation();
   const { userInfo } = props;
+
   return (
     <div className='bottom-nav-container' style={props.style ?? null}>
       <div className='bottom-nav'>
@@ -50,11 +48,11 @@ const BottomNavigator = props => {
                   <div className='cirlce-plus-icon'></div>
                 </div>
                 <FormattedMessage
-              id="bottomNav.post"
-              defaultMessage="bottomNav.post"
-            />
+                  id="bottomNav.post"
+                  defaultMessage="bottomNav.post"
+                />
               </Link>
-            </div>:
+            </div> :
             <></>
         }
         <div className='bottom-nav-icon-container'>

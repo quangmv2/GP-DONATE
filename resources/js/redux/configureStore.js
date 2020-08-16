@@ -8,8 +8,9 @@ const sagaMiddleware = createSagaMiddleware();
 
 const configureStore = (initialState = {}, history) => {
   const middleware = [sagaMiddleware, routerMiddleware(history)];
-  if (isDevelopEnv)
-    middleware.push(logger);
+  console.log(isDevelopEnv());
+  if (isDevelopEnv())
+  middleware.push(logger);
   const enhancers = [applyMiddleware(...middleware)];
   const composeEnhancers =
     process.env.NODE_ENV !== "production" &&
