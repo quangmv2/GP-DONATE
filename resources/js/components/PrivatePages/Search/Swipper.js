@@ -1,24 +1,17 @@
-import React, { useEffect, useState, memo } from "react";
-// import Swiper from "swiper";
+import React, { useState, memo } from "react";
 import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// install Swiper components
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
-
-// CSS
+import PostItem from "../Home/PostItem";
+import Comment from "../HomeComment/PostComment";
 import "./HomeScreen.scss";
 import "../Home/HomeScreen.scss";
-import PostItem from "../Home/PostItem";
-
-import Comment from "../HomeComment/PostComment";
-
-// Import Swiper styles
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/scrollbar/scrollbar.scss';
-import MessagesDetail from "../Activities/MessageDetail/MessagesDetail";
+
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 const Swipper = (props) => {
     const [show, setShow] = useState(false); 
@@ -26,24 +19,6 @@ const Swipper = (props) => {
     const [openModal, setOpenModal] = useState(false);
     const [openMessage, setOpenMessage] = useState(false);
     const [user, setUser] = useState({});
-
-    // useEffect(() => {
-    //     const { fetchMore } = props;
-    //     fetchMore(1);
-    // }, []);
-
-    // useEffect(() => {
-    //     if (index == 0) return ;
-    //     handleLoadMore();
-    // }, [index])
-
-    // const handleLoadMore = () => {
-    //     const { posts } = props;
-    //     if (posts.length - index < 2 ) {
-    //         const { fetchMore, page } = props;
-    //         fetchMore(page + 1);
-    //     }
-    // }
 
     const showModal = () => {
         setOpenModal(true);
@@ -59,9 +34,7 @@ const Swipper = (props) => {
             {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
             <Swiper
                 direction="vertical"
-                // virtual
-                style={{ height: openModal?0:"100vh", display: openModal?"none":"block", position: "absolute",  zIndex: 100000, width: "100%" }}
-                // onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
+                style={{ height: openModal? 0:"100vh", display: openModal?"none":"block", position: "absolute",  zIndex: 100000, width: "100%", top: "0px" }}
                 initialSlide={props.index?props.index:0}
             >
 
@@ -77,4 +50,4 @@ const Swipper = (props) => {
     );  
 }
 
-export default (Swipper);
+export default memo(Swipper);

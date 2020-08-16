@@ -1,4 +1,6 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/build//app.js?ver=831a4a1e95de974691be": "/build//app.js?ver=831a4a1e95de974691be",
+    "/css/app.css": "/css/app.css",
+    "/build//manifest.js": "/build//manifest.js",
+    "/build//vendor.js?ver=4bce85e30b3f46e1bf43": "/build//vendor.js?ver=4bce85e30b3f46e1bf43"
 }

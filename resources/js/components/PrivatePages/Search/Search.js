@@ -1,10 +1,8 @@
-import React, { memo, useState, useEffect, useCallback } from "react";
+import React, { memo, useState, useEffect, useCallback, useContext } from "react";
 import { HeaderNavigation, SearchInput } from "components/Atoms";
-import "./Search.scss";
 import Posts from "../../Molecules/Post";
 import { Tabs } from "antd";
 import { Patron } from "components/Molecules";
-import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import { fetchService } from "services";
 import { SEARCH_POST, GET_IMAGE, SEARCH_PEOPLE } from "../../../constants/routes";
 import moment from "moment";
@@ -12,6 +10,13 @@ import Swipper from "./Swipper";
 import { selectUserInfo } from "modules/auth/selectors";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import "./Search.scss";
+import "antd/dist/antd.css";
+import "../Activities/MessagesComponent/Mess.scss";
+import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
+
+const { TabPane } = Tabs;
+
 
 let idTimeOut = 0;
 let delay = Date.now();
@@ -23,10 +28,13 @@ const Search = props => {
     const [active, setActive] = useState(0);
     const [openSwipper, setOpenSwipper] = useState(false);
     const [indexSwiper, setIndexSwiper] = useState(0);
+    const { setShowNavigator } = useContext(NavigatorContext);
+
 
     useEffect(() => {
         searchPost(keyWord);
-    }, [dataPost]);
+        setShowNavigator(true);
+    }, []);
 
     useEffect(() => {
         const now = Date.now();
@@ -90,7 +98,7 @@ const Search = props => {
                         defaultActiveKey="1"
                         onChange={changeTab}
                         >
-                        <TabPane tab={<span>Patrons</span>} key="1">
+                        <TabPane tab={<span>Generous Patrons</span>} key="1">
                             <Patron data={dataPeople} />
                         </TabPane>
                         <TabPane
@@ -129,14 +137,11 @@ const Search = props => {
                         </TabPane>
                     </Tabs>
                 </div>
-                {/* {active == '1' ? <BottomNavigator style={{display: openSwipper ? "none":"block"}} /> : null} */}
-                <BottomNavigator style={{display: openSwipper ? "none":"block"}} /> 
             </div>
         </div>
     );
 }
 
-const { TabPane } = Tabs;
 const mapStateToProps = createStructuredSelector({
     userInfo: selectUserInfo()
 });

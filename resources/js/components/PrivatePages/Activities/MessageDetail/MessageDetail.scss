@@ -1,3 +1,6 @@
+@import "../../Home/HomeScreen.scss";
+@import "../../HomeComment/HomeComment.scss";
+
 .back-messages, .sort-messages {
     font-size: 22px;
     color: #fff;
@@ -44,19 +47,19 @@
     flex-direction: row;
     align-items: center;
     padding-right: 22px;
-   
+    margin-top: 10px;
   }
 }
 .input-comment-with-icon {
  
  >.post-comment-button {
-    top: 17.5px;
+    // top: 17.5px;
     right: 0px
   }
   >textarea {
-   margin-top: 16px;
-      height: 36px;
-      
+    // margin-top: 16px;
+    height: 36px;
+    outline: none;
   }
 
 }

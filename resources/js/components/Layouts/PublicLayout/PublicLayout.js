@@ -1,18 +1,12 @@
 import React, { Component } from "react";
-import Image from "components/Atoms/Image";
 import { PropTypes } from "prop-types";
-
 import { createStructuredSelector } from "reselect";
 import { connect } from "react-redux";
-import { Layout, Menu } from "antd";
+import { Menu } from "antd";
 import { fetchService } from "services";
-
 import { getLanguageCode } from "modules/translates/selectors";
 import { switchLanguage } from "modules/translates/actions";
-import cn from "classnames";
 import { listLang, LANG_PARAM } from "constants";
-import { MenuLanguage } from "components/Molecules";
-
 import "./public-layout.scss";
 
 class PublicLayout extends Component {

@@ -1,28 +1,31 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import PersonOutlineRoundedIcon from '@material-ui/icons/PersonOutlineRounded';
 import { Link } from 'react-router-dom';
 import { PRIVATE_ROUTE } from 'constants';
-
 import {
   selectUserInfo,
-  selectIsLogged
 } from "modules/auth/selectors";
 import './bottomNav.scss';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { FormattedMessage } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 const BottomNavigator = props => {
+
+  const location = useLocation(); 
+
+  console.log(location.pathname);
 
   const { userInfo } = props;
   return (
     <div className='bottom-nav-container' style={props.style ?? null}>
       <div className='bottom-nav'>
         <div className='bottom-nav-icon-container'>
-          <Link to={PRIVATE_ROUTE.HOME} className={window.location.pathname === "/" ? 'active' : ''}>
+          <Link to="" className={location.pathname === "/" ? 'active' : ''}>
             <HomeIcon className='icon-bottom-nav' />
             <FormattedMessage
               id="bottomNav.home"
@@ -31,7 +34,7 @@ const BottomNavigator = props => {
           </Link>
         </div>
         <div className='bottom-nav-icon-container'>
-          <Link to='/search' className={window.location.pathname === "/search" ? 'active' : ''}>
+          <Link to='/search' className={location.pathname === "/search" ? 'active' : ''}>
             <SearchIcon className='icon-bottom-nav' />
             <FormattedMessage
               id="bottomNav.search"
@@ -55,7 +58,7 @@ const BottomNavigator = props => {
             <></>
         }
         <div className='bottom-nav-icon-container'>
-          <Link to='/activities' className={window.location.pathname === "/activities" ? 'active' : ''}>
+          <Link to='/activities' className={location.pathname === "/activities" ? 'active' : ''}>
             <StarBorderRoundedIcon className='icon-bottom-nav' />
             <FormattedMessage
               id="bottomNav.activities"
@@ -64,7 +67,7 @@ const BottomNavigator = props => {
           </Link>
         </div>
         <div className='bottom-nav-icon-container'>
-          <Link to='/profile-setting' className={window.location.pathname === "/my-profile" ? 'active' : ''}>
+          <Link to='/profile-setting' className={location.pathname === "/my-profile" ? 'active' : ''}>
             <PersonOutlineRoundedIcon className='icon-bottom-nav' />
             <FormattedMessage
               id="bottomNav.account"
@@ -78,7 +81,6 @@ const BottomNavigator = props => {
 };
 const mapStateToProps = createStructuredSelector({
   userInfo: selectUserInfo(),
-  logged: selectIsLogged()
 });
 const mapDispatchToProps = {
 };

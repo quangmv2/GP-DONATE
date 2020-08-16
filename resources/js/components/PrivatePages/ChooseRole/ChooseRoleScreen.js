@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useContext } from "react";
 import "./chooseRole.scss";
 import { Link } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
@@ -13,16 +13,26 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectUserInfo } from "../../../modules/auth/selectors";
 import { verifyToken } from "modules/auth/actions";
+import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
 
 function ChooseRoleScreen(props) {
 
     const [userRole, setUserRole] = useState('taker');
+
+    const  { setShowNavigator } = useContext(NavigatorContext);
+
+
+    useEffect(() => {
+      setShowNavigator(false);
+      return () => setShowNavigator(true);
+    }, [])
 
     useEffect(() => {
         const { userInfo, history } = props;
         if (userInfo && userInfo.roles.length > 0) {
             history.push(ROUTE.HOME)
         }
+        
     }, [props.userInfo]); 
 
     const handleBack = () => {
@@ -108,8 +118,8 @@ function ChooseRoleScreen(props) {
                             type="radio"
                             className="radio radioGiver"
                             name="role"
-                            value="taker"
-                            checked={userRole === 'taker'}
+                            value="giver"
+                            checked={userRole === 'giver'}
                         />
                         <p className="roleText">
                           <FormattedMessage

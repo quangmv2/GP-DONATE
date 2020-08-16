@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Link } from "react-router-dom";
 import { GET_IMAGE, UN_FOLLOW_USER, FOLLOW_USER, CHECK_FOLLOW } from "../../../../constants";
 import moment from "moment";
@@ -7,7 +7,6 @@ import "./Noti.scss";
 import { fetchService } from "services";
 
 const NotificationComponent = props => {
-
 
     const { data } = props;
 
@@ -106,4 +105,4 @@ const NotificationComponent = props => {
     };
     return <div>{renderNotification()}</div>;
 };
-export default NotificationComponent;
+export default memo(NotificationComponent);

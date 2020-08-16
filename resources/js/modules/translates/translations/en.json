@@ -38,7 +38,7 @@
   },
   "homepage": {
     "title": "Home",
-    "raiseAvoice": "Raise a voice",
+    "raiseYourVoice": "Raise your voice",
     "dueDateTil": "Due date til"
   },
   "signupPage": {
@@ -125,7 +125,7 @@
   "profileSetting" : {
     "account": "ACCOUNT",
     "manage": "Manage My Account",
-    "project": "Project you have liked",
+    "project": "Projects you have liked",
     "privacy": "Privacy & Safety",
     "share": "Share profile",
     "push": "Push notifications",

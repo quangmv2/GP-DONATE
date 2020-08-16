@@ -67,7 +67,7 @@
         background-color: #fff;
         .icon-comment-active {
             font-size: 30px;
-            color: #081f47;;
+            color: #081f47;
            
         }
         .icon-comment-normal {
@@ -90,7 +90,10 @@
         width: 100%;
         height: 300px;
         object-fit: cover;
-     
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        -webkit-border-top-left-radius: 30px;
+        -webkit-border-top-right-radius: 30px;
     }
 }
 .more-icon {
@@ -112,4 +115,10 @@
     flex-direction: row;
     justify-content: center;
     padding-top: 10px;
+}
+
+.button-remove{
+    position: absolute!important;
+    top: 15px;
+    right:15px;
 }

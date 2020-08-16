@@ -234,7 +234,7 @@ const PostItem = (props) => {
                         </div>
                         <div className="raise-a-voice-container" onClick={props.showModal}>
                             <ButtonAnt>
-                                <span><FormattedMessage defaultMessage="Raise a voice" id="homepage.raiseAVoice" /></span>
+                                <span><FormattedMessage defaultMessage="Raise Your voice" id="homepage.raiseYourVoice" /></span>
                                 <i className="icon-social icon-comment-active"></i>
                             </ButtonAnt>
                         </div>
