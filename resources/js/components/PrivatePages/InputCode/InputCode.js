@@ -123,7 +123,7 @@ export class InputCode extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <AccountCircle />
+                                                <i className='icon-code form-icon'></i>
                                                 <TextField
                                                     error={
                                                         errors.code_invitation &&

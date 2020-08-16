@@ -124,6 +124,13 @@ textarea {
 .ant-picker-content th{
   color: #2988e9;
 }
+.form-icon {
+  position: absolute;
+    left: 3px;
+    bottom: 12px;
+    font-size: 22px;
+    object-fit: contain;
+}
 
 input[type="color"],
 input[type="date"],

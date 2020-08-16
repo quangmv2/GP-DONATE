@@ -138,7 +138,7 @@ export class ChangePassScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <AccountCircle />
+                                               <i className='icon-code form-icon'></i>
                                                 <TextField
                                                     error={
                                                         errors.resetpasscode &&
@@ -176,7 +176,7 @@ export class ChangePassScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <AccountCircle />
+                                                <i className = 'icon-password form-icon'></i>
                                                 <TextField
                                                     error={
                                                         errors.password &&
@@ -214,7 +214,7 @@ export class ChangePassScreen extends Component {
                                                 item
                                                 className="item-flex input-with-icon"
                                             >
-                                                <AccountCircle />
+                                                <i className = 'icon-password form-icon'></i>
                                                 <TextField
                                                     error={
                                                         errors.passchange &&
