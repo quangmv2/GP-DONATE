@@ -56,8 +56,6 @@
     "change": "Change",
     "password": "your password",
     "please": "Please enter your new password"
-
-
   },
   "codePage": {
     "submit": "Submit Invitation Code",
@@ -123,6 +121,7 @@
     "post": "Post Offer"
   },
   "profileSetting" : {
+    "code": "Have invitation code?",
     "account": "ACCOUNT",
     "manage": "Manage My Account",
     "project": "Projects you have liked",
@@ -134,7 +133,4 @@
     "help": "Help Center",
     "logout": "Log out"
   }
-  
-
-
 }

@@ -3,13 +3,13 @@ import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import { openNotification } from "helpers";
 import { ROUTE, NOTIFICATION_TYPE } from "constants";
-import { postLogin } from "modules/auth/actions";
 import { createStructuredSelector } from "reselect";
 import {
     selectIsLogged,
     selectErrors,
     selectLoading
 } from "modules/auth/selectors";
+import { postLogin, verifyToken } from "modules/auth/actions";
 import { ButtonAnt, SignInBackground } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
 import { Formik } from "formik";
@@ -54,6 +54,7 @@ export class InputCode extends Component {
         });
         const { data, status } = res;
         if (status == 200) {
+            this.props.verifyTokenFnc();
             this.handleSkip();
         }
         else {
@@ -67,7 +68,7 @@ export class InputCode extends Component {
             localStorage.removeItem("SIGNUP");
             window.location.href = ROUTE.CONGRAT;
         } else {
-            this.props.history.push(ROUTE.HOME)
+            this.props.history.push(ROUTE.HOME);
         }
     }
 
@@ -198,7 +199,7 @@ export class InputCode extends Component {
 }
 
 const mapDispatchToProps = {
-    login: postLogin
+    verifyTokenFnc: verifyToken,
 };
 
 const mapStateToProps = createStructuredSelector({
