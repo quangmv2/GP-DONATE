@@ -1,5 +1,6 @@
 const mix = require("laravel-mix");
 let WebpackLaravelMixManifest = require('webpack-laravel-mix-manifest');
+var LiveReloadPlugin = require('webpack-livereload-plugin');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,11 +13,11 @@ let WebpackLaravelMixManifest = require('webpack-laravel-mix-manifest');
  |
  */
 
-
-mix.react("resources/js/app.js", "app.js").sass(
+mix.react("resources/js/app.js", "app.js").extract();
+mix.sass(
     "resources/sass/app.scss",
     "css"
-).extract();
+);
 
 mix.webpackConfig({
     resolve: {
@@ -37,7 +38,7 @@ mix.webpackConfig({
         filename: "build/[name].js",
     },
     plugins: [
-        // Write out mix-manifest.json to build directory.
-        new WebpackLaravelMixManifest()
+        new WebpackLaravelMixManifest(),
+        new LiveReloadPlugin()
     ]
 });

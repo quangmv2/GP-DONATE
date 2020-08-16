@@ -216,6 +216,8 @@ class ProfileController extends Controller
         $following = $this->followService->getFollowingOfUser($request->user()->id);
         $users = $this->userService->searchUser($search);
         foreach ($users as $key => $user) {
+            if (empty($user->code_id)) $user["isCeleb"] = false;
+             else $user["isCeleb"] = true;
             foreach ($following as $key => $follow) {
                 if ($user->id == $follow->user_id_from) {
                     unset($user);
