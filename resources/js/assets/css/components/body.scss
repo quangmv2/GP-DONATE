@@ -89,3 +89,73 @@ p.MuiFormHelperText-root {
 .body-wrapper{
   max-width: 768px;
 }
+
+.filledButton{
+  max-width: 200px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+@media(min-width:1020px){
+  body{
+    background: #009cff;
+  }
+  #root{
+    background: #fff;
+    width: 414px!important;
+    min-width: 414px;
+    height: 90vh!important;
+    overflow: hidden!important;
+    min-height: 90vh!important;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    overflow-y: auto!important;
+    position: relative;
+    &::-webkit-scrollbar {
+        width: 0px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+
+  }
+  body > div.container{
+    display: flex;
+    text-align: center;
+  }
+  #text-desktop{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h2{
+      color: #fff;
+      text-align: left;
+      margin: 50px;
+      font-weight: 300;
+      font-size: 35px;
+    }
+  }
+
+  .private-fullheight .container, .body-wrapper{
+    max-width: 414px!important;
+  }
+
+  .bottom-nav{
+    max-width: 414px!important;
+    bottom:5vh!important;
+  }
+  .header-wrapper > header{
+    max-width: 414px!important;
+    top:5vh!important;
+  }
+
+  .bgImage{
+    min-height: 25vh!important;
+  }
+}
+
+@media(max-width:1020px){
+  #text-desktop{
+    display: none;
+  }
+}

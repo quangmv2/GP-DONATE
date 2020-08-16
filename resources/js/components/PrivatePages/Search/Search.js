@@ -102,7 +102,7 @@ const Search = props => {
                             <Patron data={dataPeople} />
                         </TabPane>
                         <TabPane
-                            tab={<span>Generous Supports</span>}
+                            tab={<span>Generous Builder</span>}
                             key="2"
                         >
                             <div className="info-content">

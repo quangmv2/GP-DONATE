@@ -62,7 +62,7 @@
 
       &.username,
       &.username a {
-        font-weight: 600;
+      font-weight: 600;
         color: #ffffff;
       }
     }
@@ -79,6 +79,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 80vw;
+  text-align: left;
 }
 .home-text {
   text-shadow: 0 2px 6px rgba(18, 16, 60, 0.45);
