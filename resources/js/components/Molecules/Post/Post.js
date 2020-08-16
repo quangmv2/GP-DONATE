@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import { Link } from "react-router-dom";
 import Proptypes from "prop-types";
 import { FormattedMessage } from "react-intl";
@@ -8,6 +8,7 @@ import UserAvatar from "react-user-avatar";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { fetchService } from "services";
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import { StarFilled } from "@ant-design/icons";
 const Post = ({
     img,
     title,
@@ -21,32 +22,32 @@ const Post = ({
     index,
     commented,
     userInfo,
-    postId
+    postId,
+    isCeleb
 }) => {
     const [open, setOpen] = useState(false);
-    console.log('hi', title)
-    
+
     const handleClickOpen = () => {
         setOpen(!open);
     }
- 
+
     const handleDelete = async () => {
-        const [ status ] = await fetchService.fetch(DELETE_POST(postId), {
+        const [status] = await fetchService.fetch(DELETE_POST(postId), {
             method: "DELETE"
         });
     }
     return (
-        <div className={className ?? ""} key={keyEle} >
+        <div className={className ?? ""} key={keyEle} onClick={() => onClick(index)}>
             <div className="post-wrapper">
                 <div className="post-image">
                     <img src={img} className="img-content" />
-                    <button className='button-trans button-remove' onClick = {handleClickOpen} style={{ display: userInfo.id !== author.id ? 'none': ''}}>
-                        {userInfo.id == author.id ? <MoreHorizIcon  className='more-icon'/> : null}
+                    <button className='button-trans button-remove' onClick={handleClickOpen} style={{ display: userInfo.id !== author.id ? 'none' : '' }}>
+                        {userInfo.id == author.id ? <MoreHorizIcon className='more-icon' /> : null}
                     </button>
-                    {open ? <button  className='del-button' onClick={handleDelete}><DeleteOutlineOutlinedIcon/> <p>DELETE</p> </button> : null }
+                    {open ? <button className='del-button' onClick={handleDelete}><DeleteOutlineOutlinedIcon /> <p>DELETE</p> </button> : null}
                     <div className="wrapper-icon">
                         <button className="icon-button">
-                        {commented ?   <i className="icon-comment-normal" /> :  <i className="icon-comment-active" />}
+                            {commented ? <i className="icon-comment-normal" /> : <i className="icon-comment-active" />}
                         </button>
                         <button className="icon-button">
                             <i className="icon-like-active" />
@@ -55,9 +56,9 @@ const Post = ({
                     </div>
                 </div>
                 <div className="post-info-wrapper">
-                    <h2 onClick={() => onClick(index)}>{title}</h2>
+                    <h2>{title}</h2>
                     <div className="icon-line">
-                        <i className="icon-goods icon" onClick={() => null}/>
+                        <i className="icon-goods icon" onClick={() => null} />
                         <label>{description}</label>
                     </div>
                     <div className="icon-line">
@@ -65,10 +66,13 @@ const Post = ({
                         <label className="content-icon">{duedate}</label>
                     </div>
                     <div className="author-create">
-                        <div className="author-image">
+                        <div className="author-image" >
                             {
-                                author.avatar?<img src={GET_IMAGE(author.avatar)} className="img-user" />:
-                                <UserAvatar size="42" name={`${author.username}`} />
+                                author.isCeleb ? <StarFilled className="icon-star" style={{ fontSize: "15px" }} /> : <></>
+                            }
+                            {
+                                author.avatar ? <img src={GET_IMAGE(author.avatar)} className="img-user" /> :
+                                    <UserAvatar size="42" name={`${author.username}`} />
                             }
                         </div>
                         <div className="post-create">
@@ -94,4 +98,4 @@ Post.defaultProps = {
 };
 
 
-export default Post;
+export default memo(Post);

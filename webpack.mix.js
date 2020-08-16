@@ -16,7 +16,7 @@ var LiveReloadPlugin = require('webpack-livereload-plugin');
 mix.react("resources/js/app.js", "app.js").extract();
 mix.sass(
     "resources/sass/app.scss",
-    "css"
+    "css/app.css"
 );
 
 mix.webpackConfig({

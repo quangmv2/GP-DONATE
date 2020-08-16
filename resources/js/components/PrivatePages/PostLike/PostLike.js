@@ -68,7 +68,8 @@ const PostLike = props => {
                                     author={{
                                         username: `${post.user.first_name}`,
                                         avatar: post.user.personal_photo,
-                                        id: post.user.id
+                                        id: post.user.id,
+                                        isCeleb: post.user.code_id?true:false
                                     }}
                                     createTime={moment(post.created_at).format("YYYY-MM-DD")}
                                     onClick={showSwipper}

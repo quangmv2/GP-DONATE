@@ -1,5 +1,13 @@
 import * as types from "./constants";
 
+export const setInit = () => {
+  return {
+    type: types.INIT,
+    payload: {}
+  }
+}
+
+
 export const getPosts = (page) => {
   return {
     type: types.FETCH_POST,

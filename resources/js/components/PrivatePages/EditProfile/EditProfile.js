@@ -149,7 +149,9 @@ const EditProfile = (props) => {
                     <div className="info-bg">
                         {userInfo.code_id || image ?
                             <div className="image">
-                                <StarFilled className="icon-star" />
+                                {
+                                    userInfo && userInfo.code_id?<StarFilled className="icon-star" /> : <></>
+                                }
                                 {avatar}
                             </div> :
                             <div className="image">{avatar} </div>

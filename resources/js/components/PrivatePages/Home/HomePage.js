@@ -30,6 +30,7 @@ import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/scrollbar/scrollbar.scss';
+import { setInit } from "../../../modules/post/actions";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
@@ -44,6 +45,7 @@ const HomePage = (props) => {
 
     useEffect(() => {
         setShowNavigator(true);
+        return () => props.initPost();
     }, []);
 
     useEffect(() => {
@@ -112,7 +114,8 @@ const HomePage = (props) => {
 }
 
 const mapDispatchToProps = {
-    fetchMore: getPosts
+    fetchMore: getPosts,
+    initPost: setInit
 };
 
 const mapStateToProps = createStructuredSelector({
