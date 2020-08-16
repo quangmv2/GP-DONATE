@@ -1,11 +1,13 @@
+import React from "react";
 import { PUBLIC_ROUTE } from "constants";
 import loadable from '@loadable/component';
+import Loading from "../../components/Atoms/Loading/Loading";
 
 const Login = loadable(() => import('components/PublicPages/Login/Login'))
-const ForgotPass = loadable(() => import('components/PublicPages/ForgotPass/ForgotPass'))
-const SignUpScreen = loadable(() => import('components/PublicPages/SignUp/SignUpScreen'))
-const ChangePassScreen = loadable(() => import('components/PublicPages/ChangePass/ChangePassScreen'))
-const CongratScreen = loadable(() => import('components/PublicPages/CongratSuccess/CongratScreen'))
+const ForgotPass = loadable(() => import('components/PublicPages/ForgotPass/ForgotPass'), { fallback: <Loading /> })
+const SignUpScreen = loadable(() => import('components/PublicPages/SignUp/SignUpScreen'), { fallback: <Loading /> })
+const ChangePassScreen = loadable(() => import('components/PublicPages/ChangePass/ChangePassScreen'), { fallback: <Loading /> })
+const CongratScreen = loadable(() => import('components/PublicPages/CongratSuccess/CongratScreen'), { fallback: <Loading /> })
 
 export const authRoutes = [
     {

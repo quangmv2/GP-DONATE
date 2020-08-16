@@ -36,11 +36,7 @@
   margin-left: 21px;
 }
 
-.formFields {
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-top: 10%;
-}
+
 .input {
   border-width: 0px;
   border: none;
@@ -67,24 +63,7 @@ input:active {
 
   color: #777777;
 }
-.buttonContainer {
-  width: 294px;
-  background-color: #ddae53;
-  border-radius: 37.5px;
-  text-align: center;
-  height: 60px;
-  font-weight: bold;
-  font-family: Muli;
-  border: none;
-  color: #ffffff;
-  line-height: 1.44px;
 
-  &:hover{
-    background-color: #fff;
-    border: 1px solid #ddae53;
-    color: #ddae53;
-  }
-}
 .bottomText {
   text-align: center;
   font-family: Muli;
@@ -114,7 +93,6 @@ input:active {
   justify-content: center;
 }
 .text1 {
-  margin-left: 50px;
   padding-top: 54px;
   font-family: Muli;
   font-weight: bold;
@@ -123,7 +101,6 @@ input:active {
   color: #081f47;
 }
 .text2 {
-  margin-left: 50px;
   margin-top: -40px;
 
   font-family: Muli;

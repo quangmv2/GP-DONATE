@@ -41,6 +41,9 @@
             -webkit-animation: spin 1.5s linear infinite; /* Safari */
             animation: spin 1.5s linear infinite;
         }
+        #text-desktop h2{
+            color:#fff;
+        }
         
         /* Safari */
         @-webkit-keyframes spin {

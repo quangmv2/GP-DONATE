@@ -42,7 +42,6 @@ function ChooseRoleScreen(props) {
         history.goBack();
     };
     const onChangeValue = event => {
-        console.log(event.target.value);
         setUserRole(event.target.value);
     };
 
