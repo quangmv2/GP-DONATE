@@ -6,6 +6,13 @@ import { Spin, Icon } from "antd";
 
 const loadingIcon = <Icon spin style={{ fontSize: 24 }} type="loading" />;
 export class Image extends PureComponent {
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.src !== this.props.src) {
+            this.setState({ isLoading: true });
+        }
+    }
+
     constructor() {
         super();
         this.state = {
@@ -20,12 +27,6 @@ export class Image extends PureComponent {
             isLoading: false
         });
     };
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.src !== this.props.src) {
-            this.setState({ isLoading: true });
-        }
-    }
 
     handleImageLoaded = () => {
         this.setState({
