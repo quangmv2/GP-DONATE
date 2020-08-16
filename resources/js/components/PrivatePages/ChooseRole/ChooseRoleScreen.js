@@ -1,6 +1,7 @@
 import React, { useState, useEffect, memo, useContext } from "react";
 import "./chooseRole.scss";
 import { Link } from "react-router-dom";
+import { Radio } from 'antd';
 import Grid from "@material-ui/core/Grid";
 import { openNotification } from "helpers";
 import { ButtonAnt } from "components/Atoms";
@@ -17,7 +18,7 @@ import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
 
 function ChooseRoleScreen(props) {
 
-    const [userRole, setUserRole] = useState('taker');
+    const [userRole, setUserRole] = useState('giver');
 
     const  { setShowNavigator } = useContext(NavigatorContext);
 
@@ -43,6 +44,7 @@ function ChooseRoleScreen(props) {
       history.goBack();
     };
     const onChangeValue = event => {
+      console.log(event.target.value);
       setUserRole(event.target.value);
     };
 
@@ -111,16 +113,22 @@ function ChooseRoleScreen(props) {
                         id={"chooseRole.who"}
                     />
                   </p>
-                  <div onChange={onChangeValue} className="gridContainer">
-                    <Grid container>
-                      <Grid item xs={6} className="radioContainer">
-                        <input
-                            type="radio"
-                            className="radio radioGiver"
-                            name="role"
-                            value="giver"
-                            checked
-                        />
+                  <div className="gridContainer radio-role-wrapper">
+                    <Radio.Group onChange={onChangeValue} value={userRole}>
+                      <Radio value={"giver"}>
+                        <p className="roleText">
+                            <FormattedMessage
+                              defaultMessage={"common.generous"}
+                              id={"common.generous"}
+                            /> 
+                            <br /> 
+                            <FormattedMessage
+                              defaultMessage={"chooseRole.patron"}
+                              id={"chooseRole.patron"}
+                            />
+                          </p>
+                        </Radio>
+                      <Radio value={"taker"}>
                         <p className="roleText">
                           <FormattedMessage
                             defaultMessage={"common.generous"}
@@ -128,32 +136,12 @@ function ChooseRoleScreen(props) {
                           /> 
                           <br /> 
                           <FormattedMessage
-                            defaultMessage={"chooseRole.patron"}
-                            id={"chooseRole.patron"}
-                          />
+                            defaultMessage={"chooseRole.builder"}
+                            id={"chooseRole.builder"}
+                          /> 
                         </p>
-                      </Grid>
-                      <Grid item xs={6} className="radioContainer">
-                        <input
-                            type="radio"
-                            className="radio radioTaker"
-                            name="role"
-                            value="giver"
-                            
-                        />
-                        <p className="roleText">
-                        <FormattedMessage
-                          defaultMessage={"common.generous"}
-                          id={"common.generous"}
-                        /> 
-                        <br /> 
-                        <FormattedMessage
-                          defaultMessage={"chooseRole.builder"}
-                          id={"chooseRole.builder"}
-                        /> 
-                          </p>
-                      </Grid>
-                    </Grid>
+                      </Radio>
+                    </Radio.Group>
                   </div>
                   <div className='choose-role-text-container'>
                     <p>

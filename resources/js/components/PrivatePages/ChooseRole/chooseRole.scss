@@ -79,3 +79,12 @@
         }
     }
 }
+.radio-role-wrapper{
+    .ant-radio-group.ant-radio-group-outline{
+        display: flex;
+        justify-content: center;
+    }
+    .ant-radio-wrapper{
+        display: flex;
+    }
+}

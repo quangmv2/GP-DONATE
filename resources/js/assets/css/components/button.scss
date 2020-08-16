@@ -42,3 +42,41 @@ button,
 .center-button{
   margin: 0 auto;
 }
+
+.outlineButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -10px;
+ }
+ .ol-bn-container {
+  width: 294px;
+  border-radius: 37.5px;
+  text-align: center;
+  height: 60px;
+  font-weight: bold;
+  font-family: Muli;
+  color: #ddae53;
+  line-height: 1.44px;
+  background-color: transparent;
+  border: solid 1px #ddae53;
+ }
+
+ .buttonContainer {
+  width: 294px;
+  background-color: #ddae53;
+  border-radius: 37.5px;
+  text-align: center;
+  height: 60px;
+  font-weight: bold;
+  font-family: Muli;
+  border: none;
+  color: #ffffff;
+  line-height: 1.44px;
+
+  &:hover{
+    background-color: #fff;
+    border: 1px solid #ddae53;
+    color: #ddae53;
+  }
+}
