@@ -21,6 +21,7 @@ export const PRIVATE_ROUTE = {
     PROFILESETTING: '/profile-setting',
     MYPROFILE: '/my-profile',
     MYLIKES: '/post-like',
+    MYPROJECTS: '/my-project',
     SUCCESS: '/success'
 };
 
@@ -34,7 +35,7 @@ export const API_ROUTER = {
     FORGOTPASSWORD: "/api/oauth/pasword/reset"
 };
 
-export const ROOT_API_URL = 'http://52.205.200.96';
+export const ROOT_API_URL = 'http://192.168.1.105';
 export const ROOT_WS = '52.205.200.96:9000';
 
 export const GET_POST = '/api/posts';

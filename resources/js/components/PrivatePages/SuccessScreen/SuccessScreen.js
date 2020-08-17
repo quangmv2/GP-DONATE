@@ -68,7 +68,7 @@ const SuccessScreen = props => {
     }
 
     return (
-        <div className="container">
+        <div className="container" style={{ position: "relative" }}>
             <AutoPlaySwipeableViews
                 index={activeStep}
                 onChangeIndex={handleStepChange}
