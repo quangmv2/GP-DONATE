@@ -193,7 +193,10 @@ const PostItem = (props) => {
                         <p className="title-post">{props.title}</p>
                     </Tooltip>
                     <p className="home-text hastags">
-                        {`#${props.hastags.map(hastag => hastag.value).join(' #')}`}
+                        {
+                            props.hastags && props.hastags.length > 0 ?
+                            `#${props.hastags.map(hastag => hastag.value).join(' #')}`: ""
+                        }
                     </p>
 
 

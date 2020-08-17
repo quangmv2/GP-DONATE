@@ -41,7 +41,7 @@ const HomePage = (props) => {
     const [openMessage, setOpenMessage] = useState(false);
     const [user, setUser] = useState({});
     const [loadingFirst, setLoadingFrist] = useState(true);
-    const [height, setHeight] = useState(window.innerWidth);
+    const [height, setHeight] = useState(window.innerHeight);
     const { setShowNavigator } = useContext(NavigatorContext);
 
     useEffect(() => {
@@ -68,8 +68,9 @@ const HomePage = (props) => {
         if (props.posts.length > 0 && props.loading) setLoadingFrist(false);
     }, [props.posts, props.loading])
 
-    const resizeHeight = () => {
-        setHeight(window.innerHeight);
+    const resizeHeight = (e) => {
+        console.log(window.innerHeight, e.target.outerHeight);
+        setHeight(e.target.outerHeight);
     }
 
     const handleLoadMore = () => {
@@ -106,7 +107,7 @@ const HomePage = (props) => {
                 {openMessage && <MessagesDetail data={user} closeWindow={() => setOpenMessage(false)} />}
                 <Swiper
                     direction="vertical"
-                    style={{ height: openModal ? 0 : window.innerHeight, display: openModal ? "none" : "block" }}
+                    style={{ height: openModal ? 0 : ( window.innerWidth > 1020 ? "90vh" : `${height}px` ), display: openModal ? "none" : "block" }}
                     // className={openModal?"hidden-swipper custom-swipper-web":"custom-swipper-web"}
                     onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
                     onSliderMove={sw => null}

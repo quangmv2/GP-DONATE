@@ -120,9 +120,9 @@ function ChooseRoleScreen(props) {
                                     className="radio radioGiver"
                                     name="role"
                                     value="giver"
-                                    checked={userRole=="giver"}
+                                    checked={userRole == "giver"}
                                     onClick={onChangeValue}
-                                    onChange={() => {}} 
+                                    onChange={() => { }}
                                 />
                                 <p className="roleText">
                                     <FormattedMessage
@@ -142,9 +142,9 @@ function ChooseRoleScreen(props) {
                                     className="radio radioTaker"
                                     name="role"
                                     value="taker"
-                                    checked={userRole=="taker"}
+                                    checked={userRole == "taker"}
                                     onClick={onChangeValue}
-                                    onChange={() => {}} 
+                                    onChange={() => { }}
                                 />
                                 <p className="roleText">
                                     <FormattedMessage
@@ -178,18 +178,17 @@ function ChooseRoleScreen(props) {
                                         id={"chooseRole.taker"}
                                     />
                                 }
-                                {
-                                    userRole == 'taker' ?
-                                        <FormattedMessage
-                                            defaultMessage={"chooseRole.fullfill"}
-                                            id={"chooseRole.fullfill"}
-                                        /> :
-                                        <FormattedMessage
-                                            defaultMessage={"chooseRole.lead"}
-                                            id={"chooseRole.lead"}
-                                        />
-                                }
-                            </span>
+                            </span> {
+                                userRole == 'taker' ?
+                                    <FormattedMessage
+                                        defaultMessage={"chooseRole.fullfill"}
+                                        id={"chooseRole.fullfill"}
+                                    /> :
+                                    <FormattedMessage
+                                        defaultMessage={"chooseRole.lead"}
+                                        id={"chooseRole.lead"}
+                                    />
+                            }
 
                         </p>
                     </div>
