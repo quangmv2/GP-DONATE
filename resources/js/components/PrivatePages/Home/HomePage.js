@@ -41,11 +41,16 @@ const HomePage = (props) => {
     const [openMessage, setOpenMessage] = useState(false);
     const [user, setUser] = useState({});
     const [loadingFirst, setLoadingFrist] = useState(true);
+    const [height, setHeight] = useState(window.innerWidth);
     const { setShowNavigator } = useContext(NavigatorContext);
 
     useEffect(() => {
         setShowNavigator(true);
-        return () => props.initPost();
+        window.addEventListener('resize', resizeHeight);
+        return () => {
+                props.initPost();
+                window.removeEventListener('resize', resizeHeight);
+        }
     }, []);
 
     useEffect(() => {
@@ -62,6 +67,10 @@ const HomePage = (props) => {
     useEffect(() => {
         if (props.posts.length > 0 && props.loading) setLoadingFrist(false);
     }, [props.posts, props.loading])
+
+    const resizeHeight = () => {
+        setHeight(window.innerHeight);
+    }
 
     const handleLoadMore = () => {
         const { posts } = props;
@@ -90,15 +99,15 @@ const HomePage = (props) => {
     return (
         <>
             {
-                loading && loadingFirst ? <Loading /> : <></>
+                loading && posts.length < 1 ? <Loading /> : <></>
             }
-            <div style={{ display: loading && loadingFirst?"none": "block" }}>
+            <div style={{ display: loading && posts.length < 1 ?"none": "block" }}>
                 {openModal && <Comment hideModal={hideModal} post={posts[index]} />}
                 {openMessage && <MessagesDetail data={user} closeWindow={() => setOpenMessage(false)} />}
                 <Swiper
                     direction="vertical"
-                    // style={{ height: openModal ? 0 : window.innerHeight, display: openModal ? "none" : "block" }}
-                    className={openModal?"hidden-swipper custom-swipper-web":"custom-swipper-web"}
+                    style={{ height: openModal ? 0 : window.innerHeight, display: openModal ? "none" : "block" }}
+                    // className={openModal?"hidden-swipper custom-swipper-web":"custom-swipper-web"}
                     onSlideChangeTransitionEnd={swiper => setIndex(swiper.realIndex)}
                     onSliderMove={sw => null}
                 >

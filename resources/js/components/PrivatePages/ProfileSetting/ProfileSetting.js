@@ -69,6 +69,18 @@ const ProfileSetting = (props) => {
                             arrow={<i className="icon-next" />}
                         />
                     </div>
+                    {
+                        userInfor && userInfor.roles && userInfor.roles[0].name != "taker" &&
+                        <div className="list-box">
+                            <LinkItem
+                                className="text-box link-center"
+                                url={PRIVATE_ROUTE.MYPROJECTS}
+                                icon={<i className="icon-left icon-code" />}
+                                title={"profileSetting.myprojects"}
+                                arrow={<i className="icon-next" />}
+                            />
+                        </div>
+                    }
                     <div className="list-box">
                         <LinkItem
                             className="text-box link-center"

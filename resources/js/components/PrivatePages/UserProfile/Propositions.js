@@ -20,7 +20,7 @@ const PostLike = props => {
 
     useEffect(() => {
         searchPost();
-    }, [dataPost]);
+    }, []);
 
     const searchPost = useCallback(async key => {
         const [data, status] = await fetchService.fetch(GET_MY_POST(props.username), {

@@ -1,40 +1,43 @@
 import React, { useEffect, useState, useCallback, useContext } from "react";
 
-import { HeaderNavigation, LinkItem } from "components/Atoms";
+import { HeaderNavigation } from "components/Atoms";
 import "./PostLike.scss";
 import Posts from "../../Molecules/Post";
-import { GET_IMAGE, GET_MY_LIKE } from "../../../constants";
+import { GET_IMAGE, GET_MY_LIKE, ROUTE, GET_PROPOSITIONS } from "../../../constants";
 import moment from "moment";
 import { fetchService } from "services";
-import BottomNavigator from "../../Molecules/BottomNav/BottomNavigator";
 import Swipper from "../Search/Swipper";
 import { selectUserInfo } from "modules/auth/selectors";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect"
 import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
+import { useLocation } from "react-router-dom";
 const PostLike = props => {
-    const { userInfo } = props;
+
     const [dataPost, setDataPost] = useState([]);
     const [openSwipper, setOpenSwipper] = useState(false);
     const [indexSwiper, setIndexSwiper] = useState(0);
     const { setShowNavigator } = useContext(NavigatorContext);
+    const location = useLocation();
+    const { userInfo } = props;
 
     useEffect(() => {
         setShowNavigator(false);
+        searchPost();
     }, []);
 
-    useEffect(() => {
-        searchPost();
-    }, [dataPost]);
+    // useEffect(() => {
+    //     searchPost();
+    // }, [dataPost]);
 
     const searchPost = useCallback(async key => {
-        const [data, status] = await fetchService.fetch(GET_MY_LIKE(), {
+        const [data, status] = await fetchService.fetch(location.pathname == ROUTE.MYLIKES?GET_MY_LIKE():GET_PROPOSITIONS("me"), {
             method: "GET"
         });
         if (status == 200) {
-            setDataPost(data.map(tmp => tmp.post));
+            location.pathname == ROUTE.MYLIKES ? setDataPost(data.map(tmp => tmp.post)) : setDataPost(data.data) ;
         }
-    }, []);
+    }, [location.pathname]);
 
     const showSwipper = id => {
         setOpenSwipper(true);

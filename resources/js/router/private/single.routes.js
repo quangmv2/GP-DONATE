@@ -63,6 +63,11 @@ export const singleRoutes = [
     exact: true,
   },
   {
+    path: PRIVATE_ROUTE.MYPROJECTS,
+    component: PostLike,
+    exact: true,
+  },
+  {
     path: PRIVATE_ROUTE.CHOOSEROLE,
     component: ChooseRoleScreen,
     exact: true

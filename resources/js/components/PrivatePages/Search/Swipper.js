@@ -39,7 +39,7 @@ const Swipper = (props) => {
             }
             <Swiper
                 direction="vertical"
-                style={{ height: openModal? 0:"100vh", display: openModal?"none":"block", position: "absolute",  zIndex: 11000, width: "100%", top: "0px" }}
+                style={{ height: openModal ? 0 : (window.innerWidth < 1020 ? window.innerHeight : "90vh"), display: openModal?"none":"block", position: "absolute",  zIndex: 11000, width: "100%", top: "0px" }}
                 initialSlide={props.index?props.index:0}
             >
 
