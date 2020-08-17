@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import HomeIcon from '@material-ui/icons/Home';
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import SearchIcon from '@material-ui/icons/Search';
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import PersonOutlineRoundedIcon from '@material-ui/icons/PersonOutlineRounded';
@@ -24,7 +24,7 @@ const BottomNavigator = props => {
       <div className='bottom-nav'>
         <div className='bottom-nav-icon-container'>
           <Link to="" className={location.pathname === "/" ? 'active' : ''}>
-            <HomeIcon className='icon-bottom-nav' />
+            <HomeOutlinedIcon className='icon-bottom-nav' />
             <FormattedMessage
               id="bottomNav.home"
               defaultMessage="bottomNav.home"
