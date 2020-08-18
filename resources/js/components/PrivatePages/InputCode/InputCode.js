@@ -9,7 +9,7 @@ import {
     selectErrors,
     selectLoading
 } from "modules/auth/selectors";
-import { postLogin, verifyToken } from "modules/auth/actions";
+import { verifyToken } from "modules/auth/actions";
 import { ButtonAnt, SignInBackground } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
 import { Formik } from "formik";

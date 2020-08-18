@@ -46,6 +46,7 @@ Route::group(['prefix' => 'profile'], function () {
     Route::get('{id}/posts', "Apis\ProfileController@getPostOfUser");
     Route::get('{id}/follow', "Apis\ProfileController@checkFollowUser");
     Route::put('{id}/follow', "Apis\ProfileController@followUser");
+    Route::put('{id}/toggle-follow', "Apis\ProfileController@toggleFollowUser");
     Route::delete('{id}/un-follow', "Apis\ProfileController@unfollowUser");
 
 });

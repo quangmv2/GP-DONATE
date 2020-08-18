@@ -50,7 +50,7 @@ const PostLike = props => {
                 openSwipper && <Swipper posts={dataPost} index={indexSwiper} closeSwipper={() => setOpenSwipper(false)} />
             }
             <div className="container">
-                <HeaderNavigation headerName="Projects you have liked" />
+                <HeaderNavigation headerName={location.pathname == ROUTE.MYLIKES?"Projects you have liked":"My projects"} />
                 <div className="body-wrapper post-like-wrapper">
                     <div className="info-content">
                         {

@@ -11,6 +11,9 @@ import languageObject from 'modules/translates/index';
  */
 export const openNotification = (type, title, description) => {
     const languageCode = Cookies.get('languageCode');
+    notification.config({
+        top: 70
+    });
     notification[type]({
         message: languageObject[languageCode][title]
             ? languageObject[languageCode][title]

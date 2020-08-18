@@ -36,6 +36,7 @@ class CreateUsersTable extends Migration
             $table->string('personal_photo')->nullable();
             $table->string('full_photo')->nullable();
             $table->string('foudation')->nullable();
+            $table->longText('description')->nullable();
             $table->integer('gender')->nullable();;
             $table->rememberToken();
             $table->timestamps();

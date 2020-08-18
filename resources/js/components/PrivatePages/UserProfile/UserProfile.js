@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { ButtonAnt } from "components/Atoms";
 import { FormattedMessage } from "react-intl";
 import { useParams } from 'react-router-dom';
-import { GET_PROFILE, GET_PROPOSITIONS, GET_IMAGE, PRIVATE_ROUTE } from "../../../constants/routes";
+import { GET_PROFILE, GET_PROPOSITIONS, GET_IMAGE, PRIVATE_ROUTE, TOGGLE_FOLLOW } from "../../../constants/routes";
 import { fetchService } from "../../../services/fetch/fetchService";
 import {
     selectUserInfo
@@ -27,17 +27,20 @@ const UserProfile = (props) => {
     const [propositions, setPropositions] = useState([]);
     const [modal, setModal] = useState(false);
     const [open, setOpen] = useState(false);
+    const [isfollow, setIsFollow] = useState(false);
     const currentUser = localStorage.getItem("USERNAME");
 
     const { setShowNavigator } = useContext(NavigatorContext);
-
-
 
     useEffect(() => {
         fetchUser();
         fetchPropositions();
         setShowNavigator(true);
     }, []);
+
+    useEffect(() => {
+        if (user && user.isFollow) setIsFollow(true);
+    }, [user]);
 
     let isUser = userId ?? currentUser;
     if (userId == null && userInfo) {
@@ -48,7 +51,6 @@ const UserProfile = (props) => {
         const [users] = await fetchService.fetch(GET_PROFILE(isUser), {
             method: 'GET'
         });
-        console.log(users);
         setUser(users);
         setRoles(users.roles[0].name);
 
@@ -60,6 +62,16 @@ const UserProfile = (props) => {
         setPropositions(propositon.data);
 
     }
+
+    const clickToggleFollow = async () => {
+        const [follow, status] = await fetchService.fetch(TOGGLE_FOLLOW(isUser), {
+            method: 'PUT'
+        });
+        if (status == 201) {
+            setIsFollow(true);
+        } else setIsFollow(false);
+    }
+
 
     let avatar = (
         <div style={{ position: 'relative' }}>
@@ -77,9 +89,10 @@ const UserProfile = (props) => {
 
         </div>
     )
+
     let button = (
-        <button className='follow-button'>
-            <p>Follow</p>
+        <button className={isfollow?'follow-button followed-button':'follow-button'} onClick={clickToggleFollow}>
+            <p>{isfollow?'Following':'Follow'}</p>
         </button>
     )
 
@@ -127,8 +140,7 @@ const UserProfile = (props) => {
     const renderFields = () => {
         return _.map(propositions, ({ title, photo_thumbnail }) => {
             return (
-
-                <Link className="propositons-container">
+                <Link className="propositons-container" to="#" key={`post profile ${isUser} ${title} ${photo_thumbnail}`}>
                     <img
                         src={GET_IMAGE(photo_thumbnail)}
                         className='propostion-image'
@@ -138,8 +150,6 @@ const UserProfile = (props) => {
             );
         });
     };
-
-    console.log(Object.keys(user).length);
 
     return (
         <>
@@ -209,11 +219,11 @@ const UserProfile = (props) => {
                     {roles == 'taker' ?
                         <>
                             <div className='link-to-propositions-container discription-detail'>
-                                <p>The Mondetta Charity Foundation is a nonprofit organize bringing school & education to people in Uganda wwhen a community gets access to education, it can change everything</p>
+                                <p>Description about us:</p>
                             </div>
                             <div className='link-to-propositions-container link-taker-container'>
-                                <GlobalOutlined className='link-taker-icon' />
-                                <p>www.mondettacharityfoundation.org</p>
+                                {/* <GlobalOutlined className='link-taker-icon' /> */}
+                                <p>{ userInfo && userInfo.description ? userInfo.description : "" }</p>
                             </div>
                         </>
                         :
