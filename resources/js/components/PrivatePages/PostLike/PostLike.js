@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useCallback, useContext } from "react";
-
+import React, { useEffect, useState, useCallback, useContext, memo } from "react";
 import { HeaderNavigation } from "components/Atoms";
 import "./PostLike.scss";
 import Posts from "../../Molecules/Post";
@@ -48,7 +47,7 @@ const PostLike = props => {
                 openSwipper && <Swipper posts={dataPost} index={indexSwiper} closeSwipper={() => setOpenSwipper(false)} />
             }
             <div className="container">
-                <HeaderNavigation headerName={pathName.includes("my-project") ? "My Projects": "Projects you have liked"} />
+                <HeaderNavigation headerName={location.pathname == ROUTE.MYLIKES?"Projects you have liked":"My projects"} />
                 <div className="body-wrapper post-like-wrapper">
                     <div className="info-content">
                         {
@@ -88,4 +87,4 @@ const PostLike = props => {
 const mapStateToProps = createStructuredSelector({
     userInfo: selectUserInfo()
 });
-export default connect(mapStateToProps)(PostLike);
+export default connect(mapStateToProps)(memo(PostLike));

@@ -113,6 +113,7 @@ class ProfileController extends Controller
         $user["totalPost"] = $posts->count();
         $user["following"] = $user->following()->count();
         $user["followed"] = $user->followed()->count();
+        $user["isFollow"] = $this->followService->checkFollowUser($request->user()->id, $id);
         unset($user["posts"]);
         return response()->json(json_decode($user), 200);
     }
@@ -131,17 +132,17 @@ class ProfileController extends Controller
         if (!empty($request->username) && $request->username == $request->user()->username){
             $this->validate($request, [
                 'first_name' => 'required',
-                'personal_photo' => 'required',
-                'full_photo' => 'required',
-                'foudation' => 'required'
+                // 'personal_photo' => 'required',
+                // 'full_photo' => 'required',
+                // 'foudation' => 'required'
             ]);
         } else {
             $this->validate($request, [
                 'first_name' => 'required',
                 'username' => 'required|unique:users,username',
-                'personal_photo' => 'required',
-                'full_photo' => 'required',
-                'foudation' => 'required'
+                // 'personal_photo' => 'required',
+                // 'full_photo' => 'required',
+                // 'foudation' => 'required'
             ]);
         }
         $input = $request->all();
@@ -190,11 +191,23 @@ class ProfileController extends Controller
         return response()->json($posts, 200);
     }
 
+    public function toggleFollowUser(Request $request, $id)
+    {
+        $check = $this->followService->checkFollowUser($request->user()->id, $id);
+        if (!$check) {
+            $follow = $this->followService->userFollowUser($request->user()->id, $id);
+            return response()->json(json_decode($follow), 201);
+        }
+        $unfollow = $this->followService->userUnfollowUser($request->user()->id, $id);
+        return response()->json(json_decode($unfollow), 200);
+    }
+
     public function followUser(Request $request, $id)
     {
         $follow = $this->followService->userFollowUser($request->user()->id, $id);
         return response()->json(json_decode($follow), 200);
     }
+
     public function unfollowUser(Request $request, $id)
     {
         $unfollow = $this->followService->userUnfollowUser($request->user()->id, $id);

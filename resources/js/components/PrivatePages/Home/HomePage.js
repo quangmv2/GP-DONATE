@@ -17,7 +17,6 @@ import reducer from "modules/post/reducers";
 import injectReducer from "core/reducer/inject-reducer";
 import injectSaga from "core/saga/inject-saga";
 import { compose } from "recompose";
-import { withRouter } from "react-router-dom";
 import Comment from "../HomeComment/PostComment";
 import {
     selectUserInfo
@@ -146,4 +145,4 @@ const withSaga = injectSaga({
 export default compose(
     withReducer,
     withSaga,
-)(connect(mapStateToProps, mapDispatchToProps)(HomePage));
+)(connect(mapStateToProps, mapDispatchToProps)(memo(HomePage)));

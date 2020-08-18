@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import { fetchService } from "../../../services/fetch/fetchService";
-import { ROOT_API_URL, GET_IMAGE, ACCESS_TOKEN, POST_POST, ROUTE } from "../../../constants";
+import { ROOT_API_URL, GET_IMAGE, ACCESS_TOKEN, ROUTE } from "../../../constants";
 import {
     selectUserInfo
 } from "modules/auth/selectors";
@@ -16,12 +16,14 @@ import { openNotification } from "helpers";
 import { NOTIFICATION_TYPE } from "constants";
 import { FormattedMessage } from "react-intl";
 import { NavigatorContext } from "../../../context/BottomNavigatorContextAPI";
+import { verifyToken } from "modules/auth/actions";
 
 
 const EditProfile = (props) => {
     const { userInfo } = props;
     const [name, setName] = useState(userInfo.first_name);
     const [foudation, setFoudation] = useState(userInfo.foudation);
+    const [description, setDescription] = useState(userInfo.description);
     const [image, setImage] = useState(userInfo.personal_photo);
     const [fullPhoto, setFullPhoto] = useState(userInfo.full_photo);
     const  { setShowNavigator } = useContext(NavigatorContext);
@@ -45,12 +47,14 @@ const EditProfile = (props) => {
             personal_photo: image,
             full_photo: fullPhoto,
             foudation: foudation,
+            description: description
         }
         const [res, status] = await fetchService.fetch(`${ROOT_API_URL}/api/profile/me`, {
             method: "PUT",
             body: JSON.stringify(data)
         });
         if (status == 200) {
+            props.verifyTokenFnc();
             openNotification(NOTIFICATION_TYPE.SUCCESS, 'Success');
             const { history } = props;
             history.push(ROUTE.MYPROFILE)
@@ -170,10 +174,8 @@ const EditProfile = (props) => {
                             <label className='username-label'><FormattedMessage defaultMessage="Name" id="common.name" />*</label>
                             <TextField
                                 className="form-text"
-                                id="standard-password-input"
-
                                 type="text"
-                                name="username"
+                                name="name"
                                 value={name}
                                 onChange={inputName}
                             />
@@ -183,7 +185,6 @@ const EditProfile = (props) => {
                             <TextField
                                 disabled
                                 className="form-text"
-                                id="standard-password-input"
                                 placeholder={userInfo.username}
                                 type="text"
                                 name="username"
@@ -193,15 +194,23 @@ const EditProfile = (props) => {
                             <label className='username-label'><FormattedMessage defaultMessage="Foundation" id="common.foundation" /></label>
                             <TextField
                                 className="form-text foudation-text"
-                                id="standard-password-input"
                                 type="text"
-                                name="name"
+                                name="foundation"
                                 value={foudation}
                                 onChange={changeFoudation}
+                            />
+                        </div>
+                        <div className="form-submit">
+                            <label className='username-label'><FormattedMessage defaultMessage="Description" id="common.description" /></label>
+                            <TextField
+                                className="form-text foudation-text"
+                                type="text"
+                                name="description"
+                                value={description}
+                                onChange={e => setDescription(e.target.value)}
 
                             />
                         </div>
-
                         {userInfo.full_photo || fullPhoto ?
                             <>
                                 <label htmlFor="fullPhoto">
@@ -239,6 +248,7 @@ const EditProfile = (props) => {
 
 
 const mapDispatchToProps = {
+    verifyTokenFnc: verifyToken,
 };
 
 const mapStateToProps = createStructuredSelector({

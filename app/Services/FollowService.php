@@ -59,7 +59,7 @@ class FollowService
 
     public function userFollowUser($from, $to)
     {
-        $this->userService->getUserById($to);
+        $to = $this->userService->getUserByIdOrUsername($to)->id;
         $follow = Follow::updateOrCreate([
             'user_id_from' => $from,
             'user_id_to' => $to
@@ -70,6 +70,7 @@ class FollowService
 
     public function userUnfollowUser($from, $to)
     {
+        $to = $this->userService->getUserByIdOrUsername($to)->id;
         $follow = Follow::where('user_id_from', $from)
                         ->where('user_id_to', $to)->first();
         if (empty($follow)) return abort(response()->json(['message' => 'NotFound'], 404));
@@ -79,6 +80,7 @@ class FollowService
 
     public function checkFollowUser($from, $to)
     {
+        $to = $this->userService->getUserByIdOrUsername($to)->id;
         $follow = Follow::where('user_id_from', $from)
                     ->where('user_id_to', $to)->first();
         if (empty($follow)) return false;

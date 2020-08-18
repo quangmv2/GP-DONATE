@@ -35,7 +35,7 @@ export const API_ROUTER = {
     FORGOTPASSWORD: "/api/oauth/pasword/reset"
 };
 
-export const ROOT_API_URL = 'http://52.205.200.96';
+export const ROOT_API_URL = 'http://donate';
 export const ROOT_WS = '52.205.200.96:9000';
 
 export const GET_POST = '/api/posts';
@@ -60,4 +60,5 @@ export const GET_MY_POST = id => `${ROOT_API_URL}/api/profile/${id}/posts`;
 export const FOLLOW_USER = id => `${ROOT_API_URL}/api/profile/${id}/follow`;
 export const UN_FOLLOW_USER = id => `${ROOT_API_URL}/api/profile/${id}/un-follow`;
 export const CHECK_FOLLOW = id => `${ROOT_API_URL}/api/profile/${id}/follow`;
+export const TOGGLE_FOLLOW = id => `${ROOT_API_URL}/api/profile/${id}/toggle-follow`
 export const DELETE_POST = id => `${ROOT_API_URL}/api/posts/${id}`;
