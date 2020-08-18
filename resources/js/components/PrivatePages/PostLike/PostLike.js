@@ -21,14 +21,12 @@ const PostLike = props => {
     const location = useLocation();
     const { userInfo } = props;
 
+    const pathName = location.pathname;
+
     useEffect(() => {
         setShowNavigator(false);
         searchPost();
     }, []);
-
-    // useEffect(() => {
-    //     searchPost();
-    // }, [dataPost]);
 
     const searchPost = useCallback(async key => {
         const [data, status] = await fetchService.fetch(location.pathname == ROUTE.MYLIKES?GET_MY_LIKE():GET_PROPOSITIONS("me"), {
@@ -50,7 +48,7 @@ const PostLike = props => {
                 openSwipper && <Swipper posts={dataPost} index={indexSwiper} closeSwipper={() => setOpenSwipper(false)} />
             }
             <div className="container">
-                <HeaderNavigation headerName="Projects you have liked" />
+                <HeaderNavigation headerName={pathName.includes("my-project") ? "My Projects": "Projects you have liked"} />
                 <div className="body-wrapper post-like-wrapper">
                     <div className="info-content">
                         {
