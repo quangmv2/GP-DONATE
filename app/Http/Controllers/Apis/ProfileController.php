@@ -132,17 +132,17 @@ class ProfileController extends Controller
         if (!empty($request->username) && $request->username == $request->user()->username){
             $this->validate($request, [
                 'first_name' => 'required',
-                'personal_photo' => 'required',
-                'full_photo' => 'required',
-                'foudation' => 'required'
+                // 'personal_photo' => 'required',
+                // 'full_photo' => 'required',
+                // 'foudation' => 'required'
             ]);
         } else {
             $this->validate($request, [
                 'first_name' => 'required',
                 'username' => 'required|unique:users,username',
-                'personal_photo' => 'required',
-                'full_photo' => 'required',
-                'foudation' => 'required'
+                // 'personal_photo' => 'required',
+                // 'full_photo' => 'required',
+                // 'foudation' => 'required'
             ]);
         }
         $input = $request->all();
