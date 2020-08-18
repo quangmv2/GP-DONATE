@@ -81,7 +81,7 @@ button,
   color: #ffffff;
   line-height: 1.44px;
 
-  &:hover{
+  &:hover, &:focus{
     background-color: #fff;
     border: 1px solid #ddae53;
     color: #ddae53;

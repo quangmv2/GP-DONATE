@@ -27,7 +27,8 @@ const Post = ({
 }) => {
     const [open, setOpen] = useState(false);
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (e) => {
+        e.preventDefault();
         setOpen(!open);
     }
 
@@ -37,12 +38,26 @@ const Post = ({
         });
     }
     return (
-        <div className={className ?? ""} key={keyEle} onClick={() => onClick(index)}>
+        <div 
+            className={className ?? ""} 
+            key={keyEle} 
+            onClick={(e) => {
+
+                if(!(e.target.id === "buttonRemove" || e.target.id === "buttonSvg" || open)){
+                    onClick(index,e)
+                }
+
+                if(open){
+                    setOpen(false);
+                }
+                
+            }}
+        >
             <div className="post-wrapper">
                 <div className="post-image">
                     <img src={img} className="img-content" />
-                    <button className='button-trans button-remove' onClick={handleClickOpen} style={{ display: userInfo.id !== author.id ? 'none' : '' }}>
-                        {userInfo.id == author.id ? <MoreHorizIcon className='more-icon' /> : null}
+                    <button id="buttonRemove" className='button-trans button-remove' onClick={handleClickOpen} style={{ display: userInfo.id !== author.id ? 'none' : '' }}>
+                        {userInfo.id == author.id ? <MoreHorizIcon className='more-icon' id="buttonSvg" /> : null}
                     </button>
                     {open ? <button className='del-button' onClick={handleDelete}><DeleteOutlineOutlinedIcon /> <p>DELETE</p> </button> : null}
                     <div className="wrapper-icon">

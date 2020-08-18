@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useCallback, useContext } from "react";
-
+import React, { useEffect, useState, useCallback, useContext, memo } from "react";
 import { HeaderNavigation } from "components/Atoms";
 import "./PostLike.scss";
 import Posts from "../../Molecules/Post";
@@ -21,14 +20,12 @@ const PostLike = props => {
     const location = useLocation();
     const { userInfo } = props;
 
+    const pathName = location.pathname;
+
     useEffect(() => {
         setShowNavigator(false);
         searchPost();
     }, []);
-
-    // useEffect(() => {
-    //     searchPost();
-    // }, [dataPost]);
 
     const searchPost = useCallback(async key => {
         const [data, status] = await fetchService.fetch(location.pathname == ROUTE.MYLIKES?GET_MY_LIKE():GET_PROPOSITIONS("me"), {
@@ -90,4 +87,4 @@ const PostLike = props => {
 const mapStateToProps = createStructuredSelector({
     userInfo: selectUserInfo()
 });
-export default connect(mapStateToProps)(PostLike);
+export default connect(mapStateToProps)(memo(PostLike));

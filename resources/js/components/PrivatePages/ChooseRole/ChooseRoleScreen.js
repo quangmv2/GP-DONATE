@@ -18,6 +18,7 @@ import "./chooseRole.scss";
 function ChooseRoleScreen(props) {
 
     const [userRole, setUserRole] = useState('giver');
+    const [loading, setLoading] = useState(false);
 
     const { setShowNavigator } = useContext(NavigatorContext);
 
@@ -46,6 +47,7 @@ function ChooseRoleScreen(props) {
     };
 
     const onSubmit = async () => {
+        setLoading(true);
         const res = await fetchService.fetch(`${ROOT_API_URL}/api/user/me/update-role`, {
             method: "POST",
             body: JSON.stringify({
@@ -74,12 +76,15 @@ function ChooseRoleScreen(props) {
         else {
             openNotification(NOTIFICATION_TYPE.ERROR, "Failed", "Choose Role Failed");
         }
+        setLoading(false);
     }
 
     let content = (
         <ButtonAnt
             onClick={onSubmit}
-            className="custom-button-login btn-block btn-round btn-red buttonContainer">
+            className="custom-button-login btn-block btn-round btn-red buttonContainer"
+            loading={loading}
+        >
             <FormattedMessage
                 defaultMessage={"chooseRole.submit"}
                 id={"chooseRole.submit"}
