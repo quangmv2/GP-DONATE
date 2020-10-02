@@ -179,9 +179,10 @@
 }
 
 .hastags {
-  display: inline;
   padding-left: 0;
   text-align: left;
+  min-width: 100%;
+  display: block;
 }
 .due-date {
   padding-top: 13px;

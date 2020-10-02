@@ -67,8 +67,18 @@
 						<li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link @if(\Request::is('admin/posts')) active @endif">List Posts</a></li>
 						{{-- <li class="nav-item"><a href="{{ route('posts.create') }}" class="nav-link @if(\Request::is('admin/posts/create')) active @endif">Create Post</a></li> --}}
 					</ul>
-
 				</li>
+				<li class="nav-item nav-item-submenu @if (\Request::is('admin/codes') || \Request::is('admin/codes/*')) nav-item-open @endif">
+					<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Codes</span></a>
+
+					<ul class="nav nav-group-sub" data-submenu-title="Layouts" style="@if (\Request::is('admin/codes') || \Request::is('admin/codes/*')) display:block @endif">
+						<li class="nav-item"><a href="{{ route('codes.index') }}" class="nav-link @if(\Request::is('admin/codes')) active @endif">List Role</a></li>
+						@can('role-create')
+							<li class="nav-item"><a href="{{ route('codes.create') }}" class="nav-link @if(\Request::is('admin/codes/create')) active @endif">Create Role</a></li>
+						@endcan
+					</ul>
+				</li>
+
 				<li class="nav-item nav-item-submenu @if (\Request::is('admin/users') || \Request::is('admin/users/*')) nav-item-open @endif">
 					<a href="#" class="nav-link"><i class="icon-copy"></i> <span>Users</span></a>
 

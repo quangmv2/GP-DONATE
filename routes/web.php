@@ -33,6 +33,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 
         Route::resource('roles','RoleController');
+        Route::resource('codes','CodeController');
         Route::resource('users','UserController');
         Route::resource('posts','PostController');
         Route::resource('comment','CommentController');

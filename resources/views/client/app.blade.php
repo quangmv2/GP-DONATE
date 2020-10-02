@@ -62,7 +62,7 @@
         <div class="loading1" id="loading">
             <div class="loader" style="width: 40px; height: 40px">
             </div>
-          </div>
+        </div>
         <div id="root"></div>
         <div id="text-desktop">
             <h2>Please use your smartphone device to have the best experience</h2>

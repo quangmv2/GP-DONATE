@@ -64,6 +64,44 @@
 		.btn {
 			padding: 7px;
 		}
+        .loading1 {
+            flex: 1;
+            display: flex;
+            height: 100%;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: absolute;
+        }
+        .loading1 p {
+            flex: 1;
+            background-color: red($color: #000000);
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid #ddae53;
+            /* width: 40px;
+            height: 40px; */
+            -webkit-animation: spin 1.5s linear infinite; /* Safari */
+            animation: spin 1.5s linear infinite;
+        }
+        #text-desktop h2{
+            color:#fff;
+        }
+        
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 	</style>
 
 </head>
